@@ -2,6 +2,24 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const navbarVariants = {
     hidden: {
       backgroundColor: "rgba(0, 0, 0, 0)",
@@ -37,17 +55,60 @@ function Navbar() {
     },
   };
 
+  const mobileMenuVariants = {
+    open: {
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 20,
+        damping: 10,
+      },
+    },
+    closed: {
+      x: "-100%",
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
   return (
     <motion.nav
       className="py-4 px-6 fixed top-0 w-full z-50"
       variants={navbarVariants}
       initial="hidden"
+      animate={isScrolled ? "visible" : "hidden"}
     >
       <div className="container mx-auto flex items-center justify-between">
         <a href="/" className="text-red-600 text-3xl font-bold">
           Netflix
         </a>
-        <div className="flex items-center space-x-6 text-white">
+
+        {/* Hamburger Menu Icon (Visible on small screens) */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white focus:outline-none"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Navigation Links (Hidden on small screens, visible on medium and up) */}
+        <div className="hidden md:flex items-center space-x-6 text-white">
           <motion.a
             href="/"
             className="hover:text-gray-300"
@@ -113,6 +174,49 @@ function Navbar() {
           </motion.button>
         </div>
       </div>
+      <motion.div
+        className="fixed top-0 left-0 h-full w-64 bg-black p-4 z-50 md:hidden"
+        variants={mobileMenuVariants}
+        animate={isMenuOpen ? "open" : "closed"}
+        initial="closed"
+      >
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="text-white absolute top-4 right-4 focus:outline-none"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div className="flex flex-col space-y-4 mt-12">
+          <a href="/" className="text-white hover:text-gray-300">
+            Home
+          </a>
+          <a href="/tv-shows" className="text-white hover:text-gray-300">
+            TV Shows
+          </a>
+          <a href="/movies" className="text-white hover:text-gray-300">
+            Movies
+          </a>
+          <a href="/latest" className="text-white hover:text-gray-300">
+            Latest
+          </a>
+          <a href="/my-list" className="text-white hover:text-gray-300">
+            My List
+          </a>
+        </div>
+      </motion.div>
     </motion.nav>
   );
 }
