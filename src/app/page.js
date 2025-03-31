@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import DynamicSlider from "./Components/PosterSlider/DynamicSlider";
+import Navbar from "./Components/Navbar";
 
 export default function Home() {
   const slides = [
@@ -211,6 +212,7 @@ export default function Home() {
   const [moviesPoster, setmoviesPoster] = useState(slides);
   return (
     <>
+      <Navbar/>
       <DynamicSlider moviesPoster={moviesPoster} />
     </>
   );
