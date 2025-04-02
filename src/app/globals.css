@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../../.flowbite-react/class-list.json";
 .swiper-pagination-bullet {
     background-color: rgba(128, 128, 128, 0.7);
     width: 12px;
