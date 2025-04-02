@@ -2,6 +2,7 @@
 import { useState } from "react";
 import DynamicSlider from "./Components/PosterSlider/DynamicSlider";
 import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer/page";
 
 export default function Home() {
   const slides = [
@@ -214,6 +215,7 @@ export default function Home() {
     <>
       <Navbar/>
       <DynamicSlider moviesPoster={moviesPoster} />
+      <Footer/>
     </>
   );
 }
