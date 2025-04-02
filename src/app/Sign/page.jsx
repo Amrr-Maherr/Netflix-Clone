@@ -32,7 +32,7 @@ export default function Signup() {
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-black"
+      className="min-h-screen flex items-center justify-center"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
