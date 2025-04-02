@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import AuthButton from "./ui/AuthButton";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
   faUsers,
   faFilm,
   faFire,
-  faList
-} from '@fortawesome/free-solid-svg-icons';
+  faList,
+} from "@fortawesome/free-solid-svg-icons";
+
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,6 +21,7 @@ function Navbar() {
     { title: "Latest", link: "/Latest", icon: faFire },
     { title: "My List", link: "/List", icon: faList },
   ];
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -60,8 +62,6 @@ function Navbar() {
     },
   };
 
-
-
   const mobileMenuVariants = {
     open: {
       x: 0,
@@ -91,7 +91,6 @@ function Navbar() {
           Netflix
         </a>
 
-        {/* Hamburger Menu Icon (Visible on small screens) */}
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -114,21 +113,20 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Navigation Links (Hidden on small screens, visible on medium and up) */}
         <div className="hidden md:flex items-center space-x-6 text-white">
-          {NavData.map((ele) => (
-            <>
-              <motion.a
-                href={`${ele.link}`}
-                className="hover:text-gray-300"
-                variants={linkVariants}
-                whileHover="hover"
-              >
-                {ele.title}
-              </motion.a>
-            </>
+          {NavData.map((ele, i) => (
+            <motion.a
+              key={i}
+              href={`${ele.link}`}
+              className="hover:text-gray-300"
+              variants={linkVariants}
+              whileHover="hover"
+            >
+              {ele.title}
+            </motion.a>
           ))}
         </div>
+
         <div className="flex items-center space-x-4 text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -147,6 +145,7 @@ function Navbar() {
           <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
         </div>
       </div>
+
       <motion.div
         className="fixed top-0 left-0 h-full w-64 bg-black p-4 z-50 md:hidden"
         variants={mobileMenuVariants}
@@ -173,11 +172,16 @@ function Navbar() {
           </svg>
         </button>
         <div className="flex flex-col space-y-4 mt-12">
-          {NavData.map((ele) => (
-            <Link href={`${ele.link}`} className="text-white  p-2 rounded flex items-center justify-start gap-1 hover:bg-red-700 hover:text-white">
+          {NavData.map((ele, i) => (
+            <Link
+              href={`${ele.link}`}
+              key={i}
+              className="text-white  p-2 rounded flex items-center justify-start gap-1 hover:bg-red-700 hover:text-white"
+              onClick={() => setIsMenuOpen(false)}
+            >
               <>
-              <FontAwesomeIcon icon={ele.icon}/>
-              {ele.title}
+                <FontAwesomeIcon icon={ele.icon} />
+                {ele.title}
               </>
             </Link>
           ))}
