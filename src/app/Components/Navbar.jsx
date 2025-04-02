@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -165,13 +166,15 @@ function Navbar() {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
-          <motion.button
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            variants={buttonVariants}
-            whileHover="hover"
-          >
-            Sign In
-          </motion.button>
+          <Link href={"/Sign"}>
+            <motion.button
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              variants={buttonVariants}
+              whileHover="hover"
+            >
+              Sign In
+            </motion.button>
+          </Link>
         </div>
       </div>
       <motion.div
