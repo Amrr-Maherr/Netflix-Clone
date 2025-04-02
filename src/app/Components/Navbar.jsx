@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-
+import AuthButton from "./ui/AuthButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faHouse,
+  faUsers,
+  faFilm,
+  faFire,
+  faList
+} from '@fortawesome/free-solid-svg-icons';
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const NavData = [
+    { title: "Home", link: "/", icon: faHouse },
+    { title: "Actors", link: "/Actors", icon: faUsers },
+    { title: "Movies", link: "/Movies", icon: faFilm },
+    { title: "Latest", link: "/Latest", icon: faFire },
+    { title: "My List", link: "/List", icon: faList },
+  ];
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -46,15 +60,7 @@ function Navbar() {
     },
   };
 
-  const buttonVariants = {
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut",
-      },
-    },
-  };
+
 
   const mobileMenuVariants = {
     open: {
@@ -110,46 +116,18 @@ function Navbar() {
 
         {/* Navigation Links (Hidden on small screens, visible on medium and up) */}
         <div className="hidden md:flex items-center space-x-6 text-white">
-          <motion.a
-            href="/"
-            className="hover:text-gray-300"
-            variants={linkVariants}
-            whileHover="hover"
-          >
-            Home
-          </motion.a>
-          <motion.a
-            href="/tv-shows"
-            className="hover:text-gray-300"
-            variants={linkVariants}
-            whileHover="hover"
-          >
-            TV Shows
-          </motion.a>
-          <motion.a
-            href="/movies"
-            className="hover:text-gray-300"
-            variants={linkVariants}
-            whileHover="hover"
-          >
-            Movies
-          </motion.a>
-          <motion.a
-            href="/latest"
-            className="hover:text-gray-300"
-            variants={linkVariants}
-            whileHover="hover"
-          >
-            Latest
-          </motion.a>
-          <motion.a
-            href="/my-list"
-            className="hover:text-gray-300"
-            variants={linkVariants}
-            whileHover="hover"
-          >
-            My List
-          </motion.a>
+          {NavData.map((ele) => (
+            <>
+              <motion.a
+                href={`${ele.link}`}
+                className="hover:text-gray-300"
+                variants={linkVariants}
+                whileHover="hover"
+              >
+                {ele.title}
+              </motion.a>
+            </>
+          ))}
         </div>
         <div className="flex items-center space-x-4 text-white">
           <svg
@@ -166,15 +144,7 @@ function Navbar() {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
-          <Link href={"/Sign"}>
-            <motion.button
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              variants={buttonVariants}
-              whileHover="hover"
-            >
-              Sign In
-            </motion.button>
-          </Link>
+          <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
         </div>
       </div>
       <motion.div
@@ -203,21 +173,15 @@ function Navbar() {
           </svg>
         </button>
         <div className="flex flex-col space-y-4 mt-12">
-          <a href="/" className="text-white hover:text-gray-300">
-            Home
-          </a>
-          <a href="/tv-shows" className="text-white hover:text-gray-300">
-            TV Shows
-          </a>
-          <a href="/movies" className="text-white hover:text-gray-300">
-            Movies
-          </a>
-          <a href="/latest" className="text-white hover:text-gray-300">
-            Latest
-          </a>
-          <a href="/my-list" className="text-white hover:text-gray-300">
-            My List
-          </a>
+          {NavData.map((ele) => (
+            <Link href={`${ele.link}`} className="text-white  p-2 rounded flex items-center justify-start gap-1 hover:bg-red-700 hover:text-white">
+              <>
+              <FontAwesomeIcon icon={ele.icon}/>
+              {ele.title}
+              </>
+            </Link>
+          ))}
+          <AuthButton ButtonText={"Log out"} ButtonLink={"Sign"} />
         </div>
       </motion.div>
     </motion.nav>
