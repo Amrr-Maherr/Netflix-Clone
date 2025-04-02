@@ -15,7 +15,7 @@ export default function Button({ButtonText}) {
       <Link href="/">
         <motion.button
           variants={itemVariants}
-          className="bg-red-600 cursor-pointer hover:bg-red-700 text-white text-2xl font-bold py-3 px-20 rounded focus:outline-none focus:shadow-outline transition duration-300"
+          className="bg-red-600 cursor-pointer hover:bg-red-700 text-white text-2xl font-bold py-2 px-15 rounded focus:outline-none focus:shadow-outline transition duration-300"
         >
           {ButtonText}
         </motion.button>
