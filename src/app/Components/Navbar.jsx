@@ -61,7 +61,7 @@ function Navbar() {
       x: 0,
       transition: {
         type: "spring",
-        stiffness: 20,
+        stiffness: 80,
         damping: 10,
       },
     },
