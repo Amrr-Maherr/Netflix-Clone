@@ -1,13 +1,50 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Logo from "../../../public/Assets/netflix-3.svg";
 import Image from "next/image";
 import Link from "next/link";
-
-// تم إزالة "use client";
-
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useRouter } from "next/navigation";
 export default function Login() {
+      const router = useRouter();
+  const [userInfo, setUserInfo] = useState(null);
+  const handelLogin = () => {
+    const { email, password } = formik.values;
+    if (userInfo.email !== email || userInfo.password !== password) {
+      console.log("Invalid credentials");
+    } else {
+      console.log("Login successful");
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    }
+  };
+  useEffect(
+    () => setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || []),
+    []
+  );
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Please enter a valid email")
+      .required("Email is required"),
+
+    password: yup
+      .string()
+      .min(6, "Password must be at least 6 characters long")
+      .required("Password is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: handelLogin,
+    validationSchema: validationSchema,
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -49,7 +86,11 @@ export default function Login() {
         </motion.div>
 
         {/* Login Form */}
-        <motion.form variants={itemVariants} className="space-y-6">
+        <motion.form
+          onSubmit={formik.handleSubmit}
+          variants={itemVariants}
+          className="space-y-6"
+        >
           <div>
             <label
               htmlFor="email"
@@ -58,12 +99,20 @@ export default function Login() {
               Email Address
             </label>
             <input
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
               id="email"
               name="email"
               type="email"
               placeholder="Email Address"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-300 bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
             />
+            {formik.touched.email && formik.errors.email && (
+              <div className="text-red-500 text-sm mt-2">
+                {formik.errors.email}
+              </div>
+            )}
           </div>
 
           <div>
@@ -74,12 +123,20 @@ export default function Login() {
               Password
             </label>
             <input
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
               id="password"
               name="password"
               type="password"
               placeholder="Password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-300 bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
             />
+            {formik.touched.password && formik.errors.password && (
+              <div className="text-red-500 text-sm mt-2">
+                {formik.errors.password}
+              </div>
+            )}
           </div>
 
           {/* Remember Me & Help */}
@@ -99,7 +156,7 @@ export default function Login() {
           {/* Sign In Button */}
           <motion.div variants={itemVariants}>
             <button
-              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              className="bg-red-600 cursor-pointer hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
               type="submit"
             >
               Sign In
