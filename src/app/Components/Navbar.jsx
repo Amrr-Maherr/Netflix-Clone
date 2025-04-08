@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react"; // <--- Added useRef
+"use client";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import AuthButton from "./ui/AuthButton";
+import AuthButton from "./ui/AuthButton"; // Assuming ./ui/AuthButton exists
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -10,6 +11,8 @@ import {
   faFire,
   faList,
 } from "@fortawesome/free-solid-svg-icons";
+
+const MotionLink = motion(Link);
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,6 +36,7 @@ function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -49,7 +53,7 @@ function Navbar() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isDropdownOpen])
+  }, [isDropdownOpen]);
 
   const navbarVariants = {
     hidden: { backgroundColor: "rgba(0, 0, 0, 0)", boxShadow: "none" },
@@ -62,11 +66,8 @@ function Navbar() {
 
   const linkVariants = {
     hover: { scale: 1.1, transition: { duration: 0.2, ease: "easeInOut" } },
-  };
-
-  const mobileMenuVariants = {
-    open: { x: 0, transition: { type: "spring", stiffness: 80, damping: 10 } },
-    closed: { x: "-100%", transition: { duration: 0.3 } },
+    initial: { scale: 1 },
+    animate: { scale: 1 },
   };
 
   return (
@@ -77,9 +78,13 @@ function Navbar() {
       animate={isScrolled ? "visible" : "hidden"}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <a href="/" className="text-red-600 text-3xl font-bold">
+        <MotionLink
+          href="/"
+          className="text-red-600 text-3xl font-bold"
+          whileHover={{ scale: 1.05 }}
+        >
           Netflix
-        </a>
+        </MotionLink>
 
         <div className="md:hidden">
           <button
@@ -105,29 +110,32 @@ function Navbar() {
 
         <div className="hidden md:flex items-center space-x-6 text-white">
           {NavData.map((ele, i) => (
-            <motion.a
+            <MotionLink
               key={i}
               href={`${ele.link}`}
               className="hover:text-gray-300"
               variants={linkVariants}
               whileHover="hover"
+              initial="initial"
+              animate="animate"
             >
               {ele.title}
-            </motion.a>
+            </MotionLink>
           ))}
         </div>
-        <div className="flex items-center space-x-4 text-white relative">
+
+        <div className="hidden md:flex items-center space-x-4 text-white relative">
           <button
-            ref={triggerRef} // <--- Assign ref to trigger
+            ref={triggerRef}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+            className="text-white hover:text-gray-300 focus:outline-none inline-flex items-center"
             type="button"
             aria-haspopup="true"
             aria-expanded={isDropdownOpen}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 hover:text-gray-300 cursor-pointer"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -140,7 +148,7 @@ function Navbar() {
               />
             </svg>
             <svg
-              className="w-2.5 h-2.5 ms-3"
+              className="w-2.5 h-2.5 ms-2"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -155,18 +163,11 @@ function Navbar() {
               />
             </svg>
           </button>
+
           {isDropdownOpen && (
             <div
               ref={dropdownRef}
-              className="
-                absolute top-full right-0 mt-2 z-50 w-56
-                origin-top-right
-                rounded-md
-                bg-black
-                shadow-lg
-                ring-1 ring-black ring-opacity-5
-                focus:outline-none
-              "
+              className="absolute top-full right-0 mt-2 z-50 w-56 origin-top-right rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="dropdownHoverButton"
@@ -174,18 +175,18 @@ function Navbar() {
               <ul className="py-1" role="none">
                 <li>
                   <Link
-                    href="/dashboard"
-                    className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-red-600 hover:text-white dark:hover:bg-red-700 transition-colors duration-150 ease-in-out focus:outline-none focus:bg-red-600 focus:text-white dark:focus:bg-red-700"
-                    onClick={() => setIsDropdownOpen(false)} 
-                    role="menuitem" 
+                    href="/Actors"
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-red-600 hover:text-white transition-colors duration-150 ease-in-out"
+                    onClick={() => setIsDropdownOpen(false)}
+                    role="menuitem"
                   >
                     Search Actors
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/settings"
-                    className="group flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-red-600 hover:text-white dark:hover:bg-red-700 transition-colors duration-150 ease-in-out focus:outline-none focus:bg-red-600 focus:text-white dark:focus:bg-red-700"
+                    href="/Movies"
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-red-600 hover:text-white transition-colors duration-150 ease-in-out"
                     onClick={() => setIsDropdownOpen(false)}
                     role="menuitem"
                   >
@@ -196,16 +197,16 @@ function Navbar() {
             </div>
           )}
 
-          <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
+          <div className="hidden md:block">
+            <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
+          </div>
         </div>
       </div>
 
-      {/* --- Mobile Sidebar --- */}
-      <motion.div
-        className="fixed top-0 left-0 h-full w-64 bg-black p-4 z-50 md:hidden"
-        variants={mobileMenuVariants}
-        animate={isMenuOpen ? "open" : "closed"}
-        initial="closed"
+      <div
+        className={`fixed top-0 left-0 h-full w-64 bg-black p-4 z-50 md:hidden ${
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 ease-in-out`}
       >
         <button
           onClick={() => setIsMenuOpen(false)}
@@ -226,21 +227,32 @@ function Navbar() {
             />
           </svg>
         </button>
-        <div className="flex flex-col space-y-4 mt-12">
-          {NavData.map((ele, i) => (
-            <Link
-              href={`${ele.link}`}
-              key={i}
-              className="text-white p-2 rounded flex items-center justify-start gap-1 hover:bg-red-700 hover:text-white"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FontAwesomeIcon icon={ele.icon} />
-              {ele.title}
-            </Link>
-          ))}
-          <AuthButton ButtonText={"Log out"} ButtonLink={"Sign"} />
+        <div className="flex flex-col h-full">
+          <div className="flex flex-col space-y-4 mt-12 flex-grow">
+            {NavData.map((ele, i) => (
+              <Link
+                href={`${ele.link}`}
+                key={i}
+                className="text-white p-2 rounded flex items-center justify-start gap-2 hover:bg-red-700"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <FontAwesomeIcon icon={ele.icon} className="w-5 h-5" />
+                {ele.title}
+              </Link>
+            ))}
+          </div>
+          <div className="mt-auto pt-4">
+            <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
+          </div>
         </div>
-      </motion.div>
+      </div>
+
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0  z-40 md:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        ></div>
+      )}
     </motion.nav>
   );
 }
