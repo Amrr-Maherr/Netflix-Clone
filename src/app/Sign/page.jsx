@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import Footer from "../Components/Footer/page";
+import bgImage from "../../../public/Assets/EG-en-20250303-TRIFECTA-perspective_3241eaee-fd55-4a8b-bd9e-cd6c0058b093_small.jpg";
 export default function Signup() {
     const router = useRouter();
   const handelSignup = () => {
@@ -68,12 +69,13 @@ export default function Signup() {
   return (
     <>
       <motion.div
+        style={{backgroundImage:`url(${bgImage.src})`,objectFit:"cover"}}
         className="min-h-screen flex items-center justify-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="bg-black rounded-lg shadow-xl w-full sm:w-3/4 md:w-1/2 lg:w-1/3 py-10 px-8">
+        <div className="rounded-lg shadow-xl w-full sm:w-3/4 md:w-1/2 lg:w-1/3 py-10 px-8">
           {/* Logo */}
           <motion.div variants={itemVariants} className="text-center mb-8">
             <Image
