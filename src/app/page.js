@@ -5,6 +5,7 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer/page";
 import VideoBackground from "./Components/Section/VideoBackground";
 import HeadingSection from "./Components/HeadingSection";
+import BannerSection from "./Components/BannerSection/BannerSection";
 
 const videoSource =
   "/Assets/Netflix Intro 1080p (Highest Quality)(1080P_HD).mp4";
@@ -20,6 +21,7 @@ export default function Home() {
           buttonText="Start Free Trial"
         />
       </VideoBackground>
+      <BannerSection/>
       <Footer />
     </>
   );
