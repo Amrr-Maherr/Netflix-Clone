@@ -25,7 +25,7 @@ function Navbar() {
     { title: "Home", link: "/", icon: faHouse },
     { title: "Actors", link: "/Actors", icon: faUsers },
     { title: "Movies", link: "/Movies", icon: faFilm },
-    { title: "Latest", link: "/Latest", icon: faFire },
+    { title: "Shows", link: "/Shows", icon: faFire },
     { title: "My List", link: "/List", icon: faList },
   ];
 

@@ -1,18 +1,24 @@
-import React from "react";
+"use client";
 import Navbar from "../Components/Navbar";
-// تأكد من أن هذا المسار صحيح إذا كنت ستستخدمه لاحقاً
+import Footer from "../Components/Footer/page";
 import VideoBackground from "../Components/Section/VideoBackground";
-import Footer from "../Components/Footer/page"; // تأكد من مسار Footer
-import { Button } from "@/components/ui/button"; // تأكد من مسار Button
+import HeadingSection from "../Components/HeadingSection";
 
-// تأكد من مسار الفيديو إذا كنت ستستخدمه
-const videoSource = "/Assets/Netflix Intro 1080p (Highest Quality)(1080P_HD).mp4";
+
+const videoSource =
+  "/Assets/Netflix Intro 1080p (Highest Quality)(1080P_HD).mp4";
 
 export default function Movies() {
   return (
     <>
       <Navbar />
-      <VideoBackground src={videoSource} />
+      <VideoBackground src={videoSource}>
+        <HeadingSection
+          title="Top Movies & TV Shows"
+          description="Discover your next favorite movie or show."
+          buttonText="Start Watching"
+        />
+      </VideoBackground>
       <Footer />
     </>
   );
