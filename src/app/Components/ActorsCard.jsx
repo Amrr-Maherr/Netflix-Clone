@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ActorsCard({ actor }) {
   return (
     <>
-      <Link href={`/pages/actor/${actor.id}`}>
+      <Link href={`/actor/${actor.id}`}>
         <div className="group relative w-48 mx-2 my-4 flex-shrink-0">
           {actor.profile_path ? (
             <img

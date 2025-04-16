@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Card({ movie }) {
   return (
-    <Link href={`/${movie.id}`} className="mx-auto">
+    <Link href={`/movie/${movie.id}`} className="mx-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
