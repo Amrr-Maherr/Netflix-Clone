@@ -1,6 +1,6 @@
 # Netflix Clone 🎬 - Static Frontend Implementation
 
-This project is a static frontend clone of the Netflix landing page, built purely with HTML, CSS, and vanilla JavaScript. It aims to replicate the visual appearance and basic interactions of the Netflix homepage, serving as a practical exercise in frontend web development skills.
+"This project is a dynamic web application built with Next.js, serving as an interface for a movie API. While visually inspired by the Netflix landing page, it goes beyond a static clone by fetching and displaying real-time movie data (like popular titles, genres, and details) from an external source. It leverages the power of Next.js and React to build an interactive user experience, serving as a practical exercise in API integration, state management, and component-based development within the Next.js framework."
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
