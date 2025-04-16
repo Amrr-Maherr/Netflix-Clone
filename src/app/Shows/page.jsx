@@ -32,7 +32,11 @@ export default function Shows() {
           {isLoading ? (
             <Loader />
           ) : (
-            data?.map((show) => <TVShowCard show={show} key={show.id} />)
+            <div className="flex overflow-x-auto px-4">
+              {data.map((show) => (
+                <TVShowCard key={show.id} show={show} />
+              ))}
+            </div>
           )}
         </div>
         <Footer />

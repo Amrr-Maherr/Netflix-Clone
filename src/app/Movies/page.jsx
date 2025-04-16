@@ -36,7 +36,11 @@ export default function Movies() {
         {isLoading ? (
           <Loader />
         ) : (
-          data?.map((movie) => <MoviesCard movie={movie} key={movie.id} />)
+          <div className="flex overflow-x-auto px-4">
+            {data.map((movie) => (
+              <MoviesCard key={movie.id} movie={movie} />
+            ))}
+          </div>
         )}
       </div>
       <Footer />
