@@ -6,8 +6,6 @@
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-**(موصى به: Add a screenshot of your project here!)**
-<!-- ![Screenshot of Netflix Clone](./path/to/your/screenshot.png) -->
 
 ## Table of Contents
 
