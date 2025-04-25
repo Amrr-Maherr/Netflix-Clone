@@ -10,7 +10,7 @@ import Title from "../Components/Title";
 
 
 const videoSource =
-  "/Assets/Netflix Intro 1080p (Highest Quality)(1080P_HD).mp4";
+  "https://videocdn.cdnpk.net/videos/3f3d24f8-7025-47fc-b139-7bf933d1201b/horizontal/previews/clear/small.mp4?token=exp=1745594040~hmac=cb3788f5f446abd6ea6f43e329bf198ba49c1cbc18944f338951d34e76a96d49";
 
 export default function Movies() {
   const { data, isLoading, error } = useFetchPopularMovies();

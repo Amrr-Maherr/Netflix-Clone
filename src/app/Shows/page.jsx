@@ -8,7 +8,7 @@ import Title from "../Components/Title";
 import TVShowCard from "../Components/TVShowCard";
 import useFetchPopularTv from "../Hooks/useFetchTv";
 const videoSource =
-  "/Assets/Netflix Intro 1080p (Highest Quality)(1080P_HD).mp4";
+  "https://videocdn.cdnpk.net/videos/1bfe204d-86ac-42b2-9ee5-842542bcb71d/horizontal/previews/clear/small.mp4?token=exp=1745594427~hmac=3d002c342c38d946ad02fed5d50aa51ce10083676619bc67f9e40dade3925eba";
 export default function Shows() {
   const { data, isLoading, error } = useFetchPopularTv();
     console.log(data);
