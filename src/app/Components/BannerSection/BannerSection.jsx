@@ -1,35 +1,56 @@
 import imageOne from "../../../../public/Assets/superman-2025-3840x2160-20308.jpg";
 import imageTwo from "../../../../public/Assets/deadpool-wolverine-3840x2160-16840.jpg";
 import imageThree from "../../../../public/Assets/thunderbolt-ross-3840x2160-21423.jpg";
-import imageFour from "../../../../public/Assets/Slider/john-wick-chapter-4-4k-3840x2160-11011.jpg.jpg";
+import imageFour from "../../../../public/Assets/gozela.jpg";
+import imageFive from "../../../../public/Assets/spiderman.jpg";
+import imageSix from "../../../../public/Assets/Slider/john-wick-chapter-4-4k-3840x2160-11011.jpg.jpg";
 
 export default function BannerSection() {
   const BannerData = [
     {
       image: imageOne,
-      title: "Superman 2025",
-      description: "The Man of Steel returns in a new action-packed adventure.",
+      title: "Superman: Legacy (2025)",
+      description:
+        "Clark Kent begins a new chapter balancing his Kryptonian heritage with his human upbringing in this thrilling reboot.",
       buttonText: "Watch Now",
     },
     {
       image: imageTwo,
-      title: "Deadpool vs Wolverine",
-      description: "The ultimate battle between Deadpool and Wolverine.",
+      title: "Deadpool & Wolverine",
+      description:
+        "The Merc with a Mouth teams up with the X-Men’s fiercest warrior in a chaotic, hilarious, and action-filled ride.",
       buttonText: "See More",
     },
     {
       image: imageThree,
-      title: "Thunderbolt Ross",
-      description: "A gripping story about Thunderbolt Ross and his legacy.",
+      title: "Thunderbolt Ross: Red Reckoning",
+      description:
+        "General Ross faces the consequences of his past and unleashes a power that could change everything.",
       buttonText: "Discover More",
     },
     {
       image: imageFour,
+      title: "Godzilla: Rise of the Titans",
+      description:
+        "As ancient monsters awaken, Godzilla must assert his dominance in a battle that will shake the Earth.",
+      buttonText: "Watch Trailer",
+    },
+    {
+      image: imageFive,
+      title: "Spider-Man: Beyond Dimensions",
+      description:
+        "Peter Parker swings through the multiverse to stop a threat that could unravel reality itself.",
+      buttonText: "Explore Now",
+    },
+    {
+      image: imageSix,
       title: "John Wick: Chapter 4",
-      description: "John Wick returns for another action-packed thriller.",
+      description:
+        "With the bounty on his head ever increasing, John Wick fights his way across the globe to defeat the High Table.",
       buttonText: "Watch Trailer",
     },
   ];
+  
 
   return (
     <section>
