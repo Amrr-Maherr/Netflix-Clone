@@ -43,7 +43,7 @@ export default function BannerSection() {
           }}
           className="h-screen w-full flex items-center justify-center text-white relative"
         >
-          <div className="p-8 text-center">
+          <div className="p-8 text-center absolute inset-0 w-full h-full bg-black/50  flex items-center justify-center flex-col">
             <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
               {Banner.title}
             </h1>

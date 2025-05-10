@@ -15,6 +15,11 @@ import {
 const MotionLink = motion(Link);
 
 function Navbar() {
+  const [userInfo, setUserInfo] = useState(null);
+  useEffect(() => (
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo")))
+  ), [])
+  console.log(userInfo);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -196,9 +201,11 @@ function Navbar() {
             </div>
           )}
 
-          <div className="hidden md:block">
-            <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
-          </div>
+          {!userInfo && (
+            <div className="hidden md:block">
+              <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
+            </div>
+          )}
         </div>
       </div>
 
@@ -240,9 +247,11 @@ function Navbar() {
               </Link>
             ))}
           </div>
-          <div className="mt-auto pt-4">
-            <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
-          </div>
+          {!userInfo && (
+            <div className="mt-auto pt-4">
+              <AuthButton ButtonText={"Sign in"} ButtonLink={"Login"} />
+            </div>
+          )}
         </div>
       </div>
 
