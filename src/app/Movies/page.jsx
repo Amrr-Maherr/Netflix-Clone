@@ -9,8 +9,7 @@ import MoviesCard from "../Components/MoviesCard";
 import Title from "../Components/Title";
 
 
-const videoSource =
-  "https://videocdn.cdnpk.net/videos/dc5c6d54-2117-410a-9544-eda511d97cd4/horizontal/previews/clear/small.mp4?token=exp=1745594832~hmac=f16eedca57b40bfcfbaf3de98338458e183a02ee9e685c5c151db3d75fad0c1d";
+const videoSource = "/Assets/4784144_Couple_Young Couple_3840x2160.mp4";
 
 export default function Movies() {
   const { data, isLoading, error } = useFetchPopularMovies();
