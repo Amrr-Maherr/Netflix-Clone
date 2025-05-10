@@ -31,6 +31,7 @@ function Navbar() {
     { title: "Actors", link: "/Actors", icon: faUsers },
     { title: "Movies", link: "/Movies", icon: faFilm },
     { title: "Shows", link: "/Shows", icon: faFire },
+    { title: "My list", link: "/List", icon: faFire },
   ];
 
   useEffect(() => {
