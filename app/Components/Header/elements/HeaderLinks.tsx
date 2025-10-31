@@ -10,14 +10,17 @@ export default function HeaderLinks() {
   ];
 
   return (
-    <nav className="flex gap-6 text-white text-sm md:text-base">
+    <nav className="flex flex-col md:flex-row gap-6 text-white text-sm md:text-base">
       {Links.map((item, index) => (
         <Link
           key={index}
           href={item.link}
-          className="hover:text-gray-300 transition"
+          className="relative group transition-all duration-200"
         >
-          {item.name}
+          <span className="group-hover:text-red-600 transition-colors duration-200">
+            {item.name}
+          </span>
+          <span className="absolute left-0 -bottom-1  w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full"></span>
         </Link>
       ))}
     </nav>
