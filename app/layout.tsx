@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Netflix | Watch Movies & TV Shows Online",
   description:
     "Stream unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime. Experience Netflix-style entertainment on our platform.",
+  icons : {
+    icon:"/fav_icon.ico"
+  }
 };
 
 export default function RootLayout({
@@ -25,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
