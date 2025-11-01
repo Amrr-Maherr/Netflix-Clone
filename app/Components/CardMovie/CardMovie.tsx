@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-import { Star } from "lucide-react";
+
 type MovieData = {
   id: number;
   title?: string;
@@ -9,6 +9,7 @@ type MovieData = {
   vote_average: number;
   popularity?: number;
   overview: string;
+  release_date?: string;
 };
 
 type CardMovieProps = {
@@ -16,14 +17,13 @@ type CardMovieProps = {
 };
 
 export default function CardMovie({ movie }: CardMovieProps) {
-  console.log(movie, "movie");
-  
   return (
-    <div className="bg-black rounded overflow-hidden relative group cursor-pointer">
+    <div className="bg-black rounded overflow-hidden relative group cursor-pointer transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      {/* Poster */}
       <div className="relative w-full h-0 pb-[150%]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt="alt_text"
+          alt={movie.title || "Movie Poster"}
           fill
           className="object-cover rounded"
           quality={100}
@@ -36,20 +36,23 @@ export default function CardMovie({ movie }: CardMovieProps) {
         <h3 className="text-white mt-2 text-sm font-medium truncate">
           {movie.title}
         </h3>
-        {movie.popularity && (
-          <p className="text-gray-400 text-xs my-1">
-            Popularity: {movie.popularity.toFixed(1)}
-          </p>
-        )}
-        <p className="text-yellow-400 text-xs flex gap-1">
-          <Star className="fill-amber-400" size={14} />
-          {movie.vote_average}
+        <p className="text-gray-400 text-xs my-1">
+          Vote Average: {movie.vote_average.toFixed(1)}
         </p>
       </div>
 
       {/* Overlay on hover */}
-      <div className="absolute inset-0 bg-black bg-opacity-70 text-white p-2 opacity-0 group-hover:opacity-95 transition-all duration-300 flex flex-col justify-end rounded">
-        <p className="text-xs line-clamp-3">{movie.overview}</p>
+      <div className="absolute inset-0 bg-black bg-opacity-80 text-white p-3 opacity-0 group-hover:opacity-95 transition-all duration-300 flex flex-col justify-end rounded">
+        <h3 className="text-sm font-semibold truncate">{movie.title}</h3>
+        <p className="text-gray-300 text-xs mt-1">
+          Release Date: {movie.release_date || "Unknown"}
+        </p>
+        {movie.popularity && (
+          <p className="text-gray-400 text-xs mt-1">
+            Popularity: {movie.popularity.toFixed(1)}
+          </p>
+        )}
+        <p className="text-xs line-clamp-3 mt-2">{movie.overview}</p>
         <Button className="mt-2 bg-red-600 text-white text-xs py-1 px-2 rounded hover:bg-red-700 cursor-pointer">
           Watch
         </Button>
