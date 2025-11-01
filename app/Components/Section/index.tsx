@@ -1,5 +1,4 @@
 import React from "react";
-import CardMovie from "../CardMovie/CardMovie";
 import DataList from "./DataList";
 
 type Movie = {

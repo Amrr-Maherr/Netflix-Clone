@@ -5,6 +5,7 @@ import React from "react";
 type MovieData = {
   id: number;
   title: string;
+  name:string
   poster_path: string;
   vote_average: number;
   release_date: string;
@@ -21,7 +22,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
       <div className="relative w-full h-0 pb-[150%]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
+          alt={movie.title || movie.name}
           fill
           className="object-cover rounded"
           quality={100}

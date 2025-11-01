@@ -4,79 +4,84 @@ import { useQuery } from "@tanstack/react-query";
 import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
 import fetchMovies from "@/Api/FetchPopularMovies";
+import fetchTvShows from "@/Api/fetchTvShows";
 
 export default function Home() {
   const {
-    data: popularData,
-    isLoading: popularLoading,
-    isError: popularError,
+    data: trendingMovies,
+    isLoading: trendingMoviesLoading,
+    isError: trendingMoviesError,
   } = useQuery({
-    queryKey: ["popular-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/popular" }),
+    queryKey: ["trending-movies"],
+    queryFn: () => fetchMovies({ url: "/trending/movie/week" }),
   });
 
   const {
-    data: topRatedData,
-    isLoading: topRatedLoading,
-    isError: topRatedError,
+    data: topRatedMovies,
+    isLoading: topRatedMoviesLoading,
+    isError: topRatedMoviesError,
   } = useQuery({
     queryKey: ["top-rated-movies"],
     queryFn: () => fetchMovies({ url: "/movie/top_rated" }),
   });
 
   const {
-    data: upcomingData,
-    isLoading: upcomingLoading,
-    isError: upcomingError,
+    data: popularMovies,
+    isLoading: popularMoviesLoading,
+    isError: popularMoviesError,
   } = useQuery({
-    queryKey: ["upcoming-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/upcoming" }),
+    queryKey: ["popular-movies"],
+    queryFn: () => fetchMovies({ url: "/movie/popular" }),
+  });
+
+
+  const {
+    data: trendingTV,
+    isLoading: trendingTVLoading,
+    isError: trendingTVError,
+  } = useQuery({
+    queryKey: ["trending-tv"],
+    queryFn: () => fetchTvShows({ url: "/trending/tv/week" }),
   });
 
   const {
-    data: nowPlayingData,
-    isLoading: nowPlayingLoading,
-    isError: nowPlayingError,
+    data: popularTV,
+    isLoading: popularTVLoading,
+    isError: popularTVError,
   } = useQuery({
-    queryKey: ["now-playing-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/now_playing" }),
+    queryKey: ["popular-tv"],
+    queryFn: () => fetchTvShows({ url: "/tv/popular" }),
   });
 
-  const {
-    data: trendingData,
-    isLoading: trendingLoading,
-    isError: trendingError,
-  } = useQuery({
-    queryKey: ["trending-movies"],
-    queryFn: () => fetchMovies({ url: "/trending/movie/week" }),
-  });
-
+  // ===== Loading & Error =====
   if (
-    popularLoading ||
-    topRatedLoading ||
-    upcomingLoading ||
-    nowPlayingLoading ||
-    trendingLoading
+    trendingMoviesLoading ||
+    topRatedMoviesLoading ||
+    popularMoviesLoading ||
+    trendingTVLoading ||
+    popularTVLoading
   )
     return <p>Loading...</p>;
 
   if (
-    popularError ||
-    topRatedError ||
-    upcomingError ||
-    nowPlayingError ||
-    trendingError
+    trendingMoviesError ||
+    topRatedMoviesError ||
+    popularMoviesError ||
+    trendingTVError ||
+    popularTVError
   )
     return <p>Something went wrong 😢</p>;
 
   return (
     <>
       <HeroSection />
-      <Section Data={trendingData || []} title="Trending Movies" />
-      <Section Data={topRatedData || []} title="Top Rated Movies" />
-      <Section Data={popularData || []} title="Popular Movies" />
-      <Section Data={upcomingData || []} title="Upcoming Movies" />
-      <Section Data={nowPlayingData || []} title="Now Playing Movies" />
+
+      <Section Data={trendingMovies || []} title="Trending Movies" />
+      <Section Data={topRatedMovies || []} title="Top Rated Movies" />
+      <Section Data={popularMovies || []} title="Popular Movies" />
+
+      <Section Data={trendingTV || []} title="Trending TV Shows" />
+      <Section Data={popularTV || []} title="Popular TV Shows" />
     </>
   );
 }
