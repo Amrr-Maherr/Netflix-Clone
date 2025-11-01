@@ -62,6 +62,8 @@ useEffect(() => {
       ...(trendingMovies || []),
       ...(topRatedMovies || []),
       ...(popularMovies || []),
+      ...(popularTV || []),
+      ...(trendingTV || []),
     ]);
   }
 }, [
