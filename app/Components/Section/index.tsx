@@ -17,7 +17,7 @@ export default function Index({ Data, title, isMovie }: IndexProps) {
   return (
     <section className="container">
       <div className="my-10">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white truncate">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
           {title || "title"}
         </h1>
       </div>
