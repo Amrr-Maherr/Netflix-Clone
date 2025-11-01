@@ -28,7 +28,6 @@ export default function DataList({ Data, isMovie }: DataListProps) {
                 ...movie,
                 title: movie.title ?? movie.name ?? "Untitled",
                 vote_average: movie.vote_average ?? 0,
-                release_date: movie.release_date ?? "Unknown",
                 overview: movie.overview ?? "No overview available",
               }}
             />
@@ -40,7 +39,6 @@ export default function DataList({ Data, isMovie }: DataListProps) {
                 ...show,
                 name: show.name ?? show.title ?? "Unknown Show",
                 vote_average: show.vote_average ?? 0,
-                release_date: show.release_date ?? "Unknown",
                 overview: show.overview ?? "No overview available",
               }}
             />

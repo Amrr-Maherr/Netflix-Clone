@@ -7,7 +7,7 @@ type MovieData = {
   title?: string;
   poster_path: string;
   vote_average: number;
-  release_date: string;
+  popularity?: number;
   overview: string;
 };
 
@@ -16,6 +16,8 @@ type CardMovieProps = {
 };
 
 export default function CardMovie({ movie }: CardMovieProps) {
+  console.log(movie, "movie");
+  
   return (
     <div className="bg-black rounded overflow-hidden relative group cursor-pointer">
       <div className="relative w-full h-0 pb-[150%]">
@@ -34,7 +36,11 @@ export default function CardMovie({ movie }: CardMovieProps) {
         <h3 className="text-white mt-2 text-sm font-medium truncate">
           {movie.title}
         </h3>
-        <p className="text-gray-400 text-xs my-2">{movie.release_date}</p>
+        {movie.popularity && (
+          <p className="text-gray-400 text-xs my-1">
+            Popularity: {movie.popularity.toFixed(1)}
+          </p>
+        )}
         <p className="text-yellow-400 text-xs flex gap-1">
           <Star className="fill-amber-400" size={14} />
           {movie.vote_average}

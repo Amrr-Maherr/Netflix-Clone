@@ -7,8 +7,8 @@ type TvShowData = {
   id: number;
   name: string;
   poster_path: string;
-  vote_average: number;
-  release_date: string;
+  vote_average?: number;
+  popularity?:number
   overview: string;
 };
 
@@ -35,8 +35,10 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         <h3 className="text-white mt-2 text-sm font-medium truncate">
           {TvShow.name}
         </h3>
-        {TvShow.release_date && (
-          <p className="text-gray-400 text-xs my-2">{TvShow.release_date}</p>
+        {TvShow.popularity && (
+          <p className="text-gray-400 text-xs my-1">
+            Popularity: {TvShow.popularity.toFixed(1)}
+          </p>
         )}
         <p className="text-yellow-400 text-xs flex gap-1">
           <Star className="fill-amber-400" size={14} />
