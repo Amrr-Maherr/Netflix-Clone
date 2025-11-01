@@ -45,19 +45,9 @@ export default function HeroSection({ movies }: HeroSectionProps) {
           >
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
             <div className="text-center px-4 max-w-2xl z-50">
-              <SplitText
-                text={movie.title || movie.name || "no title"}
-                className="text-3xl md:text-5xl font-bold mb-4"
-                delay={100}
-                duration={0.6}
-                ease="power3.out"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                threshold={0.1}
-                rootMargin="-100px"
-                textAlign="center"
-              />
+              <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                {movie.title || movie.name || "no title"}
+              </h1>
               {movie.overview && (
                 <p className="text-lg md:text-2xl font-medium mb-8">
                   {movie.overview.slice(0, 100)}...
