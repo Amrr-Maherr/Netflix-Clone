@@ -6,7 +6,8 @@ import Slider from "../Slider/Slider";
 import { Autoplay, EffectFade } from "swiper/modules";
 
 interface HeroSlide {
-  title: string;
+  title?: string;
+  name?: string;
   overview?: string;
   backdrop_path?: string;
 }
@@ -44,7 +45,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
             <div className="text-center px-4 max-w-2xl z-50">
               <SplitText
-                text={movie.title}
+                text={movie.title || movie.name || "no title"}
                 className="text-3xl md:text-5xl font-bold mb-4"
                 delay={100}
                 duration={0.6}
