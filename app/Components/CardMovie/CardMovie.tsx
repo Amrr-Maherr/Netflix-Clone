@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-
+import { Star } from "lucide-react";
 type MovieData = {
   id: number;
   title: string;
@@ -35,7 +35,10 @@ export default function CardMovie({ movie }: CardMovieProps) {
           {movie.title}
         </h3>
         <p className="text-gray-400 text-xs my-2">{movie.release_date}</p>
-        <p className="text-yellow-400 text-xs">⭐ {movie.vote_average}</p>
+        <p className="text-yellow-400 text-xs flex gap-1">
+          <Star className="fill-amber-400"/>
+          {movie.vote_average}
+        </p>
       </div>
 
       {/* Overlay on hover */}
