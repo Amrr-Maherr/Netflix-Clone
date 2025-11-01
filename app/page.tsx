@@ -10,144 +10,241 @@ import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
 
 export default function Home() {
   const [AllData, setAllData] = useState<any[]>([]);
-  const {
-    data: trendingMovies,
-    isLoading: trendingMoviesLoading,
-    isError: trendingMoviesError,
-    refetch: trendingMoviesRefetch,
-  } = useQuery({
-    queryKey: ["trending-movies"],
+
+  // ======== Movies Queries ========
+  const trendingMoviesWeekQuery = useQuery({
+    queryKey: ["trending-movies-week"],
     queryFn: () => fetchMovies({ url: "/trending/movie/week" }),
   });
 
-  const {
-    data: topRatedMovies,
-    isLoading: topRatedMoviesLoading,
-    isError: topRatedMoviesError,
-    refetch: topRatedMoviesRefetch,
-  } = useQuery({
-    queryKey: ["top-rated-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/top_rated" }),
+  const trendingMoviesDayQuery = useQuery({
+    queryKey: ["trending-movies-day"],
+    queryFn: () => fetchMovies({ url: "/trending/movie/day" }),
   });
 
-  const {
-    data: popularMovies,
-    isLoading: popularMoviesLoading,
-    isError: popularMoviesError,
-    refetch: popularMoviesRefetch,
-  } = useQuery({
+  const popularMoviesQuery = useQuery({
     queryKey: ["popular-movies"],
     queryFn: () => fetchMovies({ url: "/movie/popular" }),
   });
 
-  const {
-    data: trendingTV,
-    isLoading: trendingTVLoading,
-    isError: trendingTVError,
-    refetch: trendingTVRefetch,
-  } = useQuery({
-    queryKey: ["trending-tv"],
+  const topRatedMoviesQuery = useQuery({
+    queryKey: ["top-rated-movies"],
+    queryFn: () => fetchMovies({ url: "/movie/top_rated" }),
+  });
+
+  const upcomingMoviesQuery = useQuery({
+    queryKey: ["upcoming-movies"],
+    queryFn: () => fetchMovies({ url: "/movie/upcoming" }),
+  });
+
+  const nowPlayingMoviesQuery = useQuery({
+    queryKey: ["now-playing-movies"],
+    queryFn: () => fetchMovies({ url: "/movie/now_playing" }),
+  });
+
+  // ======== TV Shows Queries ========
+  const trendingTVWeekQuery = useQuery({
+    queryKey: ["trending-tv-week"],
     queryFn: () => fetchTvShows({ url: "/trending/tv/week" }),
   });
 
-  const {
-    data: popularTV,
-    isLoading: popularTVLoading,
-    isError: popularTVError,
-    refetch: popularTVRefetch,
-  } = useQuery({
+  const trendingTVDayQuery = useQuery({
+    queryKey: ["trending-tv-day"],
+    queryFn: () => fetchTvShows({ url: "/trending/tv/day" }),
+  });
+
+  const popularTVQuery = useQuery({
     queryKey: ["popular-tv"],
     queryFn: () => fetchTvShows({ url: "/tv/popular" }),
   });
+
+  const topRatedTVQuery = useQuery({
+    queryKey: ["top-rated-tv"],
+    queryFn: () => fetchTvShows({ url: "/tv/top_rated" }),
+  });
+
+  const airingTodayTVQuery = useQuery({
+    queryKey: ["airing-today-tv"],
+    queryFn: () => fetchTvShows({ url: "/tv/airing_today" }),
+  });
+
+  const onTheAirTVQuery = useQuery({
+    queryKey: ["on-the-air-tv"],
+    queryFn: () => fetchTvShows({ url: "/tv/on_the_air" }),
+  });
+
+  // ===== Combine all movies & TV for HeroSection =====
   useEffect(() => {
     if (
-      !trendingMoviesLoading &&
-      !topRatedMoviesLoading &&
-      !popularMoviesLoading
+      !trendingMoviesWeekQuery.isLoading &&
+      !trendingMoviesDayQuery.isLoading &&
+      !popularMoviesQuery.isLoading &&
+      !topRatedMoviesQuery.isLoading &&
+      !upcomingMoviesQuery.isLoading &&
+      !nowPlayingMoviesQuery.isLoading &&
+      !trendingTVWeekQuery.isLoading &&
+      !trendingTVDayQuery.isLoading &&
+      !popularTVQuery.isLoading &&
+      !topRatedTVQuery.isLoading &&
+      !airingTodayTVQuery.isLoading &&
+      !onTheAirTVQuery.isLoading
     ) {
       setAllData([
-        ...(trendingMovies || []),
-        ...(topRatedMovies || []),
-        ...(popularMovies || []),
-        ...(popularTV || []),
-        ...(trendingTV || []),
+        ...(trendingMoviesWeekQuery.data || []),
+        ...(trendingMoviesDayQuery.data || []),
+        ...(popularMoviesQuery.data || []),
+        ...(topRatedMoviesQuery.data || []),
+        ...(upcomingMoviesQuery.data || []),
+        ...(nowPlayingMoviesQuery.data || []),
+        ...(trendingTVWeekQuery.data || []),
+        ...(trendingTVDayQuery.data || []),
+        ...(popularTVQuery.data || []),
+        ...(topRatedTVQuery.data || []),
+        ...(airingTodayTVQuery.data || []),
+        ...(onTheAirTVQuery.data || []),
       ]);
     }
   }, [
-    trendingMovies,
-    topRatedMovies,
-    popularMovies,
-    trendingMoviesLoading,
-    topRatedMoviesLoading,
-    popularMoviesLoading,
+    trendingMoviesWeekQuery.data,
+    trendingMoviesDayQuery.data,
+    popularMoviesQuery.data,
+    topRatedMoviesQuery.data,
+    upcomingMoviesQuery.data,
+    nowPlayingMoviesQuery.data,
+    trendingTVWeekQuery.data,
+    trendingTVDayQuery.data,
+    popularTVQuery.data,
+    topRatedTVQuery.data,
+    airingTodayTVQuery.data,
+    onTheAirTVQuery.data,
+    trendingMoviesWeekQuery.isLoading,
+    trendingMoviesDayQuery.isLoading,
+    popularMoviesQuery.isLoading,
+    topRatedMoviesQuery.isLoading,
+    upcomingMoviesQuery.isLoading,
+    nowPlayingMoviesQuery.isLoading,
+    trendingTVWeekQuery.isLoading,
+    trendingTVDayQuery.isLoading,
+    popularTVQuery.isLoading,
+    topRatedTVQuery.isLoading,
+    airingTodayTVQuery.isLoading,
+    onTheAirTVQuery.isLoading,
   ]);
-  // ===== Loading & Error =====
-  if (
-    trendingMoviesLoading ||
-    topRatedMoviesLoading ||
-    popularMoviesLoading ||
-    trendingTVLoading ||
-    popularTVLoading
-  )
-    return (
-      <CardSkeletonList
-        isLoading={
-          trendingMoviesLoading ||
-          topRatedMoviesLoading ||
-          popularMoviesLoading ||
-          trendingTVLoading ||
-          popularTVLoading
-        }
-      />
-    );
 
-  if (
-    trendingMoviesError ||
-    topRatedMoviesError ||
-    popularMoviesError ||
-    trendingTVError ||
-    popularTVError
-  )
-    return (
-      <ErrorMessage
-        onRetry={
-          popularTVRefetch ||
-          trendingMoviesRefetch ||
-          topRatedMoviesRefetch ||
-          popularMoviesRefetch ||
-          trendingTVRefetch ||
-          popularTVRefetch
-        }
-      />
-    );
+  // ===== Loading & Error Handling =====
+  const isAnyLoading =
+    trendingMoviesWeekQuery.isLoading ||
+    trendingMoviesDayQuery.isLoading ||
+    popularMoviesQuery.isLoading ||
+    topRatedMoviesQuery.isLoading ||
+    upcomingMoviesQuery.isLoading ||
+    nowPlayingMoviesQuery.isLoading ||
+    trendingTVWeekQuery.isLoading ||
+    trendingTVDayQuery.isLoading ||
+    popularTVQuery.isLoading ||
+    topRatedTVQuery.isLoading ||
+    airingTodayTVQuery.isLoading ||
+    onTheAirTVQuery.isLoading;
+
+  const isAnyError =
+    trendingMoviesWeekQuery.isError ||
+    trendingMoviesDayQuery.isError ||
+    popularMoviesQuery.isError ||
+    topRatedMoviesQuery.isError ||
+    upcomingMoviesQuery.isError ||
+    nowPlayingMoviesQuery.isError ||
+    trendingTVWeekQuery.isError ||
+    trendingTVDayQuery.isError ||
+    popularTVQuery.isError ||
+    topRatedTVQuery.isError ||
+    airingTodayTVQuery.isError ||
+    onTheAirTVQuery.isError;
+
+  // ===== Refetch all queries =====
+  const handleRefetchAll = () => {
+    trendingMoviesWeekQuery.refetch();
+    trendingMoviesDayQuery.refetch();
+    popularMoviesQuery.refetch();
+    topRatedMoviesQuery.refetch();
+    upcomingMoviesQuery.refetch();
+    nowPlayingMoviesQuery.refetch();
+    trendingTVWeekQuery.refetch();
+    trendingTVDayQuery.refetch();
+    popularTVQuery.refetch();
+    topRatedTVQuery.refetch();
+    airingTodayTVQuery.refetch();
+    onTheAirTVQuery.refetch();
+  };
+
+  if (isAnyLoading) return <CardSkeletonList isLoading={true} />;
+
+  if (isAnyError) return <ErrorMessage onRetry={handleRefetchAll} />;
+
   return (
     <>
       <HeroSection movies={AllData || []} />
 
+      {/* Movies Sections */}
       <Section
-        Data={trendingMovies || []}
-        title="Trending Movies"
+        Data={trendingMoviesWeekQuery.data || []}
+        title="Trending Movies (Week)"
         isMovie={true}
       />
       <Section
-        Data={topRatedMovies || []}
+        Data={trendingMoviesDayQuery.data || []}
+        title="Trending Movies (Day)"
+        isMovie={true}
+      />
+      <Section
+        Data={popularMoviesQuery.data || []}
+        title="Popular Movies"
+        isMovie={true}
+      />
+      <Section
+        Data={topRatedMoviesQuery.data || []}
         title="Top Rated Movies"
         isMovie={true}
       />
       <Section
-        Data={popularMovies || []}
-        title="Popular Movies"
+        Data={upcomingMoviesQuery.data || []}
+        title="Upcoming Movies"
+        isMovie={true}
+      />
+      <Section
+        Data={nowPlayingMoviesQuery.data || []}
+        title="Now Playing Movies"
         isMovie={true}
       />
 
+      {/* TV Sections */}
       <Section
-        Data={trendingTV || []}
-        title="Trending TV Shows"
+        Data={trendingTVWeekQuery.data || []}
+        title="Trending TV Shows (Week)"
         isMovie={false}
       />
       <Section
-        Data={popularTV || []}
+        Data={trendingTVDayQuery.data || []}
+        title="Trending TV Shows (Day)"
+        isMovie={false}
+      />
+      <Section
+        Data={popularTVQuery.data || []}
         title="Popular TV Shows"
+        isMovie={false}
+      />
+      <Section
+        Data={topRatedTVQuery.data || []}
+        title="Top Rated TV Shows"
+        isMovie={false}
+      />
+      <Section
+        Data={airingTodayTVQuery.data || []}
+        title="Airing Today TV Shows"
+        isMovie={false}
+      />
+      <Section
+        Data={onTheAirTVQuery.data || []}
+        title="On The Air TV Shows"
         isMovie={false}
       />
     </>
