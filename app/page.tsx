@@ -5,6 +5,7 @@ import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
 import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
+import CardSkeletonList from "./Components/Loading/CardSkeletonList";
 
 export default function Home() {
   const [AllData, setAllData] = useState<any[]>([]);
@@ -82,7 +83,17 @@ useEffect(() => {
     trendingTVLoading ||
     popularTVLoading
   )
-    return <p>Loading...</p>;
+    return (
+      <CardSkeletonList
+        isLoading={
+          trendingMoviesLoading ||
+          topRatedMoviesLoading ||
+          popularMoviesLoading ||
+          trendingTVLoading ||
+          popularTVLoading
+        }
+      />
+    );
 
   if (
     trendingMoviesError ||
