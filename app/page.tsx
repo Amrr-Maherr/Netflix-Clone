@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <Section Data={data || []} />
+      <Section Data={data || []} title="Cinema at Your Fingertips"></Section>
     </>
   );
 }

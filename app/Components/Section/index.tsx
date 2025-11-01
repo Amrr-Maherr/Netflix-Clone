@@ -1,4 +1,6 @@
 import React from "react";
+import CardMovie from "../CardMovie/CardMovie";
+import DataList from "./DataList";
 
 type Movie = {
   id: number;
@@ -8,25 +10,18 @@ type Movie = {
 
 type IndexProps = {
   Data: Movie[];
+  title:string
 };
 
-export default function Index({ Data }: IndexProps) {
+export default function Index({ Data,title }: IndexProps) {
   return (
-    <section className="container mx-auto px-4">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        {Data?.map((movie) => (
-          <div key={movie.id} className="bg-gray-800 rounded overflow-hidden">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="w-full h-auto"
-            />
-            <h3 className="text-white mt-2 text-sm font-medium">
-              {movie.title}
-            </h3>
-          </div>
-        ))}
+    <section className="container">
+      <div className="my-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white truncate">
+          {title || "title"}
+        </h1>
       </div>
+      <DataList Data={Data} />
     </section>
   );
 }
