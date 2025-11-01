@@ -4,7 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import "swiper/css/effect-fade";
+import { Pagination, Autoplay, Navigation, EffectFade } from "swiper/modules";
 import { SwiperOptions } from "swiper/types";
 
 interface SliderProps {
@@ -28,34 +29,25 @@ export default function Slider({
 }: SliderProps) {
   return (
     <Swiper
-      slidesPerView={slidesPerViewMobile} // default for mobile
+      slidesPerView={slidesPerViewMobile}
       spaceBetween={spaceBetween}
       autoplay={{
-        delay: 3000,
+        delay: 4000,
         disableOnInteraction: false,
         ...(swiperOptions.autoplay as any),
       }}
       loop={swiperOptions.loop ?? true}
       pagination={swiperOptions.pagination ?? false}
+      speed={swiperOptions.speed ?? 800} // مدة التحول
+      effect={swiperOptions.effect ?? "fade"} // fade effect
+      fadeEffect={{ crossFade: true }} // الانتقال السلس
+      modules={[...modules, EffectFade]} // إضافة موديل fade
       breakpoints={{
-        640: {
-          slidesPerView: Math.min(slidesPerView, 2),
-          spaceBetween: spaceBetween,
-          ...(swiperOptions.breakpoints?.[640] as object),
-        },
-        768: {
-          slidesPerView: Math.min(slidesPerView, 3),
-          spaceBetween: spaceBetween,
-          ...(swiperOptions.breakpoints?.[768] as object),
-        },
-        1024: {
-          slidesPerView: slidesPerView,
-          spaceBetween: spaceBetween,
-          ...(swiperOptions.breakpoints?.[1024] as object),
-        },
+        640: { slidesPerView: Math.min(slidesPerView, 2), spaceBetween },
+        768: { slidesPerView: Math.min(slidesPerView, 3), spaceBetween },
+        1024: { slidesPerView, spaceBetween },
         ...swiperOptions.breakpoints,
       }}
-      modules={modules}
       className={`mySwiper ${className || ""}`}
       {...swiperOptions}
     >
