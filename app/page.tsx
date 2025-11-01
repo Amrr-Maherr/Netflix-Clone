@@ -9,7 +9,7 @@ import CardSkeletonList from "./Components/Loading/CardSkeletonList";
 import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
 
 export default function Home() {
-  const [AllData, setAllData] = useState<object[]>([]);
+  const [AllData, setAllData] = useState<any[]>([]);
   const {
     data: trendingMovies,
     isLoading: trendingMoviesLoading,
