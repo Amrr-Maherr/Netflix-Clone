@@ -40,6 +40,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
               backgroundPosition: "center center",
             }}
           >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
             <div className="text-center px-4 max-w-2xl">
               <SplitText
                 text={movie.title}
