@@ -16,17 +16,22 @@ interface SliderProps {
   className?: string;
   swiperOptions?: SwiperOptions;
   modules?: any[];
+  useFadeEffect?: boolean;
 }
 
 export default function Slider({
   children,
   slidesPerView = 4,
-  spaceBetween = 20,
   slidesPerViewMobile = 1,
+  spaceBetween = 20,
   className,
   swiperOptions = {},
   modules = [Pagination, Autoplay],
+  useFadeEffect = false,
 }: SliderProps) {
+  const effect = useFadeEffect ? "fade" : "slide";
+  const activeModules = useFadeEffect ? [...modules, EffectFade] : modules;
+
   return (
     <Swiper
       slidesPerView={slidesPerViewMobile}
@@ -38,10 +43,10 @@ export default function Slider({
       }}
       loop={swiperOptions.loop ?? true}
       pagination={swiperOptions.pagination ?? false}
-      speed={swiperOptions.speed ?? 800} // مدة التحول
-      effect={swiperOptions.effect ?? "fade"} // fade effect
-      fadeEffect={{ crossFade: true }} // الانتقال السلس
-      modules={[...modules, EffectFade]} // إضافة موديل fade
+      speed={swiperOptions.speed ?? 800}
+      effect={effect}
+      fadeEffect={useFadeEffect ? { crossFade: true } : undefined}
+      modules={activeModules}
       breakpoints={{
         640: { slidesPerView: Math.min(slidesPerView, 2), spaceBetween },
         768: { slidesPerView: Math.min(slidesPerView, 3), spaceBetween },

@@ -59,28 +59,28 @@ export default function Home() {
     queryKey: ["popular-tv"],
     queryFn: () => fetchTvShows({ url: "/tv/popular" }),
   });
-useEffect(() => {
-  if (
-    !trendingMoviesLoading &&
-    !topRatedMoviesLoading &&
-    !popularMoviesLoading
-  ) {
-    setAllData([
-      ...(trendingMovies || []),
-      ...(topRatedMovies || []),
-      ...(popularMovies || []),
-      ...(popularTV || []),
-      ...(trendingTV || []),
-    ]);
-  }
-}, [
-  trendingMovies,
-  topRatedMovies,
-  popularMovies,
-  trendingMoviesLoading,
-  topRatedMoviesLoading,
-  popularMoviesLoading,
-]);
+  useEffect(() => {
+    if (
+      !trendingMoviesLoading &&
+      !topRatedMoviesLoading &&
+      !popularMoviesLoading
+    ) {
+      setAllData([
+        ...(trendingMovies || []),
+        ...(topRatedMovies || []),
+        ...(popularMovies || []),
+        ...(popularTV || []),
+        ...(trendingTV || []),
+      ]);
+    }
+  }, [
+    trendingMovies,
+    topRatedMovies,
+    popularMovies,
+    trendingMoviesLoading,
+    topRatedMoviesLoading,
+    popularMoviesLoading,
+  ]);
   // ===== Loading & Error =====
   if (
     trendingMoviesLoading ||
@@ -145,7 +145,11 @@ useEffect(() => {
         title="Trending TV Shows"
         isMovie={false}
       />
-      <Section Data={popularTV || []} title="Popular TV Shows" isMovie={false} />
+      <Section
+        Data={popularTV || []}
+        title="Popular TV Shows"
+        isMovie={false}
+      />
     </>
   );
 }
