@@ -26,6 +26,7 @@ export default function DataList({ Data, isMovie }: DataListProps) {
               key={movie.id}
               movie={{
                 ...movie,
+                title: movie.title ?? movie.name ?? "Untitled",
                 vote_average: movie.vote_average ?? 0,
                 release_date: movie.release_date ?? "Unknown",
                 overview: movie.overview ?? "No overview available",

@@ -4,7 +4,7 @@ import React from "react";
 import { Star } from "lucide-react";
 type MovieData = {
   id: number;
-  title: string;
+  title?: string;
   poster_path: string;
   vote_average: number;
   release_date: string;
