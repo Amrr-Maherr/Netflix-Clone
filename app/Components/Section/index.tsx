@@ -9,10 +9,11 @@ type Movie = {
 
 type IndexProps = {
   Data: Movie[];
-  title:string
+  title: string;
+  isMovie:boolean
 };
 
-export default function Index({ Data,title }: IndexProps) {
+export default function Index({ Data, title, isMovie }: IndexProps) {
   return (
     <section className="container">
       <div className="my-10">
@@ -20,7 +21,7 @@ export default function Index({ Data,title }: IndexProps) {
           {title || "title"}
         </h1>
       </div>
-      <DataList Data={Data} />
+      <DataList Data={Data} isMovie={isMovie} />
     </section>
   );
 }

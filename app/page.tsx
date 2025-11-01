@@ -96,12 +96,28 @@ useEffect(() => {
     <>
       <HeroSection movies={AllData || []} />
 
-      <Section Data={trendingMovies || []} title="Trending Movies" />
-      <Section Data={topRatedMovies || []} title="Top Rated Movies" />
-      <Section Data={popularMovies || []} title="Popular Movies" />
+      <Section
+        Data={trendingMovies || []}
+        title="Trending Movies"
+        isMovie={true}
+      />
+      <Section
+        Data={topRatedMovies || []}
+        title="Top Rated Movies"
+        isMovie={true}
+      />
+      <Section
+        Data={popularMovies || []}
+        title="Popular Movies"
+        isMovie={true}
+      />
 
-      <Section Data={trendingTV || []} title="Trending TV Shows" />
-      <Section Data={popularTV || []} title="Popular TV Shows" />
+      <Section
+        Data={trendingTV || []}
+        title="Trending TV Shows"
+        isMovie={false}
+      />
+      <Section Data={popularTV || []} title="Popular TV Shows" isMovie={false} />
     </>
   );
 }
