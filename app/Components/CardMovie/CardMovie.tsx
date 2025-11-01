@@ -22,7 +22,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
       <div className="relative w-full h-0 pb-[150%]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title || movie.name}
+          alt="alt_text"
           fill
           className="object-cover rounded"
           quality={100}
