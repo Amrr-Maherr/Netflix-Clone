@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
@@ -7,6 +7,7 @@ import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
 
 export default function Home() {
+  const [AllData, setAllData] = useState<any[]>([]);
   const {
     data: trendingMovies,
     isLoading: trendingMoviesLoading,
@@ -34,7 +35,6 @@ export default function Home() {
     queryFn: () => fetchMovies({ url: "/movie/popular" }),
   });
 
-
   const {
     data: trendingTV,
     isLoading: trendingTVLoading,
@@ -52,7 +52,26 @@ export default function Home() {
     queryKey: ["popular-tv"],
     queryFn: () => fetchTvShows({ url: "/tv/popular" }),
   });
-
+useEffect(() => {
+  if (
+    !trendingMoviesLoading &&
+    !topRatedMoviesLoading &&
+    !popularMoviesLoading
+  ) {
+    setAllData([
+      ...(trendingMovies || []),
+      ...(topRatedMovies || []),
+      ...(popularMovies || []),
+    ]);
+  }
+}, [
+  trendingMovies,
+  topRatedMovies,
+  popularMovies,
+  trendingMoviesLoading,
+  topRatedMoviesLoading,
+  popularMoviesLoading,
+]);
   // ===== Loading & Error =====
   if (
     trendingMoviesLoading ||
@@ -71,10 +90,9 @@ export default function Home() {
     popularTVError
   )
     return <p>Something went wrong 😢</p>;
-
   return (
     <>
-      <HeroSection />
+      <HeroSection movies={AllData || []} />
 
       <Section Data={trendingMovies || []} title="Trending Movies" />
       <Section Data={topRatedMovies || []} title="Top Rated Movies" />
