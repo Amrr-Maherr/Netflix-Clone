@@ -17,11 +17,9 @@ type IndexProps = {
 };
 
 export default function Index({ Data, title, isMovie, animationText }: IndexProps) {
-  console.log("re");
-
   return (
     <section className="container">
-      <div className="my-10 flex items-center justify-end flex-row-reverse gap-2">
+      <div className="my-10 flex items-center justify-end flex-row-reverse gap-2 flex-wrap">
         <RotatingText
           texts={[
             "Trending",
@@ -43,7 +41,7 @@ export default function Index({ Data, title, isMovie, animationText }: IndexProp
             "Adventure",
             "Unmissable",
           ]}
-          mainClassName="text-3xl md:text-5xl font-bold mb-4 text-white text-start!"
+          mainClassName="text-3xl md:text-5xl font-bold mb-4 text-white text-start! bg-red-500 p-2 rounded-lg"
           staggerFrom={"random"}
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
