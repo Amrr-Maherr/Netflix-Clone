@@ -14,6 +14,7 @@ export default function Home() {
     data: trendingMovies,
     isLoading: trendingMoviesLoading,
     isError: trendingMoviesError,
+    refetch: trendingMoviesRefetch,
   } = useQuery({
     queryKey: ["trending-movies"],
     queryFn: () => fetchMovies({ url: "/trending/movie/week" }),
@@ -23,6 +24,7 @@ export default function Home() {
     data: topRatedMovies,
     isLoading: topRatedMoviesLoading,
     isError: topRatedMoviesError,
+    refetch: topRatedMoviesRefetch,
   } = useQuery({
     queryKey: ["top-rated-movies"],
     queryFn: () => fetchMovies({ url: "/movie/top_rated" }),
@@ -32,6 +34,7 @@ export default function Home() {
     data: popularMovies,
     isLoading: popularMoviesLoading,
     isError: popularMoviesError,
+    refetch: popularMoviesRefetch,
   } = useQuery({
     queryKey: ["popular-movies"],
     queryFn: () => fetchMovies({ url: "/movie/popular" }),
@@ -41,6 +44,7 @@ export default function Home() {
     data: trendingTV,
     isLoading: trendingTVLoading,
     isError: trendingTVError,
+    refetch: trendingTVRefetch,
   } = useQuery({
     queryKey: ["trending-tv"],
     queryFn: () => fetchTvShows({ url: "/trending/tv/week" }),
@@ -50,9 +54,10 @@ export default function Home() {
     data: popularTV,
     isLoading: popularTVLoading,
     isError: popularTVError,
+    refetch: popularTVRefetch,
   } = useQuery({
     queryKey: ["popular-tv"],
-    queryFn: () => fetchTvShows({ url: "/tv/popular" }),
+    queryFn: () => fetchTvShows({ url: "/tv/popul" }),
   });
 useEffect(() => {
   if (
@@ -103,7 +108,18 @@ useEffect(() => {
     trendingTVError ||
     popularTVError
   )
-    return <ErrorMessage/>;
+    return (
+      <ErrorMessage
+        onRetry={
+          popularTVRefetch ||
+          trendingMoviesRefetch ||
+          topRatedMoviesRefetch ||
+          popularMoviesRefetch ||
+          trendingTVRefetch ||
+          popularTVRefetch
+        }
+      />
+    );
   return (
     <>
       <HeroSection movies={AllData || []} />

@@ -30,7 +30,7 @@ export default function ErrorMessage({ message, onRetry }: ErrorMessageProps) {
       {onRetry && (
         <Button
           onClick={onRetry}
-          className="mt-4 bg-red-600 hover:bg-red-700 text-white"
+          className="mt-4 bg-red-600 hover:bg-red-700 text-white cursor-pointer"
         >
           Retry
         </Button>
