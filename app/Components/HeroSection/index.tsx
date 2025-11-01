@@ -41,7 +41,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-            <div className="text-center px-4 max-w-2xl">
+            <div className="text-center px-4 max-w-2xl z-50">
               <SplitText
                 text={movie.title}
                 className="text-3xl md:text-5xl font-bold mb-4"
