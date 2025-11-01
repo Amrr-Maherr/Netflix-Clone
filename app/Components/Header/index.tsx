@@ -8,8 +8,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="container">
-      <nav className="flex items-center justify-between md:justify-start gap-5 fixed z-30 top-0 left-0 right-0  p-4">
+    <header>
+      <nav className="flex container items-center justify-between md:justify-start gap-5 fixed z-30 top-0 left-0 right-0 pt-4">
         <Logo />
 
         {/* Large screens */}
