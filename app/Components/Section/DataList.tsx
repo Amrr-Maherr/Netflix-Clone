@@ -18,7 +18,15 @@ export default function DataList({ Data }: DataListProps) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-8">
       {Data?.map((movie) => (
-        <CardMovie key={movie.id} movie={movie} />
+        <CardMovie
+          key={movie.id}
+          movie={{
+            ...movie,
+            vote_average: movie.vote_average ?? 0,
+            release_date: movie.release_date ?? "Unknown",
+            overview: movie.overview ?? "No overview available",
+          }}
+        />
       ))}
     </div>
   );
