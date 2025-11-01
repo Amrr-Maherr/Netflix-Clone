@@ -57,7 +57,7 @@ export default function Home() {
     refetch: popularTVRefetch,
   } = useQuery({
     queryKey: ["popular-tv"],
-    queryFn: () => fetchTvShows({ url: "/tv/popul" }),
+    queryFn: () => fetchTvShows({ url: "/tv/popular" }),
   });
 useEffect(() => {
   if (
