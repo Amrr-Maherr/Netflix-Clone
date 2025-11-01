@@ -33,14 +33,15 @@ export default function HeroSection({ movies }: HeroSectionProps) {
         {movies.map((movie, index) => (
           <div
             key={index}
-            className="relative w-full h-screen flex items-center justify-center bg-black/50 text-white"
+            className="relative w-full min-h-screen flex items-center justify-center bg-black/50 text-white"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
               backgroundSize: "cover",
-              backgroundPosition: "center center",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
             <div className="text-center px-4 max-w-2xl z-50">
               <SplitText
                 text={movie.title}
