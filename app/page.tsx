@@ -6,6 +6,7 @@ import Section from "../app/Components/Section";
 import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
+import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
 
 export default function Home() {
   const [AllData, setAllData] = useState<any[]>([]);
@@ -102,7 +103,7 @@ useEffect(() => {
     trendingTVError ||
     popularTVError
   )
-    return <p>Something went wrong 😢</p>;
+    return <ErrorMessage/>;
   return (
     <>
       <HeroSection movies={AllData || []} />
