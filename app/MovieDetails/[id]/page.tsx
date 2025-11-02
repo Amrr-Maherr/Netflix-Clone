@@ -62,7 +62,7 @@ export default function Page() {
         trailer={trailer}
       />
 
-      <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
+      <div className="mx-auto py-12 space-y-12 container">
         <OverviewSection overview={movie.overview} />
         <GenresSection genres={movie.genres} />
         {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />}
