@@ -25,7 +25,7 @@ export default function HeroSection({
 
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-end">
-              <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700">
+              <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 hidden md:block">
                 <Image
                   src={posterUrl}
                   alt={movie.title}
