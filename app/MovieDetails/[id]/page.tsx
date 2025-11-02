@@ -65,7 +65,7 @@ export default function Page() {
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
         <OverviewSection overview={movie.overview} />
         <GenresSection genres={movie.genres} />
-        {trailer && <TrailerSection trailerUrl={trailerUrl} />}
+        {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />}
         {movie.credits?.cast && <CastSection cast={movie.credits.cast} />}
         {movie.credits?.crew && <CrewSection crew={movie.credits.crew} />}
         {movie.images?.backdrops && (
