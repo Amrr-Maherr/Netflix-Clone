@@ -1,7 +1,8 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import {
   Select,
   SelectContent,
@@ -23,7 +24,7 @@ export default function Footer() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.1, duration: 0.4, ease: "easeOut" },
+      transition: { delay: i * 0.1, duration: 0.4, ease: easeOut },
     }),
   };
 
@@ -32,19 +33,18 @@ export default function Footer() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.05, duration: 0.3, ease: "easeOut" },
+      transition: { delay: i * 0.05, duration: 0.3, ease: easeOut },
     }),
     hover: {
       y: -2,
       opacity: 1,
-      transition: { duration: 0.2, ease: "easeOut" },
+      transition: { duration: 0.2, ease: easeOut },
     },
   };
 
   return (
     <footer className="bg-black text-gray-400 py-10 text-sm">
       <div className="container">
-        {/* Contact Section */}
         <motion.p
           className="mb-6"
           initial={{ opacity: 0, y: 5 }}
@@ -57,7 +57,6 @@ export default function Footer() {
           </Link>
         </motion.p>
 
-        {/* Links Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
           {footerLinks.map((group, i) => (
             <motion.ul
@@ -87,7 +86,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Language Selector with ShadCN Select */}
         <motion.div
           className="mb-6 w-[200px]"
           initial={{ opacity: 0, y: 5 }}
@@ -105,7 +103,6 @@ export default function Footer() {
           </Select>
         </motion.div>
 
-        {/* Footer Note */}
         <motion.p
           className="text-gray-500"
           initial={{ opacity: 0, y: 5 }}
