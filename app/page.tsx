@@ -91,16 +91,16 @@ export default function Home() {
     ) {
       setAllData([
         ...(trendingMoviesWeekQuery.data || []),
-        ...(trendingMoviesDayQuery.data || []),
-        ...(popularMoviesQuery.data || []),
-        ...(topRatedMoviesQuery.data || []),
-        ...(upcomingMoviesQuery.data || []),
-        ...(nowPlayingMoviesQuery.data || []),
         ...(trendingTVWeekQuery.data || []),
+        ...(trendingMoviesDayQuery.data || []),
         ...(trendingTVDayQuery.data || []),
+        ...(popularMoviesQuery.data || []),
         ...(popularTVQuery.data || []),
+        ...(topRatedMoviesQuery.data || []),
         ...(topRatedTVQuery.data || []),
+        ...(upcomingMoviesQuery.data || []),
         ...(airingTodayTVQuery.data || []),
+        ...(nowPlayingMoviesQuery.data || []),
         ...(onTheAirTVQuery.data || []),
       ]);
     }
