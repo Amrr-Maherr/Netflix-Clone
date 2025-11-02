@@ -19,7 +19,7 @@ type IndexProps = {
 export default function Index({ Data, title, isMovie, animationText }: IndexProps) {
   return (
     <section className="container">
-      <div className="my-10 flex items-center justify-end flex-row-reverse gap-2 flex-wrap">
+      <div className="my-10 flex items-center justify-end gap-2 flex-wrap flex-col md:flex-row-reverse">
         <RotatingText
           texts={[
             "Trending",
@@ -41,15 +41,16 @@ export default function Index({ Data, title, isMovie, animationText }: IndexProp
             "Adventure",
             "Unmissable",
           ]}
-          mainClassName="text-3xl md:text-5xl font-bold mb-4 text-white text-start! bg-red-500 p-2 rounded-lg"
+          className="text-3xl md:text-5xl font-bold mb-4 text-white text-start! bg-red-500 p-2 rounded-lg transition duration-3"
           staggerFrom={"random"}
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
           exit={{ y: "-120%" }}
           staggerDuration={0.025}
           splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+          transition={{ type: "spring", damping: 25, stiffness: 150 }}
           rotationInterval={2000}
+          loop
         />
         <SplitText
           text={title || "title"}

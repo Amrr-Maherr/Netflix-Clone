@@ -32,14 +32,14 @@ export default function CardMovie({ movie }: CardMovieProps) {
       </div>
 
       {/* Info under image */}
-      <div className="p-2">
+      {/* <div className="p-2">
         <h3 className="text-white mt-2 text-sm font-medium truncate">
           {movie.title}
         </h3>
         <p className="text-gray-400 text-xs my-1">
           Vote Average: {movie.vote_average.toFixed(1)}
         </p>
-      </div>
+      </div> */}
 
       {/* Overlay on hover */}
       <div className="absolute inset-0 bg-black bg-opacity-80 text-white p-3 opacity-0 group-hover:opacity-95 transition-all duration-300 flex flex-col justify-end rounded">

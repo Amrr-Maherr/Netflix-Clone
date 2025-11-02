@@ -21,7 +21,7 @@ type DataListProps = {
 export default function DataList({ Data, isMovie }: DataListProps) {
   return (
     <Slider
-      slidesPerView={8}
+      slidesPerView={6}
       slidesPerViewMobile={1.5}
       spaceBetween={20}
       swiperOptions={{ autoplay: { delay: 3000 }, loop: true }}
