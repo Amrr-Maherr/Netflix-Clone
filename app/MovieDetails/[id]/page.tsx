@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import FetchProductDetails from "@/Api/FetchProductDetails";
+import FetchProductDetails from "@/Api/FetchMovieDetails";
 import HeroSection from "./components/HeroSection";
 import OverviewSection from "./components/OverviewSection";
 import GenresSection from "./components/GenresSection";
