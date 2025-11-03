@@ -53,7 +53,11 @@ export default function Page() {
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : "/placeholder-poster.jpg";
 
-  const trailer = movie.videos?.results?.[0];
+  const trailer =
+    movie.videos?.results?.[0] ||
+    movie.videos?.results?.[1] ||
+    movie.videos?.results?.[2] ||
+    movie.videos?.results?.[3];
   const trailerUrl = trailer
     ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=0`
     : null;

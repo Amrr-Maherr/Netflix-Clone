@@ -21,13 +21,11 @@ export default function ProductionCompaniesSection({
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Production Companies</h2>
 
-      {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"> */}
-      <Slider>
-        {" "}
+      <Slider slidesPerView={4} spaceBetween={20}>
         {companies.map((company) => (
           <div
             key={company.id}
-            className="bg-gray-900 rounded-xl p-4 flex flex-col items-center justify-center text-center border border-gray-800 hover:border-gray-700 transition"
+            className="bg-[#141414] rounded-xl p-6 flex flex-col items-center justify-center text-center border border-gray-800 hover:border-gray-700 hover:shadow-lg transition"
           >
             {company.logo_path ? (
               <div className="relative w-32 h-16 mb-3">
@@ -51,8 +49,6 @@ export default function ProductionCompaniesSection({
           </div>
         ))}
       </Slider>
-
-      {/* </div> */}
     </section>
   );
 }
