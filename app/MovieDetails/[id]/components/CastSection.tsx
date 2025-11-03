@@ -11,7 +11,7 @@ export default function CastSection({ cast }: { cast: any[] }) {
         {cast.map((actor) => (
           <div
             key={actor.cast_id}
-            className="bg-gray-800 rounded-lg overflow-hidden hover:scale-105 transition duration-300"
+            className="rounded-lg overflow-hidden hover:scale-105 transition duration-300"
           >
             {actor.profile_path ? (
               <Image
@@ -19,7 +19,7 @@ export default function CastSection({ cast }: { cast: any[] }) {
                 alt={actor.name}
                 width={200}
                 height={300}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-contain"
               />
             ) : (
               <div className="bg-gray-700 h-48 flex items-center justify-center">
