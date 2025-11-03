@@ -32,7 +32,7 @@ export default function ReviewsSection({
       <h2 className="text-2xl font-bold mb-6">Reviews</h2>
 
       <Slider
-        slidesPerView={2}
+        slidesPerView={3}
         spaceBetween={20}
         swiperOptions={{
           autoplay: { delay: 5000 },

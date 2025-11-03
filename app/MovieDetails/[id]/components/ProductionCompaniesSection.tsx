@@ -1,5 +1,6 @@
 "use client";
 
+import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 
 interface Company {
@@ -20,7 +21,9 @@ export default function ProductionCompaniesSection({
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Production Companies</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"> */}
+      <Slider>
+        {" "}
         {companies.map((company) => (
           <div
             key={company.id}
@@ -47,7 +50,9 @@ export default function ProductionCompaniesSection({
             </span>
           </div>
         ))}
-      </div>
+      </Slider>
+
+      {/* </div> */}
     </section>
   );
 }
