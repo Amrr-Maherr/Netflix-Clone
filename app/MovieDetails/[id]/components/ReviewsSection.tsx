@@ -36,80 +36,75 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
       >
         {reviews.map((review) => {
           const avatarSrc = review.author_details.avatar_path
-            ? review.author_details.avatar_path.startsWith("/")
-              ? `https://image.tmdb.org/t/p/w200${review.author_details.avatar_path}`
-              : review.author_details.avatar_path
+            ? review.author_details.avatar_path.startsWith("/https")
+              ? review.author_details.avatar_path.slice(1)
+              : `https://image.tmdb.org/t/p/w200${review.author_details.avatar_path}`
             : "/default-avatar.png";
+
+          // Fix: ensure rating is a number
+          const rating = review.author_details.rating ?? 0;
 
           return (
             <div
               key={review.id}
-              className="bg-[#141414] rounded-2xl p-6 shadow-md border border-gray-800 hover:border-gray-700 transition flex flex-col justify-between"
+              className="bg-gray-900 rounded-xl p-6 shadow-md border border-gray-800 hover:border-gray-700 transition flex flex-col justify-between"
             >
               {/* Author Info */}
               <div className="flex items-center gap-4 mb-4">
                 <Image
                   src={avatarSrc}
                   alt={review.author}
-                  width={60}
-                  height={60}
-                  className="rounded-full border border-gray-700 object-cover"
+                  width={50}
+                  height={50}
+                  className="rounded-full border border-gray-700"
                   priority
                   quality={100}
                 />
-                <div className="flex flex-col">
-                  <h3 className="text-lg font-semibold text-white">
+                <div>
+                  <h3 className="text-lg font-semibold text-red-500">
                     {review.author}
                   </h3>
                   {review.author_details.name && (
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-sm text-gray-400">
                       {review.author_details.name}
                     </p>
                   )}
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-sm text-gray-400">
                     @{review.author_details.username}
                   </p>
                 </div>
               </div>
 
               {/* Review Content */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-6">
-                {review.content}
+              <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                {review.content.length > 500
+                  ? review.content.slice(0, 500) + "..."
+                  : review.content}
               </p>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-3">
-                {review.author_details.rating !== null ? (
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: 10 }).map((_, i) => (
-                      <span
-                        key={i}
-                        className={`w-3 h-3 inline-block rounded-full ${
-                          i < review.author_details.rating
-                            ? "bg-yellow-400"
-                            : "bg-gray-700"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <span className="text-gray-500 italic text-sm">
-                    No rating
-                  </span>
-                )}
+              {/* Netflix-style Rating */}
+              <div className="flex items-center gap-1 mb-4">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`w-3 h-3 inline-block rounded-full ${
+                      i < rating ? "bg-yellow-400" : "bg-gray-700"
+                    }`}
+                  />
+                ))}
               </div>
 
               {/* Date */}
-              <span className="text-gray-400 text-xs">
+              <span className="text-gray-400 text-sm mb-2">
                 {new Date(review.created_at).toLocaleDateString()}
               </span>
 
-              {/* Link */}
+              {/* Link to full review */}
               <a
                 href={review.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-red-500 text-sm mt-3 inline-block hover:underline"
+                className="text-blue-400 text-sm mt-2 inline-block hover:underline"
               >
                 Read full review →
               </a>

@@ -26,6 +26,7 @@ import NetworksSection from "../components/NetworksSection";
 import ProductionCountriesSection from "../components/ProductionCountriesSection";
 import KeywordsSection from "../components/KeywordsSection";
 import ContentRatingSection from "../components/ContentRatingSection";
+import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 
 export default function TvPage() {
   const { id } = useParams();
@@ -50,9 +51,7 @@ export default function TvPage() {
 
   if (isError || !tv)
     return (
-      <div className="flex items-center justify-center h-screen bg-black text-red-500 text-xl">
-        Error loading TV show data
-      </div>
+      <ErrorMessage/>
     );
 
   const backdropUrl = tv.backdrop_path
