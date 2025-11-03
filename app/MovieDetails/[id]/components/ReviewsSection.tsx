@@ -83,16 +83,18 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
               </p>
 
               {/* Netflix-style Rating */}
-              <div className="flex items-center gap-1 mb-4">
+              {/* <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: 10 }).map((_, i) => (
                   <span
                     key={i}
                     className={`w-3 h-3 inline-block rounded-full ${
-                      i < rating ? "bg-yellow-400" : "bg-gray-700"
+                      i < (review.author_details.rating ?? 0)
+                        ? "bg-yellow-400"
+                        : "bg-gray-700"
                     }`}
                   />
                 ))}
-              </div>
+              </div> */}
 
               {/* Date */}
               <span className="text-gray-400 text-sm mb-2">
