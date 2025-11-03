@@ -85,12 +85,14 @@ export default function Page() {
         {/* 4. Similar + Recommended Movies */}
         {movie.similar?.results && (
           <SimilarMoviesSection
+            shows={[]}
             movies={movie.similar.results}
             title="Similar Movies"
           />
         )}
         {movie.recommendations?.results && (
           <SimilarMoviesSection
+            shows={[]}
             movies={movie.recommendations?.results}
             title="Recommended Movies"
           />
