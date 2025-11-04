@@ -7,6 +7,7 @@ import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
 import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
+import NetflixIntroLoader from "./Components/Loading/NetflixIntroLoader";
 
 export default function Home() {
   const [AllData, setAllData] = useState<any[]>([]);
@@ -176,7 +177,7 @@ export default function Home() {
     onTheAirTVQuery.refetch();
   };
 
-  if (isAnyLoading) return <CardSkeletonList isLoading={true} />;
+  if (isAnyLoading) return <NetflixIntroLoader/>;
 
   if (isAnyError) return <ErrorMessage onRetry={handleRefetchAll} />;
 

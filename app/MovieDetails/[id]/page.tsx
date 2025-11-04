@@ -16,6 +16,7 @@ import ProductionCompaniesSection from "./components/ProductionCompaniesSection"
 import WatchProvidersSection from "./components/WatchProvidersSection";
 import ProvidersSection from "./components/ProvidersSection";
 import CrewSection from "./components/CrewSection";
+import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 
 export default function Page() {
   const { id } = useParams();
@@ -32,10 +33,7 @@ export default function Page() {
 
   if (isLoading)
     return (
-      <div className="flex items-center justify-center h-screen bg-black text-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
-        <span className="ml-3 text-xl">Loading movie details…</span>
-      </div>
+      <NetflixIntroLoader/>
     );
 
   if (isError || !movie)

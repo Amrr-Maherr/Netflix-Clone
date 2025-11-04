@@ -27,6 +27,7 @@ import ProductionCountriesSection from "../components/ProductionCountriesSection
 import KeywordsSection from "../components/KeywordsSection";
 import ContentRatingSection from "../components/ContentRatingSection";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
+import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 
 export default function TvPage() {
   const { id } = useParams();
@@ -43,10 +44,7 @@ export default function TvPage() {
 
   if (isLoading)
     return (
-      <div className="flex items-center justify-center h-screen bg-black text-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
-        <span className="ml-3 text-xl">Loading TV show details…</span>
-      </div>
+      <NetflixIntroLoader/>
     );
 
   if (isError || !tv)
