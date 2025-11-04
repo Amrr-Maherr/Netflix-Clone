@@ -7,7 +7,7 @@ export default function CreatedBySection({ creators }: { creators: any[] }) {
   if (!creators?.length) return null;
 
   return (
-    <div className="bg-black p-6 rounded-2xl">
+    <div className="bg-black rounded-2xl">
       <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white drop-shadow">
         Created By
       </h2>
@@ -30,7 +30,7 @@ export default function CreatedBySection({ creators }: { creators: any[] }) {
                 </div>
               ) : (
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gray-700 mb-2 flex items-center justify-center text-gray-300">
-                  N/A
+                  {creator.name.slice(0,1)}
                 </div>
               )}
               <p className="text-white font-medium text-sm md:text-base drop-shadow">

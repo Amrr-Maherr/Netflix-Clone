@@ -41,7 +41,7 @@ export default function Index({ Data, title, isMovie, animationText }: IndexProp
             "Adventure",
             "Unmissable",
           ]}
-          className="text-3xl md:text-5xl font-bold mb-4 text-white text-start! bg-red-500 p-2 rounded-lg transition duration-3"
+          className="text-3xl md:text-5xl font-bold mb-4 text-red-500 text-start!  p-2 rounded-lg transition duration-3"
           staggerFrom={"random"}
           initial={{ y: "100%" }}
           animate={{ y: 0 }}

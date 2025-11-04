@@ -5,7 +5,7 @@ export default function TrailerSection({ trailerUrl }: { trailerUrl: string }) {
       <div
         className="
           relative w-full rounded-xl overflow-hidden shadow-2xl
-          aspect-video sm:aspect-[4/3] md:aspect-[16/9]
+          aspect-video sm:aspect-[4/3] md:aspect-[16/6]
         "
       >
         <iframe
