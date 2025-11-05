@@ -19,12 +19,12 @@ type CardTvShowProps = {
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
   return (
-    <Link href={`/TvShowDetails/${TvShow.id}`}>
+    <Link href={`/TvShowDetails/${TvShow?.id}`}>
       <div className="relative bg-zinc-900 rounded-md overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
         {/* Poster */}
         <div className="relative w-full h-0 pb-[150%]">
           <Image
-            src={`https://image.tmdb.org/t/p/w500${TvShow.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${TvShow?.poster_path}`}
             alt={TvShow.name || "TV Show Poster"}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -36,29 +36,29 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         {/* Netflix-like fade overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">
           <h3 className="text-white text-sm md:text-base font-semibold mb-1 truncate drop-shadow-md">
-            {TvShow.name}
+            {TvShow?.name}
           </h3>
 
           <div className="flex items-center text-gray-300 text-xs gap-3 mb-2">
             <span className="flex items-center gap-1">
               <Star size={14} className="text-yellow-400" />
-              {TvShow.vote_average.toFixed(1)}
+              {TvShow?.vote_average.toFixed(1)}
             </span>
 
             {TvShow.first_air_date && (
-              <span>{TvShow.first_air_date.slice(0, 4)}</span>
+              <span>{TvShow?.first_air_date.slice(0, 4)}</span>
             )}
 
             {TvShow.popularity && (
               <span className="flex items-center gap-1">
                 <Flame size={14} className="text-red-500" />
-                {TvShow.popularity.toFixed(0)}
+                {TvShow?.popularity.toFixed(0)}
               </span>
             )}
           </div>
 
           <p className="text-gray-300 text-xs mb-3 line-clamp-3 leading-snug">
-            {TvShow.overview}
+            {TvShow?.overview}
           </p>
 
           <Button className="bg-red-600 hover:bg-red-700 text-white text-xs px-4 py-1.5 rounded-sm w-fit transition-all duration-300 flex items-center gap-1">

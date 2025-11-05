@@ -71,7 +71,7 @@ export default function Page() {
 
       <div className="mx-auto py-12 space-y-12 container">
         {/* 1. Cast before Overview like Netflix */}
-        {movie.credits?.cast && <CastSection cast={movie.credits.cast} />}
+        {movie?.credits?.cast && <CastSection cast={movie.credits.cast} />}
 
         {/* 2. Overview + Genres */}
         <OverviewSection overview={movie.overview} />
@@ -84,14 +84,14 @@ export default function Page() {
         {movie.similar?.results && (
           <SimilarMoviesSection
             shows={[]}
-            movies={movie.similar.results}
+            movies={movie?.similar?.results}
             title="Similar Movies"
           />
         )}
         {movie.recommendations?.results && (
           <SimilarMoviesSection
             shows={[]}
-            movies={movie.recommendations?.results}
+            movies={movie?.recommendations?.results}
             title="Recommended Movies"
           />
         )}
@@ -99,35 +99,35 @@ export default function Page() {
         {/* 5. Images + Videos */}
         {movie.images?.backdrops && (
           <ImagesSection
-            backdrops={movie.images.backdrops}
-            logos={movie.images.logos}
-            posters={movie.images.posters}
+            backdrops={movie?.images?.backdrops}
+            logos={movie?.images?.logos}
+            posters={movie?.images?.posters}
           />
         )}
         {movie.videos?.results && (
-          <VideosSection videos={movie.videos.results} />
+          <VideosSection videos={movie?.videos?.results} />
         )}
 
         {/* 6. Reviews */}
         {movie.reviews?.results && (
-          <ReviewsSection reviews={movie.reviews.results} />
+          <ReviewsSection reviews={movie?.reviews?.results} />
         )}
 
         {/* 7. Production + Watch Providers */}
         {movie.production_companies && (
-          <ProductionCompaniesSection companies={movie.production_companies} />
+          <ProductionCompaniesSection companies={movie?.production_companies} />
         )}
         {movie["watch/providers"]?.results && (
           <>
-            <ProvidersSection providers={movie["watch/providers"].results} />
+            <ProvidersSection providers={movie["watch/providers"]?.results} />
             <WatchProvidersSection
-              providers={movie["watch/providers"].results}
+              providers={movie["watch/providers"]?.results}
             />
           </>
         )}
 
         {/* 8. Crew Section (Extra Data if exists) */}
-        {movie.credits?.crew && <CrewSection crew={movie.credits.crew} />}
+        {movie?.credits?.crew && <CrewSection crew={movie?.credits.crew} />}
       </div>
     </div>
   );
