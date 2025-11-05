@@ -14,10 +14,11 @@ export default function NetflixIntroLoader() {
             width={300}
             height={300}
             priority
-            className="w-48 sm:w-64 md:w-80 object-contain mx-auto select-none pointer-events-none"
+            quality={100}
+            className="w-48 sm:w-64 md:w-80 object-contain mx-auto select-none pointer-events-none animate-pulse"
           />
         </div>
-        <div className="absolute inset-0 bg-red-700 blur-3xl opacity-30 animate-pulse rounded-full"></div>
+        {/* <div className="absolute inset-0 bg-red-700 blur-3xl opacity-30 animate-pulse rounded-full"></div> */}
       </div>
     </div>
   );
