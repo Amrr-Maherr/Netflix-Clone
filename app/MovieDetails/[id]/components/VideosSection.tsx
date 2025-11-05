@@ -1,5 +1,6 @@
 "use client";
 
+import Slider from "@/app/Components/Slider/Slider";
 import React from "react";
 
 interface Video {
@@ -17,7 +18,11 @@ export default function VideosSection({ videos }: { videos: Video[] }) {
     <section className="py-8">
       <h2 className="text-2xl font-bold mb-6">Videos & Trailers</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> */}
+      <Slider
+        slidesPerView={videos.length > 4 ? 3 : 2}
+        slidesPerViewMobile={1.5}
+      >
         {videos.map((video) => (
           <div
             key={video.id}
@@ -37,7 +42,8 @@ export default function VideosSection({ videos }: { videos: Video[] }) {
             </div>
           </div>
         ))}
-      </div>
+      </Slider>
+      {/* </div> */}
     </section>
   );
 }
