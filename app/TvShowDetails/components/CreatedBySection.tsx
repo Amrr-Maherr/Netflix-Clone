@@ -7,39 +7,42 @@ export default function CreatedBySection({ creators }: { creators: any[] }) {
   if (!creators?.length) return null;
 
   return (
-    <div className="bg-black rounded-2xl">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white drop-shadow">
+    <section className="py-10">
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
         Created By
       </h2>
 
-      <Slider>
-        <div className="flex gap-4 py-2">
-          {creators.map((creator) => (
-            <div
-              key={creator.id}
-              className="flex-shrink-0 w-32 md:w-40 bg-black rounded-lg p-3 flex flex-col items-center text-center hover:scale-105 transition-transform cursor-pointer"
-            >
-              {creator.profile_path ? (
-                <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden mb-2">
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w300${creator.profile_path}`}
-                    alt={creator.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gray-700 mb-2 flex items-center justify-center text-gray-300">
-                  {creator.name.slice(0,1)}
-                </div>
-              )}
-              <p className="text-white font-medium text-sm md:text-base drop-shadow">
+      <Slider slidesPerView={6} slidesPerViewMobile={2} spaceBetween={20}>
+        {creators.map((creator) => (
+          <div
+            key={creator.id}
+            className="bg-zinc-900 rounded-xl overflow-hidden transition-transform duration-300 cursor-pointer"
+          >
+            {creator.profile_path ? (
+              <Image
+                src={`https://image.tmdb.org/t/p/w300${creator.profile_path}`}
+                alt={creator.name}
+                width={300}
+                height={450}
+                quality={100}
+                priority
+                className="w-full h-48 sm:h-56 md:h-64 object-cover"
+              />
+            ) : (
+              <div className="bg-zinc-800 h-48 sm:h-56 md:h-64 flex items-center justify-center">
+                <span className="text-gray-500 text-sm">No Image</span>
+              </div>
+            )}
+
+            <div className="p-3 text-center">
+              <p className="font-semibold text-sm text-white truncate">
                 {creator.name}
               </p>
+              <p className="text-xs text-gray-400 truncate">Creator</p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </Slider>
-    </div>
+    </section>
   );
 }

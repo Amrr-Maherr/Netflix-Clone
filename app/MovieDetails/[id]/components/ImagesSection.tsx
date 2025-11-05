@@ -40,7 +40,7 @@ export default function ImagesSection({
       {backdrops?.length > 0 && (
         <div>
           <h3 className="text-xl font-semibold mb-3">Cinematic Scenes</h3>
-          <Slider>
+          <Slider slidesPerView={6} slidesPerViewMobile={1.5}>
             {backdrops.map((img, i) => (
               <div
                 key={i}
@@ -66,7 +66,7 @@ export default function ImagesSection({
             {" "}
             Official Titles & Logos
           </h3>
-          <Slider>
+          <Slider slidesPerView={6} slidesPerViewMobile={1.5}>
             {logos.map((img, i) => (
               <div
                 key={i}
@@ -90,7 +90,7 @@ export default function ImagesSection({
       {posters?.length > 0 && (
         <div>
           <h3 className="text-xl font-semibold mb-3"> Featured Posters</h3>
-          <Slider>
+          <Slider slidesPerView={6} slidesPerViewMobile={1.5}>
             {posters.map((img, i) => (
               <div
                 key={i}

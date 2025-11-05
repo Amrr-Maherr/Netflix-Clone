@@ -13,48 +13,21 @@ type IndexProps = {
   Data: Movie[];
   title: string;
   animationText?: [];
-  isMovie:boolean
+  isMovie: boolean;
 };
 
-export default function Index({ Data, title, isMovie, animationText }: IndexProps) {
+export default function Index({
+  Data,
+  title,
+  isMovie,
+  animationText,
+}: IndexProps) {
   return (
-    <section className="container">
-      <div className="my-10 flex items-center justify-end gap-2 flex-wrap flex-col md:flex-row-reverse">
-        <RotatingText
-          texts={[
-            "Trending",
-            "Popular",
-            "Top Rated",
-            "Must Watch",
-            "New",
-            "Hot",
-            "Blockbuster",
-            "Binge",
-            "Epic",
-            "Critics' Choice",
-            "Fan Favorite",
-            "Now Showing",
-            "Action",
-            "Drama",
-            "Comedy",
-            "Thriller",
-            "Adventure",
-            "Unmissable",
-          ]}
-          className="text-3xl md:text-5xl font-bold mb-4 text-red-500 text-start!  p-2 rounded-lg transition duration-3"
-          staggerFrom={"random"}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "-120%" }}
-          staggerDuration={0.025}
-          splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-          transition={{ type: "spring", damping: 25, stiffness: 150 }}
-          rotationInterval={2000}
-          loop
-        />
+    <section className="container mx-auto px-4">
+      <div className="my-12 flex flex-col md:flex-row items-center md:items-end justify-between gap-4">
         <SplitText
-          text={title || "title"}
-          className="text-3xl md:text-5xl font-bold mb-4 text-white text-start!"
+          text={title || "Netflix Section"}
+          className="text-3xl md:text-5xl font-extrabold tracking-tight text-white uppercase drop-shadow-md"
           delay={100}
           duration={0.2}
           ease="power3.out"
@@ -66,7 +39,43 @@ export default function Index({ Data, title, isMovie, animationText }: IndexProp
           textAlign="center"
           tag="h1"
         />
+
+        <RotatingText
+          texts={[
+            "Trending Now",
+            "Popular on Netflix",
+            "Top Picks for You",
+            "Only on Netflix",
+            "New Releases",
+            "Because You Watched",
+            "Must Watch",
+            "Binge-Worthy",
+            "Fan Favorites",
+            "Critically Acclaimed",
+            "Epic Stories",
+            "Blockbusters",
+            "Watch Again",
+            "Hidden Gems",
+            "Recently Added",
+            "Action & Adventure",
+            "Thrilling Series",
+            "Feel-Good Movies",
+            "Netflix Originals",
+            "Unmissable Hits",
+          ]}
+          className="text-2xl md:text-4xl font-bold text-red-600 uppercase tracking-wide drop-shadow-sm"
+          staggerFrom={"random"}
+          initial={{ y: "100%" }}
+          animate={{ y: 0 }}
+          exit={{ y: "-120%" }}
+          staggerDuration={0.025}
+          splitLevelClassName="overflow-hidden pb-1"
+          transition={{ type: "spring", damping: 25, stiffness: 150 }}
+          rotationInterval={2000}
+          loop
+        />
       </div>
+
       <DataList Data={Data} isMovie={isMovie} />
     </section>
   );

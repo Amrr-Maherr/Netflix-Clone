@@ -8,11 +8,11 @@ export default function SeasonsSection({ seasons }: { seasons: any[] }) {
     <section className="space-y-6">
       <h2 className="text-3xl font-bold">Seasons</h2>
 
-      <Slider>
+      <Slider slidesPerView={6} slidesPerViewMobile={1.5}>
         {seasons.map((season) => (
           <div
             key={season.id}
-            className="group relative rounded-xl overflow-hidden bg-zinc-900 transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+            className="group relative rounded-xl overflow-hidden bg-zinc-900 transition-transform duration-300 hover:shadow-2xl"
           >
             {/* Poster */}
             <div className="relative w-full aspect-[2/3]">

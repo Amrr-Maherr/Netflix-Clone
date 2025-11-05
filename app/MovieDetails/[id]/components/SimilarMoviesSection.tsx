@@ -19,6 +19,7 @@ export default function SimilarMoviesSection({
 
       <Slider
         slidesPerView={6}
+        slidesPerViewMobile={1.5}
         spaceBetween={20}
         swiperOptions={{ autoplay: { delay: 3000 }, loop: true }}
       >

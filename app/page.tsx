@@ -188,17 +188,17 @@ export default function Home() {
       {/* Movies Sections */}
       <Section
         Data={trendingMoviesWeekQuery.data || []}
-        title="Trending Movies (Week)"
+        title="Trending Now"
         isMovie={true}
       />
       <Section
         Data={trendingMoviesDayQuery.data || []}
-        title="Trending Movies (Day)"
+        title="Today’s Top Picks"
         isMovie={true}
       />
       <Section
         Data={popularMoviesQuery.data || []}
-        title="Popular Movies"
+        title="Popular on Netflix"
         isMovie={true}
       />
       <Section
@@ -208,46 +208,47 @@ export default function Home() {
       />
       <Section
         Data={upcomingMoviesQuery.data || []}
-        title="Upcoming Movies"
+        title="Coming Soon"
         isMovie={true}
       />
       <Section
         Data={nowPlayingMoviesQuery.data || []}
-        title="Now Playing Movies"
+        title="Now Playing"
         isMovie={true}
       />
 
-      {/* TV Sections */}
+      {/* 📺 TV Sections */}
       <Section
         Data={trendingTVWeekQuery.data || []}
-        title="Trending TV Shows (Week)"
+        title="Trending TV Shows"
         isMovie={false}
       />
       <Section
         Data={trendingTVDayQuery.data || []}
-        title="Trending TV Shows (Day)"
+        title="What’s Hot Today"
         isMovie={false}
       />
       <Section
         Data={popularTVQuery.data || []}
-        title="Popular TV Shows"
+        title="Popular on Netflix"
         isMovie={false}
       />
       <Section
         Data={topRatedTVQuery.data || []}
-        title="Top Rated TV Shows"
+        title="Top Rated Series"
         isMovie={false}
       />
       <Section
         Data={airingTodayTVQuery.data || []}
-        title="Airing Today TV Shows"
+        title="Airing Today"
         isMovie={false}
       />
       <Section
         Data={onTheAirTVQuery.data || []}
-        title="On The Air TV Shows"
+        title="Currently Airing"
         isMovie={false}
       />
     </>
   );
+
 }

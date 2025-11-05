@@ -21,7 +21,7 @@ export default function ProductionCompaniesSection({
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Production Companies</h2>
 
-      <Slider slidesPerView={4} spaceBetween={20}>
+      <Slider slidesPerView={6} slidesPerViewMobile={1.5} spaceBetween={20}>
         {companies.map((company) => (
           <div
             key={company.id}

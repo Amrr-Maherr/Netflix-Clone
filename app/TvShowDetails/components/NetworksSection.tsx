@@ -10,7 +10,7 @@ export default function NetworksSection({ networks }: { networks: any[] }) {
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Available On</h2>
 
-      <Slider slidesPerView={4} spaceBetween={20}>
+      <Slider slidesPerView={6} slidesPerViewMobile={1.5} spaceBetween={20}>
         {networks.map((network) => (
           <div
             key={network.id}

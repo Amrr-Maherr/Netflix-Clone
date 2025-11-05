@@ -2,6 +2,7 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { Star } from "lucide-react";
 
 interface AuthorDetails {
   name: string;
@@ -23,11 +24,14 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
   if (!reviews?.length) return null;
 
   return (
-    <section className="py-8">
-      <h2 className="text-2xl font-bold mb-6">Reviews</h2>
+    <section className="py-12">
+      <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">
+        Reviews
+      </h2>
 
       <Slider
-        slidesPerView={3}
+        slidesPerView={4}
+        slidesPerViewMobile={1.2}
         spaceBetween={20}
         swiperOptions={{
           autoplay: { delay: 5000 },
@@ -41,75 +45,76 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
               : `https://image.tmdb.org/t/p/w200${review.author_details.avatar_path}`
             : "/default-avatar.png";
 
-          // Fix: ensure rating is a number
           const rating = review.author_details.rating ?? 0;
 
           return (
             <div
               key={review.id}
-              className="bg-gray-900 rounded-xl p-6 shadow-md border border-gray-800 hover:border-gray-700 transition flex flex-col justify-between"
+              className=" relative bg-[#141414]/90 backdrop-blur-lg rounded-2xl overflow-hidden border border-neutral-800 hover:border-red-600 transition-all duration-500 hover:scale-[1.04] h-[480px] flex flex-col justify-between shadow-[0_0_15px_rgba(0,0,0,0.6)]"
             >
-              {/* Author Info */}
-              <div className="flex items-center gap-4 mb-4">
-                <Image
-                  src={avatarSrc}
-                  alt={review.author}
-                  width={50}
-                  height={50}
-                  className="rounded-full border border-gray-700"
-                  priority
-                  quality={100}
-                />
-                <div>
-                  <h3 className="text-lg font-semibold text-red-500">
-                    {review.author}
-                  </h3>
-                  {review.author_details.name && (
-                    <p className="text-sm text-gray-400">
-                      {review.author_details.name}
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
+
+              {/* Content */}
+              <div className="relative z-10 p-6 flex flex-col h-full justify-between">
+                {/* Header */}
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={avatarSrc}
+                    alt={review.author}
+                    width={60}
+                    height={60}
+                    className="rounded-full border border-gray-700 shadow-lg"
+                    priority
+                    quality={100}
+                  />
+                  <div>
+                    <h3 className="text-lg font-semibold text-red-500">
+                      {review.author}
+                    </h3>
+                    {review.author_details.name && (
+                      <p className="text-sm text-gray-400">
+                        {review.author_details.name}
+                      </p>
+                    )}
+                    <p className="text-xs text-gray-500">
+                      @{review.author_details.username}
                     </p>
-                  )}
-                  <p className="text-sm text-gray-400">
-                    @{review.author_details.username}
+                  </div>
+                </div>
+
+                {/* Review Content */}
+                <div className="flex-1 mt-5 overflow-hidden">
+                  <p className="text-gray-300 text-sm leading-relaxed line-clamp-9">
+                    {review.content}
                   </p>
                 </div>
+
+                {/* Rating + Date + Link */}
+                <div className="mt-6 flex flex-col gap-2">
+                  {rating > 0 && (
+                    <div className="flex items-center gap-1">
+                      <Star className="text-yellow-400 w-4 h-4 fill-yellow-400" />
+                      <span className="text-gray-300 text-sm font-medium">
+                        {rating.toFixed(1)}/10
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between text-sm text-gray-400">
+                    <span>
+                      {new Date(review.created_at).toLocaleDateString()}
+                    </span>
+                    <a
+                      href={review.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-red-500 hover:text-red-400 transition-colors font-medium"
+                    >
+                      Read full →
+                    </a>
+                  </div>
+                </div>
               </div>
-
-              {/* Review Content */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                {review.content.length > 500
-                  ? review.content.slice(0, 500) + "..."
-                  : review.content}
-              </p>
-
-              {/* Netflix-style Rating */}
-              {/* <div className="flex items-center gap-1 mb-4">
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`w-3 h-3 inline-block rounded-full ${
-                      i < (review.author_details.rating ?? 0)
-                        ? "bg-yellow-400"
-                        : "bg-gray-700"
-                    }`}
-                  />
-                ))}
-              </div> */}
-
-              {/* Date */}
-              <span className="text-gray-400 text-sm mb-2">
-                {new Date(review.created_at).toLocaleDateString()}
-              </span>
-
-              {/* Link to full review */}
-              <a
-                href={review.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 text-sm mt-2 inline-block hover:underline"
-              >
-                Read full review →
-              </a>
             </div>
           );
         })}

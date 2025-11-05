@@ -156,7 +156,7 @@ export default function TvPage() {
           <KeywordsSection keywords={tv.keywords.results} />
         )}
         {tv.content_ratings?.results && (
-          <ContentRatingSection ratings={tv.content_ratings.results} />
+          <ContentRatingSection ratings={tv.content_ratings?.results} />
         )}
 
         {/* Watch Providers */}
