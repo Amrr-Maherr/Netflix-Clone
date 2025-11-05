@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const FetchSeasonDetails = async (id: string, seasonNumber: number) => {
   try {
     const url = `https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}`;
