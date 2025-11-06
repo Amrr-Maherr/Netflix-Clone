@@ -66,6 +66,9 @@ export default function FilterMoviesPage() {
       }
     }
   }, [data, filteredData]);
+useEffect(() => {
+  refetch();
+}, [filters]);
 
   return (
     <main className="min-h-screen bg-black text-white container">
@@ -79,7 +82,7 @@ export default function FilterMoviesPage() {
 
           {/* Buttons container */}
           <div className="flex items-center gap-3">
-            <Button
+            {/* <Button
               disabled={
                 !filters.sort &&
                 !filters.genre &&
@@ -91,9 +94,9 @@ export default function FilterMoviesPage() {
               className="bg-red-600 hover:bg-red-700 text-white cursor-pointer px-5 py-2 rounded-md font-semibold transition"
             >
               {isLoading ? "Loading..." : "Apply Filters"}
-            </Button>
+            </Button> */}
             <Button
-              disabled={
+             disabled={
                 !filters.sort &&
                 !filters.genre &&
                 !filters.language &&
