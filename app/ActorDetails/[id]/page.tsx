@@ -231,7 +231,7 @@ export default function Page() {
                 spaceBetween={12}
                 className="netflix-slider"
               >
-                {person.images.profiles.map((img, i) => (
+                {person.images.profiles.map((img: { file_path: string }, i: number) => (
                   <SwiperSlide key={i}>
                     <img
                       src={`https://image.tmdb.org/t/p/w300${img.file_path}`}
