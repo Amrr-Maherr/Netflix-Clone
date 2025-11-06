@@ -130,6 +130,7 @@ export default function TvPage() {
         {/* Images & Videos */}
         {tv.images?.backdrops && (
           <ImagesSection
+            images={[]}
             backdrops={tv.images.backdrops}
             logos={tv.images.logos}
             posters={tv.images.posters}

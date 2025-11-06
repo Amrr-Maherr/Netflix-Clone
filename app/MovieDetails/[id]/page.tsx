@@ -99,6 +99,7 @@ export default function Page() {
         {/* 5. Images + Videos */}
         {movie.images?.backdrops && (
           <ImagesSection
+            images={[]}
             backdrops={movie?.images?.backdrops}
             logos={movie?.images?.logos}
             posters={movie?.images?.posters}

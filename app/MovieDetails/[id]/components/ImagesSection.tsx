@@ -9,10 +9,12 @@ export default function ImagesSection({
   backdrops,
   logos,
   posters,
+  images,
 }: {
   backdrops: any[];
   logos: any[];
   posters: any[];
+  images: any[];
 }) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -96,6 +98,27 @@ export default function ImagesSection({
                 key={i}
                 className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg cursor-pointer"
                 onClick={() => handleOpen(posters, i)}
+              >
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${img.file_path}`}
+                  alt={`Poster ${i + 1}`}
+                  fill
+                  className="object-cover hover:scale-110 transition duration-500"
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
+      {images?.length > 0 && (
+        <div>
+          <h3 className="text-xl font-semibold mb-3"> Featured Posters</h3>
+          <Slider slidesPerView={6} slidesPerViewMobile={1.5}>
+            {images.map((img, i) => (
+              <div
+                key={i}
+                className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg cursor-pointer"
+                onClick={() => handleOpen(images, i)}
               >
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${img.file_path}`}
