@@ -7,6 +7,14 @@ import CardMovie from "../Components/CardMovie/CardMovie";
 import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PaginationButtons from "./components/PaginationButtons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 export default function FilterMoviesPage() {
   const [page, setPage] = useState(1);
@@ -39,9 +47,7 @@ export default function FilterMoviesPage() {
       }),
   });
 
-  const handleApplyFilters = () => {
-    refetch();
-  };
+  const handleApplyFilters = () => refetch();
 
   const ClearFilter = () => {
     setFilters({
@@ -66,37 +72,24 @@ export default function FilterMoviesPage() {
       }
     }
   }, [data, filteredData]);
-useEffect(() => {
-  refetch();
-}, [filters]);
+
+  useEffect(() => {
+    refetch();
+  }, [filters]);
+console.log(allData,"alldata");
 
   return (
     <main className="min-h-screen bg-black text-white container">
       <section className="pt-24 pb-6">
         <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
-          {/* Title */}
           <h1 className="text-3xl font-bold tracking-wide flex items-center gap-2">
             <SlidersHorizontal size={24} className="text-red-600" />
             Explore Movies
           </h1>
 
-          {/* Buttons container */}
           <div className="flex items-center gap-3">
-            {/* <Button
-              disabled={
-                !filters.sort &&
-                !filters.genre &&
-                !filters.language &&
-                !filters.year &&
-                !filters.rating
-              }
-              onClick={handleApplyFilters}
-              className="bg-red-600 hover:bg-red-700 text-white cursor-pointer px-5 py-2 rounded-md font-semibold transition"
-            >
-              {isLoading ? "Loading..." : "Apply Filters"}
-            </Button> */}
             <Button
-             disabled={
+              disabled={
                 !filters.sort &&
                 !filters.genre &&
                 !filters.language &&
@@ -112,80 +105,89 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Filter Controls */}
+        {/* Filters */}
         <div className="flex flex-wrap gap-4">
           {/* Sort */}
-          <select
+          <Select
             value={filters.sort}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, sort: e.target.value }))
+            onValueChange={(value) =>
+              setFilters((prev) => ({ ...prev, sort: value }))
             }
-            className="bg-zinc-800 text-sm border border-zinc-700 px-3 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
           >
-            <option value="">Sort: Popularity ↓</option>
-            <option value="rating">Sort: Rating ↓</option>
-            <option value="newest">Sort: Newest ↓</option>
-          </select>
+            <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
+              <SelectValue placeholder="Sort by..." />
+            </SelectTrigger>
+            <SelectContent className="bg-black text-white border-0">
+              <SelectItem value="all">Popularity ↓</SelectItem>
+              <SelectItem value="rating">Rating ↓</SelectItem>
+              <SelectItem value="newest">Newest ↓</SelectItem>
+            </SelectContent>
+          </Select>
 
           {/* Genre */}
-          <select
+          <Select
             value={filters.genre}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, genre: e.target.value }))
+            onValueChange={(value) =>
+              setFilters((prev) => ({ ...prev, genre: value }))
             }
-            className="bg-zinc-800 text-sm border border-zinc-700 px-3 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
           >
-            <option value="">All Genres</option>
-            <option value="28">Action</option>
-            <option value="35">Comedy</option>
-            <option value="18">Drama</option>
-            <option value="27">Horror</option>
-            <option value="10749">Romance</option>
-            <option value="878">Science Fiction</option>
-          </select>
+            <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
+              <SelectValue placeholder="Choose Genre" />
+            </SelectTrigger>
+            <SelectContent className="bg-black text-white border-0">
+              <SelectItem value="all">All Genres</SelectItem>
+              <SelectItem value="28">Action</SelectItem>
+              <SelectItem value="35">Comedy</SelectItem>
+              <SelectItem value="18">Drama</SelectItem>
+              <SelectItem value="27">Horror</SelectItem>
+              <SelectItem value="10749">Romance</SelectItem>
+              <SelectItem value="878">Science Fiction</SelectItem>
+            </SelectContent>
+          </Select>
 
           {/* Language */}
-          <select
+          <Select
             value={filters.language}
-            onChange={(e) =>
-              setFilters((prev) => ({
-                ...prev,
-                language: e.target.value,
-              }))
+            onValueChange={(value) =>
+              setFilters((prev) => ({ ...prev, language: value }))
             }
-            className="bg-zinc-800 text-sm border border-zinc-700 px-3 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
           >
-            <option value="">All Languages</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="ja">Japanese</option>
-            <option value="ko">Korean</option>
-          </select>
+            <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
+              <SelectValue placeholder="Select Language" />
+            </SelectTrigger>
+            <SelectContent className="bg-black text-white border-0">
+              <SelectItem value="all">All Languages</SelectItem>
+              <SelectItem value="en">English</SelectItem>
+              <SelectItem value="fr">French</SelectItem>
+              <SelectItem value="es">Spanish</SelectItem>
+              <SelectItem value="ja">Japanese</SelectItem>
+              <SelectItem value="ko">Korean</SelectItem>
+            </SelectContent>
+          </Select>
 
           {/* Year */}
-          <input
+          <Input
             type="number"
-            placeholder="Year"
+            placeholder="Enter Year"
             value={filters.year}
             onChange={(e) =>
               setFilters((prev) => ({ ...prev, year: e.target.value }))
             }
-            className="bg-zinc-800 text-sm border border-zinc-700 px-3 py-2 rounded-md w-28 focus:outline-none focus:ring-1 focus:ring-red-600 placeholder-gray-500"
+            className="bg-zinc-800 border-zinc-700 text-sm w-28 placeholder-gray-500"
           />
 
           {/* Rating */}
-          <input
+          <Input
             type="number"
             step="0.1"
             min="0"
             max="10"
-            placeholder="Min Rating"
+            placeholder="Min Rating (0–10)"
             value={filters.rating}
             onChange={(e) =>
               setFilters((prev) => ({ ...prev, rating: e.target.value }))
             }
-            className="bg-zinc-800 text-sm border border-zinc-700 px-3 py-2 rounded-md w-32 focus:outline-none focus:ring-1 focus:ring-red-600 placeholder-gray-500"
+            className="bg-zinc-800 border-zinc-700 text-sm w-36 placeholder-gray-500"
           />
         </div>
       </section>
@@ -199,8 +201,28 @@ useEffect(() => {
             Failed to load movies.
           </p>
         )}
+        {allData.length === 0 ? (
+          <h3 className="text-white text-center mt-10">
+            No results found for your filter.
+          </h3>
+        ) : (
+          <div
+            className="
+            grid 
+            grid-cols-2 
+            sm:grid-cols-3 
+            md:grid-cols-4 
+            lg:grid-cols-5 
+            xl:grid-cols-6 
+            gap-4
+          "
+          >
+            {allData?.map((movie, index) => (
+              <CardMovie movie={movie} key={`${movie.id}-${index}`} />
+            ))}
+          </div>
+        )}
 
-        {/* Netflix-style Grid */}
         <div
           className="
             grid 
