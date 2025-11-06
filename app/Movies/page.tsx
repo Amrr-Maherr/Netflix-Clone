@@ -80,12 +80,26 @@ export default function FilterMoviesPage() {
           {/* Buttons container */}
           <div className="flex items-center gap-3">
             <Button
+              disabled={
+                !filters.sort &&
+                !filters.genre &&
+                !filters.language &&
+                !filters.year &&
+                !filters.rating
+              }
               onClick={handleApplyFilters}
               className="bg-red-600 hover:bg-red-700 text-white cursor-pointer px-5 py-2 rounded-md font-semibold transition"
             >
               {isLoading ? "Loading..." : "Apply Filters"}
             </Button>
             <Button
+              disabled={
+                !filters.sort &&
+                !filters.genre &&
+                !filters.language &&
+                !filters.year &&
+                !filters.rating
+              }
               onClick={ClearFilter}
               variant="outline"
               className="border border-red-600 cursor-pointer text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-md font-semibold transition"
