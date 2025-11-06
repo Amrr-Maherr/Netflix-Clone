@@ -10,13 +10,14 @@ const FetchSeasonDetails = async (id: string, seasonNumber: number) => {
       },
     });
 
-    console.log(response.data, "Season Details (with Episodes)");
+    console.log(response.data, "✅ Season Details (with Episodes)");
     return response.data;
   } catch (error: any) {
-    console.error(
-      "Error fetching season details:",
-      error.response?.data || error.message
-    );
+    if (axios.isAxiosError(error)) {
+      console.error("❌ Axios error:", error.response?.data || error.message);
+    } else {
+      console.error("❌ Unexpected error:", error);
+    }
     throw error;
   }
 };

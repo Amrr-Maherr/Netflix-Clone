@@ -106,7 +106,7 @@ export default function TvPage() {
         {tv.credits?.crew && <CrewSection crew={tv.credits.crew} />}
 
         {/* Seasons */}
-        {tv.seasons && <SeasonsSection seasons={tv.seasons} />}
+        {tv.seasons && <SeasonsSection seasons={tv.seasons} tvId={tv.id}/>}
 
         {/* Trailer */}
         {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />}

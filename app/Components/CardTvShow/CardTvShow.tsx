@@ -11,6 +11,7 @@ type TvShowData = {
   popularity?: number;
   overview: string;
   first_air_date?: string;
+  still_path?:string
 };
 
 type CardTvShowProps = {
@@ -24,7 +25,9 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         {/* Poster */}
         <div className="relative w-full h-0 pb-[150%]">
           <Image
-            src={`https://image.tmdb.org/t/p/w500${TvShow?.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${
+              TvShow?.poster_path || TvShow.still_path
+            }`}
             alt={TvShow.name || "TV Show Poster"}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
