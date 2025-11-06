@@ -27,7 +27,7 @@ const Page = async ({ params }: SeasonDetailsPageProps) => {
   return (
     <div className="text-white container">
       {/* Hero Section */}
-      <div className="relative w-full h-[90dvh] text-white">
+      <div className="relative w-full min-h-screen md:h-dvh text-white md:mt-0 mt-15">
         {/* Poster */}
         {seasonData.poster_path && (
           <Image
@@ -44,7 +44,7 @@ const Page = async ({ params }: SeasonDetailsPageProps) => {
 
         {/* Network info */}
         {network && (
-          <div className="absolute top-6 left-6 flex items-center space-x-4">
+          <div className="absolute md:hidden flex top-6 left-6  items-center space-x-4">
             {network.logo_path && (
               <Image
                 src={`https://image.tmdb.org/t/p/w300${network.logo_path}`}
