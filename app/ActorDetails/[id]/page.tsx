@@ -21,6 +21,8 @@ import ImagesGallery from "../components/ImagesGallery";
 import AwardsSection from "../components/AwardsSection";
 import KnownForSection from "../components/KnownForSection";
 import TriviaSection from "../components/TriviaSection";
+import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
+import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 
 // Components
 
@@ -40,19 +42,12 @@ export default function Page() {
 
   if (isLoading)
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 border-4 border-t-red-600 border-gray-800 rounded-full animate-spin"></div>
-          <p className="text-2xl text-white font-sans">Loading...</p>
-        </div>
-      </div>
+      <NetflixIntroLoader/>
     );
 
   if (!person || isError)
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-red-600 text-2xl">
-        Person not found
-      </div>
+      <ErrorMessage/>
     );
 
   const combinedCredits = [
