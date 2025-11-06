@@ -85,7 +85,7 @@ export default function HeroSection({ person }: { person: any }) {
           </div>
 
           {/* Buttons */}
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
+          {/* <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
             <button className="bg-white text-black px-6 py-2 sm:px-8 sm:py-3 rounded font-bold text-base sm:text-lg flex items-center justify-center gap-2 sm:gap-3 hover:bg-gray-200 transition duration-300">
               <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />
               Play Reel
@@ -94,7 +94,7 @@ export default function HeroSection({ person }: { person: any }) {
               <Info className="w-5 h-5 sm:w-6 sm:h-6" />
               More Info
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

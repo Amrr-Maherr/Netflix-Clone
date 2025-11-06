@@ -64,7 +64,7 @@ export default function Page() {
       <HeroSection person={person} />
 
       {/* Content */}
-      <div className="bg-black -mt-32 relative z-10 container">
+      <div className="bg-black relative z-10 container">
         <Biography text={person.biography} />
         <MovieCredits movies={Movies} />
         <TvCredits shows={Tv} />
