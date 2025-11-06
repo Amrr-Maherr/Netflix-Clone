@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
+import withPWA from "next-pwa";
 
-const nextConfig: NextConfig = {
+const isProd = process.env.NODE_ENV === "production";
+
+const nextConfig: NextConfig = withPWA({
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -12,6 +15,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-};
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+  },
+  experimental: {
+    appDir: true,
+  },
+});
 
 export default nextConfig;
