@@ -27,7 +27,7 @@ export default function HeroSection({
     (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : null);
 
   return (
-    <div className="relative w-full h-[70vh] md:h-[80vh] bg-black overflow-hidden">
+    <div className="relative flex items-end md:items-center justify-start w-full h-[70vh] md:h-100vh bg-black overflow-hidden">
       {/* Trailer Video */}
       {trailerKey ? (
         <div className="absolute inset-0 w-full h-full">
@@ -51,8 +51,8 @@ export default function HeroSection({
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-10"></div>
 
       {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 p-6 md:p-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-end">
+      <div className="z-999 container pt-10">
+        <div className="flex flex-col md:flex-row gap-8 items-end">
           {/* Poster */}
           <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hover:scale-105 hidden md:block">
             <Image src={posterUrl} alt={title} fill className="object-cover" />
