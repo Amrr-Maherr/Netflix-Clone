@@ -53,12 +53,12 @@ export default function HeroSection({
           {/* Mute/Unmute Button */}
           <button
             onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
-            className="absolute top-40 md:bottom-4 right-4 z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition"
+            className="absolute top-[70px] md:top-[90px] right-4 md:right-6 z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
           >
             {isMute ? (
-              <VolumeX className="w-6 h-6" />
+              <VolumeX className="w-6 h-6 cursor-pointer" />
             ) : (
-              <Volume2 className="w-6 h-6" />
+              <Volume2 className="w-6 h-6 cursor-pointer" />
             )}
           </button>
         </div>
