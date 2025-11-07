@@ -48,7 +48,7 @@ export default function HeroSection({
       )}
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-10"></div>
+      <div className="absolute inset-0 md:bg-gradient-to-t md:from-black md:via-black/40 to-transparent z-10"></div>
 
       {/* Content */}
       <div className="z-999 container pt-10">
