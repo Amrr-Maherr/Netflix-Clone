@@ -3,19 +3,6 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../Logo/index";
 import HeaderLinks from "./elements/HeaderLinks";
-import { Search } from "lucide-react";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import SearchComponent from "../Search/SearchComponent";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
