@@ -16,7 +16,7 @@ export default function Header() {
         <div className="hidden md:flex gap-5">
           <HeaderLinks />
         </div>
-        <SearchComponent/>
+        <SearchComponent />
         {/* Mobile menu button */}
         <button
           className="md:hidden text-white cursor-pointer"
@@ -35,6 +35,9 @@ export default function Header() {
             <X size={28} />
           </button>
           <HeaderLinks />
+          <div className="mt-6">
+            <SearchComponent />
+          </div>
         </div>
       </nav>
     </header>

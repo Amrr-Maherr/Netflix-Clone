@@ -49,7 +49,7 @@ export default function SearchComponent() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="hidden md:flex gap-5 ml-auto cursor-pointer">
+        <div className="flex gap-5 ml-auto cursor-pointer">
           <Search className="text-white w-6 h-6" />
         </div>
       </DialogTrigger>
