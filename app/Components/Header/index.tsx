@@ -22,7 +22,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav className="flex container items-center justify-between md:justify-start gap-5 fixed z-30 top-0 left-0 right-0 pt-4">
+      <nav className="flex container items-center justify-between md:justify-start gap-5 fixed z-999 top-0 left-0 right-0 pt-4">
         <Logo />
 
         {/* Large screens */}

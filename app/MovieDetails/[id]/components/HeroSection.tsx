@@ -51,7 +51,7 @@ export default function HeroSection({
       <div className="absolute inset-0 md:bg-gradient-to-t md:from-black md:via-black/40 to-transparent z-10"></div>
 
       {/* Content */}
-      <div className="z-999 container pt-10">
+      <div className="z-99 container pt-10">
         <div className="flex flex-col md:flex-row gap-8 items-end">
           {/* Poster */}
           <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hover:scale-105 hidden md:block">
