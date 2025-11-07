@@ -104,7 +104,7 @@ export default function SearchComponent() {
                           }`
                         : "https://via.placeholder.com/92x138?text=No+Image"
                     }
-                    alt={item.title || item.name}
+                    alt="alt text"
                     className="w-20 h-28 object-cover rounded-md"
                   />
                   <div>
