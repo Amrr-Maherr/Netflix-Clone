@@ -1,6 +1,16 @@
 "use client";
 import Image from "next/image";
-import { Star, Clock, Calendar, Globe, Play, ExternalLink } from "lucide-react";
+import {
+  Star,
+  Clock,
+  Calendar,
+  Globe,
+  Play,
+  ExternalLink,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
+import { useState } from "react";
 
 interface HeroSectionProps {
   movie?: any;
@@ -26,17 +36,31 @@ export default function HeroSection({
     data.runtime ||
     (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : null);
 
+  const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
+
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-[70vh] md:h-100vh bg-black overflow-hidden">
       {/* Trailer Video */}
       {trailerKey ? (
         <div className="absolute inset-0 w-full h-full">
           <iframe
-            src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&showinfo=0`}
+            src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&showinfo=0`}
             title="Trailer"
             className="absolute inset-0 w-full h-full object-cover"
             allow="autoplay; fullscreen"
           ></iframe>
+
+          {/* Mute/Unmute Button */}
+          <button
+            onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
+            className="absolute bottom-4 right-4 z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition"
+          >
+            {isMute ? (
+              <VolumeX className="w-6 h-6" />
+            ) : (
+              <Volume2 className="w-6 h-6" />
+            )}
+          </button>
         </div>
       ) : (
         backdropUrl && (
