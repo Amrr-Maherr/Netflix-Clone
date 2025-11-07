@@ -80,7 +80,7 @@ console.log(allData,"alldata");
 
   return (
     <main className="min-h-screen bg-black text-white container">
-      <section className="pt-24 pb-6">
+      <section className="py-20">
         <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
           <h1 className="text-3xl font-bold tracking-wide flex items-center gap-2">
             <SlidersHorizontal size={24} className="text-red-600" />
@@ -106,7 +106,7 @@ console.log(allData,"alldata");
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex items-center justify-center flex-wrap gap-4">
           {/* Sort */}
           <Select
             value={filters.sort}
@@ -201,7 +201,7 @@ console.log(allData,"alldata");
             Failed to load movies.
           </p>
         )}
-        {allData.length === 0 ? (
+        {!isLoading && allData.length === 0 ? (
           <h3 className="text-white text-center mt-10">
             No results found for your filter.
           </h3>
