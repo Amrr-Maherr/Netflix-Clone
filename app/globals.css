@@ -163,3 +163,15 @@ body {
 .animate-netflix-shine {
   animation: netflix-shine 3s linear infinite;
 }
+.scrollbar-custom::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: black;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: red;
+  cursor: grab;
+}
