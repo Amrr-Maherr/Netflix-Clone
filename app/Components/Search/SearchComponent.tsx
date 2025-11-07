@@ -16,10 +16,20 @@ import { Input } from "@/components/ui/input";
 import FetchMultiSearch from "@/Api/FetchMultiSearch";
 import Image from "next/image";
 import Link from "next/link";
+type ResultItem = {
+  id: number;
+  media_type: "movie" | "tv" | "person";
+  title?: string;
+  name?: string;
+  poster_path?: string;
+  profile_path?: string;
+  release_date?: string;
+  first_air_date?: string;
+};
 
 export default function SearchComponent() {
   const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<[]>([]);
+  const [results, setResults] = useState<ResultItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -71,11 +81,11 @@ export default function SearchComponent() {
             results.map((item) => (
               <Link
                 href={
-                  item?.media_type === "movie"
+                  item.media_type === "movie"
                     ? `/MovieDetails/${item.id}`
-                    : item?.media_type === "tv"
+                    : item.media_type === "tv"
                     ? `/TvShowDetails/${item.id}`
-                    : item?.media_type === "person"
+                    : item.media_type === "person"
                     ? `/ActorDetails/${item.id}`
                     : `#`
                 }
