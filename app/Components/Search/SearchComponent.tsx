@@ -13,13 +13,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import FetchMultiSearch, { TMDbResult } from "@/Api/FetchMultiSearch";
+import FetchMultiSearch from "@/Api/FetchMultiSearch";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function SearchComponent() {
   const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<TMDbResult[]>([]);
+  const [results, setResults] = useState<[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
