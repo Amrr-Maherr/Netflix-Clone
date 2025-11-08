@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import PaginationButtons from "../Movies/components/PaginationButtons";
 import FetchFilteredTV from "@/Api/FetchFilteredTVParams";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
+import CardTvShow from "../Components/CardTvShow/CardTvShow";
 
 export default function page() {
   const [page, setPage] = useState(1);
@@ -205,7 +206,7 @@ export default function page() {
           "
           >
             {allData?.map((show, index) => (
-              <CardMovie movie={show} key={`${show.id}-${index}`} />
+              <CardTvShow TvShow={show} key={`${show.id}-${index}`} />
             ))}
           </div>
         )}
