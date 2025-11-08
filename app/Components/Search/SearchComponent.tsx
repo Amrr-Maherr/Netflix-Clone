@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 import {
   Dialog,
@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import FetchMultiSearch from "@/Api/FetchMultiSearch";
 import Image from "next/image";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+
 type ResultItem = {
   id: number;
   media_type: "movie" | "tv" | "person";
@@ -29,22 +31,13 @@ type ResultItem = {
 
 export default function SearchComponent() {
   const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<ResultItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!query) return setResults([]);
-
-    const fetchData = async () => {
-      setLoading(true);
-      const data = await FetchMultiSearch({ query });
-      setResults(data);
-      setLoading(false);
-    };
-
-    const debounce = setTimeout(fetchData, 500);
-    return () => clearTimeout(debounce);
-  }, [query]);
+  const { data, isLoading, isError } = useQuery<ResultItem[]>({
+    queryKey: ["Search", query],
+    queryFn: () => FetchMultiSearch({ query }),
+    enabled: !!query,
+    retry: 1,
+  });
 
   return (
     <Dialog>
@@ -76,10 +69,14 @@ export default function SearchComponent() {
         </div>
 
         <div className="mt-6 max-h-96 overflow-y-auto scrollbar-custom">
-          {loading ? (
+          {isLoading ? (
             <p className="text-gray-400">Loading...</p>
-          ) : results.length > 0 ? (
-            results.map((item) => (
+          ) : isError ? (
+            <p className="text-red-400">
+              Something went wrong. Please try again.
+            </p>
+          ) : data && data.length > 0 ? (
+            data.map((item) => (
               <Link
                 href={
                   item.media_type === "movie"
@@ -105,7 +102,7 @@ export default function SearchComponent() {
                           }`
                         : "https://via.placeholder.com/92x138?text=No+Image"
                     }
-                    alt={"alt text"}
+                    alt={item.title || item.name || "No title"}
                     className="w-20 h-28 object-cover rounded-md"
                   />
                   <div>
@@ -130,8 +127,10 @@ export default function SearchComponent() {
                 </div>
               </Link>
             ))
-          ) : (
+          ) : query ? (
             <p className="text-gray-400">No results found.</p>
+          ) : (
+            <p className="text-gray-400">Start typing to search.</p>
           )}
         </div>
 
