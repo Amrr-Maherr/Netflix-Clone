@@ -66,7 +66,7 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
                     height={60}
                     className="rounded-full border border-gray-700 shadow-lg"
                     priority
-                    quality={100}
+                    quality={75}
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-red-500">

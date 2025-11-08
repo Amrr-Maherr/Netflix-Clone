@@ -30,7 +30,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
               alt={movie.title || "Movie Poster"}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
-              quality={100}
+              quality={75}
               loading="lazy"
             />
           </div>

@@ -94,7 +94,7 @@ export default function SearchComponent() {
                     width={100}
                     height={100}
                     priority
-                    quality={100}
+                    quality={75}
                     src={
                       item.poster_path || item.profile_path
                         ? `https://image.tmdb.org/t/p/w92${

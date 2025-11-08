@@ -21,7 +21,7 @@ export default function ImagesGallery({
             <Image
               width={100}
               height={100}
-              quality={100}
+              quality={75}
               priority
               src={`https://image.tmdb.org/t/p/w300${img.file_path}`}
               alt={`Profile ${i}`}

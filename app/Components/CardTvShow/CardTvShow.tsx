@@ -12,7 +12,7 @@ type TvShowData = {
   popularity?: number;
   overview: string;
   first_air_date?: string;
-  still_path?:string
+  still_path?: string;
 };
 
 type CardTvShowProps = {
@@ -33,7 +33,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
               alt={TvShow.name || "TV Show Poster"}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
-              quality={100}
+              quality={75}
               loading="lazy"
             />
           </div>
