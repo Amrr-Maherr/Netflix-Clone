@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Flame, Play } from "lucide-react";
+import NoImageFallback from "../NoImageFallback/NoImageFallback";
 
 type TvShowData = {
   id: number;
@@ -20,21 +21,25 @@ type CardTvShowProps = {
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
   return (
-    <Link href={`/TvShowDetails/${TvShow?.id}`}>
-      <div className="relative bg-zinc-900 rounded-md overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
+    <Link href={`/TvShowDetails/${TvShow?.id}`} className="h-full">
+      <div className="relative bg-zinc-900 rounded-md overflow-hidden h-full group cursor-pointer transform transition-all duration-500 hover:z-20">
         {/* Poster */}
-        <div className="relative w-full h-0 pb-[150%]">
-          <Image
-            src={`https://image.tmdb.org/t/p/w500${
-              TvShow?.poster_path || TvShow.still_path
-            }`}
-            alt={TvShow.name || "TV Show Poster"}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            quality={100}
-            loading="lazy"
-          />
-        </div>
+        {TvShow?.poster_path || TvShow?.still_path ? (
+          <div className="relative w-full h-0 pb-[150%] overflow-hidden rounded-lg bg-gray-800">
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${
+                TvShow.poster_path || TvShow.still_path
+              }`}
+              alt={TvShow.name || "TV Show Poster"}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              quality={100}
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <NoImageFallback text="No Image Available" />
+        )}
 
         {/* Netflix-like fade overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">
