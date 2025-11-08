@@ -76,8 +76,9 @@ export default function SearchComponent() {
         </div>
 
         <div className="mt-6 max-h-96 overflow-y-auto scrollbar-custom">
-          {loading && <p className="text-gray-400">Loading...</p>}
-          {!loading &&
+          {loading ? (
+            <p className="text-gray-400">Loading...</p>
+          ) : results.length > 0 ? (
             results.map((item) => (
               <Link
                 href={
@@ -104,7 +105,7 @@ export default function SearchComponent() {
                           }`
                         : "https://via.placeholder.com/92x138?text=No+Image"
                     }
-                    alt="alt text"
+                    alt={"alt text"}
                     className="w-20 h-28 object-cover rounded-md"
                   />
                   <div>
@@ -128,7 +129,10 @@ export default function SearchComponent() {
                   </div>
                 </div>
               </Link>
-            ))}
+            ))
+          ) : (
+            <p className="text-gray-400">No results found.</p>
+          )}
         </div>
 
         <DialogFooter>
