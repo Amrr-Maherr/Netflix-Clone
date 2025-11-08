@@ -82,31 +82,25 @@ console.log(allData,"alldata");
     <main className="min-h-screen bg-black text-white container">
       <section className="py-20">
         <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
-          <h1 className="text-3xl font-bold tracking-wide flex items-center gap-2">
-            <SlidersHorizontal size={24} className="text-red-600" />
-            Explore Movies
-          </h1>
-
-          <div className="flex items-center gap-3">
-            <Button
-              disabled={
-                !filters.sort &&
-                !filters.genre &&
-                !filters.language &&
-                !filters.year &&
-                !filters.rating
-              }
-              onClick={ClearFilter}
-              variant="outline"
-              className="border border-red-600 cursor-pointer text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-md font-semibold transition"
-            >
-              Clear
-            </Button>
-          </div>
+          <div className="flex items-center gap-3"></div>
         </div>
 
         {/* Filters */}
         <div className="flex items-center justify-center flex-wrap gap-4">
+          <Button
+            disabled={
+              !filters.sort &&
+              !filters.genre &&
+              !filters.language &&
+              !filters.year &&
+              !filters.rating
+            }
+            onClick={ClearFilter}
+            variant="outline"
+            className="border border-red-600 cursor-pointer text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-md font-semibold transition"
+          >
+            Clear
+          </Button>
           {/* Sort */}
           <Select
             value={filters.sort}
