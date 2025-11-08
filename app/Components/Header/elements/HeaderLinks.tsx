@@ -6,7 +6,7 @@ export default function HeaderLinks() {
 
   const Links: { name: string; link: string }[] = [
     { name: "Home", link: "/" },
-    { name: "TV Shows", link: "/tv-shows" },
+    { name: "TV Shows", link: "/TvShows" },
     { name: "Movies", link: "/Movies" },
     { name: "New & Popular", link: "/new-popular" },
     { name: "My List", link: "/my-list" },
