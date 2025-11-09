@@ -13,6 +13,7 @@ interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  media_type: "movie" | "tv" | "person";
 }
 
 export default function Gallery() {
@@ -171,18 +172,27 @@ export default function Gallery() {
         }}
       />
     );
-
-
+  console.log(allMovies,"all");
+  
   return (
     <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full py-20 container">
       <AnimatePresence>
         {allMovies.map((movie, index) => (
-          <Link href={`/`} key={`${movie.id}-${index}`}>
+          <Link
+            href={
+              movie.media_type === "movie"
+                ? `/MovieDetails/${movie.id}`
+                : movie.media_type === "tv"
+                ? `/TvShowDetails/${movie.id}`
+                : `#`
+            }
+            key={`${movie.id}-${index}`}
+          >
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: index * 0.5 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="w-full"
             >
               <Image
