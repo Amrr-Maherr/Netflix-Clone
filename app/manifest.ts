@@ -2,21 +2,22 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Next.js PWA',
-        short_name: 'NextPWA',
-        description: 'A Progressive Web App built with Next.js',
+        id: "/",
+        name: 'Netflix Clone',
+        short_name: 'Netflix',
+        description: 'Stream movies and TV shows like Netflix',
         start_url: '/',
         display: 'standalone',
-        background_color: '#ffffff',
-        theme_color: '#000000',
+        background_color: '#141414',
+        theme_color: '#e50914',
         icons: [
             {
-                src: '/icon-192x192.png',
+                src: '/icons/Netflix_Symbol_RGB.png',
                 sizes: '192x192',
                 type: 'image/png',
             },
             {
-                src: '/icon-512x512.png',
+                src: '/icons/Netflix_Symbol_RGB.png',
                 sizes: '512x512',
                 type: 'image/png',
             },
