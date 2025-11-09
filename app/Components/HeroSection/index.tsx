@@ -7,11 +7,12 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import Link from "next/link";
 
 interface HeroSlide {
-  id?:number
+  id?: number;
   title?: string;
   name?: string;
   overview?: string;
   backdrop_path?: string;
+  media_type: "movie" | "tv" | "person";
 }
 
 interface HeroSectionProps {
@@ -55,7 +56,15 @@ export default function HeroSection({ movies }: HeroSectionProps) {
                 </p>
               )}
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link href={`/MovieDetails/${movie?.id}`}>
+                <Link
+                  href={
+                    movie.media_type === "movie"
+                      ? `/MovieDetails/${movie.id}`
+                      : movie.media_type === "tv"
+                      ? `/TvShowDetails/${movie.id}`
+                      : `#`
+                  }
+                >
                   <Button className="cursor-pointer bg-red-600 hover:bg-red-700 text-white text-base md:text-lg px-8 py-6 rounded-lg transition-all duration-200">
                     Watch Now
                   </Button>
