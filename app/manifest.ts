@@ -21,6 +21,11 @@ export default function manifest(): MetadataRoute.Manifest {
                 sizes: '512x512',
                 type: 'image/png',
             },
+            {
+                src: '/icons/Netflix_Symbol_RGB.png',
+                sizes: '1024x1024',
+                type: 'image/png',
+            },
         ],
     }
 }
