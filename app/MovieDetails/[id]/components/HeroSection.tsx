@@ -137,16 +137,18 @@ export default function HeroSection({
                   Official Site
                 </a>
               )}
-              <button
-                onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
-                className="z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
-              >
-                {isMute ? (
-                  <VolumeX className="w-6 h-6 cursor-pointer" />
-                ) : (
-                  <Volume2 className="w-6 h-6 cursor-pointer" />
-                )}
-              </button>
+              {trailerKey && (
+                <button
+                  onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
+                  className="z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
+                >
+                  {isMute ? (
+                    <VolumeX className="w-6 h-6 cursor-pointer" />
+                  ) : (
+                    <Volume2 className="w-6 h-6 cursor-pointer" />
+                  )}
+                </button>
+              )}
             </div>
           </div>
         </div>
