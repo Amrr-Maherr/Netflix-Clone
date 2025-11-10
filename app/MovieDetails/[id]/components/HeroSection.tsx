@@ -39,7 +39,7 @@ export default function HeroSection({
   const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
 
   return (
-    <div className="relative flex items-end md:items-center justify-start w-full h-100vh bg-black overflow-hidden">
+    <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">
       {/* Trailer Video */}
       {trailerKey ? (
         <div className="absolute inset-0 w-full h-full">
