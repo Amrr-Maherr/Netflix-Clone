@@ -39,7 +39,7 @@ export default function HeroSection({
   const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
 
   return (
-    <div className="relative flex items-end md:items-center justify-start w-full h-[70vh] md:h-100vh bg-black overflow-hidden">
+    <div className="relative flex items-end md:items-center justify-start w-full h-100vh bg-black overflow-hidden">
       {/* Trailer Video */}
       {trailerKey ? (
         <div className="absolute inset-0 w-full h-full">
@@ -51,16 +51,6 @@ export default function HeroSection({
           ></iframe>
 
           {/* Mute/Unmute Button */}
-          <button
-            onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
-            className="absolute bottom-0 right-4 md:right-6 z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
-          >
-            {isMute ? (
-              <VolumeX className="w-6 h-6 cursor-pointer" />
-            ) : (
-              <Volume2 className="w-6 h-6 cursor-pointer" />
-            )}
-          </button>
         </div>
       ) : (
         backdropUrl && (
@@ -147,6 +137,16 @@ export default function HeroSection({
                   Official Site
                 </a>
               )}
+              <button
+                onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
+                className="absolute bottom-0 right-4 md:right-6 z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
+              >
+                {isMute ? (
+                  <VolumeX className="w-6 h-6 cursor-pointer" />
+                ) : (
+                  <Volume2 className="w-6 h-6 cursor-pointer" />
+                )}
+              </button>
             </div>
           </div>
         </div>
