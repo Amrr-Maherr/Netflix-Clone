@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { Search } from "lucide-react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import FetchMultiSearch from "@/Api/FetchMultiSearch";
@@ -76,57 +76,65 @@ export default function SearchComponent() {
               Something went wrong. Please try again.
             </p>
           ) : data && data.length > 0 ? (
-            data.map((item) => (
-              <Link
-                href={
-                  item.media_type === "movie"
-                    ? `/MovieDetails/${item.id}`
-                    : item.media_type === "tv"
-                    ? `/TvShowDetails/${item.id}`
-                    : item.media_type === "person"
-                    ? `/ActorDetails/${item.id}`
-                    : `#`
-                }
-                key={item.id}
-              >
-                <div className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-                  <Image
-                    width={100}
-                    height={100}
-                    priority
-                    quality={75}
-                    src={
+            data.map((item) => {
+              const linkHref =
+                item.media_type === "movie"
+                  ? `/MovieDetails/${item.id}`
+                  : item.media_type === "tv"
+                  ? `/TvShowDetails/${item.id}`
+                  : item.media_type === "person"
+                  ? `/ActorDetails/${item.id}`
+                  : `#`;
+
+              const imageSrc =
+                item.poster_path || item.profile_path
+                  ? `https://image.tmdb.org/t/p/w92${
                       item.poster_path || item.profile_path
-                        ? `https://image.tmdb.org/t/p/w92${
-                            item.poster_path || item.profile_path
-                          }`
-                        : "https://via.placeholder.com/92x138?text=No+Image"
-                    }
-                    alt={item.title || item.name || "No title"}
-                    className="w-20 h-28 object-cover rounded-md"
-                  />
-                  <div>
-                    <p className="text-white font-semibold">
-                      {item.title || item.name}
-                    </p>
-                    <p className="text-gray-400 text-sm">
-                      {item.media_type.charAt(0).toUpperCase() +
-                        item.media_type.slice(1)}
-                    </p>
-                    {item.release_date && (
-                      <p className="text-gray-400 text-sm">
-                        {item.release_date}
+                    }`
+                  : "https://via.placeholder.com/92x138?text=No+Image";
+
+              const mediaTypeFormatted =
+                item.media_type.charAt(0).toUpperCase() +
+                item.media_type.slice(1);
+
+              const date = item.release_date || item.first_air_date;
+
+              return (
+                <DialogClose asChild key={item.id}>
+                  <Link
+                    href={linkHref}
+                    className="flex items-center gap-4 p-2 w-full mb-2 rounded-md cursor-pointer
+                               bg-gray-900 hover:bg-gradient-to-r hover:from-red-600 hover:to-pink-500
+                               transition-all duration-300 shadow-sm hover:shadow-lg"
+                  >
+                    <div className="overflow-hidden w-20 h-28 rounded-md flex-shrink-0">
+                      <Image
+                        width={100}
+                        height={100}
+                        priority
+                        quality={75}
+                        src={imageSrc}
+                        alt={item.title || item.name || "No title"}
+                        className="w-full h-full object-cover rounded-md transform transition-transform duration-300 hover:scale-110"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-white font-semibold text-sm md:text-base">
+                        {item.title || item.name}
                       </p>
-                    )}
-                    {item.first_air_date && (
-                      <p className="text-gray-400 text-sm">
-                        {item.first_air_date}
+                      <p className="text-gray-200 text-xs md:text-sm">
+                        {mediaTypeFormatted}
                       </p>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))
+                      {date && (
+                        <p className="text-gray-200 text-xs md:text-sm">
+                          {date}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                </DialogClose>
+              );
+            })
           ) : query ? (
             <p className="text-gray-400">No results found.</p>
           ) : (
