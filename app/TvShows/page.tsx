@@ -17,7 +17,7 @@ import FetchFilteredTV from "@/Api/FetchFilteredTVParams";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
 import CardTvShow from "../Components/CardTvShow/CardTvShow";
 
-export default function page() {
+export default function Page() {
   const [page, setPage] = useState(1);
   const [allData, setAllData] = useState<any[]>([]);
 
@@ -210,12 +210,14 @@ export default function page() {
             ))}
           </div>
         )}
-        <PaginationButtons
-          LoadMore={loadMore}
-          LoadLess={loadLess}
-          isLoading={isLoading}
-          page={page}
-        />
+        {!isLoading && (
+          <PaginationButtons
+            LoadMore={loadMore}
+            LoadLess={loadLess}
+            isLoading={isLoading}
+            page={page}
+          />
+        )}
       </section>
     </main>
   );

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
-export default function FilterMoviesPage() {
+export default function Page() {
   const [page, setPage] = useState(1);
   const [allData, setAllData] = useState<any[]>([]);
   const [filteredData, setFilteredData] = useState<any[]>([]);
@@ -76,7 +76,7 @@ export default function FilterMoviesPage() {
   useEffect(() => {
     refetch();
   }, [filters]);
-console.log(allData,"alldata");
+  console.log(allData, "alldata");
 
   return (
     <main className="min-h-screen bg-black text-white container">
@@ -216,12 +216,14 @@ console.log(allData,"alldata");
             ))}
           </div>
         )}
-        <PaginationButtons
-          LoadMore={LoadMore}
-          LoadLess={LoadLess}
-          isLoading={isLoading}
-          page={page}
-        />
+        {!isLoading && (
+          <PaginationButtons
+            LoadMore={LoadMore}
+            LoadLess={LoadLess}
+            isLoading={isLoading}
+            page={page}
+          />
+        )}
       </section>
     </main>
   );
