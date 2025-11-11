@@ -3,20 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star, Flame, Play } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
+import Logo from "../../../public/Netflix_Symbol_RGB.png"
 
 type TvShowData = {
-  id: number;
-  name: string;
-  poster_path: string;
-  vote_average: number;
+  id?: number;
+  name?: string;
+  poster_path?: string;
+  vote_average?: number;
   popularity?: number;
-  overview: string;
+  overview?: string;
   first_air_date?: string;
   still_path?: string;
 };
 
 type CardTvShowProps = {
-  TvShow: TvShowData;
+  TvShow?: TvShowData;
 };
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
@@ -26,6 +27,9 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         {/* Poster */}
         {TvShow?.poster_path || TvShow?.still_path ? (
           <div className="relative w-full h-0 pb-[150%] overflow-hidden rounded-lg bg-gray-800">
+            <div className="absolute top-0  z-50">
+              <Image width={50} height={50} priority src={Logo.src} alt="" />
+            </div>
             <Image
               src={`https://image.tmdb.org/t/p/w500${
                 TvShow.poster_path || TvShow.still_path

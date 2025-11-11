@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star, Flame, Play } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
-
+import Logo from "../../../public/Netflix_Symbol_RGB.png";
 type MovieData = {
   id: number;
   title?: string;
-  poster_path: string;
-  vote_average: number;
+  poster_path?: string;
+  vote_average?: number;
   popularity?: number;
-  overview: string;
+  overview?: string;
   release_date?: string;
 };
 
@@ -25,6 +25,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
         {/* Poster */}
         {movie?.poster_path ? (
           <div className="relative w-full h-0 pb-[150%]">
+            <div className="absolute top-0  z-50">
+              <Image width={50} height={50} priority src={Logo.src} alt="" />
+            </div>
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
               alt={movie.title || "Movie Poster"}

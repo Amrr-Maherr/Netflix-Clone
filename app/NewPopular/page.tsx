@@ -8,6 +8,8 @@ import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
 import { useEffect, useState } from "react";
 import fetchTvShows from "@/Api/fetchTvShows";
 import Link from "next/link";
+import CardMovie from "../Components/CardMovie/CardMovie";
+import CardTvShow from "../Components/CardTvShow/CardTvShow";
 
 interface Movie {
   id: number;
@@ -178,33 +180,26 @@ export default function Gallery() {
     <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full py-20 container">
       <AnimatePresence>
         {allMovies.map((movie, index) => (
-          <Link
-            href={
-              movie.media_type === "movie"
-                ? `/MovieDetails/${movie.id}`
-                : movie.media_type === "tv"
-                ? `/TvShowDetails/${movie.id}`
-                : `#`
-            }
-            key={`${movie.id}-${index}`}
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.8 }}
+            transition={{
+              duration: 0.8,
+              delay: index * 0.15,
+              type: "spring",
+              stiffness: 100,
+              damping: 10,
+            }}
+            className="w-full"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="w-full"
-            >
-              <Image
-                className="w-full h-auto rounded-lg"
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title ?? ""}
-                width={500}
-                height={500}
-                loading="lazy"
-              />
-            </motion.div>
-          </Link>
+            {movie.media_type === "movie" ? (
+              <CardMovie movie={movie} key={movie.id} />
+            ) : movie.media_type === "tv" ? (
+              <CardTvShow TvShow={movie} key={movie.id} />
+            ) : null}
+          </motion.div>
         ))}
       </AnimatePresence>
     </motion.div>
