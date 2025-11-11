@@ -8,7 +8,7 @@ type MovieData = {
   id: number;
   title?: string;
   poster_path?: string;
-  vote_average?: number;
+  vote_average?: number | null;
   popularity?: number;
   overview?: string;
   release_date?: string;
@@ -50,7 +50,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
           <div className="flex items-center text-gray-300 text-xs gap-3 mb-2">
             <span className="flex items-center gap-1">
               <Star size={14} className="text-yellow-400" />
-              {movie?.vote_average.toFixed(1)}
+              {movie.vote_average != null
+                ? movie.vote_average.toFixed(1)
+                : "N/A"}
             </span>
 
             {movie.release_date && (
