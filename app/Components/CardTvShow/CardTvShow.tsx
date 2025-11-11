@@ -9,7 +9,7 @@ type TvShowData = {
   id?: number;
   name?: string;
   poster_path?: string;
-  vote_average?: number;
+  vote_average?: number | null;
   popularity?: number;
   overview?: string;
   first_air_date?: string;
@@ -17,7 +17,7 @@ type TvShowData = {
 };
 
 type CardTvShowProps = {
-  TvShow?: TvShowData;
+  TvShow: TvShowData;
 };
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
@@ -54,7 +54,9 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
           <div className="flex items-center text-gray-300 text-xs gap-3 mb-2">
             <span className="flex items-center gap-1">
               <Star size={14} className="text-yellow-400" />
-              {TvShow?.vote_average.toFixed(1)}
+              {TvShow.vote_average != null
+                ? TvShow.vote_average.toFixed(1)
+                : "N/A"}
             </span>
 
             {TvShow.first_air_date && (
