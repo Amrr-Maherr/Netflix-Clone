@@ -10,13 +10,18 @@ export default function EpisodeDetailsSection({ episode }: { episode: any }) {
   return (
     <section className="relative w-full rounded-2xl overflow-hidden bg-black">
       <div className="relative h-[70vh] w-full">
-        <Image
-          src={stillUrl}
-          alt={episode.name}
-          fill
-          className="object-cover opacity-70"
-          priority
-        />
+        {stillUrl ? (
+          <Image
+            src={stillUrl}
+            alt={episode.name}
+            fill
+            className="object-cover opacity-70"
+            priority
+          />
+        ) : (
+            <div className="h-full w-full bg-gray-700">
+            </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
         <div className="absolute bottom-10 left-10 max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-3">

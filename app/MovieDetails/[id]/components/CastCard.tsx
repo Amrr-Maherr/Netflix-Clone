@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import Logo from "../../../public/Netflix_Symbol_RGB.png";
 interface CastCardProps {
   actor: any;
 }
@@ -12,6 +12,15 @@ export default function CastCard({ actor }: CastCardProps) {
         key={actor.cast_id}
         className="bg-zinc-900 rounded-xl overflow-hidden transition-transform duration-300 cursor-pointer"
       >
+        <div className="absolute top-0  z-50">
+          <Image
+            width={50}
+            height={50}
+            priority
+            src="/Netflix_Symbol_RGB.png"
+            alt=""
+          />
+        </div>
         {actor.profile_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}

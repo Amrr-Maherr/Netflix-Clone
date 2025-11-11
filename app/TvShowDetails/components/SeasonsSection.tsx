@@ -4,7 +4,13 @@ import Link from "next/link";
 type idProp = {
   tvId: string;
 };
-export default function SeasonsSection({ seasons, tvId }: { seasons: any[]; tvId: idProp }) {
+export default function SeasonsSection({
+  seasons,
+  tvId,
+}: {
+  seasons: any[];
+  tvId: idProp;
+}) {
   if (!seasons?.length) return null;
   console.log(seasons, "seasons");
   console.log(seasons, "seasons");
@@ -21,6 +27,15 @@ export default function SeasonsSection({ seasons, tvId }: { seasons: any[]; tvId
           >
             <div className="group relative rounded-xl overflow-hidden bg-zinc-900 transition-transform duration-300 hover:shadow-2xl">
               {/* Poster */}
+              <div className="absolute top-0 z-50">
+                <Image
+                  width={50}
+                  height={50}
+                  priority
+                  src="/Netflix_Symbol_RGB.png"
+                  alt=""
+                />
+              </div>
               <div className="relative w-full aspect-[2/3]">
                 <Image
                   src={
