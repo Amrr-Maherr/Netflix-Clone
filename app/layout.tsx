@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../app/Components/Header/index";
 import GlobalProvider from "@/Provider/GlobalProvider";
 import Footer from "./Components/Footer/Footer";
+import ScrollButton from "./Components/ScrollButton/ScrollButton";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <GlobalProvider>
           <Header />
           {children}
+          <ScrollButton/>
           <Footer/>
         </GlobalProvider>
       </body>
