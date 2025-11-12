@@ -23,23 +23,23 @@ export default function CardMovie({ movie }: CardMovieProps) {
     <Link href={`/MovieDetails/${movie.id}`} className="h-full">
       <div className="relative bg-zinc-900 rounded-md h-full overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
         {/* Poster */}
-        {movie?.poster_path ? (
           <div className="relative w-full h-0 pb-[150%]">
             <div className="absolute top-0  z-50">
               <Image width={50} height={50} priority src={Logo.src} alt="" />
             </div>
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
-              alt={movie.title || "Movie Poster"}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-              quality={75}
-              loading="lazy"
-            />
+            {movie?.poster_path ? (
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
+                alt={movie.title || "Movie Poster"}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                quality={75}
+                loading="lazy"
+              />
+            ) : (
+              <NoImageFallback text="No Image Available" />
+            )}
           </div>
-        ) : (
-          <NoImageFallback text="No Image Available" />
-        )}
 
         {/* Netflix-like fade overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">

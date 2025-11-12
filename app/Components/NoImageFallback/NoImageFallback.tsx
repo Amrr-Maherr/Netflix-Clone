@@ -8,7 +8,7 @@ interface NoImageFallbackProps {
 }
 
 export default function NoImageFallback({
-  className = "relative w-full h-full bg-gray-800 flex items-center justify-center rounded-lg",
+  className = "absolute inset-0 w-full h-full bg-gray-800 flex items-center justify-center rounded-lg",
   text = "No Image Found",
 }: NoImageFallbackProps) {
   return (
