@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-fd55-4a8b-bd9e-cd6c0058b093_small.jpg";
 import Link from "next/link";
 
 export default function Page() {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -16,12 +16,15 @@ export default function Page() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: {
+        duration: 0.5,
+        ease: [0.42, 0, 0.58, 1], // Cubic-bezier array بدلاً من string
+      },
     },
   };
 
