@@ -39,7 +39,7 @@ export default function SocialLinks({ ids }: { ids: any }) {
   if (!links.length) return null;
 
   return (
-    <div className="mb-16 rounded-xl p-6 sm:p-8 flex flex-wrap gap-4">
+    <div className="mb-16 rounded-xl flex flex-wrap gap-4">
       {links.map((link, i) => (
         <a
           key={i}
