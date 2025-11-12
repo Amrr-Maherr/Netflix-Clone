@@ -50,7 +50,7 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
           return (
             <div
               key={review.id}
-              className=" relative bg-[#141414]/90 backdrop-blur-lg rounded-2xl overflow-hidden border border-neutral-800 hover:border-red-600 transition-all duration-500 hover:scale-[1.04] h-[480px] flex flex-col justify-between shadow-[0_0_15px_rgba(0,0,0,0.6)]"
+              className=" relative bg-[#141414]/90 backdrop-blur-lg rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-500 h-auto flex flex-col justify-between"
             >
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />

@@ -1,3 +1,4 @@
+import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
 import Image from "next/image";
 
 export default function CrewSection({ crew }: { crew: any[] }) {
@@ -12,7 +13,7 @@ export default function CrewSection({ crew }: { crew: any[] }) {
         {keyCrew.map((member) => (
           <div
             key={member.credit_id}
-            className="bg-zinc-900 rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10 cursor-pointer shadow-md"
+            className="bg-zinc-900 relative rounded-xl overflow-hidden transition-transform duration-300"
           >
             {member.profile_path ? (
               <Image
@@ -25,9 +26,7 @@ export default function CrewSection({ crew }: { crew: any[] }) {
                 className="w-full h-48 sm:h-56 md:h-64 object-cover"
               />
             ) : (
-              <div className="bg-zinc-800 h-48 sm:h-56 md:h-64 flex items-center justify-center">
-                <span className="text-gray-500 text-sm">No Image</span>
-              </div>
+              <NoImageFallback text="No Image Available" />
             )}
 
             <div className="p-3 text-center">

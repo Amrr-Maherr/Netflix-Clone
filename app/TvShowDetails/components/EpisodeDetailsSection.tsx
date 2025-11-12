@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Star, Clock, Calendar } from "lucide-react";
+import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
 
 export default function EpisodeDetailsSection({ episode }: { episode: any }) {
   const stillUrl = episode.still_path
@@ -19,8 +20,7 @@ export default function EpisodeDetailsSection({ episode }: { episode: any }) {
             priority
           />
         ) : (
-            <div className="h-full w-full bg-gray-700">
-            </div>
+            <NoImageFallback text="No Image Available" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
         <div className="absolute bottom-10 left-10 max-w-2xl">
