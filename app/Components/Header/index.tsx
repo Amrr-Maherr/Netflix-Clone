@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../Logo/index";
 import HeaderLinks from "./elements/HeaderLinks";
@@ -8,10 +8,26 @@ import Link from "next/link";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+   useEffect(() => {
+     const handleScroll = () => {
+       if (window.scrollY > 50) {
+         setIsScrolled(true);
+       } else {
+         setIsScrolled(false);
+       }
+     };
 
+     window.addEventListener("scroll", handleScroll);
+    //  return () => window.removeEventListener("scroll", handleScroll);
+   }, []);
   return (
     <header>
-      <nav className="flex container items-center justify-between md:justify-start gap-5 fixed z-[999] top-0 left-0 right-0 pt-4">
+      <nav
+        className={`flex container items-center p-2 justify-between md:justify-start gap-5 fixed z-[999] top-0 left-0 right-0 transition-all duration-300 ${
+          isScrolled ? "bg-black/40 backdrop-blur-sm shadow-lg" : "bg-transparent"
+        }`}
+      >
         {/* Logo */}
         <Logo />
 

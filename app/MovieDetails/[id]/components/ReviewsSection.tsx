@@ -1,8 +1,8 @@
 "use client";
-
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import { Star } from "lucide-react";
+import { useState } from "react";
 
 interface AuthorDetails {
   name: string;
@@ -22,7 +22,7 @@ interface Review {
 
 export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
   if (!reviews?.length) return null;
-
+  
   return (
     <section className="py-12">
       <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">
@@ -86,7 +86,7 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
                 {/* Review Content */}
                 <div className="flex-1 mt-5 overflow-hidden">
                   <p className="text-gray-300 text-sm leading-relaxed line-clamp-9">
-                    {review.content}
+                    {review.content.slice(0,100)}...
                   </p>
                 </div>
 

@@ -44,7 +44,7 @@ export default function HeroSection({ person }: { person: any }) {
           priority
           src={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
           alt={person.name}
-          className="w-40 sm:w-56 hidden md:block md:w-80 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-4 border-black"
+          className="w-40 sm:w-56 hidden md:block md:w-80 rounded-xl"
         />
 
         {/* Text */}

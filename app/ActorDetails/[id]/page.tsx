@@ -4,12 +4,6 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import FetchPersonDetails from "@/Api/FetchPersonDetails";
-
-import Slider from "@/app/Components/Slider/Slider";
-import { SwiperSlide } from "swiper/react";
-import { Play, Info } from "lucide-react";
-import CardMovie from "@/app/Components/CardMovie/CardMovie";
-import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
 import HeroSection from "../components/HeroSection";
 import Biography from "../components/Biography";
 import MovieCredits from "../components/MovieCredits";
