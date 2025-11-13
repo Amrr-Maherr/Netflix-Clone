@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { genreOptions, languageOptions, sortOptions } from "@/app/Data/FilterData";
 
 interface Filters {
   sort: string;
@@ -23,7 +24,14 @@ type FiltersProps = {
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
   ClearFilter: () => void;
 };
-export default function Filters({ filters, setFilters, ClearFilter }: FiltersProps) {
+
+export default function Filters({
+  filters,
+  setFilters,
+  ClearFilter,
+}: FiltersProps) {
+  // Data Arrays
+
   return (
     <div className="items-center justify-center flex-wrap gap-4 hidden md:flex">
       <Button
@@ -40,6 +48,7 @@ export default function Filters({ filters, setFilters, ClearFilter }: FiltersPro
       >
         Clear
       </Button>
+
       {/* Sort */}
       <Select
         value={filters.sort}
@@ -51,9 +60,11 @@ export default function Filters({ filters, setFilters, ClearFilter }: FiltersPro
           <SelectValue placeholder="Sort by..." />
         </SelectTrigger>
         <SelectContent className="bg-black text-white border-0">
-          <SelectItem value="all">Popularity ↓</SelectItem>
-          <SelectItem value="rating">Rating ↓</SelectItem>
-          <SelectItem value="newest">Newest ↓</SelectItem>
+          {sortOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
@@ -67,14 +78,12 @@ export default function Filters({ filters, setFilters, ClearFilter }: FiltersPro
         <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
           <SelectValue placeholder="Choose Genre" />
         </SelectTrigger>
-        <SelectContent className="bg-black text-white border-0">
-          <SelectItem value="all">All Genres</SelectItem>
-          <SelectItem value="28">Action</SelectItem>
-          <SelectItem value="35">Comedy</SelectItem>
-          <SelectItem value="18">Drama</SelectItem>
-          <SelectItem value="27">Horror</SelectItem>
-          <SelectItem value="10749">Romance</SelectItem>
-          <SelectItem value="878">Science Fiction</SelectItem>
+        <SelectContent className="bg-black text-white border-0 max-h-60 overflow-y-auto">
+          {genreOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
@@ -88,13 +97,12 @@ export default function Filters({ filters, setFilters, ClearFilter }: FiltersPro
         <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
           <SelectValue placeholder="Select Language" />
         </SelectTrigger>
-        <SelectContent className="bg-black text-white border-0">
-          <SelectItem value="all">All Languages</SelectItem>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="fr">French</SelectItem>
-          <SelectItem value="es">Spanish</SelectItem>
-          <SelectItem value="ja">Japanese</SelectItem>
-          <SelectItem value="ko">Korean</SelectItem>
+        <SelectContent className="bg-black text-white border-0 max-h-60 overflow-y-auto">
+          {languageOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 

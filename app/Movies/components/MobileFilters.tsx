@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
   Select,
   SelectTrigger,
@@ -8,6 +13,8 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { genreOptions, languageOptions, sortOptions } from "@/app/Data/FilterData";
 
 interface Filters {
   sort: string;
@@ -28,6 +35,8 @@ export default function MobileFilters({
   setFilters,
   ClearFilter,
 }: MobileFiltersProps) {
+  // Data Arrays
+
   return (
     <div className="flex flex-col items-center justify-center md:hidden">
       <Drawer>
@@ -37,7 +46,7 @@ export default function MobileFilters({
           </Button>
         </DrawerTrigger>
         <DrawerTitle></DrawerTitle>
-        <DrawerContent className="p-4 bg-[#141414] text-white">
+        <DrawerContent className="p-4 bg-black text-white">
           {/* Clear Button */}
           <Button
             disabled={
@@ -66,9 +75,11 @@ export default function MobileFilters({
                 <SelectValue placeholder="Sort by..." />
               </SelectTrigger>
               <SelectContent className="bg-[#222] text-white border-0">
-                <SelectItem value="all">Popularity ↓</SelectItem>
-                <SelectItem value="rating">Rating ↓</SelectItem>
-                <SelectItem value="newest">Newest ↓</SelectItem>
+                {sortOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -82,14 +93,12 @@ export default function MobileFilters({
               <SelectTrigger className="w-full bg-[#222] border border-[#333] text-sm rounded-md">
                 <SelectValue placeholder="Choose Genre" />
               </SelectTrigger>
-              <SelectContent className="bg-[#222] text-white border-0">
-                <SelectItem value="all">All Genres</SelectItem>
-                <SelectItem value="28">Action</SelectItem>
-                <SelectItem value="35">Comedy</SelectItem>
-                <SelectItem value="18">Drama</SelectItem>
-                <SelectItem value="27">Horror</SelectItem>
-                <SelectItem value="10749">Romance</SelectItem>
-                <SelectItem value="878">Science Fiction</SelectItem>
+              <SelectContent className="bg-[#222] text-white border-0 max-h-60 overflow-y-auto rounded-md">
+                {genreOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -103,18 +112,17 @@ export default function MobileFilters({
               <SelectTrigger className="w-full bg-[#222] border border-[#333] text-sm rounded-md">
                 <SelectValue placeholder="Select Language" />
               </SelectTrigger>
-              <SelectContent className="bg-[#222] text-white border-0">
-                <SelectItem value="all">All Languages</SelectItem>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="fr">French</SelectItem>
-                <SelectItem value="es">Spanish</SelectItem>
-                <SelectItem value="ja">Japanese</SelectItem>
-                <SelectItem value="ko">Korean</SelectItem>
+              <SelectContent className="bg-[#222] text-white border-0 max-h-60 overflow-y-auto rounded-md">
+                {languageOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
             {/* Year */}
-            <input
+            <Input
               type="number"
               placeholder="Enter Year"
               value={filters.year}
@@ -125,7 +133,7 @@ export default function MobileFilters({
             />
 
             {/* Rating */}
-            <input
+            <Input
               type="number"
               step="0.1"
               min="0"
