@@ -8,6 +8,8 @@ import fetchTvShows from "@/Api/fetchTvShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
 import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "./Components/Loading/NetflixIntroLoader";
+import PricingSection from "./Components/PricingSection/PricingSection";
+import AskedQuestions from "./Components/AskedQuestionsSection/AskedQuestions";
 
 export default function Home() {
   const [AllData, setAllData] = useState<any[]>([]);
@@ -248,6 +250,8 @@ export default function Home() {
         title="Currently Airing"
         isMovie={false}
       />
+      <PricingSection />
+      <AskedQuestions/>
     </>
   );
 
