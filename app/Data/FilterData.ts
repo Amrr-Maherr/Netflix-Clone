@@ -1,15 +1,14 @@
 export const sortOptions = [
-    { value: "all", label: "Popularity ↓" },
-    { value: "most_viewed", label: "Most Viewed ↓" },
-    { value: "trending", label: "Trending ↓" },
-    { value: "rating", label: "Rating ↓" },
-    { value: "newest", label: "Newest ↓" },
-    { value: "oldest", label: "Oldest ↓" },
+    { value: "all", label: "Popularity" },
+    { value: "most_viewed", label: "Most Viewed" },
+    { value: "trending", label: "Trending" },
+    { value: "rating", label: "Rating" },
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
     { value: "alphabetical", label: "A–Z" },
 ];
 
 export const genreOptions = [
-    { value: "all", label: "All Genres" },
     { value: "28", label: "Action" },
     { value: "12", label: "Adventure" },
     { value: "16", label: "Animation" },
@@ -29,7 +28,19 @@ export const genreOptions = [
     { value: "53", label: "Thriller" },
     { value: "10752", label: "War" },
     { value: "37", label: "Western" },
+    { value: "10762", label: "Kids" },
+    { value: "10763", label: "News" },
+    { value: "10764", label: "Reality" },
+    { value: "10765", label: "Sci-Fi & Fantasy" },
+    { value: "10766", label: "Soap" },
+    { value: "10767", label: "Talk" },
+    { value: "10768", label: "War & Politics" },
+    { value: "10769", label: "Foreign" },
+    { value: "10771", label: "TV Show" },
+    { value: "10772", label: "Game Show" },
+    { value: "10773", label: "Variety" },
 ];
+
 
 export const languageOptions = [
     { value: "all", label: "All Languages" },

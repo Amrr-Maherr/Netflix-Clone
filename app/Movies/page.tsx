@@ -4,17 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FetchFilteredMovies from "@/Api/FetchFilteredMoviesParams";
 import CardMovie from "../Components/CardMovie/CardMovie";
-import { SlidersHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import PaginationButtons from "./components/PaginationButtons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import MobileFilters from "./components/MobileFilters";
 import Filters from "./components/Filters";
 
