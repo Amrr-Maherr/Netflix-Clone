@@ -24,7 +24,7 @@ export default function Header() {
   return (
     <header>
       <nav
-        className={`container flex items-center p-2 justify-between md:justify-start gap-5 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`container flex items-center p-2 justify-between md:justify-start gap-5 fixed top-0 left-0 right-0 z-999 transition-all duration-300 ${
           isScrolled ? "bg-black/40 backdrop-blur-sm shadow-lg" : ""
         }`}
       >

@@ -65,10 +65,10 @@ export default function HeroSection({
       <div className="absolute inset-0 md:bg-gradient-to-t md:from-black md:via-black/40 to-transparent z-10"></div>
 
       {/* Content */}
-      <div className="z-99 container pt-10">
+      <div className="z-40 container pt-10">
         <div className="flex flex-col md:flex-row gap-8 items-end">
           {/* Poster */}
-          <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hover:scale-105 hidden md:block">
+          <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hidden md:block">
             <Image src={posterUrl} alt={title} fill className="object-cover" />
           </div>
 
@@ -120,7 +120,7 @@ export default function HeroSection({
                   href={`https://www.youtube.com/watch?v=${trailer.key}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold transition transform hover:scale-105"
                 >
                   <Play className="w-5 h-5" />
                   Watch Trailer
@@ -131,7 +131,7 @@ export default function HeroSection({
                   href={data.homepage}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold transition transform hover:scale-105"
                 >
                   <ExternalLink className="w-5 h-5" />
                   Official Site
