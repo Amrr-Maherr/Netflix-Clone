@@ -30,7 +30,7 @@ export default function ScrollButton() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 50, scale: 0.5 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed bottom-6 right-6 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 shadow-lg cursor-pointer z-50"
+          className="animate-bounce fixed bottom-6 right-6 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 shadow-lg cursor-pointer z-50"
         >
           <MoveUp />
         </motion.button>

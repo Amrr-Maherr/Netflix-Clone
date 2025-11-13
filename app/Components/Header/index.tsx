@@ -24,7 +24,7 @@ export default function Header() {
   return (
     <header>
       <nav
-        className={`flex items-center p-2 justify-between md:justify-start gap-5 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`container flex items-center p-2 justify-between md:justify-start gap-5 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "bg-black/40 backdrop-blur-sm shadow-lg" : ""
         }`}
       >
@@ -58,9 +58,7 @@ export default function Header() {
 
             <DrawerContent className="bg-black text-white p-6 border-0">
               {/* Header of Drawer */}
-              <DrawerTitle>
-                
-              </DrawerTitle>
+              <DrawerTitle></DrawerTitle>
               <div className="flex justify-between items-center mb-6">
                 <Logo />
                 <DrawerTrigger asChild>
