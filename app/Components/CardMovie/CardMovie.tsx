@@ -34,7 +34,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 quality={75}
-                loading="lazy"
+                priority
               />
             ) : (
               <NoImageFallback text="No Image Available" />

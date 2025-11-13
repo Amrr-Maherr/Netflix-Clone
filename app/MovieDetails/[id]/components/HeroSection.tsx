@@ -87,7 +87,7 @@ export default function HeroSection({
             <div className="flex flex-wrap items-center gap-4 text-sm md:text-base mb-4">
               {data.vote_average && (
                 <div className="flex items-center gap-1">
-                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  <Star className="w-5 h-5 text-yellow-500" />
                   <span>
                     {data.vote_average.toFixed(1)} ({data.vote_count} votes)
                   </span>
@@ -140,7 +140,7 @@ export default function HeroSection({
               {trailerKey && (
                 <button
                   onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
-                  className="z-999 cursor-pointer bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
+                  className="z-999 cursor-pointer bg-black/50 border border-white text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
                 >
                   {isMute ? (
                     <VolumeX className="w-6 h-6 cursor-pointer" />

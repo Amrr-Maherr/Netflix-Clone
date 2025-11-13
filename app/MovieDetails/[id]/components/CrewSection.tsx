@@ -1,4 +1,5 @@
 import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
+import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 
 export default function CrewSection({ crew }: { crew: any[] }) {
@@ -9,7 +10,8 @@ export default function CrewSection({ crew }: { crew: any[] }) {
     <section>
       <h2 className="text-2xl font-bold mb-4">Key Crew</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+      {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"> */}
+      <Slider slidesPerView={crew.length >= 5 ? 5 : 1} slidesPerViewMobile={1.5}>
         {keyCrew.map((member) => (
           <div
             key={member.credit_id}
@@ -37,7 +39,8 @@ export default function CrewSection({ crew }: { crew: any[] }) {
             </div>
           </div>
         ))}
-      </div>
+      </Slider>
+      {/* </div> */}
     </section>
   );
 }
