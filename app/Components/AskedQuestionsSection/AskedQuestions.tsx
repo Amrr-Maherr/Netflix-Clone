@@ -35,7 +35,7 @@ const faqs = [
 
 export default function AskedQuestions() {
   return (
-    <div className="bg-black text-white py-24 container">
+    <div className="bg-black text-white py-5 md:py-24 container">
       <div className="mx-auto text-start">
         <h2 className="text-3xl font-bold text-red-500">
           Frequently Asked Questions
