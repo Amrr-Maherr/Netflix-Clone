@@ -109,7 +109,7 @@ export default function TvPage() {
         {tv.seasons && <SeasonsSection seasons={tv.seasons} tvId={tv.id}/>}
 
         {/* Trailer */}
-        {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />}
+        {/* {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />} */}
 
         {/* Similar & Recommended Shows */}
         {tv.similar?.results && (
