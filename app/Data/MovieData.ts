@@ -10,6 +10,6 @@ export type MovieData = {
     original_language?: string;
     video?: string;
     original_title?: string;
-    vote_count: string;
+    vote_count?: string;
     adult?: string;
 };
