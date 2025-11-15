@@ -51,7 +51,7 @@ export default function HeroSection({
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">
       {/* Background Video / Image */}
-      {trailerKey ? (
+      {!trailerKey ? (
         <div className="absolute inset-0 w-full h-full">
           <iframe
             src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&showinfo=0`}
@@ -145,7 +145,7 @@ export default function HeroSection({
                   </a>
                 </Button>
               )}
-              {trailerKey && (
+              {/* {trailerKey && (
                 <button
                   onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
                   className="z-999 cursor-pointer bg-black/50 border border-white text-white p-2 rounded-full hover:bg-black/70 transition flex items-center justify-center"
@@ -156,7 +156,7 @@ export default function HeroSection({
                     <Volume2 className="w-4 h-4 cursor-pointer" />
                   )}
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>
