@@ -150,7 +150,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
             href={`/MovieDetails/${movie.id}`}
             className="flex items-center justify-center gap-2 cursor-pointer"
           >
-            <Button className="bg-red-600 hover:bg-red-700 text-white">
+            <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
               <Play size={16} />
               See Movie Details
             </Button>
