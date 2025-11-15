@@ -78,7 +78,7 @@ export default function Page() {
         <GenresSection genres={movie.genres} />
 
         {/* 3. Trailer */}
-        {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />}
+        {/* {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />} */}
 
         {/* 4. Similar + Recommended Movies */}
         {movie.similar?.results && (

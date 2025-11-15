@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useState } from "react";
 import {
   Star,
   Clock,
@@ -10,7 +11,15 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react";
-import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface HeroSectionProps {
   movie?: any;
@@ -37,10 +46,11 @@ export default function HeroSection({
     (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : null);
 
   const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">
-      {/* Trailer Video */}
+      {/* Background Video / Image */}
       {trailerKey ? (
         <div className="absolute inset-0 w-full h-full">
           <iframe
@@ -49,8 +59,6 @@ export default function HeroSection({
             className="absolute inset-0 w-full h-full object-cover"
             allow="autoplay; fullscreen"
           ></iframe>
-
-          {/* Mute/Unmute Button */}
         </div>
       ) : (
         backdropUrl && (
@@ -115,37 +123,37 @@ export default function HeroSection({
 
             {/* Buttons */}
             <div className="mt-4 flex gap-3">
-              {trailer && (
-                <a
-                  href={`https://www.youtube.com/watch?v=${trailer.key}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold transition transform hover:scale-105"
+              {trailerKey && (
+                <Button
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105"
+                  onClick={() => setIsDialogOpen(true)}
                 >
                   <Play className="w-5 h-5" />
                   Watch Trailer
-                </a>
+                </Button>
               )}
               {data.homepage && (
-                <a
-                  href={data.homepage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold transition transform hover:scale-105"
-                >
-                  <ExternalLink className="w-5 h-5" />
-                  Official Site
-                </a>
+                <Button className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105">
+                  <a
+                    href={data.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    Official Site
+                  </a>
+                </Button>
               )}
               {trailerKey && (
                 <button
                   onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
-                  className="z-999 cursor-pointer bg-black/50 border border-white text-white p-3 rounded-full hover:bg-black/70 transition flex items-center justify-center"
+                  className="z-999 cursor-pointer bg-black/50 border border-white text-white p-2 rounded-full hover:bg-black/70 transition flex items-center justify-center"
                 >
                   {isMute ? (
-                    <VolumeX className="w-6 h-6 cursor-pointer" />
+                    <VolumeX className="w-4 h-4 cursor-pointer" />
                   ) : (
-                    <Volume2 className="w-6 h-6 cursor-pointer" />
+                    <Volume2 className="w-4 h-4 cursor-pointer" />
                   )}
                 </button>
               )}
@@ -153,6 +161,44 @@ export default function HeroSection({
           </div>
         </div>
       </div>
+
+      {/* Trailer Dialog */}
+      {trailerKey && (
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent
+            data-slot="dialog-content"
+            className={cn(
+              "bg-black data-[state=open]:animate-in data-[state=closed]:animate-out " +
+                "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 " +
+                "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 " +
+                "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[90%] " +
+                "translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg p-6 shadow-lg duration-200 border-0"
+            )}
+          >
+            <DialogHeader>
+              <DialogTitle className="text-white text-lg md:text-xl">
+                {title} - Trailer
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="relative w-full aspect-video rounded-md overflow-hidden shadow-2xl">
+              <iframe
+                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}`}
+                title="Trailer"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+
+            <DialogClose asChild>
+              <Button className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white">
+                Close
+              </Button>
+            </DialogClose>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
