@@ -2,20 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import CardMovie from "../Components/CardMovie/CardMovie";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import PaginationButtons from "../Movies/components/PaginationButtons";
+import CardTvShow from "../Components/CardTvShow/CardTvShow";
 import FetchFilteredTV from "@/Api/FetchFilteredTVParams";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
-import CardTvShow from "../Components/CardTvShow/CardTvShow";
+import Filters from "../Movies/components/Filters";
+import MobileFilters from "../Movies/components/MobileFilters";
+import PaginationButtons from "../Movies/components/PaginationButtons";
 
 export default function Page() {
   const [page, setPage] = useState(1);
@@ -29,7 +21,7 @@ export default function Page() {
     rating: "",
   });
 
-  const { data, isLoading, isError, refetch} = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["filtered-series", page],
     queryFn: () =>
       FetchFilteredTV({
@@ -46,8 +38,6 @@ export default function Page() {
         vote_average_gte: filters.rating ? Number(filters.rating) : undefined,
       }),
   });
-
-  const handleApplyFilters = () => refetch();
 
   const clearFilter = () => {
     setFilters({
@@ -72,144 +62,46 @@ export default function Page() {
   useEffect(() => {
     refetch();
   }, [filters]);
-    
-    if (isError) {
-        return <ErrorMessage onRetry={refetch} />;
-}
+
+  if (isError) {
+    return <ErrorMessage onRetry={refetch} />;
+  }
+
   return (
     <main className="min-h-screen bg-black text-white container">
-      <section className="py-20">
-        {/* Filters */}
-        <div className="flex items-center justify-center flex-wrap gap-4">
-          <Button
-            disabled={
-              !filters.sort &&
-              !filters.genre &&
-              !filters.language &&
-              !filters.year &&
-              !filters.rating
-            }
-            onClick={clearFilter}
-            variant="outline"
-            className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-md font-semibold transition"
-          >
-            Clear
-          </Button>
-
-          {/* Sort */}
-          <Select
-            value={filters.sort}
-            onValueChange={(value) =>
-              setFilters((prev) => ({ ...prev, sort: value }))
-            }
-          >
-            <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
-              <SelectValue placeholder="Sort by..." />
-            </SelectTrigger>
-            <SelectContent className="bg-black text-white border-0">
-              <SelectItem value="all">Popularity ↓</SelectItem>
-              <SelectItem value="rating">Rating ↓</SelectItem>
-              <SelectItem value="newest">Newest ↓</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* Genre */}
-          <Select
-            value={filters.genre}
-            onValueChange={(value) =>
-              setFilters((prev) => ({ ...prev, genre: value }))
-            }
-          >
-            <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
-              <SelectValue placeholder="Choose Genre" />
-            </SelectTrigger>
-            <SelectContent className="bg-black text-white border-0">
-              <SelectItem value="all">All Genres</SelectItem>
-              <SelectItem value="10759">Action & Adventure</SelectItem>
-              <SelectItem value="35">Comedy</SelectItem>
-              <SelectItem value="18">Drama</SelectItem>
-              <SelectItem value="9648">Mystery</SelectItem>
-              <SelectItem value="10765">Sci-Fi & Fantasy</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* Language */}
-          <Select
-            value={filters.language}
-            onValueChange={(value) =>
-              setFilters((prev) => ({ ...prev, language: value }))
-            }
-          >
-            <SelectTrigger className="w-44 bg-zinc-800 border-zinc-700 text-sm">
-              <SelectValue placeholder="Select Language" />
-            </SelectTrigger>
-            <SelectContent className="bg-black text-white border-0">
-              <SelectItem value="all">All Languages</SelectItem>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="fr">French</SelectItem>
-              <SelectItem value="es">Spanish</SelectItem>
-              <SelectItem value="ja">Japanese</SelectItem>
-              <SelectItem value="ko">Korean</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* Year */}
-          <Input
-            type="number"
-            placeholder="Enter Year"
-            value={filters.year}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, year: e.target.value }))
-            }
-            className="bg-zinc-800 border-zinc-700 text-sm w-28 placeholder-gray-500"
-          />
-
-          {/* Rating */}
-          <Input
-            type="number"
-            step="0.1"
-            min="0"
-            max="10"
-            placeholder="Min Rating (0–10)"
-            value={filters.rating}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, rating: e.target.value }))
-            }
-            className="bg-zinc-800 border-zinc-700 text-sm w-36 placeholder-gray-500"
-          />
-        </div>
+      {/* Filters Section */}
+      <section className="md:py-20 py-15">
+        <Filters
+          ClearFilter={clearFilter}
+          setFilters={setFilters}
+          filters={filters}
+        />
+        <MobileFilters
+          ClearFilter={clearFilter}
+          setFilters={setFilters}
+          filters={filters}
+        />
       </section>
 
+      {/* TV Shows Grid */}
       <section>
-        {isLoading && (
-          <p className="text-gray-400 text-center text-lg">Loading series...</p>
-        )}
-        {isError && (
-          <p className="text-red-500 text-center text-lg">
-            Failed to load series.
-          </p>
-        )}
-        {!isLoading && allData.length === 0 ? (
+        {isLoading ? (
+          <div className="flex items-center justify-center w-full h-screen">
+            <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : !isLoading && allData.length === 0 ? (
           <h3 className="text-white text-center mt-10">
             No results found for your filter.
           </h3>
         ) : (
-          <div
-            className="
-            grid 
-            grid-cols-2 
-            sm:grid-cols-3 
-            md:grid-cols-4 
-            lg:grid-cols-5 
-            xl:grid-cols-6 
-            gap-4
-          "
-          >
-            {allData?.map((show, index) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {allData.map((show, index) => (
               <CardTvShow TvShow={show} key={`${show.id}-${index}`} />
             ))}
           </div>
         )}
+
+        {/* Pagination */}
         {!isLoading && (
           <PaginationButtons
             LoadMore={loadMore}
