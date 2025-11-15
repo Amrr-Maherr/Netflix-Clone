@@ -14,23 +14,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-
-type TvShowData = {
-  id?: number;
-  name?: string;
-  poster_path?: string;
-  vote_average?: number | null;
-  popularity?: number;
-  overview?: string;
-  first_air_date?: string;
-  still_path?: string;
-};
+import { TvShowData } from "@/app/Data/TvShowData";
 
 type CardTvShowProps = {
   TvShow: TvShowData;
 };
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
+  console.log(TvShow, "TvShow");
+  
   return (
     <Dialog>
       {/* Card as trigger */}
@@ -90,60 +82,94 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
 
       {/* Dialog content */}
       <DialogContent className="sm:max-w-md bg-black/95 border-0 mt-5">
-        <DialogHeader>
+        <DialogHeader className="space-y-2">
           <DialogTitle className="text-white">{TvShow.name}</DialogTitle>
+          {TvShow.original_name && TvShow.original_name !== TvShow.name && (
+            <span className="text-gray-400 text-sm block">
+              Original Name: {TvShow.original_name}
+            </span>
+          )}
           <DialogDescription>
             {TvShow.overview || "No description available."}
           </DialogDescription>
         </DialogHeader>
 
+        {/* Poster */}
         <div className="my-4 relative w-full h-64">
-          {TvShow.poster_path || TvShow.still_path ? (
+          {TvShow.backdrop_path || TvShow.poster_path ? (
             <Image
               src={`https://image.tmdb.org/t/p/w500${
-                TvShow.poster_path || TvShow.still_path
+                TvShow.backdrop_path || TvShow.poster_path
               }`}
               alt={TvShow.name || "TV Show Poster"}
               fill
-              className="object-contain rounded-md"
+              className="object-cover rounded-md"
               quality={75}
+              priority
             />
           ) : (
             <NoImageFallback text="No Image Available" />
           )}
         </div>
 
-        <div className="flex justify-between text-sm text-gray-500 mb-4">
-          <span>
-            <Star size={14} className="inline text-yellow-400" />{" "}
+        {/* Stats & Badges */}
+        <div className="flex flex-wrap gap-2 mb-4 text-gray-400">
+          <span className="flex items-center gap-1 px-2 py-0.5 rounded text-sm">
+            <Star size={14} className="text-yellow-400" />
             {TvShow.vote_average != null
               ? TvShow.vote_average.toFixed(1)
-              : "N/A"}
+              : "N/A"}{" "}
+            {TvShow.vote_count != null && `(${TvShow.vote_count} votes)`}
           </span>
+
           {TvShow.first_air_date && (
-            <span>First Air: {TvShow.first_air_date}</span>
+            <span className="px-2 py-0.5 rounded text-sm">
+              First Air: {TvShow.first_air_date}
+            </span>
           )}
+
           {TvShow.popularity != null && (
-            <span>
-              <Flame size={14} className="inline text-red-500" />{" "}
+            <span className="flex items-center gap-1 px-2 py-0.5 rounded text-sm">
+              <Flame size={14} className="text-red-500" />
               {TvShow.popularity.toFixed(0)}
+            </span>
+          )}
+
+          {TvShow.original_language && (
+            <span className="px-2 py-0.5 rounded text-sm">
+              Language: {TvShow.original_language}
+            </span>
+          )}
+
+          {TvShow.adult && (
+            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs">
+              18+
+            </span>
+          )}
+
+          {TvShow.video && (
+            <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
+              Video Available
             </span>
           )}
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
           <DialogClose asChild className="cursor-pointer">
-            <Button variant="outline">Close</Button>
+            <Button variant="outline" className="w-full sm:w-auto">
+              Close
+            </Button>
           </DialogClose>
-          <Button className="bg-red-600 hover:bg-red-700 text-white cursor-pointer">
-            <Link
-              href={`/TvShowDetails/${TvShow.id}`}
-              className="flex items-center justify-center gap-2"
-            >
+
+          <Link
+            href={`/TvShowDetails/${TvShow.id}`}
+            className="flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+          >
+            <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
               <Play size={16} />
               See TV Show Details
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </DialogFooter>
       </DialogContent>
     </Dialog>
