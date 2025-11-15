@@ -14,22 +14,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-
-type MovieData = {
-  id: number;
-  title?: string;
-  poster_path?: string;
-  vote_average?: number | null;
-  popularity?: number;
-  overview?: string;
-  release_date?: string;
-};
+import { MovieData } from "@/app/Data/MovieData";
 
 type CardMovieProps = {
   movie: MovieData;
 };
 
 export default function CardMovie({ movie }: CardMovieProps) {
+  console.dir(movie,"movie")
   return (
     <Dialog>
       {/* Card as trigger */}
@@ -86,9 +78,14 @@ export default function CardMovie({ movie }: CardMovieProps) {
       </DialogTrigger>
 
       {/* Dialog content */}
-      <DialogContent className="sm:max-w-md bg-black/95 border-0 mt-5">
+      <DialogContent className="sm:max-w-md bg-black border-0 mt-5">
         <DialogHeader>
           <DialogTitle className="text-white">{movie.title}</DialogTitle>
+          {movie.original_title && movie.original_title !== movie.title && (
+            <span className="text-gray-400 text-sm block">
+              Original Title: {movie.original_title}
+            </span>
+          )}
           <DialogDescription>
             {movie.overview || "No description available."}
           </DialogDescription>
@@ -97,27 +94,50 @@ export default function CardMovie({ movie }: CardMovieProps) {
         <div className="my-4 relative w-full h-64">
           {movie.poster_path ? (
             <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500${
+                movie.backdrop_path || movie.poster_path
+              }`}
               alt={movie.title || "Movie Poster"}
               fill
-              className="object-contain rounded-md"
+              className="object-cover rounded-md"
               quality={75}
+              priority
             />
           ) : (
             <NoImageFallback text="No Image Available" />
           )}
         </div>
 
-        <div className="flex justify-between text-sm text-gray-500 mb-4">
-          <span>
+        {/* Stats */}
+        <div className="flex flex-wrap justify-between text-sm text-gray-500 mb-4 gap-2">
+          <span className="flex items-center gap-1">
             <Star size={14} className="inline text-yellow-400" />{" "}
-            {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}
+            {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}{" "}
+            {movie.vote_count != null && `(${movie.vote_count} votes)`}
           </span>
+
           {movie.release_date && <span>Release: {movie.release_date}</span>}
+
           {movie.popularity != null && (
-            <span>
+            <span className="flex items-center gap-1">
               <Flame size={14} className="inline text-red-500" />{" "}
               {movie.popularity.toFixed(0)}
+            </span>
+          )}
+
+          {movie.original_language && (
+            <span>Language: {movie.original_language}</span>
+          )}
+
+          {movie.adult && (
+            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs">
+              18+
+            </span>
+          )}
+
+          {movie.video && (
+            <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
+              Video Available
             </span>
           )}
         </div>
@@ -126,15 +146,15 @@ export default function CardMovie({ movie }: CardMovieProps) {
           <DialogClose asChild className="cursor-pointer">
             <Button variant="outline">Close</Button>
           </DialogClose>
-          <Button className="bg-red-600 hover:bg-red-700 text-white cursor-pointer">
-            <Link
-              href={`/MovieDetails/${movie.id}`}
-              className="flex items-center justify-center gap-2"
-            >
+          <Link
+            href={`/MovieDetails/${movie.id}`}
+            className="flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <Button className="bg-red-600 hover:bg-red-700 text-white">
               <Play size={16} />
               See Movie Details
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </DialogFooter>
       </DialogContent>
     </Dialog>
