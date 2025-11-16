@@ -32,8 +32,7 @@ export default function SearchResultItem({ item }: { item: ResultItem }) {
       <Link
         href={linkHref}
         className="flex items-center gap-4 p-2 w-full mb-2 rounded-md cursor-pointer
-                   bg-gray-900 hover:bg-gradient-to-r hover:from-red-600 hover:to-pink-500
-                   transition-all duration-300 shadow-sm hover:shadow-lg"
+                   bg-white/10 backdrop-blur-md border border-white/20"
       >
         <div className="overflow-hidden w-20 h-28 rounded-md flex-shrink-0 relative">
           {imageSrc ? (
