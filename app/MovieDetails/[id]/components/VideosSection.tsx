@@ -19,10 +19,7 @@ export default function VideosSection({ videos }: { videos: Video[] }) {
       <h2 className="text-2xl font-bold mb-6">Videos & Trailers</h2>
 
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> */}
-      <Slider
-        slidesPerView={videos.length > 4 ? 3 : 2}
-        slidesPerViewMobile={1.5}
-      >
+      <Slider slidesPerView={1}>
         {videos.map((video) => (
           <div
             key={video.id}
@@ -30,7 +27,7 @@ export default function VideosSection({ videos }: { videos: Video[] }) {
           >
             {/* Video Thumbnail */}
             <iframe
-              className="w-full h-56 sm:h-60 md:h-64"
+              className="w-full h-[70dvh]"
               src={`https://www.youtube.com/embed/${video.key}`}
               title={video.name}
               allowFullScreen
