@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import SplitText from "../Animations/SplitText";
 import Slider from "../Slider/Slider";
 import { Autoplay, EffectFade } from "swiper/modules";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface HeroSlide {
   id?: number;
@@ -27,17 +27,17 @@ export default function HeroSection({ movies }: HeroSectionProps) {
         slidesPerViewMobile={1}
         spaceBetween={0}
         swiperOptions={{
-          autoplay: { delay: 3000, disableOnInteraction: false },
+          autoplay: { delay: 4000, disableOnInteraction: false },
           speed: 4000,
-          effect: "fade",
+          effect: "creative",
           fadeEffect: { crossFade: true },
         }}
-        modules={[Autoplay, EffectFade]}
+        modules={[Autoplay]}
       >
         {movies.map((movie, index) => (
           <div
             key={index}
-            className="relative w-full min-h-screen flex items-center justify-center bg-black/50 text-white"
+            className="relative w-full h-screen flex items-center justify-center text-white"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
               backgroundSize: "cover",
@@ -45,17 +45,38 @@ export default function HeroSection({ movies }: HeroSectionProps) {
               backgroundRepeat: "no-repeat",
             }}
           >
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
-            <div className="text-center px-4 max-w-2xl z-50">
-              <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                {movie.title || movie.name || "no title"}
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10"></div>
+
+            {/* Content with Framer Motion */}
+            <motion.div
+              className="relative z-20 text-center px-4 max-w-3xl"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              key={movie.id || index}
+            >
+              <h1
+                className="text-4xl md:text-6xl font-extrabold mb-6 tracking-wide drop-shadow-lg"
+              >
+                {movie.title || movie.name || "No Title"}
               </h1>
+
               {movie.overview && (
-                <p className="text-lg md:text-2xl font-medium mb-8">
-                  {movie.overview.slice(0, 100)}...
+                <p
+                  className="text-lg md:text-2xl font-medium mb-8 text-gray-200 drop-shadow-md"
+                >
+                  {movie.overview.slice(0, 150)}...
                 </p>
               )}
-              <div className="flex flex-wrap gap-4 justify-center">
+
+              <motion.div
+                className="flex justify-center"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.9, duration: 1 }}
+              >
                 <Link
                   href={
                     movie.media_type === "movie"
@@ -65,12 +86,12 @@ export default function HeroSection({ movies }: HeroSectionProps) {
                       : `#`
                   }
                 >
-                  <Button className="cursor-pointer bg-red-600 hover:bg-red-700 text-white text-base md:text-lg px-8 py-6 rounded-lg transition-all duration-200">
+                  <Button className="bg-red-600/90 hover:bg-red-700/95 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300">
                     Watch Now
                   </Button>
                 </Link>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         ))}
       </Slider>
