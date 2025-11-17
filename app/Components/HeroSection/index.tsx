@@ -29,10 +29,10 @@ export default function HeroSection({ movies }: HeroSectionProps) {
         swiperOptions={{
           autoplay: { delay: 4000, disableOnInteraction: false },
           speed: 4000,
-          effect: "creative",
+          effect: "fade",
           fadeEffect: { crossFade: true },
         }}
-        modules={[Autoplay]}
+        modules={[Autoplay, EffectFade]}
       >
         {movies.map((movie, index) => (
           <div
@@ -49,35 +49,25 @@ export default function HeroSection({ movies }: HeroSectionProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10"></div>
 
             {/* Content with Framer Motion */}
-            <motion.div
+            <div
               className="relative z-20 text-center px-4 max-w-3xl"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
               key={movie.id || index}
             >
-              <h1
-                className="text-4xl md:text-6xl font-extrabold mb-6 tracking-wide drop-shadow-lg"
-              >
+              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-wide drop-shadow-lg">
                 {movie.title || movie.name || "No Title"}
               </h1>
 
               {movie.overview && (
-                <p
-                  className="text-lg md:text-2xl font-medium mb-8 text-gray-200 drop-shadow-md"
-                >
+                <p className="text-lg md:text-2xl font-medium mb-8 text-gray-200 drop-shadow-md">
                   {movie.overview.slice(0, 150)}...
                 </p>
               )}
 
-              <motion.div
+              <div
                 className="flex justify-center"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.9, duration: 1 }}
               >
                 <Link
+                  className="cursor-pointer"
                   href={
                     movie.media_type === "movie"
                       ? `/MovieDetails/${movie.id}`
@@ -86,12 +76,12 @@ export default function HeroSection({ movies }: HeroSectionProps) {
                       : `#`
                   }
                 >
-                  <Button className="bg-red-600/90 hover:bg-red-700/95 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300">
+                  <Button className="bg-red-600/90 cursor-pointer hover:bg-red-700/95 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300">
                     Watch Now
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         ))}
       </Slider>
