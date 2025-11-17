@@ -7,6 +7,7 @@ interface FetchFilteredTVParams {
   first_air_date_year?: number;
   vote_average_gte?: number;
   sort_by?: string;
+  lang?: string;
 }
 
 const FetchFilteredTV = async ({
@@ -16,6 +17,7 @@ const FetchFilteredTV = async ({
   first_air_date_year,
   vote_average_gte,
   sort_by = "popularity.desc",
+  lang = "en",
 }: FetchFilteredTVParams) => {
   try {
     const response = await axios.get(
@@ -25,6 +27,7 @@ const FetchFilteredTV = async ({
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
         },
         params: {
+          language: lang,
           page,
           sort_by,
           include_adult: false,
