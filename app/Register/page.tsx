@@ -5,8 +5,10 @@ import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-f
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Inputs } from "../Types/Inputs";
+import { signIn, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 export default function Page() {
-
+  const { data: session, status } = useSession();
   const {
     register,
     handleSubmit,
@@ -140,6 +142,36 @@ export default function Page() {
             >
               Use a Sign-In Code
             </button>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Button
+              className="flex items-center cursor-pointer justify-center gap-2 bg-white text-gray-900 border border-gray-300 hover:bg-gray-100 font-medium py-2 px-4 rounded w-full transition duration-150 shadow-sm"
+              onClick={() => signIn("google")}
+            >
+              <svg
+                className="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 533.5 544.3"
+              >
+                <path
+                  d="M533.5 278.4c0-17.2-1.4-34.1-4.2-50.5H272v95.5h146.9c-6.4 34.6-25.5 64-54.5 83.7v69.2h87.9c51.5-47.5 81.2-117.5 81.2-197.9z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M272 544.3c73.2 0 134.6-24.1 179.5-65.2l-87.9-69.2c-24.4 16.4-55.8 26-91.6 26-70.5 0-130.2-47.6-151.6-111.5H31.6v69.9c44.9 88.7 137.1 149 240.4 149z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M120.4 324.4c-10.4-30.5-10.4-63.7 0-94.2v-69.9H31.6c-42.5 85-42.5 186.3 0 271.3l88.8-69.2z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M272 107.6c38.6-.6 75.5 14.2 103.8 40.8l77.9-77.9C406.6 24.2 345.2 0 272 0 168.7 0 76.5 60.3 31.6 149l88.8 69.9C141.8 155.2 201.5 107.6 272 107.6z"
+                  fill="#EA4335"
+                />
+              </svg>
+              Sign up with Google
+            </Button>
           </motion.div>
 
           <div className="flex items-center justify-center">
