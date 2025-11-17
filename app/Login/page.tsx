@@ -38,6 +38,9 @@ export default function Page() {
   };
 
   const { data: session, status } = useSession();
+  const callbackUrl = process.env.NEXTAUTH_URL
+    ? `https://${process.env.NEXTAUTH_URL}`
+    : "http://localhost:3000";
   return (
     <motion.div
       style={{
@@ -130,7 +133,7 @@ export default function Page() {
         <motion.div variants={itemVariants} className="mt-6 text-center">
           <Button
             className="flex items-center cursor-pointer justify-center gap-2 bg-white text-gray-900 border border-gray-300 hover:bg-gray-100 font-medium py-2 px-4 rounded w-full transition duration-150 shadow-sm"
-            onClick={() => signIn("google")}
+            onClick={() => signIn("google", { callbackUrl })}
           >
             <svg
               className="w-5 h-5"
