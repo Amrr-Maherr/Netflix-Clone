@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 import withPWA from "next-pwa";
-import { i18n } from "./next-i18next.config";
-
 const nextConfig: NextConfig = {
-  i18n,
   images: {
     unoptimized: true,
     remotePatterns: [

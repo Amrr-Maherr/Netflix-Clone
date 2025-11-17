@@ -1,4 +1,24 @@
 {
-  "hello": "Hello World",
-  "login": "Login"
+  "faq_title": "Frequently Asked Questions",
+  "faq_description": "Have a different question and can’t find the answer you’re looking for? Reach out to our support team by sending us an email and we’ll get back to you as soon as we can.",
+
+  "faq_1_q": "What is Netflix?",
+  "faq_1_a": "Netflix is a streaming service that offers movies, TV shows, documentaries, and more on thousands of devices.",
+
+  "faq_2_q": "How much does Netflix cost?",
+  "faq_2_a": "Plans start at $9.99 and go up depending on the number of screens and video quality you choose.",
+
+  "faq_3_q": "Where can I watch?",
+  "faq_3_a": "You can watch Netflix on your phone, tablet, smart TV, laptop, or any streaming device connected to the internet.",
+
+  "faq_4_q": "How do I cancel my subscription?",
+  "faq_4_a": "You can cancel anytime online. There are no contracts or cancellation fees.",
+
+  "faq_5_q": "What kind of content is available?",
+  "faq_5_a": "Netflix offers a wide variety of movies, TV shows, anime, documentaries, and exclusive Netflix Originals.",
+
+  "faq_6_q": "Is there content for kids?",
+  "faq_6_a": "Yes! Netflix Kids allows parents to control what their children watch while giving them access to family-friendly shows and movies."
 }
+
+

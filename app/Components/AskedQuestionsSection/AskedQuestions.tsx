@@ -1,39 +1,18 @@
 "use client";
 
-const faqs = [
-  {
-    question: "What is Netflix?",
-    answer:
-      "Netflix is a streaming service that offers movies, TV shows, documentaries, and more on thousands of devices.",
-  },
-  {
-    question: "How much does Netflix cost?",
-    answer:
-      "Plans start at $9.99 and go up depending on the number of screens and video quality you choose.",
-  },
-  {
-    question: "Where can I watch?",
-    answer:
-      "You can watch Netflix on your phone, tablet, smart TV, laptop, or any streaming device connected to the internet.",
-  },
-  {
-    question: "How do I cancel my subscription?",
-    answer:
-      "You can cancel anytime online. There are no contracts or cancellation fees.",
-  },
-  {
-    question: "What kind of content is available?",
-    answer:
-      "Netflix offers a wide variety of movies, TV shows, anime, documentaries, and exclusive Netflix Originals.",
-  },
-  {
-    question: "Is there content for kids?",
-    answer:
-      "Yes! Netflix Kids allows parents to control what their children watch while giving them access to family-friendly shows and movies.",
-  },
-];
+import { useTranslation } from "react-i18next";
+
 
 export default function AskedQuestions() {
+  const { t } = useTranslation("common");
+  const faqs = [
+    { question: t("faq_1_q"), answer: t("faq_1_a") },
+    { question: t("faq_2_q"), answer: t("faq_2_a") },
+    { question: t("faq_3_q"), answer: t("faq_3_a") },
+    { question: t("faq_4_q"), answer: t("faq_4_a") },
+    { question: t("faq_5_q"), answer: t("faq_5_a") },
+    { question: t("faq_6_q"), answer: t("faq_6_a") },
+  ];
   return (
     <div className="bg-black text-white py-5 md:py-24 container">
       <div className="mx-auto text-start">
