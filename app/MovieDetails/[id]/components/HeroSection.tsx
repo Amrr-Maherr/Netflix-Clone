@@ -51,21 +51,21 @@ export default function HeroSection({
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">
       {/* Background Video / Image */}
-      {!trailerKey ? (
-        <div className="absolute inset-0 w-full h-full">
-          <iframe
-            src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&showinfo=0`}
-            title="Trailer"
-            className="absolute inset-0 w-full h-full object-cover"
-            allow="autoplay; fullscreen"
-          ></iframe>
-        </div>
+      {backdropUrl ? (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${backdropUrl})` }}
+        ></div>
       ) : (
-        backdropUrl && (
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${backdropUrl})` }}
-          ></div>
+        trailerKey && (
+          <div className="absolute inset-0 w-full h-full">
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&showinfo=0`}
+              title="Trailer"
+              className="absolute inset-0 w-full h-full object-cover"
+              allow="autoplay; fullscreen"
+            ></iframe>
+          </div>
         )
       )}
 
