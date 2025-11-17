@@ -5,6 +5,7 @@ import Header from "../app/Components/Header/index";
 import GlobalProvider from "@/Provider/GlobalProvider";
 import Footer from "./Components/Footer/Footer";
 import ScrollButton from "./Components/ScrollButton/ScrollButton";
+import I18Provider from "@/app/I18Provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,12 +35,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GlobalProvider>
-          <Header />
-          {children}
-          <ScrollButton/>
-          <Footer/>
-        </GlobalProvider>
+        <I18Provider>
+          <GlobalProvider>
+            <Header />
+            {children}
+            <ScrollButton />
+            <Footer />
+          </GlobalProvider>
+        </I18Provider>
       </body>
     </html>
   );
