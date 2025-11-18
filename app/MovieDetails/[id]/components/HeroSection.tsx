@@ -76,9 +76,9 @@ export default function HeroSection({
       <div className="z-40 container py-10">
         <div className="flex flex-col md:flex-row gap-8 items-end">
           {/* Poster */}
-          <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hidden md:block">
+          {/* <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hidden md:block">
             <Image src={posterUrl} alt={title} fill className="object-cover" />
-          </div>
+          </div> */}
 
           {/* Info */}
           <div className="flex-1 text-white">
