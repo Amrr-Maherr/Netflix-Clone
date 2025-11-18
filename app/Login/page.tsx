@@ -7,8 +7,11 @@ import { Inputs } from "../Types/Inputs";
 // Import NextAuth
 import { signIn, useSession} from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -38,6 +41,13 @@ export default function Page() {
   };
 
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push('/')
+    }
+  }, [status, router])
+  
   return (
     <motion.div
       style={{
