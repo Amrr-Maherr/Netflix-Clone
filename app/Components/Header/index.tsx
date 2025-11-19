@@ -5,6 +5,7 @@ import Logo from "../Logo/index";
 import HeaderLinks from "./elements/HeaderLinks";
 import SearchComponent from "../Search/SearchComponent";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 import {
   Drawer,
   DrawerContent,
@@ -28,7 +29,6 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    // جلب بيانات المستخدم من localStorage
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
@@ -36,7 +36,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    // يمكن إعادة التوجيه إذا حبيت
+    signOut({ callbackUrl: "/" });
   };
 
   return (
