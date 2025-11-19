@@ -1,15 +1,17 @@
 "use client";
+
+import React, { useEffect, useState, useRef } from "react";
 import fetchMovies from "@/Api/FetchPopularMovies";
+import fetchTvShows from "@/Api/fetchTvShows";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
 import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
-import { useEffect, useState } from "react";
-import fetchTvShows from "@/Api/fetchTvShows";
-import Link from "next/link";
 import CardMovie from "../Components/CardMovie/CardMovie";
 import CardTvShow from "../Components/CardTvShow/CardTvShow";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 interface Movie {
   id: number;
@@ -20,8 +22,9 @@ interface Movie {
 
 export default function Gallery() {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
-  // Queries
+  // ====== Queries ======
   const trendingMoviesWeekQuery = useQuery({
     queryKey: ["trending-movies-week"],
     queryFn: () => fetchMovies({ url: "/trending/movie/week" }),
@@ -52,7 +55,7 @@ export default function Gallery() {
     queryFn: () => fetchMovies({ url: "/movie/now_playing" }),
   });
 
-  // ======== TV Shows Queries ========
+  // ===== TV Shows Queries =====
   const trendingTVWeekQuery = useQuery({
     queryKey: ["trending-tv-week"],
     queryFn: () => fetchTvShows({ url: "/trending/tv/week" }),
@@ -83,6 +86,7 @@ export default function Gallery() {
     queryFn: () => fetchTvShows({ url: "/tv/on_the_air" }),
   });
 
+  // ===== Merge all data =====
   useEffect(() => {
     setAllMovies([
       ...(trendingMoviesWeekQuery.data || []),
@@ -111,21 +115,32 @@ export default function Gallery() {
     topRatedTVQuery.data,
     airingTodayTVQuery.data,
     onTheAirTVQuery.data,
-    trendingMoviesWeekQuery.isLoading,
-    trendingMoviesDayQuery.isLoading,
-    popularMoviesQuery.isLoading,
-    topRatedMoviesQuery.isLoading,
-    upcomingMoviesQuery.isLoading,
-    nowPlayingMoviesQuery.isLoading,
-    trendingTVWeekQuery.isLoading,
-    trendingTVDayQuery.isLoading,
-    popularTVQuery.isLoading,
-    topRatedTVQuery.isLoading,
-    airingTodayTVQuery.isLoading,
-    onTheAirTVQuery.isLoading,
   ]);
-    
-  // Loading state
+
+  // ===== GSAP animation for cards =====
+  useEffect(() => {
+    cardsRef.current.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 50, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+  }, [allMovies]);
+
+  // ===== Loading & Error =====
   if (
     trendingMoviesWeekQuery.isLoading ||
     trendingMoviesDayQuery.isLoading ||
@@ -142,7 +157,6 @@ export default function Gallery() {
   )
     return <NetflixIntroLoader />;
 
-  // Error state
   if (
     trendingMoviesWeekQuery.isError ||
     trendingMoviesDayQuery.isError ||
@@ -154,7 +168,8 @@ export default function Gallery() {
     trendingTVDayQuery.isError ||
     popularTVQuery.isError ||
     topRatedTVQuery.isError ||
-    airingTodayTVQuery.isError
+    airingTodayTVQuery.isError ||
+    onTheAirTVQuery.isError
   )
     return (
       <ErrorMessage
@@ -174,34 +189,24 @@ export default function Gallery() {
         }}
       />
     );
-  console.log(allMovies,"all");
-  
+
   return (
-    <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full py-20 container">
-      <AnimatePresence>
-        {allMovies.map((movie, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.8 }}
-            transition={{
-              duration: 0.8,
-              delay: index * 0.15,
-              type: "spring",
-              stiffness: 100,
-              damping: 10,
-            }}
-            className="w-full"
-          >
-            {movie.media_type === "movie" ? (
-              <CardMovie movie={movie} key={movie.id} />
-            ) : movie.media_type === "tv" ? (
-              <CardTvShow TvShow={movie} key={movie.id} />
-            ) : null}
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </motion.div>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full py-20 container">
+      {allMovies.map((movie, index) => (
+        <div
+          key={`${movie.id}-${index}`}
+          ref={(el) => {
+            if (el) cardsRef.current[index] = el;
+          }}
+          className="w-full"
+        >
+          {movie.media_type === "movie" ? (
+            <CardMovie movie={movie} />
+          ) : movie.media_type === "tv" ? (
+            <CardTvShow TvShow={movie} />
+          ) : null}
+        </div>
+      ))}
+    </div>
   );
 }
