@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CardTvShow from "../Components/CardTvShow/CardTvShow";
 import FetchFilteredTV from "@/Api/FetchFilteredTVParams";
@@ -9,10 +9,13 @@ import Filters from "../Movies/components/Filters";
 import MobileFilters from "../Movies/components/MobileFilters";
 import PaginationButtons from "../Movies/components/PaginationButtons";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Page() {
   const [page, setPage] = useState(1);
   const [allData, setAllData] = useState<any[]>([]);
-
   const [filters, setFilters] = useState({
     sort: "",
     genre: "",
@@ -20,6 +23,8 @@ export default function Page() {
     year: "",
     rating: "",
   });
+
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["filtered-series", page],
@@ -40,13 +45,7 @@ export default function Page() {
   });
 
   const clearFilter = () => {
-    setFilters({
-      sort: "",
-      genre: "",
-      language: "",
-      year: "",
-      rating: "",
-    });
+    setFilters({ sort: "", genre: "", language: "", year: "", rating: "" });
     refetch();
   };
 
@@ -63,9 +62,27 @@ export default function Page() {
     refetch();
   }, [filters]);
 
-  if (isError) {
-    return <ErrorMessage onRetry={refetch} />;
-  }
+  useEffect(() => {
+    cardsRef.current.forEach((card) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+  }, [allData]);
+
+  if (isError) return <ErrorMessage onRetry={refetch} />;
 
   return (
     <main className="min-h-screen bg-black text-white container">
@@ -96,7 +113,14 @@ export default function Page() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {allData.map((show, index) => (
-              <CardTvShow TvShow={show} key={`${show.id}-${index}`} />
+              <div
+                key={`${show.id}-${index}`}
+                ref={(el) => {
+                  if (el) cardsRef.current[index] = el;
+                }}
+              >
+                <CardTvShow TvShow={show} />
+              </div>
             ))}
           </div>
         )}

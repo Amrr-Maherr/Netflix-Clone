@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FetchFilteredMovies from "@/Api/FetchFilteredMoviesParams";
 import CardMovie from "../Components/CardMovie/CardMovie";
 import PaginationButtons from "./components/PaginationButtons";
 import MobileFilters from "./components/MobileFilters";
 import Filters from "./components/Filters";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Page() {
   const [page, setPage] = useState(1);
@@ -20,6 +24,8 @@ export default function Page() {
     year: "",
     rating: "",
   });
+
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["filtered-movies", page],
@@ -68,10 +74,30 @@ export default function Page() {
   useEffect(() => {
     refetch();
   }, [filters]);
+
+  useEffect(() => {
+    cardsRef.current.forEach((card) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+  }, [allData]);
+
   return (
     <main className="min-h-screen bg-black text-white container">
       <section className="md:py-20 py-15">
-        {/* Filters */}
         <Filters
           ClearFilter={ClearFilter}
           setFilters={setFilters}
@@ -94,19 +120,16 @@ export default function Page() {
             No results found for your filter.
           </h3>
         ) : (
-          <div
-            className="
-        grid 
-        grid-cols-2 
-        sm:grid-cols-3 
-        md:grid-cols-4 
-        lg:grid-cols-5 
-        xl:grid-cols-6 
-        gap-4
-      "
-          >
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {allData?.map((movie, index) => (
-              <CardMovie movie={movie} key={`${movie.id}-${index}`} />
+              <div
+                key={`${movie.id}-${index}`}
+                ref={(el) => {
+                  if (el) cardsRef.current[index] = el;
+                }}
+              >
+                <CardMovie movie={movie} />
+              </div>
             ))}
           </div>
         )}
