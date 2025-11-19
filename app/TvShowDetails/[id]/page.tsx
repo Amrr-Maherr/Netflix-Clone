@@ -1,4 +1,5 @@
 "use client";
+
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import FetchTVDetails from "@/Api/FetchTVDetails";
@@ -26,8 +27,14 @@ import NetworksSection from "../components/NetworksSection";
 import ProductionCountriesSection from "../components/ProductionCountriesSection";
 import KeywordsSection from "../components/KeywordsSection";
 import ContentRatingSection from "../components/ContentRatingSection";
+
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
+
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function TvPage() {
   const { id } = useParams();
@@ -42,15 +49,33 @@ export default function TvPage() {
     enabled: !!id,
   });
 
-  if (isLoading)
-    return (
-      <NetflixIntroLoader/>
-    );
+  const sectionsRef = useRef<HTMLDivElement[]>([]);
 
-  if (isError || !tv)
-    return (
-      <ErrorMessage/>
-    );
+  // GSAP animations for all sections
+  useEffect(() => {
+    sectionsRef.current.forEach((section) => {
+      if (!section) return;
+      gsap.fromTo(
+        section,
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 90%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+  }, [tv]);
+
+  if (isLoading) return <NetflixIntroLoader />;
+
+  if (isError || !tv) return <ErrorMessage />;
 
   const backdropUrl = tv.backdrop_path
     ? `https://image.tmdb.org/t/p/original${tv.backdrop_path}`
@@ -66,10 +91,6 @@ export default function TvPage() {
     tv.videos?.results?.[2] ||
     tv.videos?.results?.[3];
 
-  const trailerUrl = trailer
-    ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=0`
-    : null;
-
   return (
     <div className="min-h-screen bg-black text-white">
       <HeroSection
@@ -82,94 +103,151 @@ export default function TvPage() {
       <div className="mx-auto py-12 space-y-12 container">
         {/* Seasons Overview */}
         {tv.number_of_seasons && (
-          <SeasonsOverviewSection
-            numberOfSeasons={tv.number_of_seasons}
-            numberOfEpisodes={tv.number_of_episodes}
-          />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <SeasonsOverviewSection
+              numberOfSeasons={tv.number_of_seasons}
+              numberOfEpisodes={tv.number_of_episodes}
+            />
+          </div>
         )}
 
         {/* Last & Next Episode */}
         {tv.last_episode_to_air && (
-          <EpisodeDetailsSection episode={tv.last_episode_to_air} />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <EpisodeDetailsSection episode={tv.last_episode_to_air} />
+          </div>
         )}
         {tv.next_episode_to_air && (
-          <EpisodeDetailsSection episode={tv.next_episode_to_air} />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <EpisodeDetailsSection episode={tv.next_episode_to_air} />
+          </div>
         )}
 
         {/* Overview & Genres */}
-        <OverviewSection overview={tv.overview} />
-        <GenresSection genres={tv.genres} />
+        <div ref={(el) => el && sectionsRef.current.push(el)}>
+          <OverviewSection overview={tv.overview} />
+        </div>
+        <div ref={(el) => el && sectionsRef.current.push(el)}>
+          <GenresSection genres={tv.genres} />
+        </div>
 
-        {/* Created By & Cast & Crew (Netflix style) */}
-        {tv.created_by && <CreatedBySection creators={tv.created_by} />}
-        {tv.credits?.cast && <CastSection cast={tv.credits.cast} />}
-        {tv.credits?.crew && <CrewSection crew={tv.credits.crew} />}
+        {/* Created By & Cast & Crew */}
+        {tv.created_by && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <CreatedBySection creators={tv.created_by} />
+          </div>
+        )}
+        {tv.credits?.cast && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <CastSection cast={tv.credits.cast} />
+          </div>
+        )}
+        {tv.credits?.crew && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <CrewSection crew={tv.credits.crew} />
+          </div>
+        )}
 
         {/* Seasons */}
-        {tv.seasons && <SeasonsSection seasons={tv.seasons} tvId={tv.id}/>}
-
-        {/* Trailer */}
-        {/* {trailer && <TrailerSection trailerUrl={trailerUrl || ""} />} */}
+        {tv.seasons && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <SeasonsSection seasons={tv.seasons} tvId={tv.id} />
+          </div>
+        )}
 
         {/* Similar & Recommended Shows */}
         {tv.similar?.results && (
-          <SimilarShowsSection
-            shows={tv.similar.results}
-            title="Similar TV Shows"
-            movies={[]}
-          />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <SimilarShowsSection
+              shows={tv.similar.results}
+              movies={[]}
+              title="Similar TV Shows"
+            />
+          </div>
         )}
         {tv.recommendations?.results && (
-          <SimilarShowsSection
-            shows={tv.recommendations.results}
-            title="Recommended TV Shows"
-            movies={[]}
-          />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <SimilarShowsSection
+              shows={tv.recommendations.results}
+              movies={[]}
+              title="Recommended TV Shows"
+            />
+          </div>
         )}
 
         {/* Images & Videos */}
         {tv.images?.backdrops && (
-          <ImagesSection
-            images={[]}
-            backdrops={tv.images.backdrops}
-            logos={tv.images.logos}
-            posters={tv.images.posters}
-          />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <ImagesSection
+              images={[]}
+              backdrops={tv.images.backdrops}
+              logos={tv.images.logos}
+              posters={tv.images.posters}
+            />
+          </div>
         )}
-        {tv.videos?.results && <VideosSection videos={tv.videos.results} />}
+        {tv.videos?.results && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <VideosSection videos={tv.videos.results} />
+          </div>
+        )}
 
         {/* Reviews */}
-        {tv.reviews?.results && <ReviewsSection reviews={tv.reviews.results} />}
+        {tv.reviews?.results && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <ReviewsSection reviews={tv.reviews.results} />
+          </div>
+        )}
 
         {/* Production Companies */}
         {tv.production_companies && (
-          <ProductionCompaniesSection companies={tv.production_companies} />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <ProductionCompaniesSection companies={tv.production_companies} />
+          </div>
         )}
 
         {/* Networks & Countries */}
-        {tv.networks && <NetworksSection networks={tv.networks} />}
+        {tv.networks && (
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <NetworksSection networks={tv.networks} />
+          </div>
+        )}
         {tv.production_countries && (
-          <ProductionCountriesSection countries={tv.production_countries} />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <ProductionCountriesSection countries={tv.production_countries} />
+          </div>
         )}
 
         {/* Keywords & Content Ratings */}
         {tv.keywords?.results && (
-          <KeywordsSection keywords={tv.keywords.results} />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <KeywordsSection keywords={tv.keywords.results} />
+          </div>
         )}
         {tv.content_ratings?.results && (
-          <ContentRatingSection ratings={tv.content_ratings?.results} />
+          <div ref={(el) => el && sectionsRef.current.push(el)}>
+            <ContentRatingSection ratings={tv.content_ratings.results} />
+          </div>
         )}
 
         {/* Watch Providers */}
         {tv["watch/providers"]?.results && (
           <>
-            <ProvidersSection providers={tv["watch/providers"].results} />
-            <WatchProvidersSection providers={tv["watch/providers"].results} />
+            <div ref={(el) => el && sectionsRef.current.push(el)}>
+              <ProvidersSection providers={tv["watch/providers"].results} />
+            </div>
+            <div ref={(el) => el && sectionsRef.current.push(el)}>
+              <WatchProvidersSection
+                providers={tv["watch/providers"].results}
+              />
+            </div>
           </>
         )}
 
         {/* Metadata */}
-        <ShowMetadataSection tv={tv} />
+        <div ref={(el) => el && sectionsRef.current.push(el)}>
+          <ShowMetadataSection tv={tv} />
+        </div>
       </div>
     </div>
   );

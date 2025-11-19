@@ -40,7 +40,7 @@ export default function ImagesSection({
       {backdrops?.length > 0 && (
         <div>
           <h3 className="text-xl font-semibold mb-3">Cinematic Scenes</h3>
-          <Slider slidesPerView={1} slidesPerViewMobile={1.5}>
+          <Slider slidesPerView={5} slidesPerViewMobile={1.5}>
             {backdrops.map((img, i) => (
               <div
                 key={i}
@@ -51,7 +51,7 @@ export default function ImagesSection({
                   src={`https://image.tmdb.org/t/p/w780${img.file_path}`}
                   alt={`Backdrop ${i + 1}`}
                   fill
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
             ))}
@@ -66,7 +66,7 @@ export default function ImagesSection({
             {" "}
             Official Titles & Logos
           </h3>
-          <Slider slidesPerView={1} slidesPerViewMobile={1.5}>
+          <Slider slidesPerView={5} slidesPerViewMobile={1.5}>
             {logos.map((img, i) => (
               <div
                 key={i}
@@ -90,7 +90,7 @@ export default function ImagesSection({
       {posters?.length > 0 && (
         <div>
           <h3 className="text-xl font-semibold mb-3"> Featured Posters</h3>
-          <Slider slidesPerView={1} slidesPerViewMobile={1.5}>
+          <Slider slidesPerView={5} slidesPerViewMobile={1.5}>
             {posters.map((img, i) => (
               <div
                 key={i}
@@ -101,7 +101,7 @@ export default function ImagesSection({
                   src={`https://image.tmdb.org/t/p/w500${img.file_path}`}
                   alt={`Poster ${i + 1}`}
                   fill
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
             ))}
