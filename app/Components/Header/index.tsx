@@ -36,7 +36,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    signOut({ callbackUrl: "/" });
+    signOut();
   };
 
   return (
