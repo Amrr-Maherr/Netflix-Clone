@@ -1,5 +1,4 @@
 "use client";
-
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import FetchTVDetails from "@/Api/FetchTVDetails";
@@ -9,7 +8,6 @@ import OverviewSection from "@/app/MovieDetails/[id]/components/OverviewSection"
 import GenresSection from "@/app/MovieDetails/[id]/components/GenresSection";
 import CastSection from "@/app/MovieDetails/[id]/components/CastSection";
 import CrewSection from "@/app/MovieDetails/[id]/components/CrewSection";
-import TrailerSection from "@/app/MovieDetails/[id]/components/TrailerSection";
 import SimilarShowsSection from "@/app/MovieDetails/[id]/components/SimilarMoviesSection";
 import ImagesSection from "@/app/MovieDetails/[id]/components/ImagesSection";
 import VideosSection from "@/app/MovieDetails/[id]/components/VideosSection";
@@ -21,23 +19,18 @@ import WatchProvidersSection from "@/app/MovieDetails/[id]/components/WatchProvi
 import EpisodeDetailsSection from "../../TvShowDetails/components/EpisodeDetailsSection";
 import SeasonsSection from "../../TvShowDetails/components/SeasonsSection";
 import SeasonsOverviewSection from "../components/SeasonsOverviewSection";
-import ShowMetadataSection from "../components/ShowMetadataSection";
 import CreatedBySection from "../components/CreatedBySection";
 import NetworksSection from "../components/NetworksSection";
 import ProductionCountriesSection from "../components/ProductionCountriesSection";
 import KeywordsSection from "../components/KeywordsSection";
 import ContentRatingSection from "../components/ContentRatingSection";
-
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
-
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { useRef } from "react";
 
 export default function TvPage() {
   const { id } = useParams();
+  const sectionsRef = useRef<HTMLDivElement[]>([]);
 
   const {
     data: tv,
@@ -48,30 +41,6 @@ export default function TvPage() {
     queryFn: () => FetchTVDetails({ id: id as string }),
     enabled: !!id,
   });
-
-  const sectionsRef = useRef<HTMLDivElement[]>([]);
-
-  // GSAP animations for all sections
-  useEffect(() => {
-    sectionsRef.current.forEach((section) => {
-      if (!section) return;
-      gsap.fromTo(
-        section,
-        { opacity: 0, y: 80 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 90%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
-    });
-  }, [tv]);
 
   if (isLoading) return <NetflixIntroLoader />;
 
@@ -101,153 +70,93 @@ export default function TvPage() {
       />
 
       <div className="mx-auto py-12 space-y-12 container">
-        {/* Seasons Overview */}
         {tv.number_of_seasons && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <SeasonsOverviewSection
-              numberOfSeasons={tv.number_of_seasons}
-              numberOfEpisodes={tv.number_of_episodes}
-            />
-          </div>
+          <SeasonsOverviewSection
+            numberOfSeasons={tv.number_of_seasons}
+            numberOfEpisodes={tv.number_of_episodes}
+          />
         )}
 
-        {/* Last & Next Episode */}
         {tv.last_episode_to_air && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <EpisodeDetailsSection episode={tv.last_episode_to_air} />
-          </div>
+          <EpisodeDetailsSection episode={tv.last_episode_to_air} />
         )}
         {tv.next_episode_to_air && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <EpisodeDetailsSection episode={tv.next_episode_to_air} />
-          </div>
+          <EpisodeDetailsSection episode={tv.next_episode_to_air} />
         )}
 
-        {/* Overview & Genres */}
-        <div ref={(el) => el && sectionsRef.current.push(el)}>
-          <OverviewSection overview={tv.overview} />
-        </div>
-        <div ref={(el) => el && sectionsRef.current.push(el)}>
-          <GenresSection genres={tv.genres} />
-        </div>
+        <OverviewSection overview={tv.overview} />
+        <GenresSection genres={tv.genres} />
 
-        {/* Created By & Cast & Crew */}
-        {tv.created_by && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <CreatedBySection creators={tv.created_by} />
-          </div>
-        )}
+        {tv.created_by && <CreatedBySection creators={tv.created_by} />}
         {tv.credits?.cast && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
+          <div
+            ref={(el) => {
+              if (el && !sectionsRef.current.includes(el))
+                sectionsRef.current.push(el);
+            }}
+          >
             <CastSection cast={tv.credits.cast} />
           </div>
         )}
         {tv.credits?.crew && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
+          <div
+            ref={(el) => {
+              if (el && !sectionsRef.current.includes(el))
+                sectionsRef.current.push(el);
+            }}
+          >
             <CrewSection crew={tv.credits.crew} />
           </div>
         )}
 
-        {/* Seasons */}
-        {tv.seasons && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <SeasonsSection seasons={tv.seasons} tvId={tv.id} />
-          </div>
-        )}
+        {tv.seasons && <SeasonsSection seasons={tv.seasons} tvId={tv.id} />}
 
-        {/* Similar & Recommended Shows */}
         {tv.similar?.results && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <SimilarShowsSection
-              shows={tv.similar.results}
-              movies={[]}
-              title="Similar TV Shows"
-            />
-          </div>
+          <SimilarShowsSection
+            shows={tv.similar.results}
+            movies={[]}
+            title="Similar TV Shows"
+          />
         )}
         {tv.recommendations?.results && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <SimilarShowsSection
-              shows={tv.recommendations.results}
-              movies={[]}
-              title="Recommended TV Shows"
-            />
-          </div>
+          <SimilarShowsSection
+            shows={tv.recommendations.results}
+            movies={[]}
+            title="Recommended TV Shows"
+          />
         )}
 
-        {/* Images & Videos */}
         {tv.images?.backdrops && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <ImagesSection
-              images={[]}
-              backdrops={tv.images.backdrops}
-              logos={tv.images.logos}
-              posters={tv.images.posters}
-            />
-          </div>
+          <ImagesSection
+            images={[]}
+            backdrops={tv.images.backdrops}
+            logos={tv.images.logos}
+            posters={tv.images.posters}
+          />
         )}
-        {tv.videos?.results && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <VideosSection videos={tv.videos.results} />
-          </div>
-        )}
+        {tv.videos?.results && <VideosSection videos={tv.videos.results} />}
+        {tv.reviews?.results && <ReviewsSection reviews={tv.reviews.results} />}
 
-        {/* Reviews */}
-        {tv.reviews?.results && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <ReviewsSection reviews={tv.reviews.results} />
-          </div>
-        )}
-
-        {/* Production Companies */}
         {tv.production_companies && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <ProductionCompaniesSection companies={tv.production_companies} />
-          </div>
+          <ProductionCompaniesSection companies={tv.production_companies} />
         )}
-
-        {/* Networks & Countries */}
-        {tv.networks && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <NetworksSection networks={tv.networks} />
-          </div>
-        )}
+        {tv.networks && <NetworksSection networks={tv.networks} />}
         {tv.production_countries && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <ProductionCountriesSection countries={tv.production_countries} />
-          </div>
+          <ProductionCountriesSection countries={tv.production_countries} />
         )}
-
-        {/* Keywords & Content Ratings */}
         {tv.keywords?.results && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <KeywordsSection keywords={tv.keywords.results} />
-          </div>
+          <KeywordsSection keywords={tv.keywords.results} />
         )}
         {tv.content_ratings?.results && (
-          <div ref={(el) => el && sectionsRef.current.push(el)}>
-            <ContentRatingSection ratings={tv.content_ratings.results} />
-          </div>
+          <ContentRatingSection ratings={tv.content_ratings.results} />
         )}
 
-        {/* Watch Providers */}
         {tv["watch/providers"]?.results && (
           <>
-            <div ref={(el) => el && sectionsRef.current.push(el)}>
-              <ProvidersSection providers={tv["watch/providers"].results} />
-            </div>
-            <div ref={(el) => el && sectionsRef.current.push(el)}>
-              <WatchProvidersSection
-                providers={tv["watch/providers"].results}
-              />
-            </div>
+            <ProvidersSection providers={tv["watch/providers"].results} />
+            <WatchProvidersSection providers={tv["watch/providers"].results} />
           </>
         )}
-
-        {/* Metadata */}
-        <div ref={(el) => el && sectionsRef.current.push(el)}>
-          <ShowMetadataSection tv={tv} />
-        </div>
       </div>
     </div>
   );
