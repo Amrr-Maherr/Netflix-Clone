@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Star,
   Clock,
@@ -47,39 +47,40 @@ export default function HeroSection({
 
   const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect screen size on client-side
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // initial check
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const backgroundImage = isMobile ? posterUrl : backdropUrl || posterUrl;
 
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">
-      {/* Background Video / Image */}
-      {backdropUrl ? (
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${backdropUrl})` }}
-        ></div>
-      ) : (
-        trailerKey && (
-          <div className="absolute inset-0 w-full h-full">
-            <iframe
-              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&showinfo=0`}
-              title="Trailer"
-              className="absolute inset-0 w-full h-full object-cover"
-              allow="autoplay; fullscreen"
-            ></iframe>
-          </div>
-        )
-      )}
+      {/* Background Image */}
+      <div className="absolute inset-0 w-full h-full">
+        <Image
+          src={backgroundImage}
+          alt={title}
+          fill
+          className="object-cover"
+        />
+      </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10  md:via-black/20 to-transparent z-10"></div>
 
       {/* Content */}
       <div className="z-40 container py-10">
         <div className="flex flex-col md:flex-row gap-8 items-end">
-          {/* Poster */}
-          {/* <div className="relative w-48 h-72 md:w-64 md:h-96 shadow-2xl rounded-lg overflow-hidden border border-gray-700 transform transition hidden md:block">
-            <Image src={posterUrl} alt={title} fill className="object-cover" />
-          </div> */}
-
           {/* Info */}
           <div className="flex-1 text-white">
             <h1 className="text-4xl md:text-6xl font-bold mb-2 drop-shadow-lg">
@@ -145,18 +146,6 @@ export default function HeroSection({
                   </a>
                 </Button>
               )}
-              {/* {trailerKey && (
-                <button
-                  onClick={() => setIsMute(isMute === 1 ? 0 : 1)}
-                  className="z-999 cursor-pointer bg-black/50 border border-white text-white p-2 rounded-full hover:bg-black/70 transition flex items-center justify-center"
-                >
-                  {isMute ? (
-                    <VolumeX className="w-4 h-4 cursor-pointer" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 cursor-pointer" />
-                  )}
-                </button>
-              )} */}
             </div>
           </div>
         </div>
