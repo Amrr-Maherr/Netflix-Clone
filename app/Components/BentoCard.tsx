@@ -1,5 +1,5 @@
 import React from "react";
-import { MovieData } from "../Data/MovieData";
+import { MovieData } from "../Types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Calendar, Play } from "lucide-react";

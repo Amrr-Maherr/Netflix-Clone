@@ -33,7 +33,9 @@ export default function Page() {
 
   useEffect(() => {
     if (data?.movies) {
-      setAllData((prev) => page === 1 ? data.movies : [...prev, ...data.movies]);
+      setAllData((prev) =>
+        page === 1 ? data.movies : [...prev, ...data.movies]
+      );
     }
   }, [data, page]);
 

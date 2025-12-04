@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { MovieData } from "../Data/MovieData";
+import { MovieData } from "../Types/types";
 import BentoCard from "./BentoCard";
 
 interface BentoGridProps {
