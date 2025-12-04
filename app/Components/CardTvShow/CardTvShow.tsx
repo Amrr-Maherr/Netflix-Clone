@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { TvShowData } from "../Types/types";
+import { TvShowData } from "../../Types/types";
 
 type CardTvShowProps = {
   TvShow: TvShowData;
