@@ -48,13 +48,12 @@ export default function MyList() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">My List</h1>
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto mt-20">
+        <div className="flex justify-end items-center ">
           <Button
             onClick={handleClearAll}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded cursor-pointer"
           >
             Clear All
           </Button>
@@ -83,12 +82,22 @@ export default function MyList() {
             <DialogHeader>
               <DialogTitle>Clear All Items</DialogTitle>
             </DialogHeader>
-            <p>Are you sure you want to remove all items from your list? This action cannot be undone.</p>
+            <p>
+              Are you sure you want to remove all items from your list? This
+              action cannot be undone.
+            </p>
             <DialogFooter>
-              <Button onClick={cancelClearAll} variant="outline" className="border-gray-600 text-gray-600">
+              <Button
+                onClick={cancelClearAll}
+                variant="outline"
+                className="border-gray-600 text-gray-600"
+              >
                 Cancel
               </Button>
-              <Button onClick={confirmClearAll} className="bg-red-600 hover:bg-red-700 text-white">
+              <Button
+                onClick={confirmClearAll}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
                 Clear All
               </Button>
             </DialogFooter>
