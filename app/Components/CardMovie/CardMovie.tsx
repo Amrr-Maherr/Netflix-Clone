@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { MovieData } from "../Types/types";
+import { MovieData } from "@/app/Data/MovieData";
 
 type CardMovieProps = {
   movie: MovieData;
