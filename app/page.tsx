@@ -190,8 +190,8 @@ export default function Home() {
   return (
     <>
       <HeroSection movies={AllData || []} />
-      <div className="py-10 bg-black">
-        <BentoGrid movies={popularMoviesQuery.data || []} />
+      <div className="md:py-10 py-5">
+        <BentoGrid movies={popularMoviesQuery.data || []} start={11} end={17} />
       </div>
 
       <BannerSection movie={trendingTVWeekQuery.data?.[0] || {}} />
@@ -211,13 +211,19 @@ export default function Home() {
         title="Today’s Top Picks"
         isMovie={true}
       />
+      <div className="md:py-10 py-5">
+        <BentoGrid movies={popularMoviesQuery.data || []} start={5} end={11} />
+      </div>
       <Section
         Data={trendingTVDayQuery.data || []}
         title="What’s Hot Today"
         isMovie={false}
       />
 
-      <BannerSection movie={trendingMoviesDayQuery.data?.[0] || {}} isReversed={true} />
+      <BannerSection
+        movie={trendingMoviesDayQuery.data?.[0] || {}}
+        isReversed={true}
+      />
 
       <Section
         Data={popularMoviesQuery.data || []}
@@ -257,7 +263,9 @@ export default function Home() {
       />
 
       <BannerSection movie={topRatedTVQuery.data?.[0] || {}} />
-
+      <div className="md:py-7 py-5">
+        <BentoGrid movies={popularMoviesQuery.data || []} start={10} end={16} />
+      </div>
       <PricingSection />
       <AskedQuestions />
     </>
