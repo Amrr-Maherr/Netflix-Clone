@@ -9,9 +9,12 @@ import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/Store/userSlice";
 
 export default function Page() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -20,12 +23,7 @@ export default function Page() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        email: data.email,
-      })
-    );
+    dispatch(setUser({ email: data.email }));
     reset();
     router.push("/");
   };
@@ -34,17 +32,14 @@ export default function Page() {
 
 useEffect(() => {
   if (status === "authenticated" && session?.user) {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: session.user.name,
-        email: session.user.email,
-        image: session.user.image,
-      })
-    );
+    dispatch(setUser({
+      name: session.user.name,
+      email: session.user.email,
+      image: session.user.image,
+    }));
     router.push("/");
   }
-}, [status, session, router]);
+}, [status, session, router, dispatch]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },

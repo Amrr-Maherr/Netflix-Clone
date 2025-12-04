@@ -12,13 +12,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useSelector, useDispatch } from "react-redux";
+import { clearUser } from "@/Store/userSlice";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [user, setUser] = useState<{ name: string; image?: string } | null>(
-    null
-  );
+  const user = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,14 +29,8 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, []);
-
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    dispatch(clearUser());
     signOut();
   };
 
@@ -64,10 +59,14 @@ export default function Header() {
                 {user.image && (
                   <img
                     src={user.image}
-                    alt={user.name}
+                    alt={user.name || "User avatar"}
                     className="w-8 h-8 rounded-full object-cover"
                   />
                 )}
+                <div className="text-white text-sm">
+                  {user.name && <div>{user.name}</div>}
+                  {user.email && <div className="text-gray-300">{user.email}</div>}
+                </div>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300"
@@ -111,14 +110,20 @@ export default function Header() {
                 </div>
 
                 {user ? (
-                  <div className="flex items-center gap-3 mt-8">
-                    {user.image && (
-                      <img
-                        src={user.image}
-                        alt={user.name}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    )}
+                  <div className="mt-8">
+                    <div className="flex items-center gap-3 mb-3">
+                      {user.image && (
+                        <img
+                          src={user.image}
+                          alt={user.name || "User avatar"}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                      )}
+                      <div className="text-white text-sm">
+                        {user.name && <div className="font-semibold">{user.name}</div>}
+                        {user.email && <div className="text-gray-300">{user.email}</div>}
+                      </div>
+                    </div>
                     <button
                       onClick={handleLogout}
                       className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300 w-full justify-center"
