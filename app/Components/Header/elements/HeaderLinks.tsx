@@ -8,6 +8,7 @@ export default function HeaderLinks() {
     { name: "Home", link: "/" },
     { name: "TV Shows", link: "/TvShows" },
     { name: "Movies", link: "/Movies" },
+    { name: "Kids", link: "/Kids" },
     { name: "New & Popular", link: "/NewPopular" },
     { name: "My List", link: "/my-list" },
   ];
