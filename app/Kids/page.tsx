@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import FetchFilteredMovies from "@/Api/FetchFilteredMoviesParams";
 import CardMovie from "../Components/CardMovie/CardMovie";
 import PaginationButtons from "../Movies/components/PaginationButtons";
-import { MovieData } from "../Data/MovieData";
+import { MovieData } from "@/app/Types/types";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
