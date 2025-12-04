@@ -1,6 +1,7 @@
 import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CrewSection({ crew }: { crew: any[] }) {
   const keyCrew = crew.filter((c) => ["Director", "Writer"].includes(c.job));
@@ -13,9 +14,10 @@ export default function CrewSection({ crew }: { crew: any[] }) {
       {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"> */}
       <Slider slidesPerView={5} slidesPerViewMobile={1.5}>
         {keyCrew.map((member) => (
-          <div
+          <Link
             key={member.credit_id}
-            className="bg-zinc-900 relative rounded-xl overflow-hidden transition-transform duration-300"
+            href={`/CrewDetails/${member.id}`}
+            className="block bg-zinc-900 relative rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer"
           >
             {member.profile_path ? (
               <Image
@@ -37,7 +39,7 @@ export default function CrewSection({ crew }: { crew: any[] }) {
               </p>
               <p className="text-xs text-gray-400 truncate">{member.job}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </Slider>
       {/* </div> */}
