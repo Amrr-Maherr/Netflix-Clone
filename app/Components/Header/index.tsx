@@ -31,7 +31,7 @@ export default function Header() {
 
   const handleLogout = () => {
     dispatch(clearUser());
-    signOut();
+    signOut({ callbackUrl: '/' });
   };
 
   return (
@@ -56,17 +56,18 @@ export default function Header() {
             {/* Desktop User/Login */}
             {user ? (
               <div className="hidden md:flex items-center gap-3">
-                {user.image && (
-                  <img
-                    src={user.image}
-                    alt={user.name || "User avatar"}
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
-                )}
-                <div className="text-white text-sm">
-                  {user.name && <div>{user.name}</div>}
-                  {user.email && <div className="text-gray-300">{user.email}</div>}
-                </div>
+                <Link href="/Account" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                  {user.image && (
+                    <img
+                      src={user.image}
+                      alt={user.name || "User avatar"}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  )}
+                  <div className="text-white text-sm">
+                    {user.name && <div>{user.name}</div>}
+                  </div>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300"
@@ -124,6 +125,9 @@ export default function Header() {
                         {user.email && <div className="text-gray-300">{user.email}</div>}
                       </div>
                     </div>
+                    <Link href="/Account" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-center mb-2">
+                      Account
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300 w-full justify-center"

@@ -10,6 +10,8 @@ import {
   ExternalLink,
   Volume2,
   VolumeX,
+  Plus,
+  Check,
 } from "lucide-react";
 import {
   Dialog,
@@ -20,6 +22,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useSelector, useDispatch } from "react-redux";
+import { addToList, removeFromList } from "@/Store/myListSlice";
+import toast from "react-hot-toast";
 
 interface HeroSectionProps {
   movie?: any;
@@ -48,6 +53,25 @@ export default function HeroSection({
   const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const myList = useSelector((state: any) => state.myList);
+  const dispatch = useDispatch();
+
+  const isInList = myList.some((item: any) => item.id === data.id);
+
+  const handleAddToList = () => {
+    if (isInList) {
+      dispatch(removeFromList(data.id));
+      toast.success("Removed from your list!");
+    } else {
+      const item = {
+        ...data,
+        media_type: movie ? "movie" : "tv",
+      };
+      dispatch(addToList(item));
+      toast.success("Added to your list!");
+    }
+  };
 
   // Detect screen size on client-side
   useEffect(() => {
@@ -133,6 +157,13 @@ export default function HeroSection({
                   Watch Trailer
                 </Button>
               )}
+              <Button
+                className={`inline-flex items-center gap-2 bg-white text-black hover:bg-gray-200 p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105`}
+                onClick={handleAddToList}
+              >
+                {isInList ? <Check className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                {isInList ? "In My List" : "Add to My List"}
+              </Button>
               {data.homepage && (
                 <Button className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105">
                   <a
