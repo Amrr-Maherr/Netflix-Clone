@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
+import BentoGrid from "./Components/BentoGrid";
+import BannerSection from "./Components/BannerSection";
 import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
@@ -179,19 +181,30 @@ export default function Home() {
     onTheAirTVQuery.refetch();
   };
 
-  if (isAnyLoading) return <NetflixIntroLoader/>;
+  if (isAnyLoading) return <NetflixIntroLoader />;
+
+  if (isAnyError) return <ErrorMessage onRetry={handleRefetchAll} />;
 
   if (isAnyError) return <ErrorMessage onRetry={handleRefetchAll} />;
 
   return (
     <>
       <HeroSection movies={AllData || []} />
+      <div className="py-10 bg-black">
+        <BentoGrid movies={popularMoviesQuery.data || []} />
+      </div>
 
-      {/* Movies Sections */}
+      <BannerSection movie={trendingTVWeekQuery.data?.[0] || {}} />
+
       <Section
         Data={trendingMoviesWeekQuery.data || []}
         title="Trending Now"
         isMovie={true}
+      />
+      <Section
+        Data={trendingTVWeekQuery.data || []}
+        title="Trending TV Shows"
+        isMovie={false}
       />
       <Section
         Data={trendingMoviesDayQuery.data || []}
@@ -199,60 +212,54 @@ export default function Home() {
         isMovie={true}
       />
       <Section
-        Data={popularMoviesQuery.data || []}
-        title="Popular on Netflix"
-        isMovie={true}
-      />
-      <Section
-        Data={topRatedMoviesQuery.data || []}
-        title="Top Rated Movies"
-        isMovie={true}
-      />
-      <Section
-        Data={upcomingMoviesQuery.data || []}
-        title="Coming Soon"
-        isMovie={true}
-      />
-      <Section
-        Data={nowPlayingMoviesQuery.data || []}
-        title="Now Playing"
-        isMovie={true}
-      />
-
-      {/* 📺 TV Sections */}
-      <Section
-        Data={trendingTVWeekQuery.data || []}
-        title="Trending TV Shows"
-        isMovie={false}
-      />
-      <Section
         Data={trendingTVDayQuery.data || []}
         title="What’s Hot Today"
         isMovie={false}
+      />
+
+      <BannerSection movie={trendingMoviesDayQuery.data?.[0] || {}} isReversed={true} />
+
+      <Section
+        Data={popularMoviesQuery.data || []}
+        title="Popular on Netflix"
+        isMovie={true}
       />
       <Section
         Data={popularTVQuery.data || []}
         title="Popular on Netflix"
         isMovie={false}
       />
+
+      <BannerSection movie={popularTVQuery.data?.[0] || {}} isReversed={true} />
+
       <Section
-        Data={topRatedTVQuery.data || []}
-        title="Top Rated Series"
-        isMovie={false}
+        Data={upcomingMoviesQuery.data || []}
+        title="Coming Soon"
+        isMovie={true}
       />
       <Section
         Data={airingTodayTVQuery.data || []}
         title="Airing Today"
         isMovie={false}
       />
+
+      <BannerSection movie={topRatedMoviesQuery.data?.[0] || {}} />
+
+      <Section
+        Data={nowPlayingMoviesQuery.data || []}
+        title="Now Playing"
+        isMovie={true}
+      />
       <Section
         Data={onTheAirTVQuery.data || []}
         title="Currently Airing"
         isMovie={false}
       />
+
+      <BannerSection movie={topRatedTVQuery.data?.[0] || {}} />
+
       <PricingSection />
-      <AskedQuestions/>
+      <AskedQuestions />
     </>
   );
-
 }

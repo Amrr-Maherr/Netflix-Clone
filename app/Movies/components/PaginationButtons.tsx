@@ -23,27 +23,30 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         onClick={LoadLess}
         disabled={page === 1}
         className="flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-md
-                   bg-red-600 hover:bg-red-700 
-                   text-white transition-all duration-200 
-                   shadow-md hover:shadow-lg 
+                   bg-red-600 hover:bg-red-700
+                   text-white transition-all duration-200
+                   shadow-md hover:shadow-lg
                    disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
-                   active:scale-95 order-2"
+                   active:scale-95"
       >
+        <ChevronLeft size={22} />
         {isLoading ? "Loading..." : "Previous"}
-
-        <ChevronRight size={22} />
       </Button>
+
+      <span className="px-4 py-2 bg-gray-800 text-white rounded-md font-semibold">
+        Page {page}
+      </span>
 
       <Button
         onClick={LoadMore}
         className="flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-md
-                   bg-red-600 hover:bg-red-700 
-                   text-white transition-all duration-200 
+                   bg-red-600 hover:bg-red-700
+                   text-white transition-all duration-200
                    shadow-md hover:shadow-lg cursor-pointer
-                   active:scale-95 order-1"
+                   active:scale-95"
       >
-        <ChevronLeft size={22} />
         {isLoading ? "Loading..." : "Next"}
+        <ChevronRight size={22} />
       </Button>
     </div>
   );

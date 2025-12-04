@@ -45,8 +45,6 @@ export default function Page() {
       }),
   });
 
-  const handleApplyFilters = () => refetch();
-
   const ClearFilter = () => {
     setFilters({
       sort: "",
@@ -73,8 +71,8 @@ export default function Page() {
 
   useEffect(() => {
     refetch();
-  }, [filters]);
-
+  }, [filters,refetch]);
+  
   useEffect(() => {
     cardsRef.current.forEach((card) => {
       gsap.fromTo(

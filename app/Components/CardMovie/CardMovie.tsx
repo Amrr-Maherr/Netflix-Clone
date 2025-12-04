@@ -14,19 +14,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { MovieData } from "@/app/Data/MovieData";
+import { MovieData } from "../Types/types";
 
 type CardMovieProps = {
   movie: MovieData;
 };
 
 export default function CardMovie({ movie }: CardMovieProps) {
-  console.dir(movie,"movie")
   return (
     <Dialog>
       {/* Card as trigger */}
       <DialogTrigger asChild>
         <div className="relative bg-zinc-900 rounded-md h-full overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
+          {/* Rating Badge */}
+          <div className="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10">
+            <Star size={12} className="text-yellow-400" />
+            {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}
+          </div>
+
+          {/* Trending Badge */}
+          {movie.popularity != null && movie.popularity > 100 && (
+            <div className="absolute top-11 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10">
+              <Flame size={12} className="text-yellow-400" />
+              Trending
+            </div>
+          )}
+
           {/* Poster */}
           <div className="relative w-full h-0 pb-[150%]">
             <div className="absolute top-0 z-50">
