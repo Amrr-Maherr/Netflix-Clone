@@ -7,7 +7,6 @@ const fetchTvShows = async ({ url = "/tv/popular" }) => {
     },
   });
 
-  console.log(response.data.results, "response.data.results");
   return response.data.results;
 };
 

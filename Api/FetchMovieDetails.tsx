@@ -32,13 +32,16 @@ const FetchProductDetails = async ({ id }: FetchProductDetailsParams) => {
       },
     });
 
-    console.log(response.data, "Full Movie Details");
     return response.data;
-  } catch (error: any) {
-    console.error(
-      "Error fetching movie details:",
-      error.response?.data || error.message
-    );
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(
+        "Error fetching movie details:",
+        error.response?.data || error.message
+      );
+    } else {
+      console.error("Error fetching movie details:", error);
+    }
     throw error;
   }
 };

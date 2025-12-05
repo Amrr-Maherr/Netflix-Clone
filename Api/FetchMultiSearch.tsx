@@ -18,7 +18,6 @@ const FetchMultiSearch = async ({ query = "" }) => {
     }
   );
 
-  console.log(response, "results");
   return response.data.results;
 };
 

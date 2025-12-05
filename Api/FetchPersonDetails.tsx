@@ -26,13 +26,16 @@ const FetchPersonDetails = async ({ id }: FetchPersonDetailsParams) => {
       },
     });
 
-    console.log(response.data, "Full Person Details");
     return response.data;
-  } catch (error: any) {
-    console.error(
-      "Error fetching person details:",
-      error.response?.data || error.message
-    );
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(
+        "Error fetching person details:",
+        error.response?.data || error.message
+      );
+    } else {
+      console.error("Error fetching person details:", error);
+    }
     throw error;
   }
 };

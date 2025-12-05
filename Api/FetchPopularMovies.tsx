@@ -8,7 +8,6 @@ const fetchMovies = async ({ url = "/movie/popular", lang = "en" }) => {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
     },
   });
-  console.log(response.data.results, "response.data.results");
 
   return response.data.results;
 };

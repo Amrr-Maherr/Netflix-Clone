@@ -32,13 +32,16 @@ const FetchTVDetails = async ({ id }: FetchTVDetailsParams) => {
       },
     });
 
-    console.log(response.data, "Full TV Show Details");
     return response.data;
-  } catch (error: any) {
-    console.error(
-      "Error fetching TV show details:",
-      error.response?.data || error.message
-    );
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(
+        "Error fetching TV show details:",
+        error.response?.data || error.message
+      );
+    } else {
+      console.error("Error fetching TV show details:", error);
+    }
     throw error;
   }
 };
