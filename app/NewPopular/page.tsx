@@ -8,6 +8,7 @@ import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
 import CardMovie from "../Components/CardMovie/CardMovie";
 import CardTvShow from "../Components/CardTvShow/CardTvShow";
+import HeroSection from "../Components/HeroSection/index";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -190,8 +191,15 @@ export default function Gallery() {
       />
     );
 
+  const heroItems = allMovies.slice(0, 5).map((movie: any) => ({
+    ...movie,
+    media_type: movie.media_type as const,
+  }));
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full py-20 container">
+    <>
+      {heroItems.length > 0 && <HeroSection movies={heroItems} />}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full py-20 container">
       {allMovies.map((movie, index) => (
         <div
           key={`${movie.id}-${index}`}
@@ -208,5 +216,6 @@ export default function Gallery() {
         </div>
       ))}
     </div>
+    </>
   );
 }
