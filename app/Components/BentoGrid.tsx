@@ -13,7 +13,7 @@ export default function BentoGrid({ movies, start = 0, end = 6 }: BentoGridProps
   const displayMovies = movies.slice(start, end);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8">
+    <div className="container">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[120px] md:auto-rows-[180px]">
         {displayMovies.map((movie, index) => {
           const isLarge = index === 0 || index === 3;
