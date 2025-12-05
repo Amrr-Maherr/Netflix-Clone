@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +22,6 @@ interface Movie {
 }
 
 export default function Gallery() {
-  const [allMovies, setAllMovies] = useState<Movie[]>([]);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
   // ====== Queries ======
@@ -88,22 +87,20 @@ export default function Gallery() {
   });
 
   // ===== Merge all data =====
-  useEffect(() => {
-    setAllMovies([
-      ...(trendingMoviesWeekQuery.data || []),
-      ...(trendingTVWeekQuery.data || []),
-      ...(trendingMoviesDayQuery.data || []),
-      ...(trendingTVDayQuery.data || []),
-      ...(popularMoviesQuery.data || []),
-      ...(popularTVQuery.data || []),
-      ...(topRatedMoviesQuery.data || []),
-      ...(topRatedTVQuery.data || []),
-      ...(upcomingMoviesQuery.data || []),
-      ...(airingTodayTVQuery.data || []),
-      ...(nowPlayingMoviesQuery.data || []),
-      ...(onTheAirTVQuery.data || []),
-    ]);
-  }, [
+  const allMovies = useMemo(() => [
+    ...(trendingMoviesWeekQuery.data || []),
+    ...(trendingTVWeekQuery.data || []),
+    ...(trendingMoviesDayQuery.data || []),
+    ...(trendingTVDayQuery.data || []),
+    ...(popularMoviesQuery.data || []),
+    ...(popularTVQuery.data || []),
+    ...(topRatedMoviesQuery.data || []),
+    ...(topRatedTVQuery.data || []),
+    ...(upcomingMoviesQuery.data || []),
+    ...(airingTodayTVQuery.data || []),
+    ...(nowPlayingMoviesQuery.data || []),
+    ...(onTheAirTVQuery.data || []),
+  ], [
     trendingMoviesWeekQuery.data,
     trendingMoviesDayQuery.data,
     popularMoviesQuery.data,
@@ -191,9 +188,9 @@ export default function Gallery() {
       />
     );
 
-  const heroItems = allMovies.slice(0, 5).map((movie: any) => ({
+  const heroItems = allMovies.slice(0, 5).map((movie: Movie) => ({
     ...movie,
-    media_type: movie.media_type as const,
+    media_type: movie.media_type,
   }));
 
   return (
