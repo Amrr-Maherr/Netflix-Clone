@@ -4,10 +4,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CardTvShow from "../Components/CardTvShow/CardTvShow";
 import FetchFilteredTV from "@/Api/FetchFilteredTVParams";
+import fetchTvShows from "@/Api/fetchTvShows";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
 import Filters from "../Movies/components/Filters";
 import MobileFilters from "../Movies/components/MobileFilters";
 import PaginationButtons from "../Movies/components/PaginationButtons";
+import HeroSection from "../Components/HeroSection/index";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -25,6 +27,11 @@ export default function Page() {
   });
 
   const cardsRef = useRef<HTMLDivElement[]>([]);
+
+  const heroTvShowsQuery = useQuery({
+    queryKey: ["hero-tvshows"],
+    queryFn: () => fetchTvShows({}),
+  });
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["filtered-series", page],
@@ -82,59 +89,67 @@ export default function Page() {
     });
   }, [allData]);
 
+  const heroShows = heroTvShowsQuery.data?.slice(0, 5).map((show: any) => ({
+    ...show,
+    media_type: "tv" as const,
+  }));
+
   if (isError) return <ErrorMessage onRetry={refetch} />;
 
   return (
-    <main className="min-h-screen bg-black text-white container">
-      {/* Filters Section */}
-      <section className="md:py-20 py-15">
-        <Filters
-          ClearFilter={clearFilter}
-          setFilters={setFilters}
-          filters={filters}
-        />
-        <MobileFilters
-          ClearFilter={clearFilter}
-          setFilters={setFilters}
-          filters={filters}
-        />
-      </section>
-
-      {/* TV Shows Grid */}
-      <section>
-        {isLoading ? (
-          <div className="flex items-center justify-center w-full h-screen">
-            <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        ) : !isLoading && allData.length === 0 ? (
-          <h3 className="text-white text-center mt-10">
-            No results found for your filter.
-          </h3>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-            {allData.map((show, index) => (
-              <div
-                key={`${show.id}-${index}`}
-                ref={(el) => {
-                  if (el) cardsRef.current[index] = el;
-                }}
-              >
-                <CardTvShow TvShow={show} />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Pagination */}
-        {!isLoading && (
-          <PaginationButtons
-            LoadMore={loadMore}
-            LoadLess={loadLess}
-            isLoading={isLoading}
-            page={page}
+    <>
+      {heroShows && <HeroSection movies={heroShows} />}
+      <main className="min-h-screen bg-black text-white container">
+        {/* Filters Section */}
+        <section className="md:py-20 py-15">
+          <Filters
+            ClearFilter={clearFilter}
+            setFilters={setFilters}
+            filters={filters}
           />
-        )}
-      </section>
-    </main>
+          <MobileFilters
+            ClearFilter={clearFilter}
+            setFilters={setFilters}
+            filters={filters}
+          />
+        </section>
+
+        {/* TV Shows Grid */}
+        <section>
+          {isLoading ? (
+            <div className="flex items-center justify-center w-full h-screen">
+              <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : !isLoading && allData.length === 0 ? (
+            <h3 className="text-white text-center mt-10">
+              No results found for your filter.
+            </h3>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              {allData.map((show, index) => (
+                <div
+                  key={`${show.id}-${index}`}
+                  ref={(el) => {
+                    if (el) cardsRef.current[index] = el;
+                  }}
+                >
+                  <CardTvShow TvShow={show} />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {!isLoading && (
+            <PaginationButtons
+              LoadMore={loadMore}
+              LoadLess={loadLess}
+              isLoading={isLoading}
+              page={page}
+            />
+          )}
+        </section>
+      </main>
+    </>
   );
 }
