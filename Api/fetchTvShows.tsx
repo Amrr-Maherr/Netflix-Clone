@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fetchTvShows = async ({ url = "/tv/popular" }) => {
-  const response = await axios.get(`https://api.themoviedb.org/3${url}`, {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_TMDB_BASE_URL}${url}`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
     },

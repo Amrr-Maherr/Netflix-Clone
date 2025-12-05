@@ -24,7 +24,7 @@ const FetchProductDetails = async ({ id }: FetchProductDetailsParams) => {
       "changes",
     ].join(",");
 
-    const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=${extraParams}`;
+    const url = `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/movie/${id}?append_to_response=${extraParams}`;
 
     const response = await axios.get(url, {
       headers: {

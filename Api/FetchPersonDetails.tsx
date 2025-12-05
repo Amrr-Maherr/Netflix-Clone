@@ -18,7 +18,7 @@ const FetchPersonDetails = async ({ id }: FetchPersonDetailsParams) => {
       "latest",
     ].join(",");
 
-    const url = `https://api.themoviedb.org/3/person/${id}?append_to_response=${extraParams}`;
+    const url = `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/person/${id}?append_to_response=${extraParams}`;
 
     const response = await axios.get(url, {
       headers: {

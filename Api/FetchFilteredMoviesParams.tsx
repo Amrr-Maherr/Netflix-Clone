@@ -21,7 +21,7 @@ const FetchFilteredMovies = async ({
 }: FetchFilteredMoviesParams) => {
   try {
     const response = await axios.get(
-      "https://api.themoviedb.org/3/discover/movie",
+      `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/discover/movie`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,

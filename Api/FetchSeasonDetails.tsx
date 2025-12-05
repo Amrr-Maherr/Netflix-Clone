@@ -2,7 +2,7 @@ import axios from "axios";
 
 const FetchSeasonDetails = async (id: string, seasonNumber: number) => {
   try {
-    const url = `https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}`;
+    const url = `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/tv/${id}/season/${seasonNumber}`;
 
     const response = await axios.get(url, {
       headers: {

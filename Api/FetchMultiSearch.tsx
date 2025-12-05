@@ -6,7 +6,7 @@ const FetchMultiSearch = async ({ query = "" }) => {
     return;
   }
   const response = await axios.get(
-    `https://api.themoviedb.org/3/search/multi`,
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/search/multi`,
     {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
