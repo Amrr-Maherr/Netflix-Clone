@@ -14,9 +14,10 @@ import {
 } from "@/components/ui/drawer";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "@/Store/userSlice";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
@@ -58,22 +59,21 @@ export default function Header() {
               <div className="hidden md:flex items-center gap-3">
                 <Link href="/Account" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                   {user.image && (
-                    <img
+                    <Image
+                      width={8}
+                      height={8}
                       src={user.image}
                       alt={user.name || "User avatar"}
-                      className="w-8 h-8 rounded-full object-cover"
+                      className="rounded-full object-cover"
                     />
                   )}
-                  <div className="text-white text-sm">
-                    {user.name && <div>{user.name}</div>}
-                  </div>
                 </Link>
-                <button
+                <Button
                   onClick={handleLogout}
                   className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300"
                 >
                   <LogOut size={16} /> Logout
-                </button>
+                </Button>
               </div>
             ) : (
               <Link
@@ -87,9 +87,9 @@ export default function Header() {
             {/* Mobile Drawer */}
             <Drawer>
               <DrawerTrigger asChild>
-                <button className="md:hidden text-white">
+                <Button className="md:hidden text-white">
                   <Menu size={28} />
-                </button>
+                </Button>
               </DrawerTrigger>
 
               <DrawerContent className="bg-black text-white p-6 border-0">
@@ -98,9 +98,9 @@ export default function Header() {
                 <div className="flex justify-between items-center mb-6">
                   <Logo />
                   <DrawerTrigger asChild>
-                    <button>
+                    <Button>
                       <X size={28} />
-                    </button>
+                    </Button>
                   </DrawerTrigger>
                 </div>
 
@@ -114,26 +114,25 @@ export default function Header() {
                   <div className="mt-8">
                     <div className="flex items-center gap-3 mb-3">
                       {user.image && (
-                        <img
+                        <Image
+                          width={10}
+                          height={10}
+                          quality={100}
                           src={user.image}
                           alt={user.name || "User avatar"}
-                          className="w-10 h-10 rounded-full object-cover"
+                          className="rounded-full object-cover"
                         />
                       )}
-                      <div className="text-white text-sm">
-                        {user.name && <div className="font-semibold">{user.name}</div>}
-                        {user.email && <div className="text-gray-300">{user.email}</div>}
-                      </div>
                     </div>
                     <Link href="/Account" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-center mb-2">
                       Account
                     </Link>
-                    <button
+                    <Button
                       onClick={handleLogout}
                       className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300 w-full justify-center"
                     >
                       <LogOut size={16} /> Logout
-                    </button>
+                    </Button>
                   </div>
                 ) : (
                   <Link
