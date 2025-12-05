@@ -21,6 +21,20 @@ const pwaConfig = withPWA({
   register: true,
   skipWaiting: true,
   disable: false,
+  fallback: {
+    '/': '/offline',
+  },
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/api\.themoviedb\.org\/.*/i,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'tmdb-api-cache',
+        networkTimeoutSeconds: 10,
+        cacheKeyWillBeUsedBy: 'url',
+      },
+    },
+  ],
 });
 
 export default pwaConfig(nextConfig);
