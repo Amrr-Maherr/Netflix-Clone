@@ -12,19 +12,24 @@ export default function manifest(): MetadataRoute.Manifest {
         theme_color: '#e50914',
         icons: [
             {
-                src: '/icons/Netflix_Symbol_RGB.png',
+                src: '/Netflix_Symbol_RGB.png',
                 sizes: '192x192',
                 type: 'image/png',
             },
             {
-                src: '/icons/Netflix_Symbol_RGB.png',
+                src: '/Netflix_Symbol_RGB.png',
                 sizes: '512x512',
                 type: 'image/png',
             },
             {
-                src: '/icons/Netflix_Symbol_RGB.png',
+                src: '/Netflix_Symbol_RGB.png',
                 sizes: '1024x1024',
                 type: 'image/png',
+            },
+            {
+                src: '/fav_icon.ico',
+                sizes: 'any',
+                type: 'image/x-icon',
             },
         ],
     }
