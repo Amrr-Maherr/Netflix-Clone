@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
-import BentoGrid from "./Components/BentoGrid";
+
 import BannerSection from "./Components/BannerSection";
-import fetchMovies from "@/Api/FetchPopularMovies";
-import fetchTvShows from "@/Api/fetchTvShows";
+import { fetchAllMovies } from "@/Api/FetchAllMovies";
+import { fetchAllTVShows } from "@/Api/FetchAllTVShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
 import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "./Components/Loading/NetflixIntroLoader";
@@ -14,171 +14,45 @@ import PricingSection from "./Components/PricingSection/PricingSection";
 import AskedQuestions from "./Components/AskedQuestionsSection/AskedQuestions";
 
 export default function Home() {
-  const [AllData, setAllData] = useState<any[]>([]);
-
-  // ======== Movies Queries ========
-  const trendingMoviesWeekQuery = useQuery({
-    queryKey: ["trending-movies-week"],
-    queryFn: () => fetchMovies({ url: "/trending/movie/week" }),
+  // ======== Movies Query ========
+  const allMoviesQuery = useQuery({
+    queryKey: ["all-movies"],
+    queryFn: () => fetchAllMovies(),
   });
 
-  const trendingMoviesDayQuery = useQuery({
-    queryKey: ["trending-movies-day"],
-    queryFn: () => fetchMovies({ url: "/trending/movie/day" }),
-  });
-
-  const popularMoviesQuery = useQuery({
-    queryKey: ["popular-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/popular" }),
-  });
-
-  const topRatedMoviesQuery = useQuery({
-    queryKey: ["top-rated-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/top_rated" }),
-  });
-
-  const upcomingMoviesQuery = useQuery({
-    queryKey: ["upcoming-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/upcoming" }),
-  });
-
-  const nowPlayingMoviesQuery = useQuery({
-    queryKey: ["now-playing-movies"],
-    queryFn: () => fetchMovies({ url: "/movie/now_playing" }),
-  });
-
-  // ======== TV Shows Queries ========
-  const trendingTVWeekQuery = useQuery({
-    queryKey: ["trending-tv-week"],
-    queryFn: () => fetchTvShows({ url: "/trending/tv/week" }),
-  });
-
-  const trendingTVDayQuery = useQuery({
-    queryKey: ["trending-tv-day"],
-    queryFn: () => fetchTvShows({ url: "/trending/tv/day" }),
-  });
-
-  const popularTVQuery = useQuery({
-    queryKey: ["popular-tv"],
-    queryFn: () => fetchTvShows({ url: "/tv/popular" }),
-  });
-
-  const topRatedTVQuery = useQuery({
-    queryKey: ["top-rated-tv"],
-    queryFn: () => fetchTvShows({ url: "/tv/top_rated" }),
-  });
-
-  const airingTodayTVQuery = useQuery({
-    queryKey: ["airing-today-tv"],
-    queryFn: () => fetchTvShows({ url: "/tv/airing_today" }),
-  });
-
-  const onTheAirTVQuery = useQuery({
-    queryKey: ["on-the-air-tv"],
-    queryFn: () => fetchTvShows({ url: "/tv/on_the_air" }),
+  // ======== TV Shows Query ========
+  const allTVShowsQuery = useQuery({
+    queryKey: ["all-tv-shows"],
+    queryFn: () => fetchAllTVShows(),
   });
 
   // ===== Combine all movies & TV for HeroSection =====
-  useEffect(() => {
-    if (
-      !trendingMoviesWeekQuery.isLoading &&
-      !trendingMoviesDayQuery.isLoading &&
-      !popularMoviesQuery.isLoading &&
-      !topRatedMoviesQuery.isLoading &&
-      !upcomingMoviesQuery.isLoading &&
-      !nowPlayingMoviesQuery.isLoading &&
-      !trendingTVWeekQuery.isLoading &&
-      !trendingTVDayQuery.isLoading &&
-      !popularTVQuery.isLoading &&
-      !topRatedTVQuery.isLoading &&
-      !airingTodayTVQuery.isLoading &&
-      !onTheAirTVQuery.isLoading
-    ) {
-      setAllData([
-        ...(trendingMoviesWeekQuery.data || []),
-        ...(trendingTVWeekQuery.data || []),
-        ...(trendingMoviesDayQuery.data || []),
-        ...(trendingTVDayQuery.data || []),
-        ...(popularMoviesQuery.data || []),
-        ...(popularTVQuery.data || []),
-        ...(topRatedMoviesQuery.data || []),
-        ...(topRatedTVQuery.data || []),
-        ...(upcomingMoviesQuery.data || []),
-        ...(airingTodayTVQuery.data || []),
-        ...(nowPlayingMoviesQuery.data || []),
-        ...(onTheAirTVQuery.data || []),
-      ]);
-    }
-  }, [
-    trendingMoviesWeekQuery.data,
-    trendingMoviesDayQuery.data,
-    popularMoviesQuery.data,
-    topRatedMoviesQuery.data,
-    upcomingMoviesQuery.data,
-    nowPlayingMoviesQuery.data,
-    trendingTVWeekQuery.data,
-    trendingTVDayQuery.data,
-    popularTVQuery.data,
-    topRatedTVQuery.data,
-    airingTodayTVQuery.data,
-    onTheAirTVQuery.data,
-    trendingMoviesWeekQuery.isLoading,
-    trendingMoviesDayQuery.isLoading,
-    popularMoviesQuery.isLoading,
-    topRatedMoviesQuery.isLoading,
-    upcomingMoviesQuery.isLoading,
-    nowPlayingMoviesQuery.isLoading,
-    trendingTVWeekQuery.isLoading,
-    trendingTVDayQuery.isLoading,
-    popularTVQuery.isLoading,
-    topRatedTVQuery.isLoading,
-    airingTodayTVQuery.isLoading,
-    onTheAirTVQuery.isLoading,
-  ]);
+  const AllData = [
+    ...(allMoviesQuery.data?.trendingMoviesWeek || []),
+    ...(allTVShowsQuery.data?.trendingTVWeek || []),
+    ...(allMoviesQuery.data?.trendingMoviesDay || []),
+    ...(allTVShowsQuery.data?.trendingTVDay || []),
+    ...(allMoviesQuery.data?.popularMovies || []),
+    ...(allTVShowsQuery.data?.popularTV || []),
+    ...(allMoviesQuery.data?.topRatedMovies || []),
+    ...(allTVShowsQuery.data?.topRatedTV || []),
+    ...(allMoviesQuery.data?.upcomingMovies || []),
+    ...(allTVShowsQuery.data?.airingTodayTV || []),
+    ...(allMoviesQuery.data?.nowPlayingMovies || []),
+    ...(allTVShowsQuery.data?.onTheAirTV || []),
+  ];
 
   // ===== Loading & Error Handling =====
   const isAnyLoading =
-    trendingMoviesWeekQuery.isLoading ||
-    trendingMoviesDayQuery.isLoading ||
-    popularMoviesQuery.isLoading ||
-    topRatedMoviesQuery.isLoading ||
-    upcomingMoviesQuery.isLoading ||
-    nowPlayingMoviesQuery.isLoading ||
-    trendingTVWeekQuery.isLoading ||
-    trendingTVDayQuery.isLoading ||
-    popularTVQuery.isLoading ||
-    topRatedTVQuery.isLoading ||
-    airingTodayTVQuery.isLoading ||
-    onTheAirTVQuery.isLoading;
+    allMoviesQuery.isLoading || allTVShowsQuery.isLoading;
 
   const isAnyError =
-    trendingMoviesWeekQuery.isError ||
-    trendingMoviesDayQuery.isError ||
-    popularMoviesQuery.isError ||
-    topRatedMoviesQuery.isError ||
-    upcomingMoviesQuery.isError ||
-    nowPlayingMoviesQuery.isError ||
-    trendingTVWeekQuery.isError ||
-    trendingTVDayQuery.isError ||
-    popularTVQuery.isError ||
-    topRatedTVQuery.isError ||
-    airingTodayTVQuery.isError ||
-    onTheAirTVQuery.isError;
+    allMoviesQuery.isError || allTVShowsQuery.isError;
 
   // ===== Refetch all queries =====
   const handleRefetchAll = () => {
-    trendingMoviesWeekQuery.refetch();
-    trendingMoviesDayQuery.refetch();
-    popularMoviesQuery.refetch();
-    topRatedMoviesQuery.refetch();
-    upcomingMoviesQuery.refetch();
-    nowPlayingMoviesQuery.refetch();
-    trendingTVWeekQuery.refetch();
-    trendingTVDayQuery.refetch();
-    popularTVQuery.refetch();
-    topRatedTVQuery.refetch();
-    airingTodayTVQuery.refetch();
-    onTheAirTVQuery.refetch();
+    allMoviesQuery.refetch();
+    allTVShowsQuery.refetch();
   };
 
   if (isAnyLoading) return <NetflixIntroLoader />;
@@ -190,82 +64,73 @@ export default function Home() {
   return (
     <>
       <HeroSection movies={AllData || []} />
-      <div className="md:py-10 py-5">
-        <BentoGrid movies={popularMoviesQuery.data || []} start={11} end={17} />
-      </div>
 
-      <BannerSection movie={trendingTVWeekQuery.data?.[0] || {}} />
+      <BannerSection movie={allTVShowsQuery.data?.trendingTVWeek?.[0] || {}} />
 
       <Section
-        Data={trendingMoviesWeekQuery.data || []}
+        Data={allMoviesQuery.data?.trendingMoviesWeek || []}
         title="Trending Now"
         isMovie={true}
       />
       <Section
-        Data={trendingTVWeekQuery.data || []}
+        Data={allTVShowsQuery.data?.trendingTVWeek || []}
         title="Trending TV Shows"
         isMovie={false}
       />
       <Section
-        Data={trendingMoviesDayQuery.data || []}
+        Data={allMoviesQuery.data?.trendingMoviesDay || []}
         title="Today’s Top Picks"
         isMovie={true}
       />
-      <div className="md:py-10 py-5">
-        <BentoGrid movies={popularMoviesQuery.data || []} start={5} end={11} />
-      </div>
       <Section
-        Data={trendingTVDayQuery.data || []}
+        Data={allTVShowsQuery.data?.trendingTVDay || []}
         title="What’s Hot Today"
         isMovie={false}
       />
 
       <BannerSection
-        movie={trendingMoviesDayQuery.data?.[0] || {}}
+        movie={allMoviesQuery.data?.trendingMoviesDay?.[0] || {}}
         isReversed={true}
       />
 
       <Section
-        Data={popularMoviesQuery.data || []}
+        Data={allMoviesQuery.data?.popularMovies || []}
         title="Popular on Netflix"
         isMovie={true}
       />
       <Section
-        Data={popularTVQuery.data || []}
+        Data={allTVShowsQuery.data?.popularTV || []}
         title="Popular on Netflix"
         isMovie={false}
       />
 
-      <BannerSection movie={popularTVQuery.data?.[0] || {}} isReversed={true} />
+      <BannerSection movie={allTVShowsQuery.data?.popularTV?.[0] || {}} isReversed={true} />
 
       <Section
-        Data={upcomingMoviesQuery.data || []}
+        Data={allMoviesQuery.data?.upcomingMovies || []}
         title="Coming Soon"
         isMovie={true}
       />
       <Section
-        Data={airingTodayTVQuery.data || []}
+        Data={allTVShowsQuery.data?.airingTodayTV || []}
         title="Airing Today"
         isMovie={false}
       />
 
-      <BannerSection movie={topRatedMoviesQuery.data?.[0] || {}} />
+      <BannerSection movie={allMoviesQuery.data?.topRatedMovies?.[0] || {}} />
 
       <Section
-        Data={nowPlayingMoviesQuery.data || []}
+        Data={allMoviesQuery.data?.nowPlayingMovies || []}
         title="Now Playing"
         isMovie={true}
       />
       <Section
-        Data={onTheAirTVQuery.data || []}
+        Data={allTVShowsQuery.data?.onTheAirTV || []}
         title="Currently Airing"
         isMovie={false}
       />
 
-      <BannerSection movie={topRatedTVQuery.data?.[0] || {}} />
-      <div className="md:py-7 py-5">
-        <BentoGrid movies={popularMoviesQuery.data || []} start={10} end={16} />
-      </div>
+      <BannerSection movie={allTVShowsQuery.data?.topRatedTV?.[0] || {}} />
       <PricingSection />
       <AskedQuestions />
     </>
