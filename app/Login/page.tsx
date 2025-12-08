@@ -22,10 +22,20 @@ export default function Page() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(setUser({ email: data.email }));
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const result = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (result?.error) {
+      console.error("Sign in failed", result.error);
+      // يمكنك إضافة رسالة خطأ هنا
+    } else if (result?.ok) {
+      dispatch(setUser({ email: data.email }));
+      router.push("/");
+    }
     reset();
-    router.push("/");
   };
 
   const { data: session, status } = useSession();

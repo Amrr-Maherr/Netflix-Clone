@@ -7,7 +7,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Inputs } from "../Types/Inputs";
 import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 export default function Page() {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const {
     register,
@@ -16,10 +18,37 @@ export default function Page() {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-      console.log(data);
-      reset()
-    };
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (data.password !== data.confirmPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+    // نتيجة لعدم وجود قاعدة بيانات، سنخزن في localStorage للdemo
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const existingUser = users.find((user: any) => user.email === data.email);
+    if (existingUser) {
+      console.error("User already exists");
+      return;
+    }
+    users.push({
+      email: data.email,
+      password: data.password, // في الواقع، يجب تشفيرها
+      name: data.email.split("@")[0], // اسم افتراضي
+    });
+    localStorage.setItem("users", JSON.stringify(users));
+    // سجيل الدخول مباشرة بعد التسجيل
+    const result = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (result?.error) {
+      console.error("Registration and sign in failed", result.error);
+    } else {
+      router.push("/");
+    }
+    reset();
+  };
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {

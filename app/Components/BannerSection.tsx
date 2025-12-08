@@ -17,39 +17,38 @@ export default function BannerSection({ movie, isReversed = false }: BannerSecti
   const releaseDate = (movie as any).release_date || (movie as any).first_air_date;
 
   const content = (
-    <div className={`container py-5 md:py-16 px-8 rounded-lg overflow-hidden relative ${isReversed ? 'flex-row-reverse' : ''}`}>
-      <div className="relative w-full h-96">
-        <Image
-          src={backdropPath}
-          alt={movieTitle}
-          fill
-          className="object-cover rounded-lg"
-          quality={75}
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent rounded-lg"></div>
-      </div>
+    <div className={`relative rounded-lg overflow-hidden w-full h-[60vh] min-h-[400px] ${isReversed ? 'flex-row-reverse' : ''}`}>
+      <Image
+        src={backdropPath}
+        alt={movieTitle}
+        fill
+        className="object-cover"
+        quality={75}
+        priority
+      />
+      {/* Overlay Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
 
-      <div className="absolute bottom-8 left-15 right-8 text-white">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4">{movieTitle}</h1>
-        <p className="text-lg md:text-xl max-w-2xl mb-6">{overview.substring(0, 200) + "..."}</p>
-        <div className="flex flex-wrap gap-4 mb-4 text-sm">
-          <span className="flex items-center gap-1">
-            <Star size={14} className="text-yellow-400" />
+      <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-8 md:right-8 text-white z-10">
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg">{movieTitle}</h1>
+        <p className="text-base md:text-lg max-w-2xl mb-6 drop-shadow-md leading-relaxed">{overview.substring(0, 150) + (overview.length > 150 ? "..." : "")}</p>
+        <div className="flex flex-wrap gap-4 mb-6 text-sm">
+          <span className="flex items-center gap-1 bg-black/40 px-3 py-1 rounded-full">
+            <Star size={16} className="text-yellow-400" />
             {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}
           </span>
           {releaseDate && (
-            <span className="flex items-center gap-1">
-              <Calendar size={14} />
+            <span className="flex items-center gap-1 bg-black/40 px-3 py-1 rounded-full">
+              <Calendar size={16} />
               {new Date(releaseDate).getFullYear()}
             </span>
           )}
         </div>
         <Link
           href={`/MovieDetails/${movie.id}`}
-          className=" bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded font-semibold transition flex items-center gap-2 w-fit cursor-pointer"
+          className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-200 drop-shadow-lg"
         >
-          <PlayCircle size={26} />
+          <PlayCircle size={24} />
           Watch Now
         </Link>
       </div>
@@ -57,7 +56,7 @@ export default function BannerSection({ movie, isReversed = false }: BannerSecti
   );
 
   return (
-    <div className="md:my-12 my-4">
+    <div className="container mx-auto px-4 md:my-12 my-4">
       {content}
     </div>
   );
