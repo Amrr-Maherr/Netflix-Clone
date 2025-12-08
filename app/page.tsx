@@ -5,8 +5,8 @@ import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
 
 import BannerSection from "./Components/BannerSection";
-import { fetchAllMovies } from "@/Api/FetchAllMovies";
-import { fetchAllTVShows } from "@/Api/FetchAllTVShows";
+import { fetchAllMovies } from "../Api/FetchAllMovies";
+import { fetchAllTVShows } from "../Api/FetchAllTVShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
 import ErrorMessage from "./Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "./Components/Loading/NetflixIntroLoader";
