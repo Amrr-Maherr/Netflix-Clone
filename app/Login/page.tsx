@@ -5,16 +5,9 @@ import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-f
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Inputs } from "../Types/Inputs";
-import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/Store/userSlice";
 
 export default function Page() {
-  const router = useRouter();
-  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -22,34 +15,10 @@ export default function Page() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const result = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
-    if (result?.error) {
-      console.error("Sign in failed", result.error);
-      // يمكنك إضافة رسالة خطأ هنا
-    } else if (result?.ok) {
-      dispatch(setUser({ email: data.email }));
-      router.push("/");
-    }
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    alert("Login is for UI demonstration only");
     reset();
   };
-
-  const { data: session, status } = useSession();
-
-useEffect(() => {
-  if (status === "authenticated" && session?.user) {
-    dispatch(setUser({
-      name: session.user.name,
-      email: session.user.email,
-      image: session.user.image,
-    }));
-    router.push("/");
-  }
-}, [status, session, router, dispatch]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -142,16 +111,6 @@ useEffect(() => {
             </button>
           </motion.div>
         </motion.form>
-
-        {/* Google Sign In */}
-        <motion.div variants={itemVariants} className="mt-6 text-center">
-          <Button
-            className="flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-300 hover:bg-gray-100 font-medium py-2 px-4 rounded w-full"
-            onClick={() => signIn("google")}
-          >
-            Sign in with Google
-          </Button>
-        </motion.div>
 
         <motion.div variants={itemVariants} className="mt-8 text-start">
           <p className="text-gray-400 text-[18px]">

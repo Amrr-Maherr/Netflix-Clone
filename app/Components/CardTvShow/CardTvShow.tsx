@@ -21,7 +21,6 @@ type CardTvShowProps = {
 };
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
-  console.log(TvShow, "TvShow");
 
   return (
     <Dialog>
@@ -95,9 +94,9 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
       </DialogTrigger>
 
       {/* Dialog content */}
-      <DialogContent className="sm:max-w-md bg-black/95 border-0 mt-5">
+      <DialogContent className="sm:max-w-lg bg-black/95 border-0 mt-5">
         <DialogHeader className="space-y-2">
-          <DialogTitle className="text-white">{TvShow.name}</DialogTitle>
+          <DialogTitle className="text-white text-xl font-bold">{TvShow.name}</DialogTitle>
           {TvShow.original_name && TvShow.original_name !== TvShow.name && (
             <span className="text-gray-400 text-sm block">
               Original Name: {TvShow.original_name}
@@ -109,7 +108,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         </DialogHeader>
 
         {/* Poster */}
-        <div className="my-4 relative w-full h-64">
+        <div className="my-4 relative w-full h-80">
           {TvShow.backdrop_path || TvShow.poster_path ? (
             <Image
               src={`https://image.tmdb.org/t/p/w500${
@@ -128,8 +127,8 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
 
         {/* Stats & Badges */}
         <div className="flex flex-wrap gap-2 mb-4 text-gray-400">
-          <span className="flex items-center gap-1 px-2 py-0.5 rounded text-sm">
-            <Star size={14} className="text-yellow-400" />
+          <span className="flex items-center gap-1 px-2 py-0.5 bg-yellow-600/20 text-yellow-300 rounded text-sm">
+            <Star size={14} />
             {TvShow.vote_average != null
               ? TvShow.vote_average.toFixed(1)
               : "N/A"}{" "}
@@ -137,33 +136,33 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
           </span>
 
           {TvShow.first_air_date && (
-            <span className="px-2 py-0.5 rounded text-sm">
+            <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
               First Air: {TvShow.first_air_date}
             </span>
           )}
 
           {TvShow.popularity != null && (
-            <span className="flex items-center gap-1 px-2 py-0.5 rounded text-sm">
-              <Flame size={14} className="text-red-500" />
+            <span className="flex items-center gap-1 px-2 py-0.5 bg-red-600/20 text-red-400 rounded text-sm">
+              <Flame size={14} />
               {TvShow.popularity.toFixed(0)}
             </span>
           )}
 
           {TvShow.original_language && (
-            <span className="px-2 py-0.5 rounded text-sm">
-              Language: {TvShow.original_language}
+            <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
+              Language: {TvShow.original_language.toUpperCase()}
             </span>
           )}
 
           {TvShow.adult && (
-            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs">
+            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs font-bold">
               18+
             </span>
           )}
 
           {TvShow.video && (
             <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
-              Video Available
+              Video
             </span>
           )}
         </div>

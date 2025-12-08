@@ -1,26 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Logo from "../Logo/index";
 import HeaderLinks from "./elements/HeaderLinks";
 import SearchComponent from "../Search/SearchComponent";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+
 import {
   Drawer,
   DrawerContent,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useSelector, useDispatch } from "react-redux";
-import { clearUser } from "@/Store/userSlice";
+import { useSelector } from "react-redux";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const user = useSelector((state: any) => state.user);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,11 +27,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleLogout = () => {
-    dispatch(clearUser());
-    signOut({ callbackUrl: '/' });
-  };
 
   return (
     <header
@@ -68,12 +61,12 @@ export default function Header() {
                     />
                   )}
                 </Link>
-                <Button
-                  onClick={handleLogout}
-                  className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300"
+                <Link
+                  href="/Login"
+                  className="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-md text-sm transition-all duration-300 hover:shadow-lg"
                 >
-                  <LogOut size={16} /> Logout
-                </Button>
+                  Login
+                </Link>
               </div>
             ) : (
               <Link
@@ -127,12 +120,9 @@ export default function Header() {
                     <Link href="/Account" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-center mb-2">
                       Account
                     </Link>
-                    <Button
-                      onClick={handleLogout}
-                      className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-all duration-300 w-full justify-center"
-                    >
-                      <LogOut size={16} /> Logout
-                    </Button>
+                    <Link href="/Login" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md text-center mb-2">
+                      Login
+                    </Link>
                   </div>
                 ) : (
                   <Link

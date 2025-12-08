@@ -188,20 +188,20 @@ export default function HeroSection({
           <DialogContent
             data-slot="dialog-content"
             className={cn(
-              "bg-black data-[state=open]:animate-in data-[state=closed]:animate-out " +
+              "bg-black/95 data-[state=open]:animate-in data-[state=closed]:animate-out " +
                 "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 " +
                 "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 " +
-                "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[90%] " +
-                "translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg p-6 shadow-lg duration-200 border-0"
+                "fixed top-[50%] left-[50%] z-50 grid w-full sm:max-w-2xl " +
+                "translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg p-6 shadow-lg duration-200 border-0 mt-5"
             )}
           >
             <DialogHeader>
-              <DialogTitle className="text-white text-lg md:text-xl">
+              <DialogTitle className="text-white text-xl font-bold">
                 {title} - Trailer
               </DialogTitle>
             </DialogHeader>
 
-            <div className="relative w-full aspect-video rounded-md overflow-hidden shadow-2xl">
+            <div className="relative w-full h-[70dvh] rounded-md overflow-hidden shadow-2xl">
               <iframe
                 src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}`}
                 title="Trailer"

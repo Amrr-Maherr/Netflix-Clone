@@ -5,6 +5,7 @@ import Slider from "../Slider/Slider";
 import { Autoplay, EffectFade } from "swiper/modules";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 interface HeroSlide {
   id?: number;
@@ -12,7 +13,7 @@ interface HeroSlide {
   name?: string;
   overview?: string;
   backdrop_path?: string;
-  poster_path?: string; // تأكدنا هنا من إضافة البوستر
+  poster_path?: string;
   media_type: "movie" | "tv" | "person";
 }
 
@@ -22,6 +23,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ movies }: HeroSectionProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const user = useSelector((state: any) => state.user);
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,7 +80,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
                   </p>
                 )}
 
-                <div className="flex justify-center">
+                <div className="flex justify-center gap-4">
                   <Link
                     href={
                       movie.media_type === "movie"
@@ -92,6 +94,13 @@ export default function HeroSection({ movies }: HeroSectionProps) {
                       Watch Now
                     </Button>
                   </Link>
+                  {!user && (
+                    <Link href="/Login">
+                      <Button className="bg-transparent border-2 border-white/50 hover:bg-white/10 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300">
+                        Sign In
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

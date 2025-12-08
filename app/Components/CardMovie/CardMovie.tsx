@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Star, Flame, Play } from "lucide-react";
+import { Star, Flame, Play, Clock } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
 import Logo from "../../../public/Netflix_Symbol_RGB.png";
 import {
@@ -91,9 +91,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
       </DialogTrigger>
 
       {/* Dialog content */}
-      <DialogContent className="sm:max-w-md bg-black border-0 mt-5">
-        <DialogHeader>
-          <DialogTitle className="text-white">{movie.title}</DialogTitle>
+      <DialogContent className="sm:max-w-lg bg-black/95 border-0 mt-5">
+        <DialogHeader className="space-y-2">
+          <DialogTitle className="text-white text-xl font-bold">{movie.title}</DialogTitle>
           {movie.original_title && movie.original_title !== movie.title && (
             <span className="text-gray-400 text-sm block">
               Original Title: {movie.original_title}
@@ -104,8 +104,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="my-4 relative w-full h-64">
-          {movie.poster_path ? (
+        {/* Poster */}
+        <div className="my-4 relative w-full h-80">
+          {movie.poster_path || movie.backdrop_path ? (
             <Image
               src={`https://image.tmdb.org/t/p/w500${
                 movie.backdrop_path || movie.poster_path
@@ -121,47 +122,55 @@ export default function CardMovie({ movie }: CardMovieProps) {
           )}
         </div>
 
-        {/* Stats */}
-        <div className="flex flex-wrap justify-between text-sm text-gray-500 mb-4 gap-2">
-          <span className="flex items-center gap-1">
-            <Star size={14} className="inline text-yellow-400" />{" "}
+        {/* Stats & Badges */}
+        <div className="flex flex-wrap gap-2 mb-4 text-gray-400">
+          <span className="flex items-center gap-1 px-2 py-0.5 bg-yellow-600/20 text-yellow-300 rounded text-sm">
+            <Star size={14} />
             {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}{" "}
             {movie.vote_count != null && `(${movie.vote_count} votes)`}
           </span>
 
-          {movie.release_date && <span>Release: {movie.release_date}</span>}
+          {movie.release_date && (
+            <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
+              Release: {movie.release_date}
+            </span>
+          )}
 
           {movie.popularity != null && (
-            <span className="flex items-center gap-1">
-              <Flame size={14} className="inline text-red-500" />{" "}
+            <span className="flex items-center gap-1 px-2 py-0.5 bg-red-600/20 text-red-400 rounded text-sm">
+              <Flame size={14} />
               {movie.popularity.toFixed(0)}
             </span>
           )}
 
           {movie.original_language && (
-            <span>Language: {movie.original_language}</span>
+            <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
+              Language: {movie.original_language.toUpperCase()}
+            </span>
           )}
 
           {movie.adult && (
-            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs">
+            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs font-bold">
               18+
             </span>
           )}
 
           {movie.video && (
             <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
-              Video Available
+              Video
             </span>
           )}
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
           <DialogClose asChild className="cursor-pointer">
-            <Button variant="outline">Close</Button>
+            <Button variant="outline" className="w-full sm:w-auto">
+              Close
+            </Button>
           </DialogClose>
           <Link
             href={`/MovieDetails/${movie.id}`}
-            className="flex items-center justify-center gap-2 cursor-pointer"
+            className="flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
           >
             <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
               <Play size={16} />
