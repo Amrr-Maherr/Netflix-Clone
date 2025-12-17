@@ -17,7 +17,7 @@ export default function BannerSection({ movie, isReversed = false }: BannerSecti
   const releaseDate = (movie as any).release_date || (movie as any).first_air_date;
 
   const content = (
-    <div className={`relative rounded-lg overflow-hidden w-full h-[60vh] min-h-[400px] ${isReversed ? 'flex-row-reverse' : ''}`}>
+    <div className={`relative rounded-lg overflow-hidden w-full h-[600px] md:h-dvh ${isReversed ? 'flex-row-reverse' : ''}`}>
       <Image
         src={backdropPath}
         alt={movieTitle}
