@@ -8,13 +8,17 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Inputs } from "../Types/Inputs";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { registerUser } from "../../Api/Auth";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 export default function Page() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -93,12 +97,12 @@ export default function Page() {
 
         <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <input
+            <Input
               id="email"
               {...register("email", { required: "Email is required" })}
               type="email"
               placeholder="Email Address"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+              className="text-black bg-white"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -107,8 +111,8 @@ export default function Page() {
             )}
           </div>
 
-          <div>
-            <input
+          <div className="relative">
+            <Input
               id="password"
               {...register("password", {
                 required: "Password is required",
@@ -117,10 +121,17 @@ export default function Page() {
                   message: "Password must be at least 6 characters",
                 },
               })}
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password (6+ characters)"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+              className="text-black bg-white pr-12"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.password.message}
@@ -128,18 +139,25 @@ export default function Page() {
             )}
           </div>
 
-          <div>
-            <input
+          <div className="relative">
+            <Input
               id="confirmPassword"
               {...register("confirmPassword", {
                 required: "Confirm Password is required",
                 validate: (value, formValues) =>
                   value === watch("password") || "Passwords do not match",
               })}
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+              className="text-black bg-white pr-12"
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.confirmPassword.message}
@@ -147,9 +165,7 @@ export default function Page() {
             )}
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm mt-2">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
           <motion.div variants={itemVariants} className="pt-4">
             <Button
@@ -160,8 +176,6 @@ export default function Page() {
               {loading ? "Signing Up..." : "Sign Up"}
             </Button>
           </motion.div>
-
-
         </motion.form>
 
         <motion.div variants={itemVariants} className="mt-5 text-start">
