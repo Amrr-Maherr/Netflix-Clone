@@ -5,15 +5,16 @@ import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-f
 import NetflixLogo from "../../public/Netflix_Symbol_RGB.png";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Inputs } from "../Types/Inputs";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { loginUser } from "../../Api/Auth";
 import { useState } from "react";
+import { resetPassword } from "../../Api/Auth";
+
+interface ForgotInputs {
+  email: string;
+}
 
 export default function Page() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const {
@@ -21,15 +22,16 @@ export default function Page() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<ForgotInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<ForgotInputs> = async (data) => {
     setLoading(true);
     setError(null);
+    setMessage(null);
     try {
-      await loginUser(data.email, data.password);
+      await resetPassword(data.email);
+      setMessage("Password reset email sent. Check your inbox.");
       reset();
-      router.push("/");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -68,15 +70,10 @@ export default function Page() {
     >
       <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-0" />
 
-      {/* Netflix Logo */}
-      {/* <div className="absolute top-5 left-5 z-20">
-        <img src={NetflixLogo.src} alt="Netflix" className="w-20" />
-      </div> */}
-
       <div className="bg-black/90 rounded-lg shadow-ms w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-6 px-8 relative z-10 my-5">
         <motion.div variants={itemVariants} className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white text-start mt-4">
-            Sign In
+            Forgot Password
           </h1>
         </motion.div>
 
@@ -85,7 +82,6 @@ export default function Page() {
           variants={itemVariants}
           className="space-y-4"
         >
-          {/* Email */}
           <div>
             <input
               id="email"
@@ -101,69 +97,35 @@ export default function Page() {
             )}
           </div>
 
-          {/* Password */}
-          <div>
-            <input
-              id="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              type="password"
-              placeholder="Password (6+ characters)"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
           {error && (
             <p className="text-red-500 text-sm mt-2">{error}</p>
           )}
 
-          {/* Submit */}
+          {message && (
+            <p className="text-green-500 text-sm mt-2">{message}</p>
+          )}
+
           <motion.div variants={itemVariants} className="pt-4">
-            <Button
+            <button
               type="submit"
               disabled={loading}
               className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
             >
-              {loading ? "Signing In..." : "Sign In"}
-            </Button>
+              {loading ? "Sending..." : "Send Reset Email"}
+            </button>
           </motion.div>
         </motion.form>
 
         <motion.div variants={itemVariants} className="mt-8 text-start">
           <p className="text-gray-400 text-[18px]">
-            New to Netflix?{" "}
+            Remember your password?{" "}
             <Link
               className="font-semibold text-white hover:underline text-[18px]"
-              href="/Register"
+              href="/Login"
             >
-              Sign up now
+              Sign in
             </Link>
             .
-          </p>
-          <p className="text-gray-400 text-[18px] mt-2">
-            <Link
-              className="font-semibold text-white hover:underline text-[18px]"
-              href="/ForgotPassword"
-            >
-              Forgot your password?
-            </Link>
-          </p>
-          <p className="text-gray-500 text-[15px] mt-4">
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot.{" "}
-            <a href="#" className="text-blue-500 hover:underline">
-              Learn more.
-            </a>
           </p>
         </motion.div>
       </div>
