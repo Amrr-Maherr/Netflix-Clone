@@ -152,7 +152,7 @@ export default function Page() {
             </p>
           )}
 
-          {!isLoading && (
+          {!isLoading && allData.length > 0 && (
             <PaginationButtons
               LoadMore={LoadMore}
               LoadLess={LoadLess}

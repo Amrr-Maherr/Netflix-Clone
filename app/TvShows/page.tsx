@@ -140,7 +140,7 @@ export default function Page() {
           )}
 
           {/* Pagination */}
-          {!isLoading && (
+          {!isLoading && allData.length > 0 && (
             <PaginationButtons
               LoadMore={loadMore}
               LoadLess={loadLess}
