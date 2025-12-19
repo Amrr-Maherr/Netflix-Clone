@@ -7,8 +7,15 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Inputs } from "../Types/Inputs";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { loginUser } from "../../Api/Auth";
+import { useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -16,9 +23,18 @@ export default function Page() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    alert("Login is for UI demonstration only");
-    reset();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await loginUser(data.email, data.password);
+      reset();
+      router.push("/");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const containerVariants: Variants = {
@@ -107,14 +123,19 @@ export default function Page() {
             )}
           </div>
 
+          {error && (
+            <p className="text-red-500 text-sm mt-2">{error}</p>
+          )}
+
           {/* Submit */}
           <motion.div variants={itemVariants} className="pt-4">
-            <button
+            <Button
               type="submit"
-              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
+              disabled={loading}
+              className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
             >
-              Sign In
-            </button>
+              {loading ? "Signing In..." : "Sign In"}
+            </Button>
           </motion.div>
         </motion.form>
 

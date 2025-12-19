@@ -11,9 +11,14 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/Store/userSlice";
+import { registerUser } from "../../Api/Auth";
+import { useState } from "react";
 export default function Page() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -23,11 +28,21 @@ export default function Page() {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (data.password !== data.confirmPassword) {
-      console.error("Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
-    alert("Registration is for UI demonstration only");
-    reset();
+    setLoading(true);
+    setError(null);
+    try {
+      const user = await registerUser(data.email, data.password);
+      dispatch(setUser(user));
+      reset();
+      router.push("/");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -136,13 +151,18 @@ export default function Page() {
             )}
           </div>
 
+          {error && (
+            <p className="text-red-500 text-sm mt-2">{error}</p>
+          )}
+
           <motion.div variants={itemVariants} className="pt-4">
-            <button
-              className="bg-red-600 cursor-pointer hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 w-full transition duration-150 ease-in-out"
+            <Button
               type="submit"
+              disabled={loading}
+              className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 w-full transition duration-150 ease-in-out"
             >
-              Sign Up
-            </button>
+              {loading ? "Signing Up..." : "Sign Up"}
+            </Button>
           </motion.div>
 
 
