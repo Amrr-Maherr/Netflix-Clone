@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-fd55-4a8b-bd9e-cd6c0058b093_small.jpg";
+import NetflixLogo from "../../public/Netflix_Symbol_RGB.png";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Inputs } from "../Types/Inputs";
@@ -51,7 +52,12 @@ export default function Page() {
     >
       <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-0" />
 
-      <div className="bg-black/80 rounded-lg shadow-ms w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-6 px-8 relative z-10 my-5">
+      {/* Netflix Logo */}
+      <div className="absolute top-5 left-5 z-20">
+        <img src={NetflixLogo.src} alt="Netflix" className="w-20" />
+      </div>
+
+      <div className="bg-black/90 rounded-lg shadow-ms w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-6 px-8 relative z-10 my-5">
         <motion.div variants={itemVariants} className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white text-start mt-4">
             Sign In
@@ -70,7 +76,7 @@ export default function Page() {
               {...register("email", { required: "Email is required" })}
               type="email"
               placeholder="Email Address"
-              className="shadow appearance-none border border-gray-700 rounded w-full py-2 px-4 text-gray-100 bg-transparent bg-opacity-70 leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -92,7 +98,7 @@ export default function Page() {
               })}
               type="password"
               placeholder="Password (6+ characters)"
-              className="shadow appearance-none border border-gray-700 rounded w-full py-2 px-4 text-gray-100 bg-transparent bg-opacity-70 leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
