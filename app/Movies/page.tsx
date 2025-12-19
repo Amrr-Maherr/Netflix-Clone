@@ -106,62 +106,64 @@ export default function Page() {
   }));
 
   return (
-    <>
-      {heroMovies && <HeroSection movies={heroMovies} />}
-      <main className="min-h-screen bg-black text-white container">
-        <section className="md:py-20 py-15">
-          <Filters
-            ClearFilter={ClearFilter}
-            setFilters={setFilters}
-            filters={filters}
-          />
-          <MobileFilters
-            ClearFilter={ClearFilter}
-            setFilters={setFilters}
-            filters={filters}
-          />
-        </section>
-
-        <section>
-          {isLoading ? (
-            <div className="flex items-center justify-center w-full h-screen">
-              <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          ) : !isLoading && allData.length === 0 ? (
-            <h3 className="text-white text-center mt-10">
-              No results found for your filter.
-            </h3>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-              {allData?.map((movie, index) => (
-                <div
-                  key={`${movie.id}-${index}`}
-                  ref={(el) => {
-                    if (el) cardsRef.current[index] = el;
-                  }}
-                >
-                  <CardMovie movie={movie} />
-                </div>
-              ))}
-            </div>
-          )}
-
-          {isError && (
-            <p className="text-red-500 text-center text-lg">
-              Failed to load movies.
-            </p>
-          )}
-
-          {!isLoading && allData.length > 0 && (
-            <PaginationButtons
-              LoadMore={LoadMore}
-              LoadLess={LoadLess}
-              isLoading={isLoading}
-              page={page}
+    isLoading ? (
+      <div className="flex items-center justify-center w-full h-screen">
+        <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    ) : (
+      <>
+        {heroMovies && <HeroSection movies={heroMovies} />}
+        <main className="min-h-screen bg-black text-white container">
+          <section className="md:py-20 py-15">
+            <Filters
+              ClearFilter={ClearFilter}
+              setFilters={setFilters}
+              filters={filters}
             />
-          )}
-        </section>
-      </main>
-    </>
+            <MobileFilters
+              ClearFilter={ClearFilter}
+              setFilters={setFilters}
+              filters={filters}
+            />
+          </section>
+
+          <section>
+            {allData.length === 0 ? (
+              <h3 className="text-white text-center mt-10">
+                No results found for your filter.
+              </h3>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                {allData?.map((movie, index) => (
+                  <div
+                    key={`${movie.id}-${index}`}
+                    ref={(el) => {
+                      if (el) cardsRef.current[index] = el;
+                    }}
+                  >
+                    <CardMovie movie={movie} />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {isError && (
+              <p className="text-red-500 text-center text-lg">
+                Failed to load movies.
+              </p>
+            )}
+
+            {allData.length > 0 && (
+              <PaginationButtons
+                LoadMore={LoadMore}
+                LoadLess={LoadLess}
+                isLoading={isLoading}
+                page={page}
+              />
+            )}
+          </section>
+        </main>
+      </>
+    )
   );
 }

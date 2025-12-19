@@ -18,6 +18,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Page() {
   const [page, setPage] = useState(1);
   const [allData, setAllData] = useState<any[]>([]);
+  const [filteredData, setFilteredData] = useState<any[]>([]);
+
   const [filters, setFilters] = useState({
     sort: "",
     genre: "",
@@ -61,9 +63,13 @@ export default function Page() {
 
   useEffect(() => {
     if (data?.shows) {
-      setAllData(data.shows);
+      if (!filteredData) {
+        setAllData((prev) => [...prev, ...data.shows]);
+      } else {
+        setAllData(data.shows);
+      }
     }
-  }, [data]);
+  }, [data, filteredData]);
 
   useEffect(() => {
     refetch();
@@ -94,62 +100,65 @@ export default function Page() {
     media_type: "tv" as const,
   }));
 
-  if (isError) return <ErrorMessage onRetry={refetch} />;
-
   return (
-    <>
-      {heroShows && <HeroSection movies={heroShows} />}
-      <main className="min-h-screen bg-black text-white container">
-        {/* Filters Section */}
-        <section className="md:py-20 py-15">
-          <Filters
-            ClearFilter={clearFilter}
-            setFilters={setFilters}
-            filters={filters}
-          />
-          <MobileFilters
-            ClearFilter={clearFilter}
-            setFilters={setFilters}
-            filters={filters}
-          />
-        </section>
-
-        {/* TV Shows Grid */}
-        <section>
-          {isLoading ? (
-            <div className="flex items-center justify-center w-full h-screen">
-              <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          ) : !isLoading && allData.length === 0 ? (
-            <h3 className="text-white text-center mt-10">
-              No results found for your filter.
-            </h3>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-              {allData.map((show, index) => (
-                <div
-                  key={`${show.id}-${index}`}
-                  ref={(el) => {
-                    if (el) cardsRef.current[index] = el;
-                  }}
-                >
-                  <CardTvShow TvShow={show} />
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Pagination */}
-          {!isLoading && allData.length > 0 && (
-            <PaginationButtons
-              LoadMore={loadMore}
-              LoadLess={loadLess}
-              isLoading={isLoading}
-              page={page}
+    isLoading ? (
+      <div className="flex items-center justify-center w-full h-screen">
+        <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    ) : (
+      <>
+        {heroShows && <HeroSection movies={heroShows} />}
+        <main className="min-h-screen bg-black text-white container">
+          <section className="md:py-20 py-15">
+            <Filters
+              ClearFilter={clearFilter}
+              setFilters={setFilters}
+              filters={filters}
             />
-          )}
-        </section>
-      </main>
-    </>
+            <MobileFilters
+              ClearFilter={clearFilter}
+              setFilters={setFilters}
+              filters={filters}
+            />
+          </section>
+
+          <section>
+            {allData.length === 0 ? (
+              <h3 className="text-white text-center mt-10">
+                No results found for your filter.
+              </h3>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                {allData?.map((show, index) => (
+                  <div
+                    key={`${show.id}-${index}`}
+                    ref={(el) => {
+                      if (el) cardsRef.current[index] = el;
+                    }}
+                  >
+                    <CardTvShow TvShow={show} />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {isError && (
+              <p className="text-red-500 text-center text-lg">
+                Failed to load TV shows.
+              </p>
+            )}
+
+            {allData.length > 0 && (
+              <PaginationButtons
+                LoadMore={loadMore}
+                LoadLess={loadLess}
+                isLoading={isLoading}
+                page={page}
+              />
+            )}
+          </section>
+        </main>
+      </>
+    )
   );
 }

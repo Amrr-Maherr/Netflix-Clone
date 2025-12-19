@@ -17,9 +17,9 @@ export default function CrewSection({ crew }: { crew: any[] }) {
           <Link
             key={member.credit_id}
             href={`/CrewDetails/${member.id}`}
-            className="block bg-zinc-900 relative rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer"
+            className="block bg-zinc-900 relative rounded-xl overflow-hidden transition-transform duration-300 cursor-pointer"
           >
-            {member.profile_path ? (
+            {/* {member.profile_path ? ( */}
               <Image
                 src={`https://image.tmdb.org/t/p/w300${member.profile_path}`}
                 alt={member.name}
@@ -29,9 +29,9 @@ export default function CrewSection({ crew }: { crew: any[] }) {
                 priority
                 className="w-full h-48 sm:h-56 md:h-64 object-cover"
               />
-            ) : (
-              <NoImageFallback text="No Image Available" />
-            )}
+            {/* // ) : ( */}
+            {/* //   <NoImageFallback text="No Image Available" /> */}
+            {/* // )} */}
 
             <div className="p-3 text-center">
               <p className="font-semibold text-sm text-white truncate">
