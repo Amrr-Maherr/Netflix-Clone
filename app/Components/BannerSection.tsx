@@ -21,7 +21,7 @@ export default function BannerSection({ movie, isReversed = false, media_type }:
 
   const content = (
     <div
-      className={`relative rounded-lg overflow-hidden w-full h-[600px] md:h-dvh ${
+      className={`relative rounded-lg overflow-hidden w-full h-[50vh] md:h-[70vh] ${
         isReversed ? "flex-row-reverse" : ""
       }`}
     >
@@ -58,10 +58,10 @@ export default function BannerSection({ movie, isReversed = false, media_type }:
         <Link
           href={
             media_type === "movie"
-              ? `/MovieDetails/${movie.id || ''}`
-              : `/TvShowDetails/${movie.id || ''}`
+              ? `/MovieDetails/${movie.id || ""}`
+              : `/TvShowDetails/${movie.id || ""}`
           }
-          className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-200 drop-shadow-lg"
+          className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold transition duration-200 drop-shadow-lg"
         >
           <PlayCircle size={24} />
           Watch Now
