@@ -100,7 +100,7 @@ export default function Gallery() {
     ...(airingTodayTVQuery.data || []),
     ...(nowPlayingMoviesQuery.data || []),
     ...(onTheAirTVQuery.data || []),
-  ], [
+  ].filter(movie => movie.media_type === "movie" || movie.media_type === "tv"), [
     trendingMoviesWeekQuery.data,
     trendingMoviesDayQuery.data,
     popularMoviesQuery.data,
@@ -188,7 +188,7 @@ export default function Gallery() {
       />
     );
 
-  const heroItems = allMovies.slice(0, 5).map((movie: Movie) => ({
+  const heroItems = allMovies.slice(0, 25).map((movie: Movie) => ({
     ...movie,
     media_type: movie.media_type,
   }));
