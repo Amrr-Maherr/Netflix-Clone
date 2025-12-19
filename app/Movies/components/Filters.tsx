@@ -34,6 +34,7 @@ export default function Filters({
 
   return (
     <div className="items-center justify-center flex-wrap gap-4 hidden md:flex">
+      <h3 className="text-white text-3xl font-bold mr-4">Filters:</h3>
       <Button
         disabled={
           !filters.sort &&
