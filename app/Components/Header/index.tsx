@@ -12,13 +12,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { logoutUser } from "../../../Api/Auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const user = useSelector((state: any) => state.user);
+  const [user, setUser] = useState<any>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +31,23 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      setUser(null);
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <header
@@ -51,22 +72,17 @@ export default function Header() {
             {user ? (
               <div className="hidden md:flex items-center gap-3">
                 <Link href="/Account" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                  {user.image && (
-                    <Image
-                      width={8}
-                      height={8}
-                      src={user.image}
-                      alt={user.name || "User avatar"}
-                      className="rounded-full object-cover"
-                    />
-                  )}
+                    <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      {(user.displayName || user.email)?.charAt(0).toUpperCase() || "U"}
+                    </div>
+                  {/* <span className="text-white text-sm">{user.displayName || user.email}</span> */}
                 </Link>
-                <Link
-                  href="/Login"
+                <button
+                  onClick={handleLogout}
                   className="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-all duration-300 hover:shadow-lg"
                 >
-                  Login
-                </Link>
+                  Logout
+                </button>
               </div>
             ) : (
               <Link
@@ -106,23 +122,31 @@ export default function Header() {
                 {user ? (
                   <div className="mt-8">
                     <div className="flex items-center gap-3 mb-3">
-                      {user.image && (
+                      {user.photoURL ? (
                         <Image
-                          width={10}
-                          height={10}
+                          width={40}
+                          height={40}
                           quality={100}
-                          src={user.image}
-                          alt={user.name || "User avatar"}
+                          src={user.photoURL}
+                          alt={user.displayName || user.email || "User avatar"}
                           className="rounded-full object-cover"
                         />
+                      ) : (
+                        <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-semibold">
+                          {(user.displayName || user.email)?.charAt(0).toUpperCase() || "U"}
+                        </div>
                       )}
+                      <span className="text-white text-lg">{user.displayName || user.email}</span>
                     </div>
                     <Link href="/Account" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg text-center mb-2">
                       Account
                     </Link>
-                    <Link href="/Login" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg text-center mb-2">
-                      Login
-                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg text-center w-full mb-2"
+                    >
+                      Logout
+                    </button>
                   </div>
                 ) : (
                   <Link

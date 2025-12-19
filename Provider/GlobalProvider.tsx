@@ -11,6 +11,7 @@ type GlobalProviderProps = {
 
 export default function GlobalProvider({ children }: GlobalProviderProps) {
   const [queryClient] = useState(() => new QueryClient());
+
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>

@@ -9,13 +9,10 @@ import { Inputs } from "../Types/Inputs";
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/Store/userSlice";
 import { registerUser } from "../../Api/Auth";
 import { useState } from "react";
 export default function Page() {
   const router = useRouter();
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,8 +31,7 @@ export default function Page() {
     setLoading(true);
     setError(null);
     try {
-      const user = await registerUser(data.email, data.password);
-      dispatch(setUser(user));
+      await registerUser(data.email, data.password);
       reset();
       router.push("/");
     } catch (err: any) {

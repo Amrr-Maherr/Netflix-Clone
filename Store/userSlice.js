@@ -19,9 +19,15 @@ const userSlice = createSlice({
   initialState: loadUserFromStorage(),
   reducers: {
     setUser: (state, action) => {
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.image = action.payload.image;
+      if (action.payload) {
+        state.name = action.payload.displayName || action.payload.name || null;
+        state.email = action.payload.email || null;
+        state.image = action.payload.photoURL || action.payload.image || null;
+      } else {
+        state.name = null;
+        state.email = null;
+        state.image = null;
+      }
       saveUserToStorage(state);
     },
     clearUser: (state) => {
