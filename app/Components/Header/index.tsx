@@ -71,25 +71,29 @@ export default function Header() {
             {/* Desktop User/Login */}
             {user ? (
               <div className="hidden md:flex items-center gap-3">
-                <Link href="/Account" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                    <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                      {(user.displayName || user.email)?.charAt(0).toUpperCase() || "U"}
-                    </div>
+                <Link
+                  href="/Account"
+                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    {(user.displayName || user.email)
+                      ?.charAt(0)
+                      .toUpperCase() || "U"}
+                  </div>
                   {/* <span className="text-white text-sm">{user.displayName || user.email}</span> */}
                 </Link>
-                <button
+                <Button
                   onClick={handleLogout}
-                  className="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-all duration-300 hover:shadow-lg"
+                  className="bg-transparent border-2 border-white/50 hover:bg-white/10 text-white text-lg md:text-xl px-5 cursor-pointer py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300"
                 >
                   Logout
-                </button>
+                </Button>
               </div>
             ) : (
-              <Link
-                href="/Login"
-                className="hidden md:inline-block bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-all duration-300 hover:shadow-lg"
-              >
-                Sign In
+              <Link href="/Login">
+                <Button className="bg-transparent border-2 border-white/50 hover:bg-white/10 text-white text-lg md:text-xl px-5 py-4 rounded-lg backdrop-blur-sm shadow-lg cursor-pointer transition-all duration-300">
+                  Sign In
+                </Button>
               </Link>
             )}
 
@@ -133,12 +137,19 @@ export default function Header() {
                         />
                       ) : (
                         <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-semibold">
-                          {(user.displayName || user.email)?.charAt(0).toUpperCase() || "U"}
+                          {(user.displayName || user.email)
+                            ?.charAt(0)
+                            .toUpperCase() || "U"}
                         </div>
                       )}
-                      <span className="text-white text-lg">{user.displayName || user.email}</span>
+                      <span className="text-white text-lg">
+                        {user.displayName || user.email}
+                      </span>
                     </div>
-                    <Link href="/Account" className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg text-center mb-2">
+                    <Link
+                      href="/Account"
+                      className="block bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg text-center mb-2"
+                    >
                       Account
                     </Link>
                     <button

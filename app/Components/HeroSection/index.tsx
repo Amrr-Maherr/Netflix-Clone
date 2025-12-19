@@ -23,7 +23,6 @@ interface HeroSectionProps {
 
 export default function HeroSection({ movies }: HeroSectionProps) {
   const [isMobile, setIsMobile] = useState(false);
-  const user = useSelector((state: any) => state.user);
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,17 +89,10 @@ export default function HeroSection({ movies }: HeroSectionProps) {
                         : `#`
                     }
                   >
-                    <Button className="bg-red-600/90 hover:bg-red-700/95 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300">
+                    <Button className="bg-transparent border-2 border-white/50 hover:bg-white/10 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg cursor-pointer transition-all duration-300">
                       Watch Now
                     </Button>
                   </Link>
-                  {!user && (
-                    <Link href="/Login">
-                      <Button className="bg-transparent border-2 border-white/50 hover:bg-white/10 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-300">
-                        Sign In
-                      </Button>
-                    </Link>
-                  )}
                 </div>
               </div>
             </div>
