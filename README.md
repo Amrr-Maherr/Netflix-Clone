@@ -106,11 +106,17 @@
 - **Multi-Search API**: Integration with TMDb multi-search endpoint for comprehensive content discovery
 
 ### User Features & Authentication
-- **Authentication System**: NextAuth-powered login with providers:
-  - Email/password authentication
-  - Social login options (configurable)
-  - Session management and protected routes
-- **User Account Page**: Profile management and settings
+- **Firebase Authentication**: Complete authentication system with:
+  - Email/password registration and login
+  - Password reset via email
+  - Secure logout functionality
+  - Real-time authentication state management
+  - User profile data display (UID, provider, creation date, last sign-in, email verification)
+- **User Account Page**: Enhanced profile management with:
+  - Firebase user data visualization
+  - Responsive design for mobile and desktop
+  - Modern UI with gradients and animations
+  - Direct logout functionality
 - **Watchlist (My List)**: Personal watchlist for movies and TV shows:
   - Add/remove items with Redux state management
   - Persistent storage across sessions
@@ -172,11 +178,12 @@
 - **Zustand**: Lightweight state management for simple state needs (alternative to Redux)
 
 ### Authentication & Session
-- **NextAuth.js (v4)**: Complete authentication solution supporting credentials, OAuth providers
+- **Firebase Authentication**: Real-time authentication with email/password, social providers, and session management
 
 ### HTTP & API Integration
 - **Axios**: HTTP client for API requests with interceptors and error handling
 - **TMDb API**: The Movie Database API integration for movie/TV/person data
+- **Firebase SDK**: Firebase services integration for authentication and user management
 
 ### Forms & Validation
 - **React Hook Form**: Performant forms with validation and error handling
@@ -259,9 +266,17 @@ npm install
 cp .env.example .env.local
 ```
 
-4. Add your TMDb API credentials:
+4. Add your API credentials:
 ```env
 NEXT_PUBLIC_TMDB_ACCESS_TOKEN=your_access_token
+
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
 5. Run the development server:
