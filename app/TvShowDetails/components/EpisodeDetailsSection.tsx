@@ -6,12 +6,12 @@ import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
 export default function EpisodeDetailsSection({ episode }: { episode: any }) {
   const stillUrl = episode.still_path
     ? `https://image.tmdb.org/t/p/w1280${episode.still_path}`
-    : "/placeholder-image.jpg";
+    : "";
 
   return (
     <section className="relative w-full rounded-2xl overflow-hidden bg-black">
       <div className="relative h-[70vh] w-full">
-        {stillUrl ? (
+        {stillUrl && stillUrl !== "" ? (
           <Image
             src={stillUrl}
             alt={episode.name}
@@ -20,7 +20,7 @@ export default function EpisodeDetailsSection({ episode }: { episode: any }) {
             priority
           />
         ) : (
-            <NoImageFallback text="No Image Available" />
+          <NoImageFallback text="No Image Available" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
         <div className="absolute bottom-10 left-10 max-w-2xl">
