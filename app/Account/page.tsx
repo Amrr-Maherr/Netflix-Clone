@@ -1,24 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "@/Store/userSlice";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import toast from "react-hot-toast";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import { logoutUser } from "../../Api/Auth";
+import { useRouter } from "next/navigation";
 
 export default function Account() {
-  const user = useSelector((state: any) => state.user);
-  const dispatch = useDispatch();
+  const [user, setUser] = useState<any>(null);
+  const router = useRouter();
 
-  const [name, setName] = useState(user?.name || "");
-  const [email, setEmail] = useState(user?.email || "");
-  const [image, setImage] = useState(user?.image || "");
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
-  const handleSave = () => {
-    dispatch(setUser({ name, email, image }));
-    toast.success("Changes saved!");
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      setUser(null);
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   if (!user) {
@@ -30,88 +36,60 @@ export default function Account() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header similar to Netflix */}
-      <header className="bg-black border-b border-gray-700">
-        <div className="max-w-6xl mx-auto px-8 py-4">
-          <h1 className="text-2xl font-bold text-white">Account Settings</h1>
-        </div>
-      </header>
+    <div className="h-auto  text-white flex items-center justify-center">
+      <div className="mx-auto pt-20 sm:py-15">
+        {/* <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">Account Profile</h1> */}
 
-      <div className="max-w-6xl mx-auto px-8 py-12">
-        <div className="bg-black/80 p-8 rounded-md">
+        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-4 sm:p-8 rounded-lg shadow-2xl border border-gray-700">
           {/* User Profile Section */}
-          <div className="flex items-center gap-6 mb-12">
-            {image && (
-              <Image
-                src={image}
-                alt="User Avatar"
-                width={120}
-                height={120}
-                className="rounded-lg object-cover border border-gray-600"
-              />
-            )}
-            <div>
-              <h2 className="text-2xl font-bold text-white">
-                {name || "User"}
-              </h2>
-              <p className="text-gray-400">{email || "user@example.com"}</p>
-              <Button
-                onClick={handleSave}
-                className="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-2"
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">{user.displayName || "User"}</h2>
+            <p className="text-gray-300 text-sm sm:text-base bg-gray-800 px-3 py-1 rounded-full inline-block">{user.email}</p>
+          </div>
+
+          {/* Firebase User Data */}
+          <div className="space-y-4">
+            <h3 className="text-lg sm:text-xl font-semibold text-white mb-6 flex items-center">
+              <span className="w-1 h-6 bg-red-600 rounded mr-3"></span>
+              Account Information
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="p-4 sm:p-5 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors">
+                <span className="text-gray-400 block text-sm font-medium mb-1">User ID</span>
+                <span className="text-white text-sm sm:text-base break-all font-mono bg-gray-900 px-2 py-1 rounded">{user?.uid}</span>
+              </div>
+              <div className="p-4 sm:p-5 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors">
+                <span className="text-gray-400 block text-sm font-medium mb-1">Provider</span>
+                <span className="text-white text-sm sm:text-base capitalize bg-blue-900/20 text-blue-300 px-2 py-1 rounded">{user?.providerData?.[0]?.providerId || "email"}</span>
+              </div>
+              <div className="p-4 sm:p-5 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors">
+                <span className="text-gray-400 block text-sm font-medium mb-1">Account Created</span>
+                <span className="text-white text-sm sm:text-base">
+                  {user?.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString() : "N/A"}
+                </span>
+              </div>
+              <div className="p-4 sm:p-5 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors">
+                <span className="text-gray-400 block text-sm font-medium mb-1">Last Sign In</span>
+                <span className="text-white text-sm sm:text-base">
+                  {user?.metadata?.lastSignInTime ? new Date(user.metadata.lastSignInTime).toLocaleDateString() : "N/A"}
+                </span>
+              </div>
+              <div className="p-4 sm:p-5 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors">
+                <span className="text-gray-400 block text-sm font-medium mb-1">Email Verified</span>
+                <span className={`text-sm sm:text-base px-2 py-1 rounded ${user?.emailVerified ? 'bg-green-900/20 text-green-300' : 'bg-red-900/20 text-red-300'}`}>
+                  {user?.emailVerified ? "Verified" : "Not Verified"}
+                </span>
+              </div>
+            </div>
+
+            {/* Logout Button */}
+            <div className="mt-8 pt-6 border-t border-gray-600">
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
-                Save Changes
-              </Button>
-            </div>
-          </div>
-
-          {/* Settings Section */}
-          <div className="border-t border-gray-700 pt-8">
-            <h3 className="text-xl font-bold text-white mb-6">
-              Membership & Billing
-            </h3>
-            <div className="space-y-6">
-              <div className="flex justify-between items-center p-4 bg-gray-800 rounded">
-                <span className="text-white">Email Address</span>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-transparent border-none text-white focus:outline-none"
-                />
-              </div>
-              <div className="flex justify-between items-center p-4 bg-gray-800 rounded">
-                <span className="text-white">Name</span>
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="bg-transparent border-none text-white focus:outline-none"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Profile Settings */}
-          <div className="border-t border-gray-700 pt-8 mt-8">
-            <h3 className="text-xl font-bold text-white mb-6">
-              Profile Settings
-            </h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-white">Avatar</span>
-                <input
-                  id="image"
-                  type="url"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                  className="bg-gray-800 border-gray-600 text-white px-3 py-2 rounded"
-                  readOnly
-                  placeholder="Provided by Google"
-                />
-              </div>
+                Logout
+              </button>
             </div>
           </div>
         </div>
