@@ -44,7 +44,7 @@ export default function Filters({
         }
         onClick={ClearFilter}
         variant="outline"
-        className="border border-red-600 cursor-pointer text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-md font-semibold transition"
+        className="border border-red-600 cursor-pointer text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-lg font-semibold transition"
       >
         Clear
       </Button>

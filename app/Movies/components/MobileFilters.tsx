@@ -57,7 +57,7 @@ export default function MobileFilters({
               !filters.rating
             }
             onClick={ClearFilter}
-            className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-md font-semibold w-full mb-4 transition"
+            className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-lg font-semibold w-full mb-4 transition"
           >
             Clear Filters
           </Button>

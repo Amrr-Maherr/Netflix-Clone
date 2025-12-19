@@ -81,7 +81,7 @@ export default function AskedQuestions() {
           <p className="text-lg text-gray-400 mb-6">
             Sign up or log in to discover thousands of movies and TV shows.
           </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded font-semibold transition-colors">
+          <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
             Get Started
           </button>
         </div>

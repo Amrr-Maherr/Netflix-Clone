@@ -111,7 +111,7 @@ export default function Page() {
           <motion.div variants={itemVariants} className="pt-4">
             <button
               type="submit"
-              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full transition duration-150"
+              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
             >
               Sign In
             </button>
