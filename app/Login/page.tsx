@@ -53,9 +53,9 @@ export default function Page() {
       <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-0" />
 
       {/* Netflix Logo */}
-      <div className="absolute top-5 left-5 z-20">
+      {/* <div className="absolute top-5 left-5 z-20">
         <img src={NetflixLogo.src} alt="Netflix" className="w-20" />
-      </div>
+      </div> */}
 
       <div className="bg-black/90 rounded-lg shadow-ms w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-6 px-8 relative z-10 my-5">
         <motion.div variants={itemVariants} className="text-center mb-8">

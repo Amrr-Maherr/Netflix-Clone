@@ -147,7 +147,7 @@ export default function HeroSection({
             </div>
 
             {/* Buttons */}
-            <div className="mt-4 flex gap-3">
+            <div className="mt-4 flex gap-3 flex-wrap">
               {trailerKey && (
                 <Button
                   className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105"
