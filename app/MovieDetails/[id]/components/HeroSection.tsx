@@ -104,80 +104,62 @@ export default function HeroSection({
 
       {/* Content */}
       <div className="z-40 container py-10">
-        <div className="flex flex-col md:flex-row gap-8 items-end">
-          {/* Info */}
-          <div className="flex-1 text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-2 drop-shadow-lg">
-              {title}
-            </h1>
-            {tagline && (
-              <p className="text-lg md:text-xl text-gray-300 mb-4 italic drop-shadow">
-                {tagline}
-              </p>
+        <div className="max-w-2xl text-white">
+          <h1 className="text-4xl md:text-7xl font-bold mb-4 drop-shadow-lg">
+            {title}
+          </h1>
+          {tagline && (
+            <p className="text-lg md:text-xl text-gray-300 mb-6 italic drop-shadow">
+              {tagline}
+            </p>
+          )}
+
+          {/* Overview */}
+          {data.overview && (
+            <p className="text-base md:text-lg text-gray-200 mb-6 leading-relaxed max-w-xl drop-shadow">
+              {data.overview.length > 200 ? `${data.overview.substring(0, 200)}...` : data.overview}
+            </p>
+          )}
+
+          {/* Stats */}
+          <div className="flex flex-wrap items-center gap-4 text-sm md:text-base mb-8">
+            {data.vote_average && (
+              <div className="flex items-center gap-1">
+                <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                <span>{data.vote_average.toFixed(1)}</span>
+              </div>
             )}
+            {date && (
+              <span>{new Date(date).getFullYear()}</span>
+            )}
+            {runtime && (
+              <span>{runtime} min</span>
+            )}
+            {data.genres?.length > 0 && (
+              <span className="bg-black/50 px-2 py-1 rounded">
+                {data.genres[0].name}
+              </span>
+            )}
+          </div>
 
-            {/* Stats */}
-            <div className="flex flex-wrap items-center gap-4 text-sm md:text-base mb-4">
-              {data.vote_average && (
-                <div className="flex items-center gap-1">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>
-                    {data.vote_average.toFixed(1)} ({data.vote_count} votes)
-                  </span>
-                </div>
-              )}
-              {date && (
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-5 h-5" />
-                  <span>{new Date(date).toLocaleDateString()}</span>
-                </div>
-              )}
-              {runtime && (
-                <div className="flex items-center gap-1">
-                  <Clock className="w-5 h-5" />
-                  <span>{runtime} min</span>
-                </div>
-              )}
-              {data.spoken_languages?.length > 0 && (
-                <div className="flex items-center gap-1">
-                  <Globe className="w-5 h-5" />
-                  <span>{data.spoken_languages[0]?.name ?? "Unknown"}</span>
-                </div>
-              )}
-            </div>
-
-            {/* Buttons */}
-            <div className="mt-4 flex gap-3 flex-wrap">
-              {trailerKey && (
-                <Button
-                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105"
-                  onClick={() => setIsDialogOpen(true)}
-                >
-                  <Play className="w-5 h-5" />
-                  Watch Trailer
-                </Button>
-              )}
+          {/* Buttons */}
+          <div className="flex gap-4 flex-wrap">
+            {trailerKey && (
               <Button
-                className={`inline-flex items-center gap-2 bg-white text-black hover:bg-gray-200 p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105`}
-                onClick={handleAddToList}
+                className="inline-flex items-center gap-3 bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
+                onClick={() => setIsDialogOpen(true)}
               >
-                {isInList ? <Check className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
-                {isInList ? "In My List" : "Add to My List"}
+                <Play className="w-6 h-6 fill-current" />
+                Play Trailer
               </Button>
-              {data.homepage && (
-                <Button className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white p-3 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition transform hover:scale-105">
-                  <a
-                    href={data.homepage}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                    Official Site
-                  </a>
-                </Button>
-              )}
-            </div>
+            )}
+            <Button
+              className={`inline-flex items-center gap-3 bg-gray-500/70 text-white hover:bg-gray-500/90 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105`}
+              onClick={handleAddToList}
+            >
+              {isInList ? <Check className="w-6 h-6" /> : <Plus className="w-6 h-6" />}
+              {isInList ? "My List" : "My List"}
+            </Button>
           </div>
         </div>
       </div>
