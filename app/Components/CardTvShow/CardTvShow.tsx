@@ -15,15 +15,39 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { TvShowData } from "../../Types/types";
+import { useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 type CardTvShowProps = {
   TvShow: TvShowData;
 };
 
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (TvShow.poster_path || TvShow.backdrop_path) {
+      setLightboxOpen(true);
+    }
+  };
+
+  const slides = TvShow.poster_path || TvShow.backdrop_path ? [
+    {
+      src: `https://image.tmdb.org/t/p/original${TvShow.backdrop_path || TvShow.poster_path}`,
+      alt: TvShow.name || "TV Show Poster",
+    },
+  ] : [];
 
   return (
-    <Dialog>
+    <>
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        slides={slides}
+      />
+      <Dialog>
       {/* Card as trigger */}
       <DialogTrigger asChild>
         <div className="relative bg-zinc-900 rounded-md h-full overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
@@ -98,7 +122,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Poster Section */}
           <div className="md:col-span-1">
-            <div className="relative w-full h-96 md:h-full">
+            <div className="relative w-full h-96 md:h-full cursor-pointer" onClick={handleImageClick}>
               {TvShow.backdrop_path || TvShow.poster_path ? (
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${
@@ -106,7 +130,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                   }`}
                   alt={TvShow.name || "TV Show Poster"}
                   fill
-                  className="object-cover rounded-md"
+                  className="object-cover rounded-md hover:opacity-80 transition-opacity"
                   quality={75}
                   priority
                 />
@@ -193,5 +217,6 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
         </div>
       </DialogContent>
     </Dialog>
+    </>
   );
 }

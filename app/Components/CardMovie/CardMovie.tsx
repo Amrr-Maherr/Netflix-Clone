@@ -15,14 +15,39 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { MovieData } from "../../Types/types";
+import { useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 type CardMovieProps = {
   movie: MovieData;
 };
 
 export default function CardMovie({ movie }: CardMovieProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (movie.poster_path || movie.backdrop_path) {
+      setLightboxOpen(true);
+    }
+  };
+
+  const slides = movie.poster_path || movie.backdrop_path ? [
+    {
+      src: `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`,
+      alt: movie.title || "Movie Poster",
+    },
+  ] : [];
+
   return (
-    <Dialog>
+    <>
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        slides={slides}
+      />
+      <Dialog>
       {/* Card as trigger */}
       <DialogTrigger asChild>
         <div className="relative bg-zinc-900 rounded-md h-full overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
@@ -95,7 +120,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Poster Section */}
           <div className="md:col-span-1">
-            <div className="relative w-full h-96 md:h-full">
+            <div className="relative w-full h-96 md:h-full cursor-pointer" onClick={handleImageClick}>
               {movie.poster_path || movie.backdrop_path ? (
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${
@@ -103,7 +128,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                   }`}
                   alt={movie.title || "Movie Poster"}
                   fill
-                  className="object-cover rounded-md"
+                  className="object-cover rounded-md hover:opacity-80 transition-opacity"
                   quality={75}
                   priority
                 />
@@ -187,5 +212,6 @@ export default function CardMovie({ movie }: CardMovieProps) {
         </div>
       </DialogContent>
     </Dialog>
+    </>
   );
 }
