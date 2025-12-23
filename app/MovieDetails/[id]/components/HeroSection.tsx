@@ -18,6 +18,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
+  DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -170,34 +172,40 @@ export default function HeroSection({
           <DialogContent
             data-slot="dialog-content"
             className={cn(
-              "bg-black/95 data-[state=open]:animate-in data-[state=closed]:animate-out " +
+              "bg-black/95 backdrop-blur-lg data-[state=open]:animate-in data-[state=closed]:animate-out " +
                 "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 " +
                 "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 " +
-                "fixed top-[50%] left-[50%] z-50 grid w-full sm:max-w-2xl " +
-                "translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg p-6 shadow-lg duration-200 border-0 mt-5"
+                "fixed top-[50%] left-[50%] z-50 grid w-full max-w-5xl " +
+                "translate-x-[-50%] translate-y-[-50%] gap-6 rounded-xl p-8 shadow-2xl duration-300 border border-white/10"
             )}
           >
-            <DialogHeader>
-              <DialogTitle className="text-white text-xl font-bold">
-                {title} - Trailer
+            <DialogHeader className="text-center">
+              <DialogTitle className="text-white text-2xl md:text-3xl font-bold flex items-center justify-center gap-3">
+                <Play className="w-8 h-8 text-red-500" />
+                {title} - Official Trailer
               </DialogTitle>
+              <DialogDescription className="text-gray-300 text-base">
+                Watch the official trailer
+              </DialogDescription>
             </DialogHeader>
 
-            <div className="relative w-full h-[70dvh] rounded-md overflow-hidden shadow-2xl">
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10">
               <iframe
-                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}`}
-                title="Trailer"
+                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&rel=0`}
+                title={`${title} Trailer`}
                 className="absolute inset-0 w-full h-full"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             </div>
 
-            <DialogClose asChild>
-              <Button className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white">
-                Close
-              </Button>
-            </DialogClose>
+            <DialogFooter className="flex justify-center">
+              <DialogClose asChild>
+                <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition transform hover:scale-105">
+                  Close Trailer
+                </Button>
+              </DialogClose>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       )}
