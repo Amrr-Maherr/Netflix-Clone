@@ -57,78 +57,73 @@ export default function Page() {
   };
 
   return (
-    <motion.div
-      style={{
-        backgroundImage: `url(${bgImage.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-      className="min-h-screen flex items-center justify-center relative pt-5 overflow-hidden"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-0" />
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        {/* Netflix Logo */}
+        <div className="flex justify-center mb-8">
+          <img src={NetflixLogo.src} alt="Netflix" className="w-32" />
+        </div>
 
-      <div className="bg-black/90 rounded-lg shadow-ms w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-6 px-8 relative z-10 my-5">
-        <motion.div variants={itemVariants} className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white text-start mt-4">
-            Forgot Password
-          </h1>
-        </motion.div>
-
-        <motion.form
-          onSubmit={handleSubmit(onSubmit)}
-          variants={itemVariants}
-          className="space-y-4"
-        >
-          <div>
-            <input
-              id="email"
-              {...register("email", { required: "Email is required" })}
-              type="email"
-              placeholder="Email Address"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 text-black bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {error && (
-            <p className="text-red-500 text-sm mt-2">{error}</p>
-          )}
-
-          {message && (
-            <p className="text-green-500 text-sm mt-2">{message}</p>
-          )}
-
-          <motion.div variants={itemVariants} className="pt-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
-            >
-              {loading ? "Sending..." : "Send Reset Email"}
-            </button>
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <motion.div variants={itemVariants} className="mb-6">
+            <h1 className="text-3xl font-bold text-black">
+              Forgot Password
+            </h1>
           </motion.div>
-        </motion.form>
 
-        <motion.div variants={itemVariants} className="mt-8 text-start">
-          <p className="text-gray-400 text-[18px]">
-            Remember your password?{" "}
-            <Link
-              className="font-semibold text-white hover:underline text-[18px]"
-              href="/Login"
-            >
-              Sign in
-            </Link>
-            .
-          </p>
-        </motion.div>
+          <motion.form
+            onSubmit={handleSubmit(onSubmit)}
+            variants={itemVariants}
+            className="space-y-4"
+          >
+            <div>
+              <input
+                id="email"
+                {...register("email", { required: "Email is required" })}
+                type="email"
+                placeholder="Email Address"
+                className="w-full py-3 px-4 text-black bg-gray-100 border border-gray-300 rounded leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {error && (
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            )}
+
+            {message && (
+              <p className="text-green-500 text-sm mt-2">{message}</p>
+            )}
+
+            <motion.div variants={itemVariants} className="pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
+              >
+                {loading ? "Sending..." : "Send Reset Email"}
+              </button>
+            </motion.div>
+          </motion.form>
+
+          <motion.div variants={itemVariants} className="mt-6 text-center">
+            <p className="text-gray-600 text-sm">
+              Remember your password?{" "}
+              <Link
+                className="font-semibold text-red-600 hover:underline"
+                href="/Login"
+              >
+                Sign in
+              </Link>
+              .
+            </p>
+          </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -58,117 +58,110 @@ export default function Page() {
   };
 
   return (
-    <motion.div
-      style={{
-        backgroundImage: `url(${bgImage.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-      className="min-h-screen flex items-center justify-center relative pt-5 overflow-hidden"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-0" />
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        {/* Netflix Logo */}
+        <div className="flex justify-center mb-8">
+          <img src={NetflixLogo.src} alt="Netflix" className="w-32" />
+        </div>
 
-      {/* Netflix Logo */}
-      {/* <div className="absolute top-5 left-5 z-20">
-        <img src={NetflixLogo.src} alt="Netflix" className="w-20" />
-      </div> */}
-
-      <div className="bg-black/90 rounded-lg shadow-ms w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-6 px-8 relative z-10 my-5">
-        <motion.div variants={itemVariants} className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white text-start mt-4">
-            Sign In
-          </h1>
-        </motion.div>
-
-        <motion.form
-          onSubmit={handleSubmit(onSubmit)}
-          variants={itemVariants}
-          className="space-y-4"
-        >
-          {/* Email */}
-          <div>
-            <Input
-              id="email"
-              {...register("email", { required: "Email is required" })}
-              type="email"
-              placeholder="Email Address"
-              className="text-black bg-white"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {/* Password */}
-          <div className="relative">
-            <Input
-              id="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              type={showPassword ? "text" : "password"}
-              placeholder="Password (6+ characters)"
-              className="text-black bg-white pr-12"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-            </button>
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          {error && (
-            <p className="text-red-500 text-sm mt-2">{error}</p>
-          )}
-
-          {/* Submit */}
-          <motion.div variants={itemVariants} className="pt-4">
-            <Button
-              type="submit"
-              disabled={loading}
-              className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
-            >
-              {loading ? "Signing In..." : "Sign In"}
-            </Button>
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <motion.div variants={itemVariants} className="mb-6">
+            <h1 className="text-3xl font-bold text-black">
+              Sign In
+            </h1>
           </motion.div>
-        </motion.form>
 
-        <motion.div variants={itemVariants} className="mt-8 text-start">
-          <p className="text-gray-400 text-[18px]">
-            New to Netflix?{" "}
-            <Link
-              className="font-semibold text-white hover:underline text-[18px]"
-              href="/Register"
-            >
-              Sign up now
-            </Link>
-            .
-          </p>
-          <p className="text-gray-400 text-[18px] mt-2">
-            <Link
-              className="font-semibold text-white hover:underline text-[18px]"
-              href="/ForgotPassword"
-            >
-              Forgot your password?
-            </Link>
-          </p>
-          <p className="text-gray-500 text-[15px] mt-4">
+          <motion.form
+            onSubmit={handleSubmit(onSubmit)}
+            variants={itemVariants}
+            className="space-y-4"
+          >
+            {/* Email */}
+            <div>
+              <Input
+                id="email"
+                {...register("email", { required: "Email is required" })}
+                type="email"
+                placeholder="Email Address"
+                className="text-black bg-gray-100 border-gray-300"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className="relative">
+              <Input
+                id="password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password (6+ characters)"
+                className="text-black bg-gray-100 border-gray-300 pr-12"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {error && (
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            )}
+
+            {/* Submit */}
+            <motion.div variants={itemVariants} className="pt-4">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-150"
+              >
+                {loading ? "Signing In..." : "Sign In"}
+              </Button>
+            </motion.div>
+          </motion.form>
+
+          <motion.div variants={itemVariants} className="mt-6 text-center">
+            <p className="text-gray-600 text-sm">
+              New to Netflix?{" "}
+              <Link
+                className="font-semibold text-red-600 hover:underline"
+                href="/Register"
+              >
+                Sign up now
+              </Link>
+              .
+            </p>
+            <p className="text-gray-600 text-sm mt-2">
+              <Link
+                className="font-semibold text-red-600 hover:underline"
+                href="/ForgotPassword"
+              >
+                Forgot your password?
+              </Link>
+            </p>
+          </motion.div>
+        </div>
+
+        <motion.div variants={itemVariants} className="mt-4 text-center">
+          <p className="text-gray-500 text-xs">
             This page is protected by Google reCAPTCHA to ensure you're not a
             bot.{" "}
             <a href="#" className="text-blue-500 hover:underline">
@@ -177,6 +170,6 @@ export default function Page() {
           </p>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 }
