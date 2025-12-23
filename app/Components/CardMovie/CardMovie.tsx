@@ -91,93 +91,100 @@ export default function CardMovie({ movie }: CardMovieProps) {
       </DialogTrigger>
 
       {/* Dialog content */}
-      <DialogContent className="sm:max-w-lg bg-black/95 border-0 mt-5">
-        <DialogHeader className="space-y-2">
-          <DialogTitle className="text-white text-xl font-bold">{movie.title}</DialogTitle>
-          {movie.original_title && movie.original_title !== movie.title && (
-            <span className="text-gray-400 text-sm block">
-              Original Title: {movie.original_title}
-            </span>
-          )}
-          <DialogDescription>
-            {movie.overview || "No description available."}
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-4xl bg-black/95 border-0 mt-5 max-h-[90vh] overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Poster Section */}
+          <div className="md:col-span-1">
+            <div className="relative w-full h-96 md:h-full">
+              {movie.poster_path || movie.backdrop_path ? (
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${
+                    movie.backdrop_path || movie.poster_path
+                  }`}
+                  alt={movie.title || "Movie Poster"}
+                  fill
+                  className="object-cover rounded-md"
+                  quality={75}
+                  priority
+                />
+              ) : (
+                <NoImageFallback text="No Image Available" />
+              )}
+            </div>
+          </div>
 
-        {/* Poster */}
-        <div className="my-4 relative w-full h-80">
-          {movie.poster_path || movie.backdrop_path ? (
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${
-                movie.backdrop_path || movie.poster_path
-              }`}
-              alt={movie.title || "Movie Poster"}
-              fill
-              className="object-cover rounded-md"
-              quality={75}
-              priority
-            />
-          ) : (
-            <NoImageFallback text="No Image Available" />
-          )}
+          {/* Details Section */}
+          <div className="md:col-span-2 space-y-4">
+            <DialogHeader className="space-y-2">
+              <DialogTitle className="text-white text-xl font-bold">{movie.title}</DialogTitle>
+              {movie.original_title && movie.original_title !== movie.title && (
+                <span className="text-gray-400 text-sm block">
+                  Original Title: {movie.original_title}
+                </span>
+              )}
+              <DialogDescription>
+                {movie.overview || "No description available."}
+              </DialogDescription>
+            </DialogHeader>
+
+            {/* Stats & Badges */}
+            <div className="flex flex-wrap gap-2 mb-4 text-gray-400">
+              <span className="flex items-center gap-1 px-2 py-0.5 bg-yellow-600/20 text-yellow-300 rounded text-sm">
+                <Star size={14} />
+                {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}{" "}
+                {movie.vote_count != null && `(${movie.vote_count} votes)`}
+              </span>
+
+              {movie.release_date && (
+                <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
+                  Release: {movie.release_date}
+                </span>
+              )}
+
+              {movie.popularity != null && (
+                <span className="flex items-center gap-1 px-2 py-0.5 bg-red-600/20 text-red-400 rounded text-sm">
+                  <Flame size={14} />
+                  {movie.popularity.toFixed(0)}
+                </span>
+              )}
+
+              {movie.original_language && (
+                <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
+                  Language: {movie.original_language.toUpperCase()}
+                </span>
+              )}
+
+              {movie.adult && (
+                <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs font-bold">
+                  18+
+                </span>
+              )}
+
+              {movie.video && (
+                <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
+                  Video
+                </span>
+              )}
+            </div>
+
+            <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
+              <DialogClose asChild className="cursor-pointer">
+                <Button variant="outline" className="w-full sm:w-auto">
+                  Close
+                </Button>
+              </DialogClose>
+              <Link
+                href={`/MovieDetails/${movie.id}`}
+                className="flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+              >
+                <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
+                  <Play size={16} />
+                  See Movie Details
+                </Button>
+              </Link>
+            </DialogFooter>
+          </div>
         </div>
-
-        {/* Stats & Badges */}
-        <div className="flex flex-wrap gap-2 mb-4 text-gray-400">
-          <span className="flex items-center gap-1 px-2 py-0.5 bg-yellow-600/20 text-yellow-300 rounded text-sm">
-            <Star size={14} />
-            {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}{" "}
-            {movie.vote_count != null && `(${movie.vote_count} votes)`}
-          </span>
-
-          {movie.release_date && (
-            <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
-              Release: {movie.release_date}
-            </span>
-          )}
-
-          {movie.popularity != null && (
-            <span className="flex items-center gap-1 px-2 py-0.5 bg-red-600/20 text-red-400 rounded text-sm">
-              <Flame size={14} />
-              {movie.popularity.toFixed(0)}
-            </span>
-          )}
-
-          {movie.original_language && (
-            <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
-              Language: {movie.original_language.toUpperCase()}
-            </span>
-          )}
-
-          {movie.adult && (
-            <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs font-bold">
-              18+
-            </span>
-          )}
-
-          {movie.video && (
-            <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
-              Video
-            </span>
-          )}
-        </div>
-
-        <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
-          <DialogClose asChild className="cursor-pointer">
-            <Button variant="outline" className="w-full sm:w-auto">
-              Close
-            </Button>
-          </DialogClose>
-          <Link
-            href={`/MovieDetails/${movie.id}`}
-            className="flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
-          >
-            <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
-              <Play size={16} />
-              See Movie Details
-            </Button>
-          </Link>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
