@@ -6,6 +6,7 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Play, Info } from "lucide-react";
 
 interface HeroSlide {
   id?: number;
@@ -68,31 +69,40 @@ export default function HeroSection({ movies }: HeroSectionProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-10"></div>
 
               {/* Content */}
-              <div className="relative z-20 text-center px-4 max-w-3xl">
-                <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-wide drop-shadow-lg">
-                  {movie.title || movie.name || "No Title"}
-                </h1>
+              <div className="relative z-20 w-full h-full flex items-center">
+                <div className="container">
+                  <div className="max-w-2xl text-white">
+                    <h1 className="text-4xl md:text-7xl font-bold mb-4 drop-shadow-lg">
+                      {movie.title || movie.name || "No Title"}
+                    </h1>
 
-                {movie.overview && (
-                  <p className="text-lg md:text-2xl font-medium mb-8 text-gray-200 drop-shadow-md">
-                    {movie.overview.slice(0, 150)}...
-                  </p>
-                )}
+                    {movie.overview && (
+                      <p className="text-base md:text-lg text-gray-200 mb-6 leading-relaxed max-w-xl drop-shadow">
+                        {movie.overview.length > 200 ? `${movie.overview.substring(0, 200)}...` : movie.overview}
+                      </p>
+                    )}
 
-                <div className="flex justify-center gap-4">
-                  <Link
-                    href={
-                      movie.media_type === "movie"
-                        ? `/MovieDetails/${movie.id}`
-                        : movie.media_type === "tv"
-                        ? `/TvShowDetails/${movie.id}`
-                        : `#`
-                    }
-                  >
-                    <Button className="bg-transparent border-2 border-white/50 hover:bg-white/10 text-white text-lg md:text-xl px-10 py-4 rounded-lg backdrop-blur-sm shadow-lg cursor-pointer transition-all duration-300">
-                      Watch Now
-                    </Button>
-                  </Link>
+                    <div className="flex gap-4 flex-wrap">
+                      <Link
+                        href={
+                          movie.media_type === "movie"
+                            ? `/MovieDetails/${movie.id}`
+                            : movie.media_type === "tv"
+                            ? `/TvShowDetails/${movie.id}`
+                            : `#`
+                        }
+                      >
+                        <Button className="bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 flex items-center gap-2">
+                          <Play className="w-6 h-6" />
+                          Play
+                        </Button>
+                      </Link>
+                      <Button className="bg-white/20 text-white hover:bg-white/30 border border-white/50 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 backdrop-blur-sm flex items-center gap-2">
+                        <Info className="w-6 h-6" />
+                        More Info
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
