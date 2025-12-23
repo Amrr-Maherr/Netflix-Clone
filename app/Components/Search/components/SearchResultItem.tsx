@@ -31,10 +31,11 @@ export default function SearchResultItem({ item }: { item: ResultItem }) {
     <DialogClose asChild>
       <Link
         href={linkHref}
-        className="flex items-center gap-4 p-2 w-full mb-2 rounded-md cursor-pointer
-                   bg-white/10 backdrop-blur-md border border-white/20"
+        className="flex items-center gap-6 p-4 w-full mb-3 rounded-lg cursor-pointer
+                   bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10
+                   transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
       >
-        <div className="overflow-hidden w-20 h-28 rounded-md flex-shrink-0 relative">
+        <div className="overflow-hidden w-24 h-36 rounded-lg flex-shrink-0 relative shadow-md">
           {imageSrc ? (
             <Image
               width={100}
@@ -43,21 +44,27 @@ export default function SearchResultItem({ item }: { item: ResultItem }) {
               quality={75}
               src={imageSrc}
               alt={item.title || item.name || "No title"}
-              className="w-full h-full object-cover rounded-md transform transition-transform duration-300 hover:scale-110"
+              className="w-full h-full object-cover rounded-lg transform transition-transform duration-300 hover:scale-105"
             />
           ) : (
-            <NoImageFallback text="No Image Available" />
+            <NoImageFallback text="No Image" />
           )}
         </div>
 
-        <div className="flex flex-col justify-center">
-          <p className="text-white font-semibold text-sm md:text-base">
+        <div className="flex flex-col justify-center flex-1">
+          <p className="text-white font-bold text-lg md:text-xl mb-1">
             {item.title || item.name}
           </p>
-          <p className="text-gray-200 text-xs md:text-sm">
-            {mediaTypeFormatted}
-          </p>
-          {date && <p className="text-gray-200 text-xs md:text-sm">{date}</p>}
+          <div className="flex items-center gap-3 text-sm">
+            <span className="text-gray-300 bg-white/20 px-2 py-1 rounded-full">
+              {mediaTypeFormatted}
+            </span>
+            {date && (
+              <span className="text-gray-400">
+                {new Date(date).getFullYear()}
+              </span>
+            )}
+          </div>
         </div>
       </Link>
     </DialogClose>

@@ -28,13 +28,13 @@ export default function SearchDialog({
   isError,
 }: Props) {
   return (
-    <DialogContent className="sm:max-w-[825px] w-full bg-black/90 backdrop-blur-md border-0 z-[999] p-6 rounded-md">
-      <DialogHeader className="mb-4">
-        <DialogTitle className="text-white text-2xl font-bold">
-          Search
+    <DialogContent className="sm:max-w-[900px] w-full bg-black/95 backdrop-blur-lg border border-white/10 z-[999] p-8 rounded-lg shadow-2xl max-h-[80vh] overflow-hidden">
+      <DialogHeader className="mb-6">
+        <DialogTitle className="text-white text-3xl font-bold">
+          Search Netflix
         </DialogTitle>
-        <DialogDescription className="text-gray-400">
-          Type to find movies, shows, or actors.
+        <DialogDescription className="text-gray-300 text-base">
+          Find movies, TV shows, and more.
         </DialogDescription>
       </DialogHeader>
 
