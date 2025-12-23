@@ -4,7 +4,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import FetchPersonDetails from "@/Api/FetchPersonDetails";
-import HeroSection from "./components/HeroSection";
+import HeroSection from "../../ActorDetails/components/HeroSection";
 import Biography from "./components/Biography";
 import MovieCredits from "./components/MovieCredits";
 import VideosSection from "./components/VideosSection";
