@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Play, Plus, ThumbsUp, Info } from "lucide-react";
+import { Play, Plus, ThumbsUp, Info, Loader2 } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
 import Link from "next/link";
 import { TvShowData } from "../../Types/types";
@@ -9,8 +9,10 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import FetchTVDetails from "../../../Api/FetchTVDetails";
+import toast from "react-hot-toast";
 
 type MyListItem = TvShowData | { id: number; title?: string; name?: string; poster_path?: string; };
 
@@ -40,14 +42,38 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [tvDetails, setTvDetails] = useState<TvDetailsType | null>(null);
   const [loading, setLoading] = useState(false);
+  const [addingToList, setAddingToList] = useState(false);
 
-  const handleAddToList = (e: React.MouseEvent) => {
+  const handleAddToList = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    setAddingToList(true);
+
+    // Add a small delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     if (isInList) {
       dispatch(removeFromList(TvShow.id));
+      toast.success(`${TvShow.name} removed from My List`, {
+        duration: 2000,
+        style: {
+          background: '#1f2937',
+          color: '#fff',
+          border: '1px solid #374151',
+        },
+      });
     } else {
       dispatch(addToList(TvShow));
+      toast.success(`${TvShow.name} added to My List`, {
+        duration: 2000,
+        style: {
+          background: '#1f2937',
+          color: '#fff',
+          border: '1px solid #374151',
+        },
+      });
     }
+
+    setAddingToList(false);
   };
 
   const handleMoreInfo = async (e: React.MouseEvent) => {
@@ -123,10 +149,15 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                 e.stopPropagation();
                 handleAddToList(e);
               }}
+              disabled={addingToList}
               aria-label={isInList ? "Remove from My List" : "Add to My List"}
-              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
+              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
             >
-              <Plus size={20} className={isInList ? "rotate-45" : ""} />
+              {addingToList ? (
+                <Loader2 size={20} className="animate-spin" />
+              ) : (
+                <Plus size={20} className={isInList ? "rotate-45" : ""} />
+              )}
             </button>
 
             {/* Like */}
@@ -165,6 +196,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
     {/* TV Show Details Modal */}
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
+        <DialogTitle className="sr-only">{tvDetails?.name || TvShow?.name}</DialogTitle>
         <div className="relative min-h-[60vh] flex flex-col md:flex-row">
           {/* Backdrop Image */}
           {(tvDetails?.backdrop_path || tvDetails?.poster_path || TvShow?.poster_path) && (
@@ -255,8 +287,24 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
               )}
             </div>
 
-            {/* View Details Button */}
+            {/* Action Buttons */}
             <div className="flex gap-4">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToList(e);
+                }}
+                disabled={addingToList}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center gap-2"
+              >
+                {addingToList ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : (
+                  <Plus size={16} />
+                )}
+                {isInList ? 'Remove from List' : 'Add to List'}
+              </button>
+
               <Link href={`/TvShowDetails/${TvShow.id}`}>
                 <button
                   onClick={() => setIsOpen(false)}
