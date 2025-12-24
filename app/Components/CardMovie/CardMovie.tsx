@@ -1,213 +1,264 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Star, Flame, Play, Clock } from "lucide-react";
+import { Play, Plus, ThumbsUp, Info } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
-import Logo from "../../../public/Netflix_Symbol_RGB.png";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import Link from "next/link";
 import { MovieData } from "../../Types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { addToList, removeFromList } from "@/Store/myListSlice";
 import { useState } from "react";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
+import FetchMovieDetails from "../../../Api/FetchMovieDetails";
+
+type MyListItem = MovieData | { id: number; title?: string; name?: string; poster_path?: string; };
+
+interface MovieDetailsType {
+  title?: string;
+  overview?: string;
+  vote_average?: number;
+  vote_count?: number;
+  genres?: { name: string }[];
+  release_date?: string;
+  runtime?: number;
+  production_companies?: { name: string }[];
+  backdrop_path?: string;
+  poster_path?: string;
+}
 
 type CardMovieProps = {
   movie: MovieData;
 };
 
 export default function CardMovie({ movie }: CardMovieProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const dispatch = useDispatch();
+  const myList: MyListItem[] = useSelector((state: { myList: MyListItem[] }) => state.myList);
 
-  const handleImageClick = (e: React.MouseEvent) => {
+  const isInList = myList.some((item) => item.id === movie.id);
+  const [isOpen, setIsOpen] = useState(false);
+  const [movieDetails, setMovieDetails] = useState<MovieDetailsType | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleAddToList = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (movie.poster_path || movie.backdrop_path) {
-      setLightboxOpen(true);
+    if (isInList) {
+      dispatch(removeFromList(movie.id));
+    } else {
+      dispatch(addToList(movie));
     }
   };
 
-  const slides = movie.poster_path || movie.backdrop_path ? [
-    {
-      src: `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`,
-      alt: movie.title || "Movie Poster",
-    },
-  ] : [];
+  const handleMoreInfo = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLoading(true);
+    try {
+      const details = await FetchMovieDetails({ id: movie.id.toString() });
+      setMovieDetails(details);
+      setIsOpen(true);
+    } catch (error) {
+      console.error("Error fetching movie details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const truncateText = (text: string, maxLength: number) => {
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  };
 
   return (
     <>
-      <Lightbox
-        open={lightboxOpen}
-        close={() => setLightboxOpen(false)}
-        slides={slides}
-      />
-      <Dialog>
-      {/* Card as trigger */}
-      <DialogTrigger asChild>
-        <div className="relative bg-zinc-900 rounded-md h-full overflow-hidden group cursor-pointer transform transition-all duration-500 hover:z-20">
-          {/* Rating Badge */}
-          <div className="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10">
-            <Star size={12} className="text-yellow-400" />
-            {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}
+    <div
+      onClick={() => window.location.href = `/MovieDetails/${movie.id}`}
+      className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10"
+    >
+      {/* Poster Image */}
+      <div className="relative aspect-[2/3] w-full">
+        {movie?.poster_path ? (
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title || "Movie Poster"}
+            fill
+            className="object-cover"
+            quality={75}
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+          />
+        ) : (
+          <NoImageFallback text="No Image Available" />
+        )}
+      </div>
+
+      {/* Hover Overlay */}
+      <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+        {/* Title */}
+        <h3 className="text-white text-lg font-bold mb-2 leading-tight">
+          {movie?.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
+          {movie.overview ? truncateText(movie.overview, 120) : "No description available."}
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {/* Play Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                window.location.href = `/MovieDetails/${movie.id}`;
+              }}
+              aria-label="Play movie"
+              className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
+            >
+              <Play size={20} fill="currentColor" />
+            </button>
+
+            {/* Add to My List */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToList(e);
+              }}
+              aria-label={isInList ? "Remove from My List" : "Add to My List"}
+              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
+            >
+              <Plus size={20} className={isInList ? "rotate-45" : ""} />
+            </button>
+
+            {/* Like */}
+            <button
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Like movie"
+              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
+            >
+              <ThumbsUp size={20} />
+            </button>
           </div>
 
-          {/* Trending Badge */}
-          {movie.popularity != null && movie.popularity > 100 && (
-            <div className="absolute top-11 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10">
-              <Flame size={12} className="text-yellow-400" />
-              Trending
+          {/* More Info */}
+          <button
+            onClick={handleMoreInfo}
+            disabled={loading}
+            aria-label="More info"
+            className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+          >
+            <Info size={20} />
+          </button>
+        </div>
+
+        {/* Metadata */}
+        <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+          {movie.release_date && (
+            <span>{new Date(movie.release_date).getFullYear()}</span>
+          )}
+          {movie.adult && (
+            <span className="border border-gray-400 px-1 py-0.5 rounded text-xs">18+</span>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Movie Details Modal */}
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
+        <div className="relative min-h-[60vh] flex flex-col md:flex-row">
+          {/* Backdrop Image */}
+          {(movieDetails?.backdrop_path || movieDetails?.poster_path || movie?.poster_path) && (
+            <div className="absolute inset-0">
+              <Image
+                src={`https://image.tmdb.org/t/p/w1280${movieDetails?.backdrop_path || movieDetails?.poster_path || movie?.poster_path}`}
+                alt={movieDetails?.title || movie?.title || "Movie Backdrop"}
+                fill
+                className="object-cover"
+                quality={90}
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+              <div className="absolute inset-0 bg-black/40"></div>
             </div>
           )}
 
-          {/* Poster */}
-          <div className="relative w-full h-0 pb-[150%]">
-            <div className="absolute top-0 z-50">
-              <Image width={50} height={50} src={Logo.src} alt="" />
-            </div>
+          {/* Content Overlay */}
+          <div className="relative z-10 flex-1 p-6 md:p-8 flex flex-col justify-end text-white">
+            {/* Title */}
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+              {movieDetails?.title || movie?.title}
+            </h1>
 
-            {movie?.poster_path ? (
-              <Image
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title || "Movie Poster"}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                quality={75}
-              />
-            ) : (
-              <NoImageFallback text="No Image Available" />
-            )}
-          </div>
+            {/* Description */}
+            <p className="text-gray-200 text-lg mb-6 leading-relaxed max-w-2xl">
+              {movieDetails?.overview || movie?.overview || "No description available."}
+            </p>
 
-          {/* Overlay info */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">
-            <h3 className="text-white text-sm md:text-base font-semibold mb-1 truncate drop-shadow-md">
-              {movie?.title}
-            </h3>
-
-            <div className="flex items-center text-gray-300 text-xs gap-3 mb-2">
-              <span className="flex items-center gap-1">
-                <Star size={14} className="text-yellow-400" />
-                {movie.vote_average != null
-                  ? movie.vote_average.toFixed(1)
-                  : "N/A"}
-              </span>
-
-              {movie.release_date && (
-                <span>{movie.release_date.slice(0, 4)}</span>
+            {/* Movie Details */}
+            <div className="space-y-3 mb-8">
+              {/* Rating */}
+              {movieDetails?.vote_average && (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-medium text-gray-300">Rating:</span>
+                  <span className="text-yellow-400 font-bold text-lg">
+                    {movieDetails.vote_average.toFixed(1)} / 10
+                  </span>
+                  <span className="text-gray-400 text-sm">
+                    ({movieDetails.vote_count?.toLocaleString()} votes)
+                  </span>
+                </div>
               )}
 
-              {movie.popularity != null && (
-                <span className="flex items-center gap-1">
-                  <Flame size={14} className="text-red-500" />
-                  {movie.popularity.toFixed(0)}
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
-        </div>
-      </DialogTrigger>
-
-      {/* Dialog content */}
-      <DialogContent className="sm:max-w-4xl bg-black/95 border-0 mt-5 max-h-[90vh] overflow-y-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Poster Section */}
-          <div className="md:col-span-1">
-            <div className="relative w-full h-96 md:h-full cursor-pointer" onClick={handleImageClick}>
-              {movie.poster_path || movie.backdrop_path ? (
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${
-                    movie.backdrop_path || movie.poster_path
-                  }`}
-                  alt={movie.title || "Movie Poster"}
-                  fill
-                  className="object-cover rounded-md hover:opacity-80 transition-opacity"
-                  quality={75}
-                  priority
-                />
-              ) : (
-                <NoImageFallback text="No Image Available" />
-              )}
-            </div>
-          </div>
-
-          {/* Details Section */}
-          <div className="md:col-span-2 space-y-4">
-            <DialogHeader className="space-y-2">
-              <DialogTitle className="text-white text-xl font-bold">{movie.title}</DialogTitle>
-              {movie.original_title && movie.original_title !== movie.title && (
-                <span className="text-gray-400 text-sm block">
-                  Original Title: {movie.original_title}
-                </span>
-              )}
-              <DialogDescription>
-                {movie.overview || "No description available."}
-              </DialogDescription>
-            </DialogHeader>
-
-            {/* Stats & Badges */}
-            <div className="flex flex-wrap gap-2 mb-4 text-gray-400">
-              <span className="flex items-center gap-1 px-2 py-0.5 bg-yellow-600/20 text-yellow-300 rounded text-sm">
-                <Star size={14} />
-                {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}{" "}
-                {movie.vote_count != null && `(${movie.vote_count} votes)`}
-              </span>
-
-              {movie.release_date && (
-                <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
-                  Release: {movie.release_date}
-                </span>
+              {/* Genre */}
+              {movieDetails?.genres && movieDetails.genres.length > 0 && (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-medium text-gray-300">Genre:</span>
+                  <span className="text-white">
+                    {movieDetails.genres.map((genre: any) => genre.name).join(", ")}
+                  </span>
+                </div>
               )}
 
-              {movie.popularity != null && (
-                <span className="flex items-center gap-1 px-2 py-0.5 bg-red-600/20 text-red-400 rounded text-sm">
-                  <Flame size={14} />
-                  {movie.popularity.toFixed(0)}
-                </span>
-              )}
+              {/* Release Date & Runtime */}
+              <div className="flex items-center gap-6">
+                {movieDetails?.release_date && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-300">Release:</span>
+                    <span className="text-white">
+                      {new Date(movieDetails.release_date).getFullYear()}
+                    </span>
+                  </div>
+                )}
+                {movieDetails?.runtime && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-300">Runtime:</span>
+                    <span className="text-white">{movieDetails.runtime} min</span>
+                  </div>
+                )}
+              </div>
 
-              {movie.original_language && (
-                <span className="px-2 py-0.5 bg-gray-700 text-white rounded text-sm">
-                  Language: {movie.original_language.toUpperCase()}
-                </span>
-              )}
-
-              {movie.adult && (
-                <span className="px-2 py-0.5 bg-red-600 text-white rounded text-xs font-bold">
-                  18+
-                </span>
-              )}
-
-              {movie.video && (
-                <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs">
-                  Video
-                </span>
+              {/* Production Companies */}
+              {movieDetails?.production_companies && movieDetails.production_companies.length > 0 && (
+                <div className="flex items-start gap-3">
+                  <span className="text-sm font-medium text-gray-300">Production:</span>
+                  <span className="text-white text-sm">
+                    {movieDetails.production_companies.slice(0, 3).map((company: any) => company.name).join(", ")}
+                    {movieDetails.production_companies.length > 3 && "..."}
+                  </span>
+                </div>
               )}
             </div>
 
-            <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
-              <DialogClose asChild className="cursor-pointer">
-                <Button variant="outline" className="w-full sm:w-auto">
-                  Close
-                </Button>
-              </DialogClose>
-              <Link
-                href={`/MovieDetails/${movie.id}`}
-                className="flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
-              >
-                <Button className="bg-red-600 hover:bg-red-700 text-white w-full">
-                  <Play size={16} />
-                  See Movie Details
-                </Button>
+            {/* View Details Button */}
+            <div className="flex gap-4">
+              <Link href={`/MovieDetails/${movie.id}`}>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
+                >
+                  View Details
+                </button>
               </Link>
-            </DialogFooter>
+            </div>
           </div>
         </div>
       </DialogContent>

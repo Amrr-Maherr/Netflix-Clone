@@ -2,29 +2,23 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PlayCircle, Calendar, Star } from "lucide-react";
+import { Play, Info } from "lucide-react";
 import { DataTypes } from "../Types/types";
 
 interface BannerSectionProps {
   movie: DataTypes;
   isReversed?: boolean;
-  media_type:"movie" | "tv"
+  media_type: "movie" | "tv";
 }
 
-export default function BannerSection({ movie, isReversed = false, media_type }: BannerSectionProps) {
-  console.log(movie,"bannerData");
-  
-  const movieTitle = (movie as any).title || (movie as any).name || "Unknown Title";
+export default function BannerSection({ movie, media_type }: BannerSectionProps) {
+  const movieTitle = ('title' in movie ? movie.title : ('name' in movie ? movie.name : undefined)) || "Unknown Title";
   const overview = movie.overview || "No description available.";
   const backdropPath = `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path || ''}`;
-  const releaseDate = (movie as any).release_date || (movie as any).first_air_date;
 
-  const content = (
-    <div
-      className={`relative rounded-lg overflow-hidden w-full h-[50vh] md:h-[70vh] ${
-        isReversed ? "flex-row-reverse" : ""
-      }`}
-    >
+  return (
+    <div className="relative w-full h-screen overflow-hidden mt-3 md:mt-8">
+      {/* Background Image */}
       <Image
         src={backdropPath}
         alt={movieTitle}
@@ -33,46 +27,47 @@ export default function BannerSection({ movie, isReversed = false, media_type }:
         quality={75}
         priority
       />
+
       {/* Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
 
-      <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-8 md:right-8 text-white z-10">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg">
-          {movieTitle}
-        </h1>
-        <p className="text-base md:text-lg max-w-2xl mb-6 drop-shadow-md leading-relaxed">
-          {overview.substring(0, 150) + (overview.length > 150 ? "..." : "")}
-        </p>
-        <div className="flex flex-wrap gap-4 mb-6 text-sm">
-          <span className="flex items-center gap-1 bg-black/40 px-3 py-1 rounded-full">
-            <Star size={16} className="text-yellow-400" />
-            {movie.vote_average != null ? movie.vote_average.toFixed(1) : "N/A"}
-          </span>
-          {releaseDate && (
-            <span className="flex items-center gap-1 bg-black/40 px-3 py-1 rounded-full">
-              <Calendar size={16} />
-              {new Date(releaseDate).getFullYear()}
-            </span>
-          )}
+      {/* Content */}
+      <div className={`absolute inset-0 flex items-center justify-start`}>
+        <div className="max-w-xl px-4 sm:px-8 md:px-16 text-white text-left">
+          {/* Title */}
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-black mb-3 sm:mb-4 leading-tight drop-shadow-lg">
+            {movieTitle}
+          </h1>
+
+          {/* Description */}
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 leading-relaxed drop-shadow-md max-w-lg">
+            {overview.length > 200
+              ? `${overview.substring(0, 200)}...`
+              : overview}
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 sm:gap-4">
+            <Link
+              href={
+                media_type === "movie"
+                  ? `/MovieDetails/${movie.id || ""}`
+                  : `/TvShowDetails/${movie.id || ""}`
+              }
+            >
+              <button className="bg-white text-black px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-md font-bold text-sm sm:text-base md:text-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+                <Play size={24} fill="currentColor" />
+                Play
+              </button>
+            </Link>
+
+            <button className="bg-gray-500/70 text-white px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-md font-bold text-sm sm:text-base md:text-lg hover:bg-gray-500/50 transition-colors flex items-center gap-2 backdrop-blur-sm">
+              <Info size={24} />
+              More Info
+            </button>
+          </div>
         </div>
-        <Link
-          href={
-            media_type === "movie"
-              ? `/MovieDetails/${movie.id || ""}`
-              : `/TvShowDetails/${movie.id || ""}`
-          }
-          className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold transition duration-200 drop-shadow-lg"
-        >
-          <PlayCircle size={24} />
-          Watch Now
-        </Link>
       </div>
-    </div>
-  );
-
-  return (
-    <div className="container mx-auto px-4 md:my-12 my-4">
-      {content}
     </div>
   );
 }

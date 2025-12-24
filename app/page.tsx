@@ -79,33 +79,32 @@ export default function Home() {
       />
       <Section
         Data={allMoviesQuery.data?.trendingMoviesDay || []}
-        title="Today’s Top Picks"
+        title="Trending Today"
         isMovie={true}
       />
       <Section
         Data={allTVShowsQuery.data?.trendingTVDay || []}
-        title="What’s Hot Today"
+        title="Hot TV Shows Today"
         isMovie={false}
       />
 
       <BannerSection
         movie={allMoviesQuery.data?.trendingMoviesDay?.[0] || {}}
-        isReversed={true}
         media_type="movie"
       />
 
       <Section
         Data={allMoviesQuery.data?.popularMovies || []}
-        title="Popular on Netflix"
+        title="Popular Movies"
         isMovie={true}
       />
       <Section
         Data={allTVShowsQuery.data?.popularTV || []}
-        title="Popular on Netflix"
+        title="Popular TV Shows"
         isMovie={false}
       />
 
-      <BannerSection movie={allTVShowsQuery.data?.popularTV?.[0] || {}} isReversed={true} media_type="tv" />
+      <BannerSection movie={allTVShowsQuery.data?.popularTV?.[0] || {}} media_type="tv" />
 
       <Section
         Data={allMoviesQuery.data?.upcomingMovies || []}
@@ -122,7 +121,7 @@ export default function Home() {
 
       <Section
         Data={allMoviesQuery.data?.nowPlayingMovies || []}
-        title="Now Playing"
+        title="Now Playing in Theaters"
         isMovie={true}
       />
       <Section

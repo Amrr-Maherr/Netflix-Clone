@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion, easeOut } from "framer-motion";
 import {
   Select,
   SelectContent,
@@ -19,98 +18,52 @@ export default function Footer() {
     ["Media Center", "Terms of Use", "Contact Us"],
   ];
 
-  const groupVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1, duration: 0.4, ease: easeOut },
-    }),
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, y: 5 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.05, duration: 0.3, ease: easeOut },
-    }),
-    hover: {
-      y: -2,
-      opacity: 1,
-      transition: { duration: 0.2, ease: easeOut },
-    },
-  };
-
   return (
-    <footer className="bg-black text-gray-400 py-10 text-sm">
-      <div className="container">
-        <motion.p
-          className="mb-6"
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
+    <footer className="hidden lg:block bg-black text-gray-400 py-12 text-sm border-t border-gray-800">
+      <div className="container mx-auto px-4">
+        <p className="mb-8">
           Questions? Call{" "}
-          <Link href="#" className="underline hover:text-gray-200">
+          <Link href="#" className="underline hover:text-gray-200 transition-colors">
             000-800-919-1694
           </Link>
-        </motion.p>
+        </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
           {footerLinks.map((group, i) => (
-            <motion.ul
-              key={i}
-              className="space-y-2"
-              custom={i}
-              initial="hidden"
-              animate="visible"
-              variants={groupVariants}
-            >
+            <ul key={i} className="space-y-3">
               {group.map((link, j) => (
-                <motion.li
-                  key={j}
-                  custom={j}
-                  variants={linkVariants}
-                  whileHover="hover"
-                >
+                <li key={j}>
                   <Link
                     href="#"
                     className="hover:underline hover:text-gray-200 transition-colors"
                   >
                     {link}
                   </Link>
-                </motion.li>
+                </li>
               ))}
-            </motion.ul>
+            </ul>
           ))}
         </div>
 
-        <motion.div
-          className="mb-6 w-[200px]"
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-        >
+        <div className="mb-6 w-48">
           <Select defaultValue="English">
-            <SelectTrigger className="bg-black border-gray-500 text-gray-300">
+            <SelectTrigger className="bg-black border-gray-600 text-gray-300 hover:border-gray-400 transition-colors">
               <SelectValue placeholder="English" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="English">English</SelectItem>
-              <SelectItem value="العربية">العربية</SelectItem>
+            <SelectContent className="bg-black border-gray-600">
+              <SelectItem value="English" className="text-gray-300 hover:bg-gray-800 focus:bg-gray-800">
+                English
+              </SelectItem>
+              <SelectItem value="العربية" className="text-gray-300 hover:bg-gray-800 focus:bg-gray-800">
+                العربية
+              </SelectItem>
             </SelectContent>
           </Select>
-        </motion.div>
+        </div>
 
-        <motion.p
-          className="text-gray-500"
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-        >
+        <p className="text-gray-500 text-sm">
           Netflix Egypt
-        </motion.p>
+        </p>
       </div>
     </footer>
   );
