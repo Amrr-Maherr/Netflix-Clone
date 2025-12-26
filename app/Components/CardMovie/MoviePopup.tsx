@@ -79,10 +79,10 @@ export default function MoviePopup({ movie, isOpen, setIsOpen, movieDetails, loa
     <>
       {/* Movie Details Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="w-full p-0 bg-black border-none overflow-hidden max-h-[90vh]">
+        <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
           <DialogTitle className="sr-only">{movieDetails?.title || movie?.title}</DialogTitle>
-          <div className="flex flex-col lg:flex-row">
-            {/* Backdrop Background */}
+          <div className="relative min-h-[60vh] flex flex-col md:flex-row">
+            {/* Backdrop Image */}
             {(movieDetails?.backdrop_path || movieDetails?.poster_path || movie?.poster_path) && (
               <div className="absolute inset-0">
                 <Image
@@ -92,77 +92,78 @@ export default function MoviePopup({ movie, isOpen, setIsOpen, movieDetails, loa
                   className="object-cover"
                   quality={90}
                 />
-                <div className="absolute inset-0 bg-black/60"></div>
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-black/40"></div>
               </div>
             )}
 
-            {/* Poster */}
-            <div className="lg:w-1/3 flex-shrink-0 p-4 relative z-10">
-              {(movieDetails?.poster_path || movie?.poster_path) ? (
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${movieDetails?.poster_path || movie?.poster_path}`}
-                  alt={movieDetails?.title || movie?.title || "Movie Poster"}
-                  width={300}
-                  height={450}
-                  className="w-full h-auto rounded-lg shadow-2xl"
-                  quality={90}
-                />
-              ) : (
-                <div className="w-full aspect-[2/3] bg-gray-800 rounded-lg flex items-center justify-center">
-                  <span className="text-gray-400">No Image</span>
-                </div>
-              )}
-            </div>
-
-            {/* Movie Information */}
-            <div className="lg:w-2/3 flex flex-col justify-center p-6 text-white relative z-10">
+            {/* Content Overlay */}
+            <div className="relative z-10 flex-1 p-6 md:p-8 flex flex-col justify-end text-white">
               {/* Title */}
-              <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
                 {movieDetails?.title || movie?.title}
               </h1>
 
-              {/* Metadata */}
-              <div className="flex flex-wrap items-center gap-4 mb-6 text-sm">
-                {movieDetails?.release_date && (
-                  <span className="text-white font-semibold">
-                    {new Date(movieDetails.release_date).getFullYear()}
-                  </span>
-                )}
+              {/* Description */}
+              <p className="text-gray-200 text-lg mb-6 leading-relaxed max-w-2xl">
+                {movieDetails?.overview || movie?.overview || "No description available."}
+              </p>
+
+              {/* Movie Details */}
+              <div className="space-y-3 mb-8">
+                {/* Rating */}
                 {movieDetails?.vote_average && (
-                  <div className="flex items-center gap-1">
-                    <span className="text-yellow-400 font-bold">★</span>
-                    <span className="text-white">
-                      {movieDetails.vote_average.toFixed(1)}
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-gray-300">Rating:</span>
+                    <span className="text-yellow-400 font-bold text-lg">
+                      {movieDetails.vote_average.toFixed(1)} / 10
+                    </span>
+                    <span className="text-gray-400 text-sm">
+                      ({movieDetails.vote_count?.toLocaleString()} votes)
                     </span>
                   </div>
                 )}
-                {movieDetails?.runtime && (
-                  <span className="text-gray-300">
-                    {movieDetails.runtime} min
-                  </span>
+
+                {/* Genre */}
+                {movieDetails?.genres && movieDetails.genres.length > 0 && (
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-gray-300">Genre:</span>
+                    <span className="text-white">
+                      {movieDetails.genres.map((genre) => genre.name).join(", ")}
+                    </span>
+                  </div>
+                )}
+
+                {/* Release Date & Runtime */}
+                <div className="flex items-center gap-6">
+                  {movieDetails?.release_date && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-gray-300">Release:</span>
+                      <span className="text-white">
+                        {new Date(movieDetails.release_date).getFullYear()}
+                      </span>
+                    </div>
+                  )}
+                  {movieDetails?.runtime && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-gray-300">Runtime:</span>
+                      <span className="text-white">{movieDetails.runtime} min</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Production Companies */}
+                {movieDetails?.production_companies && movieDetails.production_companies.length > 0 && (
+                  <div className="flex items-start gap-3">
+                    <span className="text-sm font-medium text-gray-300">Production:</span>
+                    <span className="text-white text-sm">
+                      {movieDetails.production_companies.slice(0, 3).map((company) => company.name).join(", ")}
+                      {movieDetails.production_companies.length > 3 && "..."}
+                    </span>
+                  </div>
                 )}
               </div>
-
-              {/* Genres */}
-              {movieDetails?.genres && movieDetails.genres.length > 0 && (
-                <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {movieDetails.genres.slice(0, 3).map((genre) => (
-                      <span
-                        key={genre.name}
-                        className="px-3 py-1 bg-gray-700 text-white text-sm rounded-full"
-                      >
-                        {genre.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Overview */}
-              <p className="text-gray-200 text-lg leading-relaxed mb-8 max-w-2xl">
-                {movieDetails?.overview || movie?.overview || "No description available."}
-              </p>
 
               {/* Action Buttons */}
               <div className="flex gap-4">
@@ -172,20 +173,20 @@ export default function MoviePopup({ movie, isOpen, setIsOpen, movieDetails, loa
                     handleAddToList(e);
                   }}
                   disabled={addingToList}
-                  className="bg-white hover:bg-gray-200 text-black px-8 py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 flex items-center gap-2"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center gap-2"
                 >
                   {addingToList ? (
                     <Loader2 size={20} className="animate-spin" />
                   ) : (
                     <Plus size={20} />
                   )}
-                  {isInList ? "Remove from List" : "Add to List"}
+                  {isInList ? 'Remove from List' : 'Add to List'}
                 </button>
 
                 <Link href={`/MovieDetails/${movie.id}`}>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                    className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
                   >
                     View Details
                   </button>
