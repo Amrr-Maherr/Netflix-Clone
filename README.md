@@ -266,9 +266,16 @@ npm install
 cp .env.example .env.local
 ```
 
-4. Add your API credentials:
+4. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
+
+5. Add your API credentials to `.env.local`:
 ```env
-NEXT_PUBLIC_TMDB_ACCESS_TOKEN=your_access_token
+# TMDB API Configuration
+NEXT_PUBLIC_TMDB_ACCESS_TOKEN=your_tmdb_access_token_here
+NEXT_PUBLIC_TMDB_BASE_URL=https://api.themoviedb.org/3
 
 # Firebase Configuration
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
@@ -277,6 +284,7 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
 
 5. Run the development server:
