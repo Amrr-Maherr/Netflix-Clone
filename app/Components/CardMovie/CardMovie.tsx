@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Play, Plus, ThumbsUp, Info, Loader2 } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { MovieData } from "../../Types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
@@ -61,10 +62,10 @@ export default function CardMovie({ movie }: CardMovieProps) {
 
   return (
     <>
-    <div
-      onClick={() => window.location.href = `/MovieDetails/${movie.id}`}
-      className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10"
-    >
+    <Link href={`/MovieDetails/${movie.id}`}>
+      <div
+        className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10"
+      >
       {/* Poster Image */}
       <div className="relative aspect-[2/3] w-full">
         {movie?.poster_path ? (
@@ -97,53 +98,46 @@ export default function CardMovie({ movie }: CardMovieProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {/* Play Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                window.location.href = `/MovieDetails/${movie.id}`;
-              }}
+            <Button
+              size="icon"
+              variant="destructive"
               aria-label="Play movie"
-              className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
+              className="rounded-full"
             >
               <Play size={20} fill="currentColor" />
-            </button>
+            </Button>
 
             {/* Add to My List */}
-            <button
+            <Button
+              size="icon"
+              variant="ghost"
               onClick={(e) => {
                 e.stopPropagation();
                 handleAddToList(e);
               }}
               disabled={addingToList}
               aria-label={isInList ? "Remove from My List" : "Add to My List"}
-              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+              className="rounded-full bg-black/80 hover:bg-white/20 text-white border-none disabled:opacity-50"
             >
               {addingToList ? (
                 <Loader2 size={20} className="animate-spin" />
               ) : (
                 <Plus size={20} className={isInList ? "rotate-45" : ""} />
               )}
-            </button>
-
-            {/* Like */}
-            <button
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Like movie"
-              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
-            >
-              <ThumbsUp size={20} />
-            </button>
+            </Button>
           </div>
 
           {/* More Info */}
-          <button
+          <Button
+            size="icon"
+            variant="ghost"
             onClick={(e) => { e.stopPropagation(); handleMoreInfo(movie); }}
             disabled={loading}
             aria-label="More info"
-            className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+            className="rounded-full bg-black/80 hover:bg-white/20 text-white border-none disabled:opacity-50"
           >
             <Info size={20} />
-          </button>
+          </Button>
         </div>
 
         {/* Metadata */}
@@ -156,7 +150,8 @@ export default function CardMovie({ movie }: CardMovieProps) {
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </Link>
 
     <MoviePopup movie={movie} isOpen={isOpen} setIsOpen={setIsOpen} movieDetails={movieDetails} loading={loading} />
     </>

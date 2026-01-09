@@ -138,7 +138,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                 window.location.href = `/TvShowDetails/${TvShow.id}`;
               }}
               aria-label="Play TV show"
-              className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
+              className="bg-red-600 text-white rounded-full p-2 hover:bg-red-700 transition-colors"
             >
               <Play size={20} fill="currentColor" />
             </button>
@@ -151,22 +151,13 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
               }}
               disabled={addingToList}
               aria-label={isInList ? "Remove from My List" : "Add to My List"}
-              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+              className="bg-black/80 text-white rounded-full p-2 hover:bg-white/20 transition-colors disabled:opacity-50 border-none"
             >
               {addingToList ? (
                 <Loader2 size={20} className="animate-spin" />
               ) : (
                 <Plus size={20} className={isInList ? "rotate-45" : ""} />
               )}
-            </button>
-
-            {/* Like */}
-            <button
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Like TV show"
-              className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
-            >
-              <ThumbsUp size={20} />
             </button>
           </div>
 
@@ -175,7 +166,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
             onClick={handleMoreInfo}
             disabled={loading}
             aria-label="More info"
-            className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+            className="bg-black/80 text-white rounded-full p-2 hover:bg-white/20 transition-colors disabled:opacity-50 border-none"
           >
             <Info size={20} />
           </button>
@@ -289,6 +280,16 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
 
             {/* Action Buttons */}
             <div className="flex gap-4">
+              <Link href={`/TvShowDetails/${TvShow.id}`}>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-2"
+                >
+                  <Play size={20} fill="currentColor" />
+                  Play
+                </button>
+              </Link>
+
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -304,15 +305,6 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                 )}
                 {isInList ? 'Remove from List' : 'Add to List'}
               </button>
-
-              <Link href={`/TvShowDetails/${TvShow.id}`}>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
-                >
-                  View Details
-                </button>
-              </Link>
             </div>
           </div>
         </div>

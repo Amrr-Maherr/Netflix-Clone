@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, Play } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
 import { useState } from "react";
@@ -167,6 +167,16 @@ export default function MoviePopup({ movie, isOpen, setIsOpen, movieDetails, loa
 
               {/* Action Buttons */}
               <div className="flex gap-4">
+                <Link href={`/MovieDetails/${movie.id}`}>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-2"
+                  >
+                    <Play size={20} fill="currentColor" />
+                    Play
+                  </button>
+                </Link>
+
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -183,14 +193,13 @@ export default function MoviePopup({ movie, isOpen, setIsOpen, movieDetails, loa
                   {isInList ? 'Remove from List' : 'Add to List'}
                 </button>
 
-                <Link href={`/MovieDetails/${movie.id}`}>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
-                  >
-                    View Details
-                  </button>
-                </Link>
+                {/* Like Button - Commented out as per user's preference */}
+                {/* <button
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-2"
+                >
+                  <ThumbsUp size={20} />
+                  Like
+                </button> */}
               </div>
             </div>
           </div>
