@@ -1,12 +1,12 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-fd55-4a8b-bd9e-cd6c0058b093_small.jpg";
-import NetflixLogo from "../../public/Netflix_Symbol_RGB.png";
+import bgImage from "/public/EG-en-20250303-TRIFECTA-perspective_3241eaee-fd55-4a8b-bd9e-cd6c0058b093_small.jpg";
+import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { resetPassword } from "../../Api/Auth";
+import { resetPassword } from "../../../Api/Auth";
 
 interface ForgotInputs {
   email: string;
@@ -61,7 +61,7 @@ export default function Page() {
       <div className="w-full max-w-md">
         {/* Netflix Logo */}
         <div className="flex justify-center mb-8">
-          <img src={NetflixLogo.src} alt="Netflix" className="w-32" />
+          <Image src="/Netflix_Symbol_RGB.png" alt="Netflix" width={128} height={40} className="w-32" />
         </div>
 
         <div className="bg-white p-8 rounded-lg shadow-lg">
