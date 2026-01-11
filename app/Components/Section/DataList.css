@@ -1,96 +1,56 @@
-/* Netflix-style navigation arrows */ 
-.mySwiper .swiper-button-next,  
-.mySwiper .swiper-button-prev {  
-  position: absolute;  
-  top: 50%%;  
-  transform: translateY(-50%%);  
-  width: 50px;  
-  height: 50px;  
-  border-radius: 50%%;  
-  background-color: rgba(0, 0, 0, 0.7);  
-  border: none;  
-  color: white;  
-  z-index: 10;  
-  transition: all 0.3s ease;  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
-} 
-.mySwiper .swiper-button-next:hover,  
-.mySwiper .swiper-button-prev:hover {  
-  background-color: #e50914;  
-  transform: translateY(-50%%) scale(1.1);  
-} 
+/* Custom styles for Swiper navigation arrows */
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .mySwiper .swiper-button-next::after,
 .mySwiper .swiper-button-prev::after {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-/* Class to control arrow icon size - when applied to parent container */
-.mySwiper.swiper-arrow-large .swiper-button-next::after,
-.mySwiper.swiper-arrow-large .swiper-button-prev::after {
-  font-size: 32px !important;
+.mySwiper .swiper-button-next:hover,
+.mySwiper .swiper-button-prev:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    transform: translateY(-50%) scale(1.1);
 }
 
-.mySwiper.swiper-arrow-small .swiper-button-next::after,
-.mySwiper.swiper-arrow-small .swiper-button-prev::after {
-  font-size: 16px !important;
+.mySwiper .swiper-button-next {
+    right: 10px;
 }
 
-.mySwiper.swiper-arrow-medium .swiper-button-next::after,
-.mySwiper.swiper-arrow-medium .swiper-button-prev::after {
-  font-size: 24px !important;
+.mySwiper .swiper-button-prev {
+    left: 10px;
 }
+.mySwiper .swiper-button-next .swiper-navigation-icon , .mySwiper .swiper-button-prev .swiper-navigation-icon {
+    width: 20px;
+    height: 20px;
+}
+/* Adjust for different screen sizes */
+@media (max-width: 768px) {
 
-/* Additional arrow size classes */
-.mySwiper.swiper-arrow-xlarge .swiper-button-next::after,
-.mySwiper.swiper-arrow-xlarge .swiper-button-prev::after {
-  font-size: 40px !important;
-}
+    .mySwiper .swiper-button-next,
+    .mySwiper .swiper-button-prev {
+        width: 36px;
+        height: 36px;
+    }
 
-.mySwiper.swiper-arrow-xsmall .swiper-button-next::after,
-.mySwiper.swiper-arrow-xsmall .swiper-button-prev::after {
-  font-size: 12px !important;
+    .mySwiper .swiper-button-next::after,
+    .mySwiper .swiper-button-prev::after {
+        font-size: 16px;
+    }
 }
-
-/* Fixed arrows class - always visible regardless of hover */
-.mySwiper.swiper-arrows-fixed .swiper-button-next,
-.mySwiper.swiper-arrows-fixed .swiper-button-prev {
-  opacity: 0.8;
-  visibility: visible;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect for fixed arrows */
-.mySwiper.swiper-arrows-fixed .swiper-button-next:hover,
-.mySwiper.swiper-arrows-fixed .swiper-button-prev:hover {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.1);
-}
-.mySwiper .swiper-button-next {  
-  right: 10px;  
-}  
-.mySwiper .swiper-button-prev {  
-  left: 10px;  
-} 
-/* Responsive adjustments */  
-@media (max-width: 768px) {  
-  .mySwiper .swiper-button-next,  
-  .mySwiper .swiper-button-prev {  
-    width: 40px;  
-    height: 40px;  
-  }  
-  .mySwiper .swiper-button-next::after,  
-  .mySwiper .swiper-button-prev::after {  
-    font-size: 20px;  
-  }  
-}  
-/* Disabled button state */  
-.mySwiper .swiper-button-disabled {  
-  opacity: 0.3;  
-  cursor: not-allowed;  
-  transform: scale(0.9);  
-} 
