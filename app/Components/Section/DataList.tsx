@@ -2,6 +2,7 @@ import React from "react";
 import CardMovie from "../CardMovie/CardMovie";
 import CardTvShow from "../CardTvShow/CardTvShow";
 import Slider from "../Slider/Slider";
+import "./DataList.css"; // Import the custom CSS file
 
 type Movie = {
   id: number;
@@ -16,15 +17,24 @@ type Movie = {
 type DataListProps = {
   Data: Movie[];
   isMovie: boolean;
+  arrowSizeClass?: string; // Class to control arrow icon size
+  fixedArrows?: boolean; // Whether to show fixed arrows
 };
 
-export default function DataList({ Data, isMovie }: DataListProps) {
+export default function DataList({ Data, isMovie, arrowSizeClass = "", fixedArrows = false }: DataListProps) {
+  const sliderClasses = [arrowSizeClass];
+  if (fixedArrows) {
+    sliderClasses.push("swiper-arrows-fixed");
+  }
+
   return (
     <Slider
       slidesPerView={6}
       slidesPerViewMobile={1.5}
       spaceBetween={20}
+      className={sliderClasses.join(" ")} // Pass the arrow classes to the slider
       swiperOptions={{ autoplay: { delay: 3000 }, loop: true }}
+      showNavigation={true}
     >
       {isMovie
         ? Data?.map((movie) => (

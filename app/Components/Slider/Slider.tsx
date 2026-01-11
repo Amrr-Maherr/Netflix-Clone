@@ -17,6 +17,7 @@ interface SliderProps {
   swiperOptions?: SwiperOptions;
   modules?: any[];
   useFadeEffect?: boolean;
+  showNavigation?: boolean;
 }
 
 export default function Slider({
@@ -28,9 +29,13 @@ export default function Slider({
   swiperOptions = {},
   modules = [Pagination, Autoplay],
   useFadeEffect = false,
+  showNavigation = false,
 }: SliderProps) {
   const effect = useFadeEffect ? "fade" : "slide";
-  const activeModules = useFadeEffect ? [...modules, EffectFade] : modules;
+
+  // Conditionally add Navigation module if showNavigation is true
+  const baseModules = showNavigation ? [...modules, Navigation] : modules;
+  const activeModules = useFadeEffect ? [...baseModules, EffectFade] : baseModules;
 
   return (
     <Swiper
@@ -46,6 +51,7 @@ export default function Slider({
       speed={swiperOptions.speed ?? 800}
       effect={effect}
       fadeEffect={useFadeEffect ? { crossFade: true } : undefined}
+      navigation={showNavigation}
       modules={activeModules}
       breakpoints={{
         640: { slidesPerView: Math.min(slidesPerView, 2), spaceBetween },
