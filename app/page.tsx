@@ -65,7 +65,7 @@ export default function Home() {
     <>
       <HeroSection movies={AllData || []} />
 
-      <BannerSection movie={allTVShowsQuery.data?.trendingTVWeek?.[0] || {}} media_type="tv" />
+      {/* <BannerSection movie={allTVShowsQuery.data?.trendingTVWeek?.[0] || {}} media_type="tv" /> */}
 
       <Section
         Data={allMoviesQuery.data?.trendingMoviesWeek || []}
@@ -88,10 +88,10 @@ export default function Home() {
         isMovie={false}
       />
 
-      <BannerSection
+      {/* <BannerSection
         movie={allMoviesQuery.data?.trendingMoviesDay?.[0] || {}}
         media_type="movie"
-      />
+      /> */}
 
       <Section
         Data={allMoviesQuery.data?.popularMovies || []}
@@ -104,7 +104,7 @@ export default function Home() {
         isMovie={false}
       />
 
-      <BannerSection movie={allTVShowsQuery.data?.popularTV?.[0] || {}} media_type="tv" />
+      {/* <BannerSection movie={allTVShowsQuery.data?.popularTV?.[0] || {}} media_type="tv" /> */}
 
       <Section
         Data={allMoviesQuery.data?.upcomingMovies || []}
@@ -117,7 +117,7 @@ export default function Home() {
         isMovie={false}
       />
 
-      <BannerSection movie={allMoviesQuery.data?.topRatedMovies?.[0] || {}} media_type="movie" />
+      {/* <BannerSection movie={allMoviesQuery.data?.topRatedMovies?.[0] || {}} media_type="movie" /> */}
 
       <Section
         Data={allMoviesQuery.data?.nowPlayingMovies || []}
@@ -130,7 +130,7 @@ export default function Home() {
         isMovie={false}
       />
 
-      <BannerSection movie={allTVShowsQuery.data?.topRatedTV?.[0] || {}} media_type="tv" />
+      {/* <BannerSection movie={allTVShowsQuery.data?.topRatedTV?.[0] || {}} media_type="tv" /> */}
       <PricingSection />
       <AskedQuestions />
     </>

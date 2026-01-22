@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { Pagination, Autoplay, Navigation, EffectFade } from "swiper/modules";
 import { SwiperOptions } from "swiper/types";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface SliderProps {
   children: ReactNode;
@@ -29,38 +30,58 @@ export default function Slider({
   modules = [Pagination, Autoplay],
   useFadeEffect = false,
 }: SliderProps) {
+  const swiperRef = useRef<any>(null);
   const effect = useFadeEffect ? "fade" : "slide";
-  const activeModules = useFadeEffect ? [...modules, EffectFade] : modules;
+  const activeModules = useFadeEffect ? [...modules, EffectFade, Navigation] : [...modules, Navigation];
 
   return (
-    <Swiper
-      slidesPerView={slidesPerViewMobile}
-      spaceBetween={spaceBetween}
-      autoplay={{
-        delay: 4000,
-        disableOnInteraction: false,
-        ...(swiperOptions.autoplay as any),
-      }}
-      loop={swiperOptions.loop ?? true}
-      pagination={swiperOptions.pagination ?? false}
-      speed={swiperOptions.speed ?? 800}
-      effect={effect}
-      fadeEffect={useFadeEffect ? { crossFade: true } : undefined}
-      modules={activeModules}
-      breakpoints={{
-        640: { slidesPerView: Math.min(slidesPerView, 2), spaceBetween },
-        768: { slidesPerView: Math.min(slidesPerView, 3), spaceBetween },
-        1024: { slidesPerView, spaceBetween },
-        ...swiperOptions.breakpoints,
-      }}
-      className={`mySwiper ${className || ""}`}
-      {...swiperOptions}
-    >
-      {React.Children.map(children, (child, index) => (
-        <SwiperSlide key={index} className="flex justify-center">
-          {child}
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="relative">
+      <Swiper
+        ref={swiperRef}
+        slidesPerView={slidesPerViewMobile}
+        spaceBetween={spaceBetween}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+          ...(swiperOptions.autoplay as any),
+        }}
+        loop={swiperOptions.loop ?? true}
+        pagination={swiperOptions.pagination ?? false}
+        speed={swiperOptions.speed ?? 800}
+        effect={effect}
+        fadeEffect={useFadeEffect ? { crossFade: true } : undefined}
+        modules={activeModules}
+        breakpoints={{
+          640: { slidesPerView: Math.min(slidesPerView, 2), spaceBetween },
+          768: { slidesPerView: Math.min(slidesPerView, 3), spaceBetween },
+          1024: { slidesPerView, spaceBetween },
+          ...swiperOptions.breakpoints,
+        }}
+        className={`mySwiper ${className || ""}`}
+        {...swiperOptions}
+      >
+        {React.Children.map(children, (child, index) => (
+          <SwiperSlide key={index} className="flex justify-center">
+            {child}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Custom Navigation Arrows */}
+      <button
+        className="absolute top-1/2 left-4 z-10 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full opacity-100 transition-all duration-300 backdrop-blur-sm border border-white/20 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50 flex items-center justify-center"
+        onClick={() => swiperRef.current?.swiper.slidePrev()}
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        className="absolute top-1/2 right-4 z-10 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full opacity-100 transition-all duration-300 backdrop-blur-sm border border-white/20 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50 flex items-center justify-center"
+        onClick={() => swiperRef.current?.swiper.slideNext()}
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
+    </div>
   );
 }
