@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import FetchTVDetails from "../../../Api/FetchTVDetails";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type MyListItem = TvShowData | { id: number; title?: string; name?: string; poster_path?: string; };
 
@@ -37,6 +38,7 @@ type CardTvShowProps = {
 export default function CardTvShow({ TvShow }: CardTvShowProps) {
   const dispatch = useDispatch();
   const myList: MyListItem[] = useSelector((state: { myList: MyListItem[] }) => state.myList);
+  const router = useRouter();
 
   const isInList = myList.some((item) => item.id === TvShow.id);
   const [isOpen, setIsOpen] = useState(false);
@@ -97,7 +99,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
   return (
     <>
     <div
-      onClick={() => window.location.href = `/TvShowDetails/${TvShow.id}`}
+      onClick={() => router.push(`/TvShowDetails/${TvShow.id}`)}
       className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10"
     >
       {/* Poster Image */}
@@ -135,12 +137,12 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                window.location.href = `/TvShowDetails/${TvShow.id}`;
+                router.push(`/TvShowDetails/${TvShow.id}`);
               }}
               aria-label="Play TV show"
               className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
             >
-              <Play size={20} fill="currentColor" />
+            <Play size={20} fill="currentColor" />
             </button>
 
             {/* Add to My List */}

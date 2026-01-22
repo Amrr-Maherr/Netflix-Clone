@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import FetchMovieDetails from "../../../Api/FetchMovieDetails";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type MyListItem = MovieData | { id: number; title?: string; name?: string; poster_path?: string; };
 
@@ -36,6 +37,7 @@ type CardMovieProps = {
 export default function CardMovie({ movie }: CardMovieProps) {
   const dispatch = useDispatch();
   const myList: MyListItem[] = useSelector((state: { myList: MyListItem[] }) => state.myList);
+  const router = useRouter();
 
   const isInList = myList.some((item) => item.id === movie.id);
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +98,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
   return (
     <>
     <div
-      onClick={() => window.location.href = `/MovieDetails/${movie.id}`}
+      onClick={() => router.push(`/MovieDetails/${movie.id}`)}
       className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10"
     >
       {/* Poster Image */}
@@ -134,12 +136,12 @@ export default function CardMovie({ movie }: CardMovieProps) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                window.location.href = `/MovieDetails/${movie.id}`;
+                router.push(`/MovieDetails/${movie.id}`);
               }}
               aria-label="Play movie"
               className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
             >
-              <Play size={20} fill="currentColor" />
+            <Play size={20} fill="currentColor" />
             </button>
 
             {/* Add to My List */}
@@ -191,7 +193,6 @@ export default function CardMovie({ movie }: CardMovieProps) {
         </div>
       </div>
     </div>
-
     {/* Movie Details Modal */}
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
