@@ -2,12 +2,14 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function ProvidersSection({
   providers,
 }: {
   providers: Record<string, any>;
 }) {
+  const slidesCount = useVisibleSlidesCount();
   const flatrate = Object.values(providers).flatMap(
     (region: any) => region.flatrate || []
   );
@@ -17,7 +19,7 @@ export default function ProvidersSection({
   return (
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Available On</h2>
-      <Slider>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5}>
         {flatrate.map((p: any) => (
           <div
             key={p.provider_id}

@@ -5,12 +5,14 @@ import { SwiperSlide } from "swiper/react";
 import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function ImagesGallery({
   images,
 }: {
   images: { file_path: string }[];
 }) {
+  const slidesCount = useVisibleSlidesCount();
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   if (!images?.length) return null;
@@ -32,7 +34,7 @@ export default function ImagesGallery({
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
           Gallery
         </h2>
-        <Slider slidesPerView={6} slidesPerViewMobile={1.5} spaceBetween={12}>
+        <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={12}>
           {images.map((img, i) => (
             <SwiperSlide key={i}>
               <Image

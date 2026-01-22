@@ -4,6 +4,7 @@ import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function ImagesSection({
   backdrops,
@@ -16,6 +17,7 @@ export default function ImagesSection({
   posters: any[];
   images: any[];
 }) {
+  const slidesCount = useVisibleSlidesCount();
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [slides, setSlides] = useState<any[]>([]);
@@ -40,7 +42,7 @@ export default function ImagesSection({
       {backdrops?.length > 0 && (
         <div>
           <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Cinematic Scenes</h3>
-          <Slider slidesPerView={5} slidesPerViewMobile={1.5} spaceBetween={16}>
+          <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={16}>
             {backdrops.map((img, i) => (
               <div
                 key={i}
@@ -71,7 +73,7 @@ export default function ImagesSection({
       {logos?.length > 0 && (
         <div>
           <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Official Titles & Logos</h3>
-          <Slider slidesPerView={5} slidesPerViewMobile={1.5} spaceBetween={16}>
+          <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={16}>
             {logos.map((img, i) => (
               <div
                 key={i}
@@ -96,7 +98,7 @@ export default function ImagesSection({
       {posters?.length > 0 && (
         <div>
           <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Featured Posters</h3>
-          <Slider slidesPerView={5} slidesPerViewMobile={1.5} spaceBetween={16}>
+          <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={16}>
             {posters.map((img, i) => (
               <div
                 key={i}
@@ -118,7 +120,7 @@ export default function ImagesSection({
       {images?.length > 0 && (
         <div>
           <h3 className="text-xl font-semibold mb-3"> Featured Posters</h3>
-          <Slider slidesPerView={6} slidesPerViewMobile={1.5}>
+          <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5}>
             {images.map((img, i) => (
               <div
                 key={i}

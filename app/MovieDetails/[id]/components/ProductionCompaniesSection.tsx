@@ -2,6 +2,7 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 interface Company {
   id: number;
@@ -15,13 +16,15 @@ export default function ProductionCompaniesSection({
 }: {
   companies: Company[];
 }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!companies?.length) return null;
 
   return (
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Production Companies</h2>
 
-      <Slider slidesPerView={6} slidesPerViewMobile={1.5} spaceBetween={20}>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={20}>
         {companies.map((company) => (
           <div
             key={company.id}

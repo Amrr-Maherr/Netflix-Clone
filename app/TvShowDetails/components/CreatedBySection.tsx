@@ -2,8 +2,11 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function CreatedBySection({ creators }: { creators: any[] }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!creators?.length) return null;
 
   return (
@@ -12,7 +15,7 @@ export default function CreatedBySection({ creators }: { creators: any[] }) {
         Created By
       </h2>
 
-      <Slider slidesPerView={6} slidesPerViewMobile={2} spaceBetween={20}>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={2} spaceBetween={20}>
         {creators.map((creator) => (
           <div
             key={creator.id}

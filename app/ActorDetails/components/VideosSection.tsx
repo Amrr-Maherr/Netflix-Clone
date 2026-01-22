@@ -3,14 +3,17 @@
 import Slider from "@/app/Components/Slider/Slider";
 import { SwiperSlide } from "swiper/react";
 import { Play } from "lucide-react";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function VideosSection({ videos }: { videos: any[] }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!videos?.length) return null;
 
   return (
     <div className="mb-16">
       <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Videos</h2>
-      <Slider slidesPerView={3} slidesPerViewMobile={1} spaceBetween={12}>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1} spaceBetween={12}>
         {videos.map((video) => (
           <SwiperSlide key={video.id}>
             <div className="relative group cursor-pointer rounded-lg overflow-hidden shadow-lg">

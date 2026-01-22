@@ -1,13 +1,16 @@
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function CrewSection({ crew }: { crew: any[] }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!crew?.length) return null;
 
   return (
     <section className="my-12">
       <h2 className="text-2xl font-bold mb-4">Crew</h2>
-      <Slider>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5}>
         {crew.map((member) => (
           <div
             key={member.id + member.job}

@@ -2,15 +2,18 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function NetworksSection({ networks }: { networks: any[] }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!networks?.length) return null;
 
   return (
     <section className="py-10">
       <h2 className="text-2xl font-bold mb-6">Available On</h2>
 
-      <Slider slidesPerView={6} slidesPerViewMobile={1.5} spaceBetween={20}>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={20}>
         {networks.map((network) => (
           <div
             key={network.id}

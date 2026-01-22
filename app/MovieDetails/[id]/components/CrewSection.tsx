@@ -2,8 +2,10 @@ import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import Link from "next/link";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function CrewSection({ crew }: { crew: any[] }) {
+  const slidesCount = useVisibleSlidesCount();
   const keyCrew = crew.filter((c) => ["Director", "Writer"].includes(c.job));
   if (!keyCrew.length) return null;
 
@@ -12,7 +14,7 @@ export default function CrewSection({ crew }: { crew: any[] }) {
       <h2 className="text-2xl font-bold mb-4">Key Crew</h2>
 
       {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"> */}
-      <Slider slidesPerView={5} slidesPerViewMobile={1.5}>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5}>
         {keyCrew.map((member) => (
           <Link
             key={member.credit_id}

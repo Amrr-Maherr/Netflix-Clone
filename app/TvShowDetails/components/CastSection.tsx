@@ -1,13 +1,16 @@
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function CastSection({ cast }: { cast: any[] }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!cast?.length) return null;
 
   return (
     <section className="my-12">
       <h2 className="text-2xl font-bold mb-4">Cast</h2>
-      <Slider>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5}>
         {cast.map((member) => (
           <div
             key={member.id}

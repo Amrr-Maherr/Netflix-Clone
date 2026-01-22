@@ -3,6 +3,7 @@ import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { useState } from "react";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 interface AuthorDetails {
   name: string;
@@ -21,8 +22,10 @@ interface Review {
 }
 
 export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
+  const slidesCount = useVisibleSlidesCount();
+
   if (!reviews?.length) return null;
-  
+
   return (
     <section className="py-12">
       <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">
@@ -30,7 +33,7 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
       </h2>
 
       <Slider
-        slidesPerView={4}
+        slidesPerView={slidesCount}
         slidesPerViewMobile={1.2}
         spaceBetween={20}
         swiperOptions={{

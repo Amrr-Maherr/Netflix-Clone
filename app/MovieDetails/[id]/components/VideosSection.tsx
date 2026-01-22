@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 interface Video {
   id: string;
@@ -21,6 +22,7 @@ interface Video {
 }
 
 export default function VideosSection({ videos }: { videos: Video[] }) {
+  const slidesCount = useVisibleSlidesCount();
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   if (!videos?.length) return null;
@@ -29,7 +31,7 @@ export default function VideosSection({ videos }: { videos: Video[] }) {
     <section className="py-8">
       <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">Videos & Trailers</h2>
 
-      <Slider slidesPerView={4} slidesPerViewMobile={1.5} spaceBetween={16}>
+      <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={16}>
         {videos.map((video) => (
           <div
             key={video.id}

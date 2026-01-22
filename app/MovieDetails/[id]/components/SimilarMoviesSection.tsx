@@ -1,6 +1,7 @@
 import CardMovie from "@/app/Components/CardMovie/CardMovie";
 import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
 import Slider from "@/app/Components/Slider/Slider";
+import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
 
 export default function SimilarMoviesSection({
   movies,
@@ -11,14 +12,16 @@ export default function SimilarMoviesSection({
   title: string;
   shows:any[]
 }) {
-   if (!movies?.length && !shows?.length) return null;
+  const slidesCount = useVisibleSlidesCount();
+
+  if (!movies?.length && !shows?.length) return null;
 
   return (
     <section>
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
 
       <Slider
-        slidesPerView={6}
+        slidesPerView={slidesCount}
         slidesPerViewMobile={1.5}
         spaceBetween={20}
         swiperOptions={{ autoplay: { delay: 3000 }, loop: true }}
