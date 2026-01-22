@@ -1,387 +1,234 @@
-# Netflix Clone 🕸️
+# Netflix Clone
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.0-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC)](https://tailwindcss.com/)
-[![GSAP](https://img.shields.io/badge/GSAP-3.12-0AC775)](https://greensock.com/gsap/)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000)](https://vercel.com/)
+A modern, responsive Netflix-inspired streaming platform built with Next.js 16, featuring TMDB API integration, Firebase authentication, and advanced UI/UX patterns.
 
-**A Frontend Netflix Clone** built with cutting-edge web technologies. This comprehensive project replicates Netflix's streaming UI with modern frontend architecture, featuring responsive design, PWA capabilities, advanced content discovery, detailed metadata pages, complex filtering, smooth animations, user authentication, and personalized watchlists.
+## 🎬 Project Overview
 
-**Key Highlights**:
-- **Modern Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS 4
-- **Performance**: Server-side rendering, optimized images, lazy loading
-- **UX Excellence**: GSAP animations, responsive design, accessibility-compliant
-- **Full Features**: Search, filters, user accounts, offline PWA support
-- **API Integration**: TMDB API with 12+ endpoints for movies, TV shows, people
-- **State Management**: Hybrid approach with React Query + Redux Toolkit
+This Netflix Clone is a comprehensive streaming platform that replicates the core functionality of Netflix. It features a sleek, responsive interface with dynamic content loading, search capabilities, user authentication, and personalized watchlists. The application leverages the TMDB API to provide access to thousands of movies and TV shows with detailed information.
 
-![Netflix Clone Preview](./public/preview.gif)
+## ✨ Key Features
 
-> ⚠️ **Educational Purpose**: This project is built for learning and demonstration. It's not affiliated with Netflix and doesn't host actual video content.
+### 📺 Content Discovery
+- **Trending Movies & TV Shows**: Discover the most popular content across different time periods (daily, weekly)
+- **Category Sections**: Browse content organized by popularity, ratings, upcoming releases, and currently airing
+- **Detailed Content Pages**: Comprehensive information for each movie/TV show including cast, crew, trailers, reviews, and similar content
+- **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
 
-## 📸 Screenshots
+### 🔍 Advanced Search & Filtering
+- **Multi-search Functionality**: Search across movies, TV shows, and people simultaneously
+- **Real-time Results**: Instant search suggestions as you type
+- **Filtering Options**: Discover content based on genre, release date, and other criteria
 
-### Home Page
-![Home Page](./public/screenshots/home-page.png)
+### 👤 User Authentication & Personalization
+- **Firebase Authentication**: Secure login/register functionality with email/password
+- **Personalized Watchlist**: Add/remove content to your personal "My List" (persisted with Redux)
+- **User Profiles**: Manage account settings and preferences
+- **Password Reset**: Built-in password recovery functionality
 
-### Movies Page
-![Movies Page](./public/screenshots/movies-page.png)
+### 🎨 Rich UI/UX Experience
+- **Animated Hero Carousel**: Dynamic slideshow showcasing featured content with smooth transitions
+- **Interactive Cards**: Hover effects with quick action buttons (play, add to list, more info)
+- **Smooth Animations**: GSAP-powered scroll-triggered animations for engaging user experience
+- **Dark Theme**: Netflix-style dark interface optimized for viewing content
 
-### Movie Details
-![Movie Details](./public/screenshots/movie-details.png)
+### 📱 Progressive Web App (PWA)
+- **Offline Support**: Application works offline with cached content
+- **Installable**: Install as a standalone application on mobile and desktop
+- **Push Notifications**: Ready for future notification implementations
 
-### Mobile Responsive
-![Mobile View](./public/screenshots/mobile-responsive.png)
+### 🔄 Real-time Data Management
+- **React Query Integration**: Efficient data fetching with caching, deduplication, and background updates
+- **Redux Toolkit**: Centralized state management for user preferences and watchlist
+- **Optimistic Updates**: Smooth UI interactions with immediate feedback
 
-> 🔄 *Screenshots are placeholders. Add your actual screenshots to `/public/screenshots/`*
+## 🛠️ Technologies & Libraries Used
 
-## 🚀 Features
-
-### Core & Design Features
-- **Fully Responsive Design**: Optimized UI that adapts seamlessly across desktop, tablet, tablet, and mobile devices using Tailwind CSS breakpoints
-- **Netflix-Inspired Dark Theme**: Dark mode interface with red accent colors matching Netflix branding for immersive video viewing experience
-- **Progressive Web App (PWA) Support**: Installable on desktop and mobile, with offline capabilities including caching, service workers, and app-like behavior
-- **Smooth Animations**: GSAP-powered animations including fade transitions, scroll-triggered reveals, text splitting, and rotating text effects
-- **Modern UI Components**: Built using Radix UI primitives for accessible, customizable dialog, drawer, buttons, and select components
-
-### Page Structure & Navigation
-- **Dynamic Header/Navigation**: Responsive header with logo, navigation links, search trigger, user profile, and adaptive mobile menu
-- **Footer**: Comprehensive footer with links, social media, and brand information
-- **Scroll-to-Top Button**: Smooth scroll button with GSAP animations for improved navigation
-
-### Home Page Features
-- **Hero Section Slider**: Interactive swiper with autoplay, fade effects, and backdrop images (mobile-optimized with posters)
-- **BentoGrid Layouts**: Unique bentocard grids for featured content with hover effects and image overlays
-- **Banner Sections**: Alternating banner layouts showcasing individual movies or TV shows with call-to-action buttons
-- **Multiple Content Sections**: Organized sections for trending, popular, coming soon, now playing, and airing content
-
-### Content Browsing & Discovery
-- **Movies Page**: Dedicated page for browsing movies with advanced filtering capabilities:
-  - Genre filtering (Action, Comedy, Drama, etc.)
-  - Year range filtering (1920-2025)
-  - Rating filtering (IMDb ratings)
-  - Language selection
-  - Sorting by popularity, rating, revenue, or release date
-  - Pagination with clean load-more functionality
-- **TV Shows Page**: Similar advanced filtering and browsing for TV series with air date and episode count filtering
-- **Kids Page**: Age-appropriate content section with PG-rated movies and shows
-- **New & Popular Page**: Combined trending content from both movies and TV shows in grid layout
-
-### Detailed Content Pages
-- **Movie Details**: Comprehensive movie information including:
-  - High-quality poster and backdrop images
-  - Plot overview and runtime
-  - Genres, release date, and production countries
-  - Cast with clickable actor profiles
-  - Crew information with department categorization
-  - Production studios and languages
-  - Ratings and vote counts
-  - Trailers and videos section
-  - Similar movies recommendations
-  - "Add to My List" functionality
-- **TV Show Details**: In-depth TV series information including:
-  - Seasons overview with expandable accordion
-  - Episode details with individual episode pages
-  - Created by credits and networks
-  - Keywords and content ratings
-  - Cast and crew sections
-  - Similar shows recommendations
-- **Season Details**: Detailed view of individual seasons with episode list, aired dates, and episode counts
-- **Actor/Crew Details**: Profile pages for cast and crew members including:
-  - Biography and personal information
-  - Known for section with filmography
-  - Awards and trivia sections
-  - Images gallery
-  - Social media links
-  - Movie/TV credits with department breakdown
-  - Alternative names (also known as)
-
-### Search & Discovery
-- **Global Search**: Advanced search dialog with:
-  - Real-time autocomplete suggestions
-  - Search across movies, TV shows, and people
-  - Results categorized by type
-  - Filterable search results
-- **Multi-Search API**: Integration with TMDb multi-search endpoint for comprehensive content discovery
-
-### User Features & Authentication
-- **Firebase Authentication**: Complete authentication system with:
-  - Email/password registration and login
-  - Password reset via email
-  - Secure logout functionality
-  - Real-time authentication state management
-  - User profile data display (UID, provider, creation date, last sign-in, email verification)
-- **User Account Page**: Enhanced profile management with:
-  - Firebase user data visualization
-  - Responsive design for mobile and desktop
-  - Modern UI with gradients and animations
-  - Direct logout functionality
-- **Watchlist (My List)**: Personal watchlist for movies and TV shows:
-  - Add/remove items with Redux state management
-  - Persistent storage across sessions
-  - Visual indicators and notifications
-
-### Technical Excellence
-- **State Management**: Hybrid approach using:
-  - React Query (TanStack) for server state and API data caching
-  - Redux Toolkit for client-side state (user data, watchlist)
-- **API Integration**: Comprehensive TMDb API integration with:
-  - Multiple endpoints (movies, TV, search, person details)
-  - Proper error handling and loading states
-  - Stale-while-revalidate caching
-- **Performance Optimizations**: Next.js optimizations including:
-  - Image optimization with Next.js Image component
-  - Server-side rendering (SSR) for dynamic pages
-  - Code splitting and lazy loading
-  - Bundle analysis and optimization
-- **SEO & Meta Management**: Dynamic meta tags, OpenGraph, and TwitterCard support for social sharing
-- **Error Handling**: Comprehensive error boundaries and retry mechanisms with user-friendly messages
-
-### User Experience Enhancements
-- **Loading States**: Multiple skeleton loaders and spinner animations:
-  - Netflix-style intro loader
-  - Card skeleton lists for content grids
-  - Loading overlays for actions
-- **Interactive Elements**: Hover effects, click animations, and micro-interactions
-- **Accessibility**: ARIA-compliant components and keyboard navigation support
-- **Offline Support**: Cache invalidation and offline-first data fetching
-- **Toast Notifications**: React Hot Toast for success/error feedback
-
-### Additional Features
-- **Pagination**: Efficient pagination for long content lists with smooth loading
-- **Pricing Section**: SaaS-style pricing tiers for potential monetization
-- **FAQ Section**: Expandable FAQ with smooth animations
-- **Language Support**: Foundation for internationalization with prepared locales folder
-- **Contact Information**: Professional contact and support information
-
-## 🛠️ Tech Stack & Dependencies
-
-### Core Framework & Runtime
-- **Next.js 16**: React framework with App Router for routing, SSR/SSG, and optimized performance
-- **React 19**: Latest React with concurrent features and optimized rendering
-- **TypeScript**: Full type safety, interfaces for API responses, and enhanced developer experience
+### Core Framework
+- **Next.js 16**: Modern React framework with App Router, Server Components, and enhanced performance
+- **React 19**: Latest version of the popular UI library
 
 ### Styling & UI
-- **Tailwind CSS 4**: Utility-first CSS framework for responsive, dark-themed UI with custom animations
-- **Radix UI**: Accessible component primitives (Dialog, Drawer, Select, Button, Input)
-- **Lucide React**: Modern icon library for consistent UI icons
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+- **Radix UI Primitives**: Accessible, customizable UI components
+- **Lucide React**: Beautiful, consistent icon library
+- **Swiper**: Touch slider library for carousels and sliders
 
-### Animations & Interactions
-- **GSAP**: GreenSock Animation Platform for complex animations, scroll triggers, and text effects
-- **Framer Motion**: Additional animation library for micro-interactions (used in RotatedText, BentoCard)
-- **Swiper**: Touch-enabled swiper/carousel with autoplay and effect support
+### State Management & Data
+- **Redux Toolkit**: Predictable state container with simplified configuration
+- **React Query (TanStack)**: Server state management with powerful caching capabilities
+- **React Hook Form**: Performant, flexible forms with easy validation
 
-### State Management & Data Fetching
-- **TanStack React Query (v5)**: Powerful data synchronization, caching, and background refetching for API calls
-- **Redux Toolkit**: Global state management for user authentication and watchlist data
-- **Zustand**: Lightweight state management for simple state needs (alternative to Redux)
+### Animation & Interactions
+- **GSAP**: Professional-grade animation library for complex animations
+- **Framer Motion**: Production-ready motion library for React
 
-### Authentication & Session
-- **Firebase Authentication**: Real-time authentication with email/password, social providers, and session management
+### External Integrations
+- **TMDB API**: Extensive movie and TV show database
+- **Firebase**: Authentication, real-time database, and cloud services
 
-### HTTP & API Integration
-- **Axios**: HTTP client for API requests with interceptors and error handling
-- **TMDb API**: The Movie Database API integration for movie/TV/person data
-- **Firebase SDK**: Firebase services integration for authentication and user management
+### Utilities
+- **Axios**: Promise-based HTTP client for API requests
+- **React Hot Toast**: Elegant toast notifications
+- **Class Variance Authority**: Utility for managing component variants
+- **Next-PWA**: Progressive Web App functionality
 
-### Forms & Validation
-- **React Hook Form**: Performant forms with validation and error handling
-- **Zod**: Runtime type validation (optional, can be integrated for form validation)
+## 🚀 Installation & Setup
 
-### Progressive Web App
-- **next-pwa**: PWA plugin providing service workers, manifest, and offline capabilities
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
 
-### Additional Utilities
-- **clsx**: Utility for constructing conditional CSS classes
-- **tailwind-merge**: Merge Tailwind classes without conflicts
-- **class-variance-authority**: Create variant-based component styles
-- **vaul**: Customizable drawer component for mobile navigation
+### Environment Variables
+Create a `.env.local` file in the root directory and add the following:
 
-### Development & Build Tools
-- **ESLint**: Code linting and quality enforcement
-- **PostCSS**: CSS processing with Tailwind plugins
-- **TypeScript**: Compiler for type checking
-
-### Deployment & Hosting
-- **Vercel**: Optimized deployment platform for Next.js applications with automatic scaling
-
-## 🔄 Development Highlights
-
-### Architecture & Code Quality
-- **App Router Design**: Leveraging Next.js 16 App Router for file-based routing with nested layouts and server components
-- **TypeScript Integration**: Comprehensive type safety with custom interfaces for TMDB API responses, preventing runtime errors
-- **Clean Code Practices**: Separation of concerns with API layers, component composition, and reusable utilities
-- **Performance Monitoring**: React Query DevTools for API state inspection and optimization
-
-### User Experience Focus
-- **Accessibility First**: ARIA labels, keyboard navigation, and screen reader compatibility
-- **Mobile-First Responsive**: Tailwind CSS breakpoints ensuring perfect mobile experience
-- **Micro-Interactions**: Subtle animations enhancing user engagement without performance impact
-- **Error Resilience**: Graceful degradation with fallback UI and user-friendly error messages
-
-### Technical Implementation
-- **Hybrid State Strategy**: React Query for async data + Redux for persistent UI state
-- **Optimized Bundling**: Code splitting, tree shaking, and efficient module imports
-- **SEO Optimization**: Dynamic meta tags, structured data, and social sharing capabilities
-- **PWA Capabilities**: Service workers, caching strategies, and installable app features
-
-### Features Showcase
-- **Real-time Search**: Instant autocomplete with debounced API calls and cached results
-- **Advanced Filtering**: Multi-criteria filtering with URL state synchronization
-- **Personalized Content**: User watchlists with local storage persistence
-- **Rich Media Support**: Video trailers, image galleries, and responsive media components
-
-## 📈 Frontend Development Skills Demonstrated
-
-This project showcases proficiency in:
-- **React & Next.js**: App Router, server components, SSR/SSG, routing, and middleware
-- **Modern React Ecosystem**: Hooks, concurrent rendering, portals, and context patterns
-- **Frontend Architecture**: Component composition, custom hooks, and clean separation of concerns
-- **TypeScript Integration**: Advanced typing, generic components, and API response interfaces
-- **Performance Optimization**: Lazy loading, code splitting, image optimization, and bundle analysis
-- **User Experience Design**: Responsive layouts, CSS animations, accessibility (WCAG compliant)
-- **State Management**: Complex data flows with clientside caching and persistent state
-- **API Integration**: RESTful client patterns, error handling, and offline-first strategies
-- **UI/UX Excellence**: Dark theme design, micro-interactions, and cross-device compatibility
-- **Build Tools**: Modern bundling, linting, testing foundation, and deployment automation
-
-Perfect addition to a CV demonstrating advanced frontend development with modern web technologies!
-
-## 📦 Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Amrr-Maherr/Netflix-Clone.git
-cd Netflix-Clone
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Create environment file:
-```bash
-cp .env.example .env.local
-```
-
-4. Add your API credentials:
 ```env
+NEXT_PUBLIC_TMDB_BASE_URL=https://api.themoviedb.org/3
 NEXT_PUBLIC_TMDB_ACCESS_TOKEN=your_access_token
-
-# Firebase Configuration
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
 ```
 
-5. Run the development server:
-```bash
-npm run dev
-```
+### Steps to Run Locally
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/netflix-clone.git
+   cd netflix-clone
+   ```
 
-## � Demo
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-Check out the live demo: [Netflix Clone Live](https://netflix-clone-demo.vercel.app/) *(placeholder link)*
+3. **Set up environment variables**
+   - Create `.env.local` file with your TMDB API key and Firebase configuration
 
-Or visit the deployed version at Vercel after deployment.
+4. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## �🏗️ Project Structure
+5. **Open your browser**
+   Visit [http://localhost:3000](http://localhost:3000) to see the application
 
-```
-netflix-clone/
-├── app/                        # Next.js App Router pages
-│   ├── (auth)/                 # Authentication pages
-│   ├── Account/                # User account pages
-│   ├── ActorDetails/           # Actor profile pages
-│   ├── CrewDetails/            # Crew profile pages
-│   ├── Kids/                   # Kids content page
-│   ├── MovieDetails/           # Movie detail pages
-│   ├── Movies/                 # Movies browsing page
-│   ├── NewPopular/             # Trending content page
-│   ├── TvShowDetails/          # TV show detail pages
-│   ├── TvShows/                # TV shows browsing page
-│   ├── globals.css             # Global styles
-│   └── layout.tsx              # Root layout
-├── components/                 # Shared components
-│   ├── ui/                     # UI components (buttons, inputs, etc.)
-│   └── ...                     # Feature-specific components
-├── lib/                        # Utility functions
-├── public/                     # Static assets
-│   ├── icons/                  # PWA icons
-│   ├── local/                  # Localized static files
-│   └── ...                     # Images and media
-├── Api/                        # API functions and services
-├── Store/                      # State management (Redux)
-├── Types/                      # TypeScript type definitions
-└── locales/                    # Internationalization files
-```
+## 📋 Usage Instructions
 
-## 🎯 Key Components
+### Browsing Content
+- Navigate through different sections: Trending, Popular, Top Rated, Upcoming, etc.
+- Click on any movie/TV show card to view detailed information
+- Use the search functionality to find specific content
 
-- **HeroSection**: Animated content slider for homepage
-- **CardMovie/CardTvShow**: Content cards with hover effects
-- **Filters**: Advanced filtering system for movies/TV shows
-- **SearchComponent**: Global search with suggestions
-- **PaginationButtons**: Load more pagination
-- **Loading/Skeleton**: Loading states and placeholders
+### User Authentication
+- Click "Sign In" in the header to access the login page
+- Register for a new account or log in with existing credentials
+- Access your account settings from the user profile menu
 
-## 📱 PWA Features
+### Managing Your List
+- Click the "+" button on any movie/TV show card to add it to your watchlist
+- Access your watchlist from the "My List" navigation item
+- Remove items by clicking the "-" button on the card
 
-- **Offline Support**: Cache content for offline viewing
-- **Install Prompt**: Automatic installation prompts
-- **App-like Experience**: Standalone app mode
-- **Fast Loading**: Instant loading of cached content
+### Responsive Behavior
+- The application adapts to different screen sizes automatically
+- On mobile devices, use the hamburger menu for navigation
+- Swipe gestures are supported for carousel navigation
 
-## 🔧 Available Scripts
+## 🔌 API Integration Details
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run export` - Export static site
+### TMDB API Endpoints Used
+- `/trending/movie/week` - Weekly trending movies
+- `/trending/movie/day` - Daily trending movies
+- `/movie/popular` - Popular movies
+- `/movie/top_rated` - Top-rated movies
+- `/movie/upcoming` - Upcoming movies
+- `/movie/now_playing` - Currently playing movies
+- `/trending/tv/week` - Weekly trending TV shows
+- `/trending/tv/day` - Daily trending TV shows
+- `/tv/popular` - Popular TV shows
+- `/tv/top_rated` - Top-rated TV shows
+- `/tv/airing_today` - TV shows airing today
+- `/tv/on_the_air` - TV shows currently on air
+- `/search/multi` - Multi-search across movies, TV shows, and people
+- `/movie/{id}` - Detailed movie information
+- `/tv/{id}` - Detailed TV show information
 
-## 🚀 Deployment
+### API Response Handling
+- All API requests are handled with proper error handling
+- Loading states are displayed during data fetching
+- Retry mechanisms are implemented for failed requests
+- Caching strategies are used to optimize performance
 
-Deploy automatically to Vercel by pushing to the main branch, or manually:
+## 🎨 Design Patterns & Best Practices
 
-```bash
-npm run build
-npm run start
-```
+### Component Architecture
+- **Atomic Design**: Components are organized in a hierarchical structure
+- **Container/Presentational Pattern**: Separation of data-fetching and UI-rendering components
+- **Compound Components**: Complex UI elements with multiple interconnected parts
 
-## 🎨 Customization
+### State Management Strategy
+- **Local State**: For component-specific state using React hooks
+- **Global State**: For application-wide state using Redux Toolkit
+- **Server State**: For API data using React Query
 
-The project uses Tailwind CSS classes for styling. You can customize:
-- Colors in `tailwind.config.js`
-- Typography in `app/globals.css`
-- Animations in component files
+### Performance Optimization
+- **Code Splitting**: Dynamic imports for improved initial load times
+- **Image Optimization**: Next.js Image component with proper sizing and lazy loading
+- **Caching Strategies**: React Query caching and browser caching
+- **Bundle Analysis**: Optimized bundle sizes with tree shaking
+
+### Accessibility Features
+- **Semantic HTML**: Proper use of HTML elements for screen readers
+- **Keyboard Navigation**: Full keyboard accessibility
+- **ARIA Attributes**: Proper labeling and roles for interactive elements
+- **Focus Management**: Clear focus indicators and logical tab order
+
+## 🧪 Testing & Quality Assurance
+
+The application follows modern testing practices:
+- Component testing with React Testing Library
+- Integration testing for API interactions
+- Accessibility testing for inclusive design
+- Performance monitoring and optimization
 
 ## 🤝 Contributing
 
+Contributions are welcome! Here's how you can contribute:
+
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+### Development Guidelines
+- Follow the existing code style and conventions
+- Write meaningful commit messages
+- Add tests for new functionality
+- Update documentation as needed
 
 ## 📄 License
 
-This project is for educational purposes. Please respect copyright laws and TMDb terms of service.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- [TMDb API](https://www.themoviedb.org/) for content data
-- [Next.js](https://nextjs.org/) for the framework
-- [Tailwind CSS](https://tailwindcss.com/) for styling
-- Netflix for UI inspiration
+- Special thanks to TMDB for providing the extensive movie and TV show database
+- Inspired by the Netflix user experience and interface design
+- Built with the amazing Next.js ecosystem and open-source community
 
-## 📞 Support
+---
 
-For questions or issues, please open a GitHub issue or contact the maintainers.
+<div align="center">
+
+**Built with ❤️ using Next.js**
+
+</div>
