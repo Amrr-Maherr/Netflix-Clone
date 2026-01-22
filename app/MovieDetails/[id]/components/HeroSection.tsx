@@ -52,8 +52,6 @@ export default function HeroSection({
     data.runtime ||
     (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : null);
 
-  const [isMute, setIsMute] = useState(1); // 1 = muted, 0 = unmuted
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const myList = useSelector((state: any) => state.myList);
@@ -91,21 +89,57 @@ export default function HeroSection({
 
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 w-full h-full">
-        <Image
-          src={backgroundImage}
-          alt={title}
-          fill
-          className="object-cover"
-        />
-      </div>
+      {/* Background Video - Trailer for Desktop */}
+      {trailerKey && !isMobile && (
+        <div className="absolute inset-0 w-full h-full z-0">
+          <div className="relative w-full h-full">
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=30`}
+              title={`${title} Trailer Background`}
+              className="absolute inset-0 w-full h-full object-cover"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            {/* Dark overlay to ensure text is readable over the video */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+          </div>
+        </div>
+      )}
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10  md:via-black/20 to-transparent z-10"></div>
+      {/* Background Video - Trailer for Mobile (with different parameters) */}
+      {trailerKey && isMobile && (
+        <div className="absolute inset-0 w-full h-full z-0">
+          <div className="relative w-full h-full">
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1`}
+              title={`${title} Trailer Background`}
+              className="absolute inset-0 w-full h-full object-cover"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowFullScreen
+            ></iframe>
+            {/* Dark overlay to ensure text is readable over the video */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+          </div>
+        </div>
+      )}
+
+      {/* Fallback Background Image when no trailer */}
+      {!trailerKey && (
+        <div className="absolute inset-0 w-full h-full z-0">
+          <Image
+            src={backgroundImage}
+            alt={title}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        </div>
+      )}
 
       {/* Content */}
-      <div className="z-40 container py-10">
+      <div className="z-40 container py-10 relative">
         <div className="max-w-2xl text-white">
           <h1 className="text-4xl md:text-7xl font-bold mb-4 drop-shadow-lg">
             {title}
@@ -127,18 +161,18 @@ export default function HeroSection({
           <div className="flex flex-wrap items-center gap-4 text-sm md:text-base mb-8">
             {data.vote_average && (
               <div className="flex items-center gap-1">
-                <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                <span>{data.vote_average.toFixed(1)}</span>
+                <Star className="w-6 h-6 text-yellow-500 fill-current" />
+                <span className="text-lg">{data.vote_average.toFixed(1)}</span>
               </div>
             )}
             {date && (
-              <span>{new Date(date).getFullYear()}</span>
+              <span className="text-lg">{new Date(date).getFullYear()}</span>
             )}
             {runtime && (
-              <span>{runtime} min</span>
+              <span className="text-lg">{runtime} min</span>
             )}
             {data.genres?.length > 0 && (
-              <span className="bg-black/50 px-2 py-1 rounded">
+              <span className="bg-black/50 px-3 py-1 rounded text-lg">
                 {data.genres[0].name}
               </span>
             )}
@@ -148,11 +182,11 @@ export default function HeroSection({
           <div className="flex gap-4 flex-wrap">
             {trailerKey && (
               <Button
-                className="inline-flex items-center gap-3 bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
-                onClick={() => setIsDialogOpen(true)}
+                className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 border border-white/30"
+                disabled
               >
                 <Play className="w-6 h-6 fill-current" />
-                Play Trailer
+                Trailer
               </Button>
             )}
             <Button
@@ -166,49 +200,7 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* Trailer Dialog */}
-      {trailerKey && (
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent
-            data-slot="dialog-content"
-            className={cn(
-              "bg-black/95 backdrop-blur-lg data-[state=open]:animate-in data-[state=closed]:animate-out " +
-                "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 " +
-                "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 " +
-                "fixed top-[50%] left-[50%] z-50 grid w-full max-w-5xl " +
-                "translate-x-[-50%] translate-y-[-50%] gap-6 rounded-xl p-8 shadow-2xl duration-300 border border-white/10"
-            )}
-          >
-            <DialogHeader className="text-center">
-              <DialogTitle className="text-white text-2xl md:text-3xl font-bold flex items-center justify-center gap-3">
-                <Play className="w-8 h-8 text-red-500" />
-                {title} - Official Trailer
-              </DialogTitle>
-              <DialogDescription className="text-gray-300 text-base">
-                Watch the official trailer
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10">
-              <iframe
-                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMute}&rel=0`}
-                title={`${title} Trailer`}
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-
-            <DialogFooter className="flex justify-center">
-              <DialogClose asChild>
-                <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition transform hover:scale-105">
-                  Close Trailer
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      )}
+      {/* Note: Trailer is playing in the background */}
     </div>
   );
 }
