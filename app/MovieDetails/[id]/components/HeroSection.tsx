@@ -191,7 +191,7 @@ export default function HeroSection({
                 disabled
               >
                 <Play className="w-6 h-6 fill-current" />
-                Trailer
+                Play
               </Button>
             )}
             {trailerKey && (

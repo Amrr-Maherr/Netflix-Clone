@@ -67,18 +67,17 @@ export default function Page() {
 
       <div className="mx-auto py-12 space-y-12 container">
         {movie?.credits?.cast && (
-          <div
-            ref={(el) => {
-              if (el && !sectionsRef.current.includes(el))
-                sectionsRef.current.push(el);
-            }}
-          >
-            <CastSection cast={movie.credits.cast} />
-          </div>
+          // <div
+          //   ref={(el) => {
+          //     if (el && !sectionsRef.current.includes(el))
+          //       sectionsRef.current.push(el);
+          //   }}
+          // >
+          <CastSection cast={movie.credits.cast} />
+          // </div>
         )}
-
-        <OverviewSection overview={movie.overview} />
-        <GenresSection genres={movie.genres} />
+        {movie.overview && <OverviewSection overview={movie.overview} />}
+        {movie.genres && <GenresSection genres={movie.genres} />}
 
         {movie.similar?.results && (
           <SimilarMoviesSection
@@ -122,14 +121,14 @@ export default function Page() {
         )}
 
         {movie?.credits?.crew && (
-          <div
-            ref={(el) => {
-              if (el && !sectionsRef.current.includes(el))
-                sectionsRef.current.push(el);
-            }}
-          >
-            <CrewSection crew={movie.credits.crew} />
-          </div>
+          // <div
+          //   ref={(el) => {
+          //     if (el && !sectionsRef.current.includes(el))
+          //       sectionsRef.current.push(el);
+          //   }}
+          // >
+          <CrewSection crew={movie.credits.crew} />
+          // </div>
         )}
       </div>
     </div>
