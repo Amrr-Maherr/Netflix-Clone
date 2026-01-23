@@ -99,7 +99,7 @@ export default function HeroSection({
         <div className="absolute inset-0 w-full h-full z-0">
           <div className="relative w-full h-full">
             <iframe
-              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=30`}
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=30&rel=0`}
               title={`${title} Trailer Background`}
               className="absolute inset-0 w-full h-full object-cover"
               frameBorder="0"
@@ -117,7 +117,7 @@ export default function HeroSection({
         <div className="absolute inset-0 w-full h-full z-0">
           <div className="relative w-full h-full">
             <iframe
-              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1`}
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1&rel=0`}
               title={`${title} Trailer Background`}
               className="absolute inset-0 w-full h-full object-cover"
               frameBorder="0"
