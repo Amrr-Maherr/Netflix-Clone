@@ -53,6 +53,7 @@ export default function HeroSection({
     (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : null);
 
   const [isMobile, setIsMobile] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Start muted by default
 
   const myList = useSelector((state: any) => state.myList);
   const dispatch = useDispatch();
@@ -85,6 +86,10 @@ export default function HeroSection({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   const backgroundImage = isMobile ? posterUrl : backdropUrl || posterUrl;
 
   return (
@@ -94,7 +99,7 @@ export default function HeroSection({
         <div className="absolute inset-0 w-full h-full z-0">
           <div className="relative w-full h-full">
             <iframe
-              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=30`}
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=30`}
               title={`${title} Trailer Background`}
               className="absolute inset-0 w-full h-full object-cover"
               frameBorder="0"
@@ -112,7 +117,7 @@ export default function HeroSection({
         <div className="absolute inset-0 w-full h-full z-0">
           <div className="relative w-full h-full">
             <iframe
-              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1`}
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${trailerKey}&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1`}
               title={`${title} Trailer Background`}
               className="absolute inset-0 w-full h-full object-cover"
               frameBorder="0"
@@ -187,6 +192,14 @@ export default function HeroSection({
               >
                 <Play className="w-6 h-6 fill-current" />
                 Trailer
+              </Button>
+            )}
+            {trailerKey && (
+              <Button
+                className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 px-4 py-3 rounded-lg font-bold text-lg transition transform hover:scale-105 border border-white/30"
+                onClick={toggleMute}
+              >
+                {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
               </Button>
             )}
             <Button
