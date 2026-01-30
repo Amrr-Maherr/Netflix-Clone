@@ -8,6 +8,7 @@ import Slider from "@/app/Components/Slider/Slider";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import PageHead from "@/app/Components/PageHead";
 
 interface SeasonDetailsPageProps {
   params: Promise<{
@@ -50,6 +51,8 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
   if (!seasonData) return <ErrorMessage />;
 
   return (
+    <>  
+       <PageHead title={seasonData.name} description={seasonData.overview} image={`https://image.tmdb.org/t/p/w500${seasonData.poster_path}`} />
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -270,7 +273,8 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
           ))}
         </div>
       </div>
-    </div>
+      </div>
+      </>
   );
 };
 

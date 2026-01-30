@@ -27,6 +27,7 @@ import ContentRatingSection from "../components/ContentRatingSection";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import { useRef } from "react";
+import PageHead from "@/app/Components/PageHead";
 
 export default function TvPage() {
   const { id } = useParams();
@@ -61,6 +62,8 @@ export default function TvPage() {
     tv.videos?.results?.[3];
 
   return (
+    <>
+    <PageHead title={tv.name} description={tv.overview} image={posterUrl} />
     <div className="min-h-screen bg-black text-white">
       <HeroSection
         tv={tv}
@@ -159,5 +162,6 @@ export default function TvPage() {
         )}
       </div>
     </div>
+    </>
   );
 }

@@ -18,6 +18,8 @@ import ProvidersSection from "./components/ProvidersSection";
 import CrewSection from "./components/CrewSection";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import { useRef } from "react";
+import PageHead from "@/app/Components/PageHead";
+import SocialShare from "@/app/Components/SocialShare";
 
 export default function Page() {
   const { id } = useParams();
@@ -57,6 +59,8 @@ export default function Page() {
     movie.videos?.results?.[3];
 
   return (
+    <>
+    <PageHead title={movie.title} description={movie.overview} image={posterUrl} />
     <div className="min-h-screen bg-black text-white">
       <HeroSection
         movie={movie}
@@ -132,5 +136,6 @@ export default function Page() {
         )}
       </div>
     </div>
+    </>
   );
 }
