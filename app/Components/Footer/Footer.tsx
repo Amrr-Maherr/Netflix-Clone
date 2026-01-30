@@ -19,7 +19,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="hidden lg:block bg-black text-gray-400 py-12 text-sm border-t border-gray-800">
+    <footer className="bg-black text-gray-400 py-12 text-sm border-t border-gray-800">
       <div className="container mx-auto px-4">
         <p className="mb-8">
           Questions? Call{" "}
