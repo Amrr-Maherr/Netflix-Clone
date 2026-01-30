@@ -119,7 +119,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
             quality={100}
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
               placeholder="blur"
-            blurDataURL="/images/Netflix_Symbol_RGB.png"
+            blurDataURL="/Netflix_Symbol_RGB.png"
             priority
           />
         ) : (

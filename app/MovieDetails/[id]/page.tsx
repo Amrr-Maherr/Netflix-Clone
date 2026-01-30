@@ -19,7 +19,6 @@ import CrewSection from "./components/CrewSection";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import { useRef } from "react";
 import PageHead from "@/app/Components/PageHead";
-import SocialShare from "@/app/Components/SocialShare";
 
 export default function Page() {
   const { id } = useParams();

@@ -57,7 +57,7 @@ export default function MovieCardPopup({
                 className="object-cover"
                 quality={100}
                 placeholder="blur"
-                blurDataURL="/images/Netflix_Symbol_RGB.png"
+                blurDataURL="/Netflix_Symbol_RGB.png"
                 priority
               />
               {/* Gradient Overlay */}
