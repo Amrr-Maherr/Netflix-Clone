@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import PageHead from "@/app/Components/PageHead";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
+import ShareButton from "@/app/Components/ShareButton/ShareButton";
 
 interface SeasonDetailsPageProps {
   params: Promise<{
@@ -107,6 +108,11 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
                   <span className="text-gray-300">Episodes</span>
                 </div>
               )}
+              <ShareButton
+                title={`Season ${seasonData.season_number} - ${seasonData.name}`}
+                description={seasonData.overview || `Watch Season ${seasonData.season_number} on Netflix Clone`}
+                className="ml-auto lg:ml-0"
+              />
             </div>
 
             {/* Season Details Cards */}

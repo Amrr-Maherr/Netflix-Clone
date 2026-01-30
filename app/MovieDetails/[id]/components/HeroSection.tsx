@@ -1,32 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import {
-  Star,
-  Clock,
-  Calendar,
-  Globe,
-  Play,
-  ExternalLink,
-  Volume2,
-  VolumeX,
-  Plus,
-  Check,
-} from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
+import React, { useState, useEffect } from "react";
+import { Star, Calendar, Clock, Play, Info, Volume2, VolumeX, Plus, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
 import toast from "react-hot-toast";
+import ShareButton from "@/app/Components/ShareButton/ShareButton";
 
 interface HeroSectionProps {
   movie?: any;
@@ -188,7 +169,7 @@ export default function HeroSection({
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap items-center">
             {trailerKey && (
               <Button
                 className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 border border-white/30"
@@ -213,6 +194,11 @@ export default function HeroSection({
               {isInList ? <Check className="w-6 h-6" /> : <Plus className="w-6 h-6" />}
               {isInList ? "My List" : "My List"}
             </Button>
+            <ShareButton
+              title={title}
+              description={data.overview || `Watch ${title} on Netflix Clone`}
+              className="ml-auto sm:ml-0"
+            />
           </div>
         </div>
       </div>
