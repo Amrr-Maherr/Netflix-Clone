@@ -17,6 +17,9 @@ export default function CastCard({ actor }: CastCardProps) {
             width={50}
             height={50}
             priority
+            quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
             src="/Netflix_Symbol_RGB.png"
             alt=""
           />
@@ -28,6 +31,8 @@ export default function CastCard({ actor }: CastCardProps) {
             width={300}
             height={450}
             quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
             priority
             className="w-full h-48 sm:h-56 md:h-64 object-cover"
           />

@@ -10,6 +10,8 @@ export default function index() {
       height={120}
       quality={100}
       priority={true}
+      // placeholder="blur"
+      // blurDataURL="/Netflix_Symbol_RGB.png"
     />
   );
 }

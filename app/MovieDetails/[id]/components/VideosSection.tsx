@@ -12,6 +12,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
+import Image from "next/image";
 
 interface Video {
   id: string;
@@ -40,13 +41,19 @@ export default function VideosSection({ videos }: { videos: Video[] }) {
           >
             {/* Video Thumbnail */}
             <div className="relative w-full h-32 md:h-40 rounded-lg overflow-hidden shadow-lg">
-              <img
+              <Image
                 src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
                 alt={video.name}
+                fill
+                quality={100}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
+                priority
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   // Fallback to hqdefault if maxresdefault fails
-                  (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${video.key}/hqdefault.jpg`;
+                  const target = e.target as HTMLImageElement;
+                  target.src = `https://img.youtube.com/vi/${video.key}/hqdefault.jpg`;
                 }}
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">

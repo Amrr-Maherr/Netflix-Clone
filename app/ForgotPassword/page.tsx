@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { resetPassword } from "../../Api/Auth";
+import Image from "next/image";
 
 interface ForgotInputs {
   email: string;
@@ -61,7 +62,17 @@ export default function Page() {
       <div className="w-full max-w-md">
         {/* Netflix Logo */}
         <div className="flex justify-center mb-8">
-          <img src={NetflixLogo.src} alt="Netflix" className="w-32" />
+          <Image 
+            src={NetflixLogo} 
+            alt="Netflix" 
+            width={128}
+            height={128}
+            quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
+            priority
+            className="w-32" 
+          />
         </div>
 
         <div className="bg-white p-8 rounded-lg shadow-lg">

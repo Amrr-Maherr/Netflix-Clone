@@ -26,6 +26,8 @@ export default function BannerSection({ movie, media_type }: BannerSectionProps)
         fill
         className="object-cover"
         quality={100}
+        placeholder="blur"
+        blurDataURL="/Netflix_Symbol_RGB.png"
         priority
       />
 

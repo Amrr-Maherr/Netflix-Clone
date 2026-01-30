@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { loginUser } from "../../Api/Auth";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -62,7 +63,17 @@ export default function Page() {
       <div className="w-full max-w-md">
         {/* Netflix Logo */}
         <div className="flex justify-center mb-8">
-          <img src={NetflixLogo.src} alt="Netflix" className="w-32" />
+          <Image 
+            src={NetflixLogo} 
+            alt="Netflix" 
+            width={128}
+            height={128}
+            quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
+            priority
+            className="w-32" 
+          />
         </div>
 
         <div className="bg-white p-8 rounded-lg shadow-lg">

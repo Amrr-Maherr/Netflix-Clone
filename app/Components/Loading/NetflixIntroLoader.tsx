@@ -13,6 +13,8 @@ export default function NetflixIntroLoader() {
             height={300}
             priority
             quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
             className="w-48 sm:w-64 md:w-80 object-contain mx-auto select-none pointer-events-none animate-pulse"
           />
         </div>

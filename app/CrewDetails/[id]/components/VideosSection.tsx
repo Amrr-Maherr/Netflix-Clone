@@ -4,6 +4,7 @@ import Slider from "@/app/Components/Slider/Slider";
 import { SwiperSlide } from "swiper/react";
 import { Play } from "lucide-react";
 import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
+import Image from "next/image";
 
 export default function VideosSection({ videos }: { videos: any[] }) {
   const slidesCount = useVisibleSlidesCount();
@@ -17,11 +18,18 @@ export default function VideosSection({ videos }: { videos: any[] }) {
         {videos.map((video) => (
           <SwiperSlide key={video.id}>
             <div className="relative group cursor-pointer rounded-lg overflow-hidden shadow-lg">
-              <img
-                src={`https://img.youtube.com/vi/${video.key}/hqdefault.jpg`}
-                alt={video.name}
-                className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-              />
+              <div className="relative w-full h-32 md:h-40">
+                <Image
+                  src={`https://img.youtube.com/vi/${video.key}/hqdefault.jpg`}
+                  alt={video.name}
+                  fill
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
+                  priority
+                  className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center">
                 <Play className="w-12 h-12 text-white" />
               </div>
