@@ -41,9 +41,6 @@ This Netflix Clone is a comprehensive streaming platform that replicates the cor
 - **Personalized Watchlist**: Add/remove content to your personal "My List" (persisted with Redux)
 - **User Profiles**: Manage account settings and preferences
 - **Password Reset**: Built-in password recovery functionality
-- **Viewing History**: Track watched content with progress indicators
-- **Watchlist Categories**: Organize content by genre/mood
-- **User Preferences**: Remember filter choices and display settings
 
 ### 🎨 Rich UI/UX Experience
 - **Animated Hero Carousel**: Dynamic slideshow showcasing featured content with smooth transitions
@@ -87,10 +84,8 @@ This Netflix Clone is a comprehensive streaming platform that replicates the cor
 - **External Links**: Direct integration with IMDb, Facebook, Twitter, Instagram
 
 ### 📊 Enhanced State Management
-- **Viewing History**: Track watched content with progress indicators
-- **User Preferences**: Persistent filter choices and display settings
-- **Watchlist Categories**: Organize content by genre and mood
-- **Redux Toolkit Slices**: Modular state management for scalability
+- **Redux Toolkit**: Centralized state management for watchlist and user data
+- **Optimistic Updates**: Smooth UI interactions with immediate feedback
 
 ### 🎯 Interactive Features
 - **Clickable Genres**: Navigate to search results by genre
@@ -116,8 +111,6 @@ This Netflix Clone is a comprehensive streaming platform that replicates the cor
 - **Redux Toolkit**: Predictable state container with simplified configuration
 - **React Query (TanStack)**: Server state management with powerful caching capabilities
 - **React Hook Form**: Performant, flexible forms with easy validation
-- **Viewing History Slice**: Track watched content with progress and timestamps
-- **Preferences Slice**: User preferences, filters, and watchlist categories
 
 ### Animation & Interactions
 - **GSAP**: Professional-grade animation library for complex animations
