@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import FetchMultiSearch from "@/Api/FetchMultiSearch";
@@ -10,7 +10,7 @@ import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import { Search, Film, Tv, X } from "lucide-react";
 
-export default function SearchResultsPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const [searchInput, setSearchInput] = useState(query);
@@ -44,6 +44,35 @@ export default function SearchResultsPage() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center max-w-2xl px-6">
+          <div className="mb-8">
+            <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search size={32} className="text-white" />
+            </div>
+            <h1 className="text-5xl font-bold text-white mb-4">Search Netflix</h1>
+            <p className="text-gray-400 text-lg">
+              Find movies, TV shows, documentaries and more
+            </p>
+          </div>
+          
+          <form onSubmit={handleSearch} className="relative max-w-xl mx-auto">
+            <div className="relative">
+              <input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Search for movies, TV shows..."
+                className="w-full h-14 px-6 bg-zinc-900 text-white border-zinc-800 focus:border-red-600 focus:ring-red-600 text-lg placeholder:text-zinc-500 rounded-lg focus:outline-none transition-colors"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors"
+              >
+                <Search size={20} />
+              </button>
+            </div>
+          </form>
+
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {["Action", "Comedy", "Drama", "Horror", "Sci-Fi", "Romance", "Thriller", "Documentary"].map((genre) => (
               <button
@@ -73,15 +102,68 @@ export default function SearchResultsPage() {
   }
 
   return (
-    <div className="container min-h-screen bg-black">
+    <div className="min-h-screen bg-black">
+      {/* Simple Header */}
+      <div className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-zinc-800">
+        <div className="px-4 md:px-8 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-red-600 rounded flex items-center justify-center">
+                <Search size={20} className="text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold text-white">
+                  {query}
+                </h1>
+                <p className="text-zinc-400 text-xs">
+                  {allResults.length} {allResults.length === 1 ? 'result' : 'results'}
+                </p>
+              </div>
+            </div>
+            
+            {/* Search Input */}
+            <form onSubmit={handleSearch} className="relative max-w-md hidden md:block">
+              <input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Search..."
+                className="w-full h-8 bg-zinc-900 border-zinc-800 focus:border-red-600 focus:ring-red-600 text-white placeholder:text-zinc-500 rounded-md focus:outline-none transition-colors text-sm"
+              />
+              <button
+                type="submit"
+                className="absolute right-1 top-1/2 -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white px-2 h-6 rounded transition-colors"
+              >
+                <Search size={14} />
+              </button>
+            </form>
+
+            <button
+              onClick={clearSearch}
+              className="text-zinc-400 hover:text-white p-1 rounded transition-colors"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Results Content */}
-      <div className="">
+      <div className="px-4 md:px-8 py-4">
         <SearchResultsGrid 
           results={activeTab === "all" ? allResults : activeTab === "movies" ? movies : tvShows}
           title={activeTab === "all" ? "All Results" : activeTab === "movies" ? "Movies" : "TV Shows"}
         />
       </div>
     </div>
+  );
+}
+
+export default function SearchResultsPage() {
+  return (
+    <Suspense fallback={<NetflixIntroLoader />}>
+      <SearchPageContent />
+    </Suspense>
   );
 }
 
