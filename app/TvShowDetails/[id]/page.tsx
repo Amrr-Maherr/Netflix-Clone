@@ -5,16 +5,15 @@ import FetchTVDetails from "@/Api/FetchTVDetails";
 
 import HeroSection from "@/app/MovieDetails/[id]/components/HeroSection";
 import OverviewSection from "@/app/MovieDetails/[id]/components/OverviewSection";
-import GenresSection from "@/app/TvShowDetails/components/GenresSection";
-import CastSection from "@/app/TvShowDetails/components/CastSection";
-import CrewSection from "@/app/TvShowDetails/components/CrewSection";
-import SimilarShowsSection from "@/app/TvShowDetails/components/SimilarShowsSection";
-import ImagesSection from "@/app/TvShowDetails/components/ImagesSection";
-import VideosSection from "@/app/MovieDetails/[id]/components/VideosSection";
-import ReviewsSection from "@/app/TvShowDetails/components/ReviewsSection";
-import ProductionCompaniesSection from "@/app/TvShowDetails/components/ProductionCompaniesSection";
-import ProvidersSection from "@/app/TvShowDetails/components/ProvidersSection";
-import WatchProvidersSection from "@/app/TvShowDetails/components/WatchProvidersSection";
+import GenresSection from "@/app/MovieDetails/[id]/components/GenresSection";
+import CastSection from "@/app/MovieDetails/[id]/components/CastSection";
+import CrewSection from "@/app/MovieDetails/[id]/components/CrewSection";
+import SimilarShowsSection from "@/app/MovieDetails/[id]/components/SimilarMoviesSection";
+import ImagesSection from "@/app/MovieDetails/[id]/components/ImagesSection";
+import ReviewsSection from "@/app/MovieDetails/[id]/components/ReviewsSection";
+import ProductionCompaniesSection from "@/app/MovieDetails/[id]/components/ProductionCompaniesSection";
+import ProvidersSection from "@/app/MovieDetails/[id]/components/ProvidersSection";
+import WatchProvidersSection from "@/app/MovieDetails/[id]/components/WatchProvidersSection";
 import VideoGallery from "@/app/Components/VideoGallery/VideoGallery";
 import KeywordsTags from "@/app/Components/KeywordsTags/KeywordsTags";
 import StudioBranding from "@/app/Components/StudioBranding/StudioBranding";
@@ -149,9 +148,20 @@ export default function TvPage() {
         {tv.production_companies && (
           <ProductionCompaniesSection companies={tv.production_companies} />
         )}
-        {tv.networks && <NetworksSection networks={tv.networks} />}
-        {tv.production_countries && (
-          <ProductionCountriesSection countries={tv.production_countries} />
+        {tv.spoken_languages && tv.production_countries && (
+          <LanguageInfo 
+            languages={tv.spoken_languages} 
+            countries={tv.production_countries} 
+          />
+        )}
+        {tv.networks && (
+          <NetworkBranding networks={tv.networks} />
+        )}
+        {tv.external_ids && (
+          <ExternalLinks 
+            externalIds={tv.external_ids} 
+            title={tv.name} 
+          />
         )}
         {tv.created_by && <CreatedBySection creators={tv.created_by} />}
         {tv.content_ratings && (

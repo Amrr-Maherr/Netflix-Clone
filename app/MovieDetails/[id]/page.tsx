@@ -121,7 +121,7 @@ export default function Page() {
           <ReviewsSection reviews={movie.reviews.results} />
         )}
         {movie.production_companies && (
-          <ProductionCompaniesSection companies={movie.production_companies} />
+          <StudioBranding companies={movie.production_companies} />
         )}
         {movie.spoken_languages && movie.production_countries && (
           <LanguageInfo 
