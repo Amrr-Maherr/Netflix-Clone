@@ -18,6 +18,9 @@ export default function EpisodeDetailsSection({ episode }: { episode: any }) {
             fill
             className="object-cover opacity-70"
             priority
+            quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
           />
         ) : (
           <NoImageFallback text="No Image Available" />

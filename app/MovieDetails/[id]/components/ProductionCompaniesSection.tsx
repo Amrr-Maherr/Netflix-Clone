@@ -37,6 +37,9 @@ export default function ProductionCompaniesSection({
                   alt={company.name}
                   fill
                   className="object-contain"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
               </div>
             ) : (

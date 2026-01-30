@@ -28,6 +28,8 @@ export default function CreatedBySection({ creators }: { creators: any[] }) {
                 width={300}
                 height={450}
                 quality={100}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
                 priority
                 className="w-full h-48 sm:h-56 md:h-64 object-cover"
               />

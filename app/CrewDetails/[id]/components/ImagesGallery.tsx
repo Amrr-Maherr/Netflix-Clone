@@ -41,6 +41,8 @@ export default function ImagesGallery({
                 width={100}
                 height={100}
                 quality={100}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
                 priority
                 src={`https://image.tmdb.org/t/p/w300${img.file_path}`}
                 alt={`Profile ${i}`}

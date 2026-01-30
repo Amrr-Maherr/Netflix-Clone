@@ -76,6 +76,8 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
                   width={400}
                   height={600}
                   quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                   priority
                   className="w-64 md:w-80 lg:w-96 rounded-2xl shadow-2xl border-4 border-white/10"
                 />
@@ -209,6 +211,9 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
                         alt={episode.name || `Episode ${index + 1}`}
                         fill
                         className="object-cover"
+                        quality={100}
+                        placeholder="blur"
+                        blurDataURL="/Netflix_Symbol_RGB.png"
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -54,6 +54,9 @@ export default function ImagesSection({
                   alt={`Backdrop ${i + 1}`}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-xl"></div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -86,6 +89,9 @@ export default function ImagesSection({
                   width={400}
                   height={200}
                   className="object-contain max-w-full max-h-full transition-transform duration-500 group-hover:scale-110"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 rounded-xl"></div>
               </div>
@@ -110,6 +116,9 @@ export default function ImagesSection({
                   alt={`Poster ${i + 1}`}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-xl"></div>
               </div>
@@ -132,6 +141,9 @@ export default function ImagesSection({
                   alt={`Poster ${i + 1}`}
                   fill
                   className="object-cover transition duration-500"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
               </div>
             ))}

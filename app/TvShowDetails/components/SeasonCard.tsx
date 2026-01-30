@@ -26,6 +26,9 @@ export default function SeasonCard({ season, tvId }: SeasonCardProps) {
             src="/Netflix_Symbol_RGB.png"
             alt="Netflix Logo"
             priority
+            quality={100}
+            placeholder="blur"
+            blurDataURL="/Netflix_Symbol_RGB.png"
             className="drop-shadow-md"
           />
         </div>
@@ -38,6 +41,9 @@ export default function SeasonCard({ season, tvId }: SeasonCardProps) {
               alt={season.name}
               fill
               className="object-cover transition-transform duration-500"
+              quality={100}
+              placeholder="blur"
+              blurDataURL="/Netflix_Symbol_RGB.png"
             />
           ) : (
             <NoImageFallback text="No Image Available" />

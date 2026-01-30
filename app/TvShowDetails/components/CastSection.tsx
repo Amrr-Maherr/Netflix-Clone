@@ -26,6 +26,9 @@ export default function CastSection({ cast }: { cast: any[] }) {
                 alt={member.name}
                 fill
                 className="object-cover"
+                quality={100}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
               />
             </div>
             <div className="p-2 text-center">

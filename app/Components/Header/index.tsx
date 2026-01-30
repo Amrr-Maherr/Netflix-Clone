@@ -131,6 +131,8 @@ export default function Header() {
                           width={40}
                           height={40}
                           quality={100}
+                          placeholder="blur"
+                          blurDataURL="/Netflix_Symbol_RGB.png"
                           src={user.photoURL}
                           alt={user.displayName || user.email || "User avatar"}
                           className="rounded-full object-cover"

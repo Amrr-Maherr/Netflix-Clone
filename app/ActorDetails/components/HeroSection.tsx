@@ -82,6 +82,8 @@ export default function HeroSection({ person }: { person: any }) {
                 width={400}
                 height={600}
                 quality={100}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
                 priority
                 src={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
                 alt={person.name}

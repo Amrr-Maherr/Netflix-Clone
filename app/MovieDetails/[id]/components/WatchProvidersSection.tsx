@@ -42,6 +42,9 @@ export default function WatchProvidersSection({
                   alt={p.provider_name}
                   fill
                   className="object-contain rounded-full"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
               </div>
               <span className="text-gray-300 text-sm font-medium mt-1">

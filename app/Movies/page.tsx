@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FetchFilteredMovies from "@/Api/FetchFilteredMoviesParams";
 import fetchMovies from "@/Api/FetchPopularMovies";
@@ -9,10 +9,7 @@ import PaginationButtons from "./components/PaginationButtons";
 import MobileFilters from "./components/MobileFilters";
 import Filters from "./components/Filters";
 import HeroSection from "../Components/HeroSection/index";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
 
 export default function Page() {
   const [page, setPage] = useState(1);
@@ -26,8 +23,6 @@ export default function Page() {
     year: "",
     rating: "",
   });
-
-  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   const heroMoviesQuery = useQuery({
     queryKey: ["hero-movies"],
@@ -79,26 +74,6 @@ export default function Page() {
   useEffect(() => {
     refetch();
   }, [filters,refetch]);
-  
-  useEffect(() => {
-    cardsRef.current.forEach((card) => {
-      gsap.fromTo(
-        card,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
-    });
-  }, [allData]);
 
   const heroMovies = heroMoviesQuery.data?.slice(0, 5).map((movie: any) => ({
     ...movie,
@@ -107,9 +82,7 @@ export default function Page() {
 
   return (
     isLoading ? (
-      <div className="flex items-center justify-center w-full h-screen">
-        <div className="w-10 h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
-      </div>
+      <NetflixIntroLoader />
     ) : (
       <>
         {heroMovies && <HeroSection movies={heroMovies} />}
@@ -135,12 +108,7 @@ export default function Page() {
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {allData?.map((movie, index) => (
-                  <div
-                    key={`${movie.id}-${index}`}
-                    ref={(el) => {
-                      if (el) cardsRef.current[index] = el;
-                    }}
-                  >
+                  <div key={`${movie.id}-${index}`}>
                     <CardMovie movie={movie} />
                   </div>
                 ))}

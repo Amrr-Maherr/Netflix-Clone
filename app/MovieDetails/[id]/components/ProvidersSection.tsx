@@ -31,6 +31,9 @@ export default function ProvidersSection({
                 alt={p.provider_name}
                 fill
                 className="object-contain"
+                quality={100}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
               />
             </div>
             <span className="text-sm text-gray-300 font-medium">

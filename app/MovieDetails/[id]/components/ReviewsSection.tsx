@@ -70,6 +70,8 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
                     className="rounded-full border border-gray-700 shadow-lg"
                     priority
                     quality={100}
+                    placeholder="blur"
+                    blurDataURL="/Netflix_Symbol_RGB.png"
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-red-500">

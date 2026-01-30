@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import fetchMovies from "@/Api/FetchPopularMovies";
 import fetchTvShows from "@/Api/fetchTvShows";
 import { useQuery } from "@tanstack/react-query";
@@ -10,10 +10,6 @@ import CardMovie from "../Components/CardMovie/CardMovie";
 import CardTvShow from "../Components/CardTvShow/CardTvShow";
 import HeroSection from "../Components/HeroSection/index";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-
 interface Movie {
   id: number;
   title: string;
@@ -22,7 +18,6 @@ interface Movie {
 }
 
 export default function Gallery() {
-  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   // ====== Queries ======
   const trendingMoviesWeekQuery = useQuery({
@@ -116,27 +111,7 @@ export default function Gallery() {
   ]);
 
   // ===== GSAP animation for cards =====
-  useEffect(() => {
-    cardsRef.current.forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        { opacity: 0, y: 50, scale: 0.8 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          delay: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
-    });
-  }, [allMovies]);
+  // Removed animation effects
 
   // ===== Loading & Error =====
   if (
@@ -198,13 +173,7 @@ export default function Gallery() {
       {heroItems.length > 0 && <HeroSection movies={heroItems} />}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full py-20 container">
       {allMovies.map((movie, index) => (
-        <div
-          key={`${movie.id}-${index}`}
-          ref={(el) => {
-            if (el) cardsRef.current[index] = el;
-          }}
-          className="w-full"
-        >
+        <div key={`${movie.id}-${index}`} className="w-full">
           {movie.media_type === "movie" ? (
             <CardMovie movie={movie} />
           ) : movie.media_type === "tv" ? (

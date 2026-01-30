@@ -42,6 +42,8 @@ export default function SearchResultItem({ item }: { item: ResultItem }) {
               height={100}
               priority
               quality={100}
+              placeholder="blur"
+              blurDataURL="/Netflix_Symbol_RGB.png"
               src={imageSrc}
               alt={item.title || item.name || "No title"}
               className="w-full h-full object-cover rounded-lg transform transition-transform duration-300 hover:scale-105"

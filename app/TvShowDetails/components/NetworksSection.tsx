@@ -26,6 +26,9 @@ export default function NetworksSection({ networks }: { networks: any[] }) {
                   alt={network.name}
                   fill
                   className="object-contain"
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
                 />
               </div>
             ) : (
