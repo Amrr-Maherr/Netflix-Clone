@@ -41,7 +41,7 @@ export default function SearchResultItem({ item }: { item: ResultItem }) {
               width={100}
               height={100}
               priority
-              quality={75}
+              quality={100}
               src={imageSrc}
               alt={item.title || item.name || "No title"}
               className="w-full h-full object-cover rounded-lg transform transition-transform duration-300 hover:scale-105"

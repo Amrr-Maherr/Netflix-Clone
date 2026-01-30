@@ -115,8 +115,11 @@ export default function CardMovie({ movie }: CardMovieProps) {
             alt={movie.title || "Movie Poster"}
             fill
             className="object-cover"
-            quality={75}
+            quality={100}
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+            placeholder="blur"
+            blurDataURL="/images/Netflix_Symbol_RGB.png"
+            priority
           />
         ) : (
           <NoImageFallback text="No Image Available" />

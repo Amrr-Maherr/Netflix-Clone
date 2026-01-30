@@ -8,7 +8,7 @@ export default function index() {
       alt="Logo_image"
       width={120}
       height={120}
-      quality={75}
+      quality={100}
       priority={true}
     />
   );

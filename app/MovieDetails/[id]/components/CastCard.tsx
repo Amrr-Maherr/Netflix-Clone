@@ -27,7 +27,7 @@ export default function CastCard({ actor }: CastCardProps) {
             alt={actor.name}
             width={300}
             height={450}
-            quality={75}
+            quality={100}
             priority
             className="w-full h-48 sm:h-56 md:h-64 object-cover"
           />

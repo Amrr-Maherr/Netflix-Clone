@@ -9,6 +9,7 @@ import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import PageHead from "@/app/Components/PageHead";
+import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 
 interface SeasonDetailsPageProps {
   params: Promise<{
@@ -47,7 +48,9 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
     fetchData();
   }, [params]);
 
-  if (loading) return <div className="min-h-screen bg-black flex items-center justify-center"><div className="text-white">Loading...</div></div>;
+  if (loading) return (
+    <NetflixIntroLoader/>
+  );
   if (!seasonData) return <ErrorMessage />;
 
   return (

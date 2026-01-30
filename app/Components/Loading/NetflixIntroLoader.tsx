@@ -12,7 +12,7 @@ export default function NetflixIntroLoader() {
             width={300}
             height={300}
             priority
-            quality={75}
+            quality={100}
             className="w-48 sm:w-64 md:w-80 object-contain mx-auto select-none pointer-events-none animate-pulse"
           />
         </div>

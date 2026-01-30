@@ -25,7 +25,7 @@ export default function BannerSection({ movie, media_type }: BannerSectionProps)
         alt={movieTitle}
         fill
         className="object-cover"
-        quality={75}
+        quality={100}
         priority
       />
 
