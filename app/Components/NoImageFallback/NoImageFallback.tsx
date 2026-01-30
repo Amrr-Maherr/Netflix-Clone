@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 
 interface NoImageFallbackProps {
@@ -12,7 +13,15 @@ export default function NoImageFallback({
   text = "No Image Found",
 }: NoImageFallbackProps) {
   return (
-    <div className={className}>
+    <div className={"flex items-center justify-center flex-col"}>
+      <Image
+        width={200}
+        height={200}
+        src="/Netflix_Symbol_RGB.png"
+        alt="Netflix Logo"
+        priority
+        className="drop-shadow-md"
+      />
       <span className="text-white text-sm text-center px-2">{text}</span>
     </div>
   );

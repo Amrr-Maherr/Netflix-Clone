@@ -97,7 +97,17 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
     <div
       onClick={() => router.push(`/TvShowDetails/${TvShow.id}`)}
       className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10"
-    >
+      >
+        <div className="absolute top-3 left-3 z-50">
+                  <Image
+                    width={40}
+                    height={40}
+                    src="/Netflix_Symbol_RGB.png"
+                    alt="Netflix Logo"
+                    priority
+                    className="drop-shadow-md"
+                  />
+                </div>
       {/* Poster Image */}
       <div className="relative aspect-[2/3] w-full">
         {TvShow?.poster_path ? (
