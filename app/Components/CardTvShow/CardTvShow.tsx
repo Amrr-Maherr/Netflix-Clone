@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Play, Plus, ThumbsUp, Info, Loader2 } from "lucide-react";
+import { Play, Plus, ThumbsUp, Info, Loader2, Clock, TrendingUp, Globe } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
 import Link from "next/link";
 import { TvShowData } from "../../Types/types";
@@ -134,6 +134,33 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                 {TvShow.genres[0].name}
               </span>
             )}
+
+            {/* Episodes, Popularity, and Language Indicators */}
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* Episode Count */}
+              {TvShow?.number_of_episodes && (
+                <span className="inline-flex items-center px-2 py-1 rounded text-xs text-gray-300 bg-black/40 border border-gray-600/30">
+                  <Clock size={10} className="mr-1" />
+                  {TvShow.number_of_episodes} Ep
+                </span>
+              )}
+              
+              {/* Popularity Score */}
+              {TvShow?.popularity && TvShow.popularity > 0 && (
+                <span className="inline-flex items-center px-2 py-1 rounded text-xs text-gray-300 bg-black/40 border border-gray-600/30">
+                  <TrendingUp size={10} className="mr-1" />
+                  {Math.round(TvShow.popularity)}
+                </span>
+              )}
+              
+              {/* Language Flag */}
+              {TvShow?.original_language && (
+                <span className="inline-flex items-center px-2 py-1 rounded text-xs text-gray-300 bg-black/40 border border-gray-600/30">
+                  <Globe size={10} className="mr-1" />
+                  {TvShow.original_language.toUpperCase()}
+                </span>
+              )}
+            </div>
 
             {/* Description */}
             <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
