@@ -21,6 +21,10 @@ import { useRef } from "react";
 import PageHead from "@/app/Components/PageHead";
 import VideoGallery from "@/app/Components/VideoGallery/VideoGallery";
 import KeywordsTags from "@/app/Components/KeywordsTags/KeywordsTags";
+import StudioBranding from "@/app/Components/StudioBranding/StudioBranding";
+import LanguageInfo from "@/app/Components/LanguageInfo/LanguageInfo";
+import NetworkBranding from "@/app/Components/NetworkBranding/NetworkBranding";
+import ExternalLinks from "@/app/Components/ExternalLinks/ExternalLinks";
 
 export default function Page() {
   const { id } = useParams();
@@ -118,6 +122,21 @@ export default function Page() {
         )}
         {movie.production_companies && (
           <ProductionCompaniesSection companies={movie.production_companies} />
+        )}
+        {movie.spoken_languages && movie.production_countries && (
+          <LanguageInfo 
+            languages={movie.spoken_languages} 
+            countries={movie.production_countries} 
+          />
+        )}
+        {movie.networks && (
+          <NetworkBranding networks={movie.networks} />
+        )}
+        {movie.external_ids && (
+          <ExternalLinks 
+            externalIds={movie.external_ids} 
+            title={movie.title} 
+          />
         )}
         {movie["watch/providers"]?.results && (
           <>

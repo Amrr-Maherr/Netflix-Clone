@@ -5,16 +5,22 @@ import FetchTVDetails from "@/Api/FetchTVDetails";
 
 import HeroSection from "@/app/MovieDetails/[id]/components/HeroSection";
 import OverviewSection from "@/app/MovieDetails/[id]/components/OverviewSection";
-import GenresSection from "@/app/MovieDetails/[id]/components/GenresSection";
-import CastSection from "@/app/MovieDetails/[id]/components/CastSection";
-import CrewSection from "@/app/MovieDetails/[id]/components/CrewSection";
-import SimilarShowsSection from "@/app/MovieDetails/[id]/components/SimilarMoviesSection";
-import ImagesSection from "@/app/MovieDetails/[id]/components/ImagesSection";
+import GenresSection from "@/app/TvShowDetails/components/GenresSection";
+import CastSection from "@/app/TvShowDetails/components/CastSection";
+import CrewSection from "@/app/TvShowDetails/components/CrewSection";
+import SimilarShowsSection from "@/app/TvShowDetails/components/SimilarShowsSection";
+import ImagesSection from "@/app/TvShowDetails/components/ImagesSection";
 import VideosSection from "@/app/MovieDetails/[id]/components/VideosSection";
-import ReviewsSection from "@/app/MovieDetails/[id]/components/ReviewsSection";
-import ProductionCompaniesSection from "@/app/MovieDetails/[id]/components/ProductionCompaniesSection";
-import ProvidersSection from "@/app/MovieDetails/[id]/components/ProvidersSection";
-import WatchProvidersSection from "@/app/MovieDetails/[id]/components/WatchProvidersSection";
+import ReviewsSection from "@/app/TvShowDetails/components/ReviewsSection";
+import ProductionCompaniesSection from "@/app/TvShowDetails/components/ProductionCompaniesSection";
+import ProvidersSection from "@/app/TvShowDetails/components/ProvidersSection";
+import WatchProvidersSection from "@/app/TvShowDetails/components/WatchProvidersSection";
+import VideoGallery from "@/app/Components/VideoGallery/VideoGallery";
+import KeywordsTags from "@/app/Components/KeywordsTags/KeywordsTags";
+import StudioBranding from "@/app/Components/StudioBranding/StudioBranding";
+import LanguageInfo from "@/app/Components/LanguageInfo/LanguageInfo";
+import NetworkBranding from "@/app/Components/NetworkBranding/NetworkBranding";
+import ExternalLinks from "@/app/Components/ExternalLinks/ExternalLinks";
 
 import EpisodeDetailsSection from "../../TvShowDetails/components/EpisodeDetailsSection";
 import SeasonsSection from "../../TvShowDetails/components/SeasonsSection";
@@ -28,8 +34,6 @@ import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import { useRef } from "react";
 import PageHead from "@/app/Components/PageHead";
-import VideoGallery from "@/app/Components/VideoGallery/VideoGallery";
-import KeywordsTags from "@/app/Components/KeywordsTags/KeywordsTags";
 
 export default function TvPage() {
   const { id } = useParams();
