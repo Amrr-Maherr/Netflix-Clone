@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
 import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
+import NetflixBadge from "@/app/Components/shared/NetflixBadge";
 
 type SeasonCardProps = {
   season: any;
@@ -19,19 +20,7 @@ export default function SeasonCard({ season, tvId }: SeasonCardProps) {
     <Link href={`/SeasonDetails/${tvId}/${season.season_number}`}>
       <div className="group relative rounded-xl overflow-hidden bg-zinc-900 transition-transform duration-300">
         {/* Netflix Logo */}
-        <div className="absolute top-3 left-3 z-50">
-          <Image
-            width={40}
-            height={40}
-            src="/Netflix_Symbol_RGB.png"
-            alt="Netflix Logo"
-            priority
-            quality={100}
-            placeholder="blur"
-            blurDataURL="/Netflix_Symbol_RGB.png"
-            className="drop-shadow-md"
-          />
-        </div>
+        <NetflixBadge size={40} className="drop-shadow-md" />
 
         {/* Poster or fallback */}
         <div className="relative w-full aspect-[2/3]">
