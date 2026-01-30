@@ -19,6 +19,8 @@ import CrewSection from "./components/CrewSection";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import { useRef } from "react";
 import PageHead from "@/app/Components/PageHead";
+import VideoGallery from "@/app/Components/VideoGallery/VideoGallery";
+import KeywordsTags from "@/app/Components/KeywordsTags/KeywordsTags";
 
 export default function Page() {
   const { id } = useParams();
@@ -106,7 +108,10 @@ export default function Page() {
           />
         )}
         {movie.videos?.results && (
-          <VideosSection videos={movie.videos.results} />
+          <VideoGallery videos={movie.videos.results} />
+        )}
+        {movie.keywords?.results && (
+          <KeywordsTags keywords={movie.keywords.results} />
         )}
         {movie.reviews?.results && (
           <ReviewsSection reviews={movie.reviews.results} />

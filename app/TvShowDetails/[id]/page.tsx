@@ -28,6 +28,8 @@ import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import { useRef } from "react";
 import PageHead from "@/app/Components/PageHead";
+import VideoGallery from "@/app/Components/VideoGallery/VideoGallery";
+import KeywordsTags from "@/app/Components/KeywordsTags/KeywordsTags";
 
 export default function TvPage() {
   const { id } = useParams();
@@ -90,7 +92,6 @@ export default function TvPage() {
         <OverviewSection overview={tv.overview} />
         <GenresSection genres={tv.genres} />
 
-        {tv.created_by && <CreatedBySection creators={tv.created_by} />}
         {tv.credits?.cast && (
           <div
             ref={(el) => {
@@ -137,7 +138,8 @@ export default function TvPage() {
             posters={tv.images.posters}
           />
         )}
-        {tv.videos?.results && <VideosSection videos={tv.videos.results} />}
+        {tv.videos?.results && <VideoGallery videos={tv.videos.results} />}
+        {tv.keywords?.results && <KeywordsTags keywords={tv.keywords.results} />}
         {tv.reviews?.results && <ReviewsSection reviews={tv.reviews.results} />}
 
         {tv.production_companies && (
@@ -147,11 +149,9 @@ export default function TvPage() {
         {tv.production_countries && (
           <ProductionCountriesSection countries={tv.production_countries} />
         )}
-        {tv.keywords?.results && (
-          <KeywordsSection keywords={tv.keywords.results} />
-        )}
-        {tv.content_ratings?.results && (
-          <ContentRatingSection ratings={tv.content_ratings.results} />
+        {tv.created_by && <CreatedBySection creators={tv.created_by} />}
+        {tv.content_ratings && (
+          <ContentRatingSection ratings={tv.content_ratings} />
         )}
 
         {tv["watch/providers"]?.results && (
