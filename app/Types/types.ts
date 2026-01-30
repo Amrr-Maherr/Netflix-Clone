@@ -14,6 +14,7 @@ export type MovieData = {
     original_title?: string;
     vote_count?: number | null;
     adult?: boolean | null;
+    genres?: { id: number; name: string }[];
 };
 
 export type TvShowData = {
@@ -31,6 +32,7 @@ export type TvShowData = {
     adult?: boolean | null;
     video?: boolean | null;
     backdrop_path?: string;
+    genres?: { id: number; name: string }[];
 };
 
 export type DataTypes = MovieData | TvShowData;
