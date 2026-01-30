@@ -104,52 +104,9 @@ function SearchPageContent() {
   return (
     <div className="min-h-screen bg-black">
       {/* Simple Header */}
-      <div className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-zinc-800">
-        <div className="px-4 md:px-8 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-red-600 rounded flex items-center justify-center">
-                <Search size={20} className="text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold text-white">
-                  {query}
-                </h1>
-                <p className="text-zinc-400 text-xs">
-                  {allResults.length} {allResults.length === 1 ? 'result' : 'results'}
-                </p>
-              </div>
-            </div>
-            
-            {/* Search Input */}
-            <form onSubmit={handleSearch} className="relative max-w-md hidden md:block">
-              <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Search..."
-                className="w-full h-8 bg-zinc-900 border-zinc-800 focus:border-red-600 focus:ring-red-600 text-white placeholder:text-zinc-500 rounded-md focus:outline-none transition-colors text-sm"
-              />
-              <button
-                type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white px-2 h-6 rounded transition-colors"
-              >
-                <Search size={14} />
-              </button>
-            </form>
-
-            <button
-              onClick={clearSearch}
-              className="text-zinc-400 hover:text-white p-1 rounded transition-colors"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Results Content */}
-      <div className="px-4 md:px-8 py-4">
+      <div className="md:py-10 py-20 container">
         <SearchResultsGrid 
           results={activeTab === "all" ? allResults : activeTab === "movies" ? movies : tvShows}
           title={activeTab === "all" ? "All Results" : activeTab === "movies" ? "Movies" : "TV Shows"}
@@ -196,7 +153,7 @@ function SearchResultsGrid({ results, title }: { results: any[]; title: string }
       <div>
         <h1 className="text-3xl font-bold text-white mb-6">{title}</h1>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {results.map((item: any) => {
           if (item.media_type === "movie") {
             return (
