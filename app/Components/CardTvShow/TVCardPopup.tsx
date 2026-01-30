@@ -56,7 +56,7 @@ export default function TVCardPopup({
                 alt={tvDetails?.name || TvShow?.name || "TV Show Backdrop"}
                 fill
                 className="object-cover"
-                quality={90}
+                quality={100}
               />
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>

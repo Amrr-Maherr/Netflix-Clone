@@ -75,7 +75,7 @@ const Page = ({ params }: SeasonDetailsPageProps) => {
                   alt={`Season ${seasonData.season_number} Poster`}
                   width={400}
                   height={600}
-                  quality={90}
+                  quality={100}
                   priority
                   className="w-64 md:w-80 lg:w-96 rounded-2xl shadow-2xl border-4 border-white/10"
                 />

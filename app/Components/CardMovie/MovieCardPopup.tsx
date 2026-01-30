@@ -55,7 +55,10 @@ export default function MovieCardPopup({
                 alt={movieDetails?.title || movie?.title || "Movie Backdrop"}
                 fill
                 className="object-cover"
-                quality={90}
+                quality={100}
+                placeholder="blur"
+                blurDataURL="/images/Netflix_Symbol_RGB.png"
+                priority
               />
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>

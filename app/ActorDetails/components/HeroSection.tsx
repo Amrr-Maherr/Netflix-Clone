@@ -81,7 +81,7 @@ export default function HeroSection({ person }: { person: any }) {
               <Image
                 width={400}
                 height={600}
-                quality={90}
+                quality={100}
                 priority
                 src={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
                 alt={person.name}
