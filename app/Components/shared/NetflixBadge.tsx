@@ -7,7 +7,6 @@ interface NetflixBadgeProps {
   className?: string;
   priority?: boolean;
   alt?: string;
-  position?: string;
   top?: string;
   left?: string;
   right?: string;
@@ -20,16 +19,15 @@ export default function NetflixBadge({
   className = "",
   priority = true,
   alt = "Netflix Logo",
-  position = "absolute",
-  top = "3",
-  left = "3",
+  top = "top-3",
+  left = "left-3",
   right,
   bottom,
-  zIndex = "50"
+  zIndex = "z-50"
 }: NetflixBadgeProps) {
   return (
     <div 
-      className={`absolute ${position} ${top} ${left} ${right || ""} ${bottom || ""} ${zIndex} ${className}`}
+      className={`absolute ${top} ${left} ${right || ""} ${bottom || ""} ${zIndex} ${className}`}
     >
       <Image
         width={size}

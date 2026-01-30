@@ -12,7 +12,7 @@ export default function CastCard({ actor }: CastCardProps) {
         key={actor.cast_id}
         className="bg-zinc-900 rounded-xl overflow-hidden transition-transform duration-300 cursor-pointer"
       >
-        <NetflixBadge size={50} top="0" />
+        <NetflixBadge size={50} top="top-0" />
         {actor.profile_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
