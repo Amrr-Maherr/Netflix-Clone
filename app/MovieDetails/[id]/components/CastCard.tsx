@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import NetflixBadge from "@/app/Components/shared/NetflixBadge";
+import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
+
 interface CastCardProps {
   actor: any;
 }
@@ -9,33 +11,41 @@ export default function CastCard({ actor }: CastCardProps) {
   return (
     <Link href={`/ActorDetails/${actor.id}`}>
       <div
-        key={actor.cast_id}
-        className="bg-zinc-900 rounded-xl overflow-hidden transition-transform duration-300 cursor-pointer"
+        className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10 aspect-[2/3]"
       >
-        <NetflixBadge size={50} top="top-0" />
-        {actor.profile_path ? (
-          <Image
-            src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
-            alt={actor.name}
-            width={300}
-            height={450}
-            quality={100}
-            placeholder="blur"
-            blurDataURL="/Netflix_Symbol_RGB.png"
-            priority
-            className="w-full h-48 sm:h-56 md:h-64 object-cover"
-          />
-        ) : (
-          <div className="bg-zinc-800 h-48 sm:h-56 md:h-64 flex items-center justify-center">
-            <span className="text-gray-500 text-sm">No Image</span>
-          </div>
-        )}
+        <NetflixBadge size={40} className="drop-shadow-md" />
 
-        <div className="p-3 text-center">
-          <p className="font-semibold text-sm text-white truncate">
-            {actor.name}
-          </p>
-          <p className="text-xs text-gray-400 truncate">{actor.character}</p>
+        {/* Actor Image */}
+        <div className="relative w-full h-full">
+          {actor.profile_path ? (
+            <Image
+              src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
+              alt={actor.name}
+              fill
+              className="object-cover"
+              quality={100}
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+              placeholder="blur"
+              blurDataURL="/Netflix_Symbol_RGB.png"
+              priority
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-zinc-800">
+              <NoImageFallback />
+            </div>
+          )}
+        </div>
+
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+          <div className="space-y-1">
+            <h3 className="text-sm font-bold leading-tight line-clamp-2 text-white">
+              {actor.name}
+            </h3>
+            <p className="text-xs text-gray-300 line-clamp-2">
+              {actor.character}
+            </p>
+          </div>
         </div>
       </div>
     </Link>
