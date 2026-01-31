@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import HeroSection from "../app/Components/HeroSection";
 import Section from "../app/Components/Section";
 
-import BannerSection from "./Components/BannerSection";
+// import BannerSection from "./Components/BannerSection";
 import { fetchAllMovies } from "../Api/FetchAllMovies";
 import { fetchAllTVShows } from "../Api/FetchAllTVShows";
 import CardSkeletonList from "./Components/Loading/CardSkeletonList";
