@@ -5,7 +5,7 @@ import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-f
 import NetflixLogo from "../../public/Netflix_Symbol_RGB.png";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Inputs } from "../Types/Inputs";
+import { Inputs } from "../../Types/Inputs";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
@@ -73,24 +73,22 @@ export default function Page() {
       <div className="w-full max-w-md">
         {/* Netflix Logo */}
         <div className="flex justify-center mb-8">
-          <Image 
-            src={NetflixLogo} 
-            alt="Netflix" 
+          <Image
+            src={NetflixLogo}
+            alt="Netflix"
             width={128}
             height={128}
             quality={100}
             placeholder="blur"
             blurDataURL="/Netflix_Symbol_RGB.png"
             priority
-            className="w-32" 
+            className="w-32"
           />
         </div>
 
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <motion.div variants={itemVariants} className="mb-6">
-            <h1 className="text-3xl font-bold text-black">
-              Sign Up
-            </h1>
+            <h1 className="text-3xl font-bold text-black">Sign Up</h1>
           </motion.div>
 
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

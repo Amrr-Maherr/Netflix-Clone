@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Play, Plus, ThumbsUp, Info, Loader2, Clock, TrendingUp, Globe } from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
 import Link from "next/link";
-import { TvShowData } from "../../Types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
 import { useState } from "react";
@@ -11,6 +10,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import TVCardPopup from "./TVCardPopup";
 import NetflixBadge from "../shared/NetflixBadge";
+import { TvShowData } from "@/app/Data/TvShowData";
 
 type MyListItem = TvShowData | { id: number; title?: string; name?: string; poster_path?: string; };
 

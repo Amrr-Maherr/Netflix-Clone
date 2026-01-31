@@ -1,5 +1,4 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { MovieData } from "../../Types/types";
 import { Play, Plus, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,8 +6,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
+import { MovieData } from "@/Types/Movie";
 
-type MyListItem = MovieData | { id: number; title?: string; name?: string; poster_path?: string; };
+type MyListItem =
+  | MovieData
+  | { id: number; title?: string; name?: string; poster_path?: string };
 
 interface MovieDetailsType {
   title?: string;
@@ -40,15 +42,19 @@ export default function MovieCardPopup({
   movieDetails,
   isInList,
   handleAddToList,
-  addingToList
+  addingToList,
 }: MovieCardPopupProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
-        <DialogTitle className="sr-only">{movieDetails?.title || movie?.title}</DialogTitle>
+        <DialogTitle className="sr-only">
+          {movieDetails?.title || movie?.title}
+        </DialogTitle>
         <div className="relative min-h-[60vh] flex flex-col md:flex-row">
           {/* Backdrop Image */}
-          {(movieDetails?.backdrop_path || movieDetails?.poster_path || movie?.poster_path) && (
+          {(movieDetails?.backdrop_path ||
+            movieDetails?.poster_path ||
+            movie?.poster_path) && (
             <div className="absolute inset-0">
               <Image
                 src={`https://image.tmdb.org/t/p/w1280${movieDetails?.backdrop_path || movieDetails?.poster_path || movie?.poster_path}`}
@@ -75,7 +81,9 @@ export default function MovieCardPopup({
 
             {/* Description */}
             <p className="text-gray-200 text-lg mb-6 leading-relaxed max-w-2xl">
-              {movieDetails?.overview || movie?.overview || "No description available."}
+              {movieDetails?.overview ||
+                movie?.overview ||
+                "No description available."}
             </p>
 
             {/* Movie Details */}
@@ -83,7 +91,9 @@ export default function MovieCardPopup({
               {/* Rating */}
               {movieDetails?.vote_average && (
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-300">Rating:</span>
+                  <span className="text-sm font-medium text-gray-300">
+                    Rating:
+                  </span>
                   <span className="text-yellow-400 font-bold text-lg">
                     {movieDetails.vote_average.toFixed(1)} / 10
                   </span>
@@ -96,9 +106,13 @@ export default function MovieCardPopup({
               {/* Genre */}
               {movieDetails?.genres && movieDetails.genres.length > 0 && (
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-300">Genre:</span>
+                  <span className="text-sm font-medium text-gray-300">
+                    Genre:
+                  </span>
                   <span className="text-white">
-                    {movieDetails.genres.map((genre: any) => genre.name).join(", ")}
+                    {movieDetails.genres
+                      .map((genre: any) => genre.name)
+                      .join(", ")}
                   </span>
                 </div>
               )}
@@ -107,7 +121,9 @@ export default function MovieCardPopup({
               <div className="flex items-center gap-6">
                 {movieDetails?.release_date && (
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-300">Release:</span>
+                    <span className="text-sm font-medium text-gray-300">
+                      Release:
+                    </span>
                     <span className="text-white">
                       {new Date(movieDetails.release_date).getFullYear()}
                     </span>
@@ -115,22 +131,32 @@ export default function MovieCardPopup({
                 )}
                 {movieDetails?.runtime && (
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-300">Runtime:</span>
-                    <span className="text-white">{movieDetails.runtime} min</span>
+                    <span className="text-sm font-medium text-gray-300">
+                      Runtime:
+                    </span>
+                    <span className="text-white">
+                      {movieDetails.runtime} min
+                    </span>
                   </div>
                 )}
               </div>
 
               {/* Production Companies */}
-              {movieDetails?.production_companies && movieDetails.production_companies.length > 0 && (
-                <div className="flex items-start gap-3">
-                  <span className="text-sm font-medium text-gray-300">Production:</span>
-                  <span className="text-white text-sm">
-                    {movieDetails.production_companies.slice(0, 3).map((company: any) => company.name).join(", ")}
-                    {movieDetails.production_companies.length > 3 && "..."}
-                  </span>
-                </div>
-              )}
+              {movieDetails?.production_companies &&
+                movieDetails.production_companies.length > 0 && (
+                  <div className="flex items-start gap-3">
+                    <span className="text-sm font-medium text-gray-300">
+                      Production:
+                    </span>
+                    <span className="text-white text-sm">
+                      {movieDetails.production_companies
+                        .slice(0, 3)
+                        .map((company: any) => company.name)
+                        .join(", ")}
+                      {movieDetails.production_companies.length > 3 && "..."}
+                    </span>
+                  </div>
+                )}
             </div>
 
             {/* Action Buttons */}
@@ -148,7 +174,7 @@ export default function MovieCardPopup({
                 ) : (
                   <Plus size={16} />
                 )}
-                {isInList ? 'Remove from List' : 'Add to List'}
+                {isInList ? "Remove from List" : "Add to List"}
               </button>
 
               <Link href={`/MovieDetails/${movie.id}`}>

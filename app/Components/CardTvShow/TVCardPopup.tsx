@@ -1,5 +1,4 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { TvShowData } from "../../Types/types";
 import { Play, Plus, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
+import { TvShowData } from "@/app/Data/TvShowData";
 
 type MyListItem = TvShowData | { id: number; title?: string; name?: string; poster_path?: string; };
 

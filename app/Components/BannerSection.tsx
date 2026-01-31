@@ -3,19 +3,27 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Play, Info } from "lucide-react";
-import { DataTypes } from "../Types/types";
 import { Button } from "@/components/ui/button";
+import { MovieData } from "../../Types/Movie";
 
 interface BannerSectionProps {
-  movie: DataTypes;
+  movie: MovieData;
   isReversed?: boolean;
   media_type: "movie" | "tv";
 }
 
-export default function BannerSection({ movie, media_type }: BannerSectionProps) {
-  const movieTitle = ('title' in movie ? movie.title : ('name' in movie ? movie.name : undefined)) || "Unknown Title";
+export default function BannerSection({
+  movie,
+  media_type,
+}: BannerSectionProps) {
+  const movieTitle =
+    ("title" in movie
+      ? movie.title
+      : "name" in movie
+        ? movie.name
+        : undefined) || "Unknown Title";
   const overview = movie.overview || "No description available.";
-  const backdropPath = `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path || ''}`;
+  const backdropPath = `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path || ""}`;
 
   return (
     <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden my-5 md:my-20">
@@ -64,7 +72,10 @@ export default function BannerSection({ movie, media_type }: BannerSectionProps)
               </Button>
             </Link>
 
-            <Button variant="secondary" className="bg-gray-500/70 hover:bg-gray-500/50 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-md font-bold text-sm sm:text-base flex items-center gap-2 backdrop-blur-sm transition-all duration-200">
+            <Button
+              variant="secondary"
+              className="bg-gray-500/70 hover:bg-gray-500/50 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-md font-bold text-sm sm:text-base flex items-center gap-2 backdrop-blur-sm transition-all duration-200"
+            >
               <Info size={20} />
               More Info
             </Button>

@@ -8,8 +8,8 @@ import fetchMovies from "@/Api/FetchPopularMovies";
 import CardMovie from "../Components/CardMovie/CardMovie";
 import PaginationButtons from "../Movies/components/PaginationButtons";
 import HeroSection from "../Components/HeroSection/index";
-import { MovieData } from "@/app/Types/types";
 import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
+import { MovieData } from "../../Types/Movie";
 
 export default function Page() {
   const [page, setPage] = useState(1);
@@ -36,17 +36,19 @@ export default function Page() {
   useEffect(() => {
     if (data?.movies) {
       setAllData((prev) =>
-        page === 1 ? data.movies : [...prev, ...data.movies]
+        page === 1 ? data.movies : [...prev, ...data.movies],
       );
     }
   }, [data, page]);
 
   // Animation effects removed
 
-  const heroKidsMovies = heroKidsMoviesQuery.data?.slice(0, 5).map((movie: any) => ({
-    ...movie,
-    media_type: "movie" as const,
-  }));
+  const heroKidsMovies = heroKidsMoviesQuery.data
+    ?.slice(0, 5)
+    .map((movie: any) => ({
+      ...movie,
+      media_type: "movie" as const,
+    }));
 
   return (
     <>
@@ -54,7 +56,7 @@ export default function Page() {
       <main className="min-h-screen bg-black text-white container">
         <section className="md:py-20 py-15">
           {isLoading ? (
-            <NetflixIntroLoader/>
+            <NetflixIntroLoader />
           ) : !isLoading && allData.length === 0 ? (
             <h3 className="text-white text-center mt-10">
               No kids movies found.

@@ -1,8 +1,16 @@
 import Image from "next/image";
-import { Play, Plus, ThumbsUp, Info, Loader2, Clock, TrendingUp, Globe } from "lucide-react";
+import {
+  Play,
+  Plus,
+  ThumbsUp,
+  Info,
+  Loader2,
+  Clock,
+  TrendingUp,
+  Globe,
+} from "lucide-react";
 import NoImageFallback from "../NoImageFallback/NoImageFallback";
 import Link from "next/link";
-import { MovieData } from "../../Types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
 import { useState } from "react";
@@ -11,10 +19,13 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import MovieCardPopup from "./MovieCardPopup";
 import NetflixBadge from "../shared/NetflixBadge";
+import { MovieData } from "@/Types/Movie";
 
-type MyListItem = MovieData | { id: number; title?: string; name?: string; poster_path?: string; };
+type MyListItem =
+  | MovieData
+  | { id: number; title?: string; name?: string; poster_path?: string };
 
-interface MovieDetailsType {
+type MovieDetailsType = {
   title?: string;
   overview?: string;
   vote_average?: number;
@@ -25,7 +36,7 @@ interface MovieDetailsType {
   production_companies?: { name: string }[];
   backdrop_path?: string;
   poster_path?: string;
-}
+};
 
 type CardMovieProps = {
   movie: MovieData;
@@ -33,12 +44,16 @@ type CardMovieProps = {
 
 export default function CardMovie({ movie }: CardMovieProps) {
   const dispatch = useDispatch();
-  const myList: MyListItem[] = useSelector((state: { myList: MyListItem[] }) => state.myList);
+  const myList: MyListItem[] = useSelector(
+    (state: { myList: MyListItem[] }) => state.myList,
+  );
   const router = useRouter();
 
   const isInList = myList.some((item) => item.id === movie.id);
   const [isOpen, setIsOpen] = useState(false);
-  const [movieDetails, setMovieDetails] = useState<MovieDetailsType | null>(null);
+  const [movieDetails, setMovieDetails] = useState<MovieDetailsType | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [addingToList, setAddingToList] = useState(false);
 
@@ -47,16 +62,16 @@ export default function CardMovie({ movie }: CardMovieProps) {
     setAddingToList(true);
 
     // Add a small delay for better UX
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (isInList) {
       dispatch(removeFromList(movie.id));
       toast.success(`${movie.title} removed from My List`, {
         duration: 2000,
         style: {
-          background: '#1f2937',
-          color: '#fff',
-          border: '1px solid #374151',
+          background: "#1f2937",
+          color: "#fff",
+          border: "1px solid #374151",
         },
       });
     } else {
@@ -64,9 +79,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
       toast.success(`${movie.title} added to My List`, {
         duration: 2000,
         style: {
-          background: '#1f2937',
-          color: '#fff',
-          border: '1px solid #374151',
+          background: "#1f2937",
+          color: "#fff",
+          border: "1px solid #374151",
         },
       });
     }
@@ -89,7 +104,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
   };
 
   const truncateText = (text: string, maxLength: number) => {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
   };
 
   return (
@@ -143,7 +160,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                   {movie.runtime}min
                 </span>
               )}
-              
+
               {/* Popularity Score */}
               {movie?.popularity && movie.popularity > 0 && (
                 <span className="inline-flex items-center px-2 py-1 rounded text-xs text-gray-300 bg-black/40 border border-gray-600/30">
@@ -151,7 +168,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                   {Math.round(movie.popularity)}
                 </span>
               )}
-              
+
               {/* Language Flag */}
               {movie?.original_language && (
                 <span className="inline-flex items-center px-2 py-1 rounded text-xs text-gray-300 bg-black/40 border border-gray-600/30">
@@ -163,7 +180,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
 
             {/* Description */}
             <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
-              {movie.overview ? truncateText(movie.overview, 120) : "No description available."}
+              {movie.overview
+                ? truncateText(movie.overview, 120)
+                : "No description available."}
             </p>
             {/* Action Buttons */}
             <div className="flex items-center justify-between">
@@ -187,7 +206,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
                     handleAddToList(e);
                   }}
                   disabled={addingToList}
-                  aria-label={isInList ? "Remove from My List" : "Add to My List"}
+                  aria-label={
+                    isInList ? "Remove from My List" : "Add to My List"
+                  }
                   className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
                 >
                   {addingToList ? (
@@ -224,7 +245,9 @@ export default function CardMovie({ movie }: CardMovieProps) {
                 <span>{new Date(movie.release_date).getFullYear()}</span>
               )}
               {movie.adult && (
-                <span className="border border-gray-400 px-1 py-0.5 rounded text-xs">18+</span>
+                <span className="border border-gray-400 px-1 py-0.5 rounded text-xs">
+                  18+
+                </span>
               )}
             </div>
           </div>
