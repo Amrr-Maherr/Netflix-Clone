@@ -177,7 +177,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                     router.push(`/TvShowDetails/${TvShow.id}`);
                   }}
                   aria-label="Play TV show"
-                  className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
+                  className="bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors border border-white/30"
                 >
                   <Play size={20} fill="currentColor" />
                 </button>
@@ -190,22 +190,13 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                   }}
                   disabled={addingToList}
                   aria-label={isInList ? "Remove from My List" : "Add to My List"}
-                  className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+                  className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20"
                 >
                   {addingToList ? (
                     <Loader2 size={20} className="animate-spin" />
                   ) : (
                     <Plus size={20} className={isInList ? "rotate-45" : ""} />
                   )}
-                </button>
-
-                {/* Like */}
-                <button
-                  onClick={(e) => e.stopPropagation()}
-                  aria-label="Like TV show"
-                  className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
-                >
-                  <ThumbsUp size={20} />
                 </button>
               </div>
 
@@ -214,7 +205,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
                 onClick={handleMoreInfo}
                 disabled={loading}
                 aria-label="More info"
-                className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+                className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20"
               >
                 <Info size={20} />
               </button>
