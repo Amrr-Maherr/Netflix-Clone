@@ -27,93 +27,86 @@ export default function ReviewsSection({ reviews }: { reviews: Review[] }) {
   if (!reviews?.length) return null;
 
   return (
-    <section className="py-12">
-      <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">
+    <section className="space-y-10">
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
         Reviews
       </h2>
 
       <Slider
         slidesPerView={slidesCount}
         slidesPerViewMobile={1.2}
-        spaceBetween={20}
-        swiperOptions={{
-          autoplay: { delay: 5000 },
-          loop: true,
-        }}
+        spaceBetween={16}
       >
         {reviews.map((review) => {
           const avatarSrc = review.author_details.avatar_path
             ? review.author_details.avatar_path.startsWith("/https")
               ? review.author_details.avatar_path.slice(1)
               : `https://image.tmdb.org/t/p/w200${review.author_details.avatar_path}`
-            : "/default-avatar.png";
+            : "/Netflix_Symbol_RGB.png";
 
           const rating = review.author_details.rating ?? 0;
 
           return (
             <div
               key={review.id}
-              className=" relative bg-[#141414]/90 backdrop-blur-lg rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-500 h-auto flex flex-col justify-between"
+              className="relative bg-zinc-900 rounded-sm overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-10 flex flex-col h-full"
             >
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
-
               {/* Content */}
-              <div className="relative z-10 p-6 flex flex-col h-full justify-between">
+              <div className="p-4 flex flex-col h-full justify-between">
                 {/* Header */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <Image
                     src={avatarSrc}
                     alt={review.author}
-                    width={60}
-                    height={60}
-                    className="rounded-full border border-gray-700 shadow-lg"
+                    width={40}
+                    height={40}
+                    className="rounded-full border border-gray-700 object-cover"
                     priority
                     quality={100}
                     placeholder="blur"
                     blurDataURL="/Netflix_Symbol_RGB.png"
                   />
-                  <div>
-                    <h3 className="text-lg font-semibold text-red-500">
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-semibold text-white truncate">
                       {review.author}
                     </h3>
                     {review.author_details.name && (
-                      <p className="text-sm text-gray-400">
+                      <p className="text-xs text-gray-400 truncate">
                         {review.author_details.name}
                       </p>
                     )}
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 truncate">
                       @{review.author_details.username}
                     </p>
                   </div>
                 </div>
 
                 {/* Review Content */}
-                <div className="flex-1 mt-5 overflow-hidden">
-                  <p className="text-gray-300 text-sm leading-relaxed line-clamp-9">
-                    {review.content.slice(0,100)}...
+                <div className="my-3 flex-1">
+                  <p className="text-gray-300 text-sm leading-relaxed line-clamp-5">
+                    {review.content}
                   </p>
                 </div>
 
                 {/* Rating + Date + Link */}
-                <div className="mt-6 flex flex-col gap-2">
+                <div className="mt-auto pt-3">
                   {rating > 0 && (
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 mb-2">
                       <Star className="text-yellow-400 w-4 h-4 fill-yellow-400" />
-                      <span className="text-gray-300 text-sm font-medium">
+                      <span className="text-gray-300 text-xs font-medium">
                         {rating.toFixed(1)}/10
                       </span>
                     </div>
                   )}
-                  <div className="flex items-center justify-between text-sm text-gray-400">
+                  <div className="flex items-center justify-between text-xs text-gray-400">
                     <span>
-                      {new Date(review.created_at).toLocaleDateString()}
+                      {new Date(review.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                     </span>
                     <a
                       href={review.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-red-500 hover:text-red-400 transition-colors font-medium"
+                      className="text-gray-400 hover:text-white transition-colors font-medium"
                     >
                       Read full →
                     </a>
