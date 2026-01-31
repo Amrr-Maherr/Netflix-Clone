@@ -129,19 +129,19 @@ export default function TVCardPopup({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-2 mt-auto pt-4">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddToList(e);
                 }}
                 disabled={addingToList}
-                className="flex-1 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white py-3 px-4 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
+                className="flex-1 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white py-2.5 px-3 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 text-sm"
               >
                 {addingToList ? (
-                  <Loader2 size={16} className="animate-spin" />
+                  <Loader2 size={14} className="animate-spin" />
                 ) : (
-                  <Plus size={16} />
+                  <Plus size={14} />
                 )}
                 <span>{isInList ? "In My List" : "Add to List"}</span>
               </button>
@@ -149,18 +149,18 @@ export default function TVCardPopup({
               <Link href={`/TvShowDetails/${TvShow.id}`}>
                 <button
                   onClick={onClose}
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2.5 px-3 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                 >
-                  <Play size={16} fill="currentColor" />
+                  <Play size={14} fill="currentColor" />
                   <span>Play</span>
                 </button>
               </Link>
 
               <button
                 onClick={onClose}
-                className="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white py-3 px-4 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2"
+                className="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white py-2.5 px-3 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2 text-sm"
               >
-                <Info size={16} />
+                <Info size={14} />
                 <span>More Info</span>
               </button>
             </div>
