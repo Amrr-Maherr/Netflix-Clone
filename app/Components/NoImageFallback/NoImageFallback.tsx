@@ -25,7 +25,6 @@ export default function NoImageFallback({
         blurDataURL="/Netflix_Symbol_RGB.png"
         className="drop-shadow-md"
       />
-      <span className="text-white text-sm text-center px-2">{text}</span>
     </div>
   );
 }
