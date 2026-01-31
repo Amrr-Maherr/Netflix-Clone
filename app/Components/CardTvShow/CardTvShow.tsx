@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import TVCardPopup from "./TVCardPopup";
 import NetflixBadge from "../shared/NetflixBadge";
-import { TvShowData } from "@/app/Data/TvShowData";
+import { TvShowData } from "@/Types/TvShow";
 
 type MyListItem = TvShowData | { id: number; title?: string; name?: string; poster_path?: string; };
 

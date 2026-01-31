@@ -6,7 +6,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
-import { TvShowData } from "@/app/Data/TvShowData";
+import { TvShowData } from "@/Types/TvShow";
+
 
 type MyListItem = TvShowData | { id: number; title?: string; name?: string; poster_path?: string; };
 
