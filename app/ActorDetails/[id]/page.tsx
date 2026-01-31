@@ -17,6 +17,7 @@ import KnownForSection from "../components/KnownForSection";
 import TriviaSection from "../components/TriviaSection";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
+import PageHead from "@/app/Components/PageHead";
 
 // Components
 
@@ -51,25 +52,33 @@ export default function Page() {
 
   const Tv = combinedCredits.filter((c) => c.media_type === "tv") || []
   const Movies = combinedCredits.filter((c) => c.media_type === "movie") || [];
+console.log(person?.name);
 
   return (
-    <div className="bg-black">
-      {/* Hero Section */}
-      <HeroSection person={person} />
+    <>
+      <PageHead
+        title={person?.name}
+        description={person?.biography}
+        image={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
+      />
+      <div className="bg-black">
+        {/* Hero Section */}
+        <HeroSection person={person} />
 
-      {/* Content */}
-      <div className="bg-black relative z-10 container">
-        <Biography text={person.biography} />
-        <MovieCredits movies={Movies} />
-        <TvCredits shows={Tv} />
-        <AlsoKnownAs names={person.also_known_as} />
-        <ImagesGallery images={person.images?.profiles} />
-        <VideosSection videos={person.videos?.results} />
-        <AwardsSection awards={person.awards} />
-        <KnownForSection items={person.known_for} />
-        <TriviaSection trivia={person.trivia} />
-        <SocialLinks ids={person.external_ids} />
+        {/* Content */}
+        <div className="bg-black relative z-10 container">
+          <Biography text={person.biography} />
+          <MovieCredits movies={Movies} />
+          <TvCredits shows={Tv} />
+          <AlsoKnownAs names={person.also_known_as} />
+          <ImagesGallery images={person.images?.profiles} />
+          <VideosSection videos={person.videos?.results} />
+          <AwardsSection awards={person.awards} />
+          <KnownForSection items={person.known_for} />
+          <TriviaSection trivia={person.trivia} />
+          <SocialLinks ids={person.external_ids} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
