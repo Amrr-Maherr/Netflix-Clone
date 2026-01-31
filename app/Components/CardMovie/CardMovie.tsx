@@ -194,7 +194,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                     router.push(`/MovieDetails/${movie.id}`);
                   }}
                   aria-label="Play movie"
-                  className="bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors"
+                  className="bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors border border-white/30"
                 >
                   <Play size={20} fill="currentColor" />
                 </button>
@@ -209,7 +209,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                   aria-label={
                     isInList ? "Remove from My List" : "Add to My List"
                   }
-                  className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+                  className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20"
                 >
                   {addingToList ? (
                     <Loader2 size={20} className="animate-spin" />
@@ -222,7 +222,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                 <button
                   onClick={(e) => e.stopPropagation()}
                   aria-label="Like movie"
-                  className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors"
+                  className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors backdrop-blur-sm bg-black/20"
                 >
                   <ThumbsUp size={20} />
                 </button>
@@ -233,7 +233,7 @@ export default function CardMovie({ movie }: CardMovieProps) {
                 onClick={handleMoreInfo}
                 disabled={loading}
                 aria-label="More info"
-                className="border-2 border-gray-400 text-white rounded-full p-2 hover:border-white transition-colors disabled:opacity-50"
+                className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20"
               >
                 <Info size={20} />
               </button>
