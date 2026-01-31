@@ -124,7 +124,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
           {/* Bottom Section - Always Visible */}
           <div className="space-y-2">
             {/* Title - Always Visible */}
-            <h3 className="text-sm font-bold leading-tight line-clamp-2 group-hover:text-white transition-colors">
+            <h3 className="text-sm font-bold leading-tight line-clamp-2 text-white transition-colors">
               {TvShow?.name}
             </h3>
 

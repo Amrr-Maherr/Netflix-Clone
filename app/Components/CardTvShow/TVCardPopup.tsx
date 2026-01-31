@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Play, Plus, Loader2 } from "lucide-react";
+import { Play, Plus, ThumbsUp, Info, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -46,7 +46,7 @@ export default function TVCardPopup({
 }: TVCardPopupProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
+      <DialogContent className="!max-w-4xl w-full p-0 bg-transparent border-none overflow-hidden">
         <DialogTitle className="sr-only">{tvDetails?.name || TvShow?.name}</DialogTitle>
         <div className="relative min-h-[60vh] flex flex-col md:flex-row">
           {/* Backdrop Image */}
@@ -139,31 +139,40 @@ export default function TVCardPopup({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddToList(e);
                 }}
                 disabled={addingToList}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center gap-2"
+                className="flex-1 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white py-3 px-4 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {addingToList ? (
                   <Loader2 size={16} className="animate-spin" />
                 ) : (
                   <Plus size={16} />
                 )}
-                {isInList ? 'Remove from List' : 'Add to List'}
+                <span>{isInList ? "In My List" : "Add to List"}</span>
               </button>
 
               <Link href={`/TvShowDetails/${TvShow.id}`}>
                 <button
                   onClick={onClose}
-                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2"
                 >
-                  View Details
+                  <Play size={16} fill="currentColor" />
+                  <span>Play</span>
                 </button>
               </Link>
+
+              <button
+                onClick={onClose}
+                className="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white py-3 px-4 rounded-md font-semibold transition-all duration-200 flex items-center justify-center gap-2"
+              >
+                <Info size={16} />
+                <span>More Info</span>
+              </button>
             </div>
           </div>
         </div>
