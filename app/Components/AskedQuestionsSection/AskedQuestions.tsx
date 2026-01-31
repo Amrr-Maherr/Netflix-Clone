@@ -42,50 +42,48 @@ const faqs = [
 
 export default function AskedQuestions() {
   return (
-    <div className="bg-black text-white py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-lg md:text-xl text-gray-400">
-            Have a different question and can't find the answer you're looking
-            for? Reach out to our support team by sending us an email and we'll
-            get back to you as soon as we can.
-          </p>
-        </div>
-
-        <div className="max-w-4xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-gray-900/60 backdrop-blur border border-gray-800 rounded-lg overflow-hidden hover:bg-gray-900/80 transition-colors px-6"
-              >
-                <AccordionTrigger className="text-lg font-semibold text-white hover:no-underline py-6">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-300 text-base leading-relaxed pb-6">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-
-        <div className="text-center mt-16">
-          <h3 className="text-2xl font-bold text-white mb-4">
-            Ready to start exploring?
-          </h3>
-          <p className="text-lg text-gray-400 mb-6">
-            Sign up or log in to discover thousands of movies and TV shows.
-          </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
-            Get Started
-          </button>
-        </div>
+    <section className="space-y-10 py-16">
+      <div className="text-center max-w-3xl mx-auto px-4">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto">
+          Have a different question and can't find the answer you're looking
+          for? Reach out to our support team by sending us an email and we'll
+          get back to you as soon as we can.
+        </p>
       </div>
-    </div>
+
+      <div className="max-w-4xl mx-auto px-4">
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="bg-zinc-900 rounded-sm border border-zinc-800 overflow-hidden transition-colors"
+            >
+              <AccordionTrigger className="text-base md:text-lg font-semibold text-white hover:no-underline py-4 px-4">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-300 text-sm md:text-base leading-relaxed pb-4 px-4">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+
+      <div className="text-center max-w-2xl mx-auto px-4">
+        <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+          Ready to start exploring?
+        </h3>
+        <p className="text-base text-gray-400 mb-6">
+          Sign up or log in to discover thousands of movies and TV shows.
+        </p>
+        <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-md font-semibold transition-colors text-sm md:text-base">
+          Get Started
+        </button>
+      </div>
+    </section>
   );
 }
