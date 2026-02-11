@@ -18,44 +18,45 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   page,
 }) => {
   return (
-    <div className="flex items-center justify-center gap-6 my-10">
+    <div className="flex items-center justify-center gap-2 my-12">
       <Button
         onClick={LoadLess}
         disabled={page === 1 || isLoading}
-        className="flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-md
-                   bg-red-600 hover:bg-red-700
-                   text-white transition-all duration-200
-                   shadow-md hover:shadow-lg
-                   disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
-                   active:scale-95"
+        className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium rounded-sm
+                   bg-zinc-800 hover:bg-zinc-700
+                   text-white transition-colors duration-200
+                   border border-zinc-700 hover:border-zinc-600
+                   disabled:opacity-40 disabled:cursor-not-allowed
+                   min-w-[100px]"
       >
         {isLoading ? (
-          <Loader2 size={22} className="animate-spin" />
+          <Loader2 size={16} className="animate-spin" />
         ) : (
-          <ChevronLeft size={22} />
+          <ChevronLeft size={16} />
         )}
-        {isLoading ? "Loading..." : "Previous"}
+        <span>Previous</span>
       </Button>
 
-      <span className="px-4 py-2 bg-gray-800 text-white rounded-md font-semibold">
-        Page {page}
-      </span>
+      <div className="flex items-center gap-1 px-4">
+        <span className="text-sm text-zinc-400">Page</span>
+        <span className="text-sm font-semibold text-white">{page}</span>
+      </div>
 
       <Button
         onClick={LoadMore}
         disabled={isLoading}
-        className="flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-md
-                   bg-red-600 hover:bg-red-700
-                   text-white transition-all duration-200
-                   shadow-md hover:shadow-lg cursor-pointer
-                   disabled:opacity-50 disabled:cursor-not-allowed
-                   active:scale-95"
+        className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium rounded-sm
+                   bg-zinc-800 hover:bg-zinc-700
+                   text-white transition-colors duration-200
+                   border border-zinc-700 hover:border-zinc-600
+                   disabled:opacity-40 disabled:cursor-not-allowed
+                   min-w-[100px]"
       >
-        {isLoading ? "Loading..." : "Next"}
+        <span>Next</span>
         {isLoading ? (
-          <Loader2 size={22} className="animate-spin" />
+          <Loader2 size={16} className="animate-spin" />
         ) : (
-          <ChevronRight size={22} />
+          <ChevronRight size={16} />
         )}
       </Button>
     </div>
