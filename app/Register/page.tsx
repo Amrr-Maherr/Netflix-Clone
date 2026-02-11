@@ -39,8 +39,9 @@ export default function Page() {
       await registerUser(data.email, data.password);
       reset();
       router.push("/");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
     } finally {
       setLoading(false);
     }

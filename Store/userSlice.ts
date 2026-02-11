@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { UserState, SetUserPayload } from '@/Types';
 
-const loadUserFromStorage = () => {
+const loadUserFromStorage = (): UserState => {
   if (typeof window !== 'undefined') {
     const storedUser = localStorage.getItem('netflix_user');
     return storedUser ? JSON.parse(storedUser) : { name: null, email: null, image: null };
@@ -8,7 +9,7 @@ const loadUserFromStorage = () => {
   return { name: null, email: null, image: null };
 };
 
-const saveUserToStorage = (user) => {
+const saveUserToStorage = (user: UserState): void => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('netflix_user', JSON.stringify(user));
   }
@@ -18,7 +19,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: loadUserFromStorage(),
   reducers: {
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<SetUserPayload | null>) => {
       if (action.payload) {
         state.name = action.payload.displayName || action.payload.name || null;
         state.email = action.payload.email || null;

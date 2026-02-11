@@ -3,8 +3,9 @@
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
+import type { CreatedBySectionProps } from "@/Types";
 
-export default function CreatedBySection({ creators }: { creators: any[] }) {
+export default function CreatedBySection({ creators }: CreatedBySectionProps) {
   const slidesCount = useVisibleSlidesCount();
 
   if (!creators?.length) return null;

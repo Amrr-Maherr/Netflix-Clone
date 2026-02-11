@@ -8,14 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToList, removeFromList } from "@/Store/myListSlice";
 import toast from "react-hot-toast";
 import ShareButton from "@/app/Components/ShareButton/ShareButton";
-
-interface HeroSectionProps {
-  movie?: any;
-  tv?: any;
-  backdropUrl: string | null;
-  posterUrl: string;
-  trailer: any;
-}
+import type { RootState, HeroSectionProps, MyListItem } from "@/Types";
 
 export default function HeroSection({
   movie,
@@ -26,31 +19,35 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const data = movie || tv;
   const trailerKey = trailer?.key;
-  const title = data.title || data.name;
-  const tagline = data.tagline;
-  const date = data.release_date || data.first_air_date;
-  const runtime =
-    data.runtime ||
-    (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : null);
+  const title = movie ? movie.title : tv ? tv.name : "";
+  const tagline = data?.tagline;
+  const date = movie ? movie.release_date : tv ? tv.first_air_date : "";
+  const runtime = movie 
+    ? movie.runtime 
+    : tv && Array.isArray(tv.episode_run_time) 
+      ? tv.episode_run_time[0] 
+      : null;
 
   const [isMobile, setIsMobile] = useState(false);
   const [isMuted, setIsMuted] = useState(true); // Start muted by default
 
-  const myList = useSelector((state: any) => state.myList);
+  const myList = useSelector((state: RootState) => state.myList);
   const dispatch = useDispatch();
 
-  const isInList = myList.some((item: any) => item.id === data.id);
+  const isInList = myList.some((item) => item.id === data?.id);
 
   const handleAddToList = () => {
+    if (!data) return;
+    
     if (isInList) {
       dispatch(removeFromList(data.id));
       toast.success("Removed from your list!");
     } else {
       const item = {
         ...data,
-        media_type: movie ? "movie" : "tv",
+        media_type: movie ? ("movie" as const) : ("tv" as const),
       };
-      dispatch(addToList(item));
+      dispatch(addToList(item as MyListItem));
       toast.success("Added to your list!");
     }
   };
@@ -72,6 +69,8 @@ export default function HeroSection({
   };
 
   const backgroundImage = isMobile ? posterUrl : backdropUrl || posterUrl;
+
+  if (!data) return null;
 
   return (
     <div className="relative flex items-end md:items-center justify-start w-full h-dvh bg-black overflow-hidden">

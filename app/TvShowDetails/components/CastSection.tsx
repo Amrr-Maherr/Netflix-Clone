@@ -1,8 +1,9 @@
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
+import type { CastSectionProps } from "@/Types";
 
-export default function CastSection({ cast }: { cast: any[] }) {
+export default function CastSection({ cast }: CastSectionProps) {
   const slidesCount = useVisibleSlidesCount();
 
   if (!cast?.length) return null;

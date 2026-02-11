@@ -9,6 +9,7 @@ import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import { Search, Film, Tv, X } from "lucide-react";
+import type { SearchResult } from "@/Types";
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
@@ -16,15 +17,15 @@ function SearchPageContent() {
   const [searchInput, setSearchInput] = useState(query);
   const [activeTab, setActiveTab] = useState("all");
 
-  const { data: searchResults, isLoading, error } = useQuery({
+  const { data: searchResults, isLoading, error } = useQuery<SearchResult[]>({
     queryKey: ["search", query],
     queryFn: () => FetchMultiSearch({ query }),
     enabled: !!query,
   });
 
   // Filter results by media type
-  const movies = searchResults?.filter((item: any) => item.media_type === "movie") || [];
-  const tvShows = searchResults?.filter((item: any) => item.media_type === "tv") || [];
+  const movies = searchResults?.filter((item) => item.media_type === "movie") || [];
+  const tvShows = searchResults?.filter((item) => item.media_type === "tv") || [];
   const allResults = searchResults || [];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -124,7 +125,7 @@ export default function SearchResultsPage() {
   );
 }
 
-function SearchResultsGrid({ results, title }: { results: any[]; title: string }) {
+function SearchResultsGrid({ results, title }: { results: SearchResult[]; title: string }) {
   if (results.length === 0) {
     return (
       <div className="text-center py-20 h-screen flex items-center justify-center flex-col">
@@ -154,7 +155,7 @@ function SearchResultsGrid({ results, title }: { results: any[]; title: string }
         <h1 className="text-3xl font-bold text-white mb-6">{title}</h1>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        {results.map((item: any) => {
+        {results.map((item) => {
           if (item.media_type === "movie") {
             return (
               <div key={item.id} className="transform transition-all duration-300 hover:scale-105 hover:z-10">

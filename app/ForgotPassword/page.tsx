@@ -33,8 +33,9 @@ export default function Page() {
       await resetPassword(data.email);
       setMessage("Password reset email sent. Check your inbox.");
       reset();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
     } finally {
       setLoading(false);
     }

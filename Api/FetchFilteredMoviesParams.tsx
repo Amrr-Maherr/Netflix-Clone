@@ -1,13 +1,9 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import type { FilteredMoviesResponse, DiscoverMovieParams } from "@/Types";
 
-interface FetchFilteredMoviesParams {
-  page?: number;
-  with_genres?: string;
-  with_original_language?: string;
-  primary_release_year?: number;
+interface FetchFilteredMoviesParams extends Partial<DiscoverMovieParams> {
+  lang?: string;
   vote_average_gte?: number;
-  sort_by?: string;
-  lang?:string
 }
 
 const FetchFilteredMovies = async ({
@@ -18,7 +14,7 @@ const FetchFilteredMovies = async ({
   vote_average_gte,
   sort_by = "popularity.desc",
   lang = "en",
-}: FetchFilteredMoviesParams) => {
+}: FetchFilteredMoviesParams): Promise<FilteredMoviesResponse> => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/discover/movie`,
@@ -45,10 +41,11 @@ const FetchFilteredMovies = async ({
       totalPages: response.data.total_pages,
       totalResults: response.data.total_results,
     };
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError;
     console.error(
       "Error fetching filtered movies:",
-      error.response?.data || error.message
+      axiosError.response?.data || axiosError.message
     );
     throw error;
   }

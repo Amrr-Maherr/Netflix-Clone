@@ -79,7 +79,7 @@ export default function CardTvShow({ TvShow }: CardTvShowProps) {
     e.stopPropagation();
     setLoading(true);
     try {
-      const details = await FetchTVDetails({ id: TvShow.id!.toString() });
+      const details = await FetchTVDetails({ id: TvShow.id.toString() });
       setTvDetails(details);
       setIsOpen(true);
     } catch (error) {

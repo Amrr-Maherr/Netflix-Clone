@@ -3,20 +3,15 @@ import React, { useEffect, useRef } from "react";
 import DataList from "./DataList";
 import SplitText from "../Animations/SplitText";
 import RotatingText from "../Animations/RotatingText";
+import type { Movie, TVShow } from "@/Types";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Movie = {
-  id: number;
-  title: string;
-  poster_path: string;
-};
-
 type IndexProps = {
-  Data: Movie[];
+  Data: (Movie | TVShow)[];
   title: string;
   animationText?: [];
   isMovie: boolean;

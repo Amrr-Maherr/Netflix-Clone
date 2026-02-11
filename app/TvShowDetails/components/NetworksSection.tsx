@@ -3,8 +3,9 @@
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
+import type { NetworksSectionProps } from "@/Types";
 
-export default function NetworksSection({ networks }: { networks: any[] }) {
+export default function NetworksSection({ networks }: NetworksSectionProps) {
   const slidesCount = useVisibleSlidesCount();
 
   if (!networks?.length) return null;

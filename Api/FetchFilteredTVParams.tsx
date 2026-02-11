@@ -1,13 +1,9 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import type { FilteredTVShowsResponse, DiscoverTVParams } from "@/Types";
 
-interface FetchFilteredTVParams {
-  page?: number;
-  with_genres?: string;
-  with_original_language?: string;
-  first_air_date_year?: number;
-  vote_average_gte?: number;
-  sort_by?: string;
+interface FetchFilteredTVParams extends Partial<DiscoverTVParams> {
   lang?: string;
+  vote_average_gte?: number;
 }
 
 const FetchFilteredTV = async ({
@@ -18,7 +14,7 @@ const FetchFilteredTV = async ({
   vote_average_gte,
   sort_by = "popularity.desc",
   lang = "en",
-}: FetchFilteredTVParams) => {
+}: FetchFilteredTVParams): Promise<FilteredTVShowsResponse> => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_TMDB_BASE_URL}/discover/tv`,
@@ -45,10 +41,11 @@ const FetchFilteredTV = async ({
       totalPages: response.data.total_pages,
       totalResults: response.data.total_results,
     };
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError;
     console.error(
       "Error fetching filtered TV shows:",
-      error.response?.data || error.message
+      axiosError.response?.data || axiosError.message
     );
     throw error;
   }

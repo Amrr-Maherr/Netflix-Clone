@@ -1,17 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { MyListState, MyListItem } from '@/Types';
 
 const myListSlice = createSlice({
   name: 'myList',
-  initialState: [],
+  initialState: [] as MyListState,
   reducers: {
-    addToList: (state, action) => {
+    addToList: (state, action: PayloadAction<MyListItem>) => {
       const item = action.payload;
       const existingItem = state.find((i) => i.id === item.id);
       if (!existingItem) {
         state.push(item);
       }
     },
-    removeFromList: (state, action) => {
+    removeFromList: (state, action: PayloadAction<number>) => {
       return state.filter((i) => i.id !== action.payload);
     },
     clearList: () => [],

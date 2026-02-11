@@ -10,11 +10,12 @@ import MobileFilters from "./components/MobileFilters";
 import Filters from "./components/Filters";
 import HeroSection from "../Components/HeroSection/index";
 import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
+import type { Movie } from "@/Types";
 
 export default function Page() {
   const [page, setPage] = useState(1);
-  const [allData, setAllData] = useState<any[]>([]);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [allData, setAllData] = useState<Movie[]>([]);
+  const [filteredData, setFilteredData] = useState<Movie[]>([]);
 
   const [filters, setFilters] = useState({
     sort: "",
@@ -75,7 +76,7 @@ export default function Page() {
     refetch();
   }, [filters,refetch]);
 
-  const heroMovies = heroMoviesQuery.data?.slice(0, 5).map((movie: any) => ({
+  const heroMovies = heroMoviesQuery.data?.slice(0, 5).map((movie: Movie) => ({
     ...movie,
     media_type: "movie" as const,
   }));

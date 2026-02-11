@@ -1,0 +1,10 @@
+/**
+ * Network Types - TV networks and streaming platforms
+ */
+
+export interface Network {
+  id: number;
+  logo_path: string | null;
+  name: string;
+  origin_country: string;
+}

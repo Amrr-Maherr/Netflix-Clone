@@ -11,11 +11,12 @@ import MobileFilters from "../Movies/components/MobileFilters";
 import PaginationButtons from "../Movies/components/PaginationButtons";
 import HeroSection from "../Components/HeroSection/index";
 import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
+import type { TVShow } from "@/Types";
 
 export default function Page() {
   const [page, setPage] = useState(1);
-  const [allData, setAllData] = useState<any[]>([]);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [allData, setAllData] = useState<TVShow[]>([]);
+  const [filteredData, setFilteredData] = useState<TVShow[]>([]);
   const [filters, setFilters] = useState({
     sort: "",
     genre: "",
@@ -71,7 +72,7 @@ export default function Page() {
 
   // Animation effects removed
 
-  const heroShows = heroTvShowsQuery.data?.slice(0, 5).map((show: any) => ({
+  const heroShows = heroTvShowsQuery.data?.slice(0, 5).map((show: TVShow) => ({
     ...show,
     media_type: "tv" as const,
   }));

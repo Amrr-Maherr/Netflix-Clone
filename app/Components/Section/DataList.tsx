@@ -3,19 +3,10 @@ import CardMovie from "../CardMovie/CardMovie";
 import CardTvShow from "../CardTvShow/CardTvShow";
 import Slider from "../Slider/Slider";
 import { useVisibleSlidesCount } from "../../../lib/useVisibleSlidesCount";
-
-type Movie = {
-  id: number;
-  title?: string;
-  name?: string; // TV shows often use "name" instead of "title"
-  poster_path: string;
-  vote_average?: number;
-  release_date?: string;
-  overview?: string;
-};
+import type { Movie, TVShow } from "@/Types";
 
 type DataListProps = {
-  Data: Movie[];
+  Data: (Movie | TVShow)[];
   isMovie: boolean;
 };
 
@@ -31,26 +22,16 @@ export default function DataList({ Data, isMovie }: DataListProps) {
       swiperOptions={{ autoplay: { delay: 3000 }, loop: true }}
     >
       {isMovie
-        ? Data?.map((movie) => (
+        ? (Data as Movie[])?.map((movie) => (
             <CardMovie
               key={movie.id}
-              movie={{
-                ...movie,
-                title: movie.title ?? movie.name ?? "Untitled",
-                vote_average: movie.vote_average ?? 0,
-                overview: movie.overview ?? "No overview available",
-              }}
+              movie={movie}
             />
           ))
-        : Data?.map((show) => (
+        : (Data as TVShow[])?.map((show) => (
             <CardTvShow
               key={show.id}
-              TvShow={{
-                ...show,
-                name: show.name ?? show.title ?? "Unknown Show",
-                vote_average: show.vote_average ?? 0,
-                overview: show.overview ?? "No overview available",
-              }}
+              TvShow={show}
             />
           ))}
     </Slider>

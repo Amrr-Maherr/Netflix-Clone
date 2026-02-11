@@ -1,8 +1,9 @@
 import Slider from "@/app/Components/Slider/Slider";
 import Image from "next/image";
 import { useVisibleSlidesCount } from "@/lib/useVisibleSlidesCount";
+import type { CrewSectionProps } from "@/Types";
 
-export default function CrewSection({ crew }: { crew: any[] }) {
+export default function CrewSection({ crew }: CrewSectionProps) {
   const slidesCount = useVisibleSlidesCount();
 
   if (!crew?.length) return null;

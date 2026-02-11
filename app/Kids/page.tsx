@@ -9,11 +9,11 @@ import CardMovie from "../Components/CardMovie/CardMovie";
 import PaginationButtons from "../Movies/components/PaginationButtons";
 import HeroSection from "../Components/HeroSection/index";
 import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
-import { MovieData } from "../../Types/Movie";
+import type { Movie } from "@/Types";
 
 export default function Page() {
   const [page, setPage] = useState(1);
-  const [allData, setAllData] = useState<MovieData[]>([]);
+  const [allData, setAllData] = useState<Movie[]>([]);
 
   const heroKidsMoviesQuery = useQuery({
     queryKey: ["hero-kids-movies"],
@@ -45,7 +45,7 @@ export default function Page() {
 
   const heroKidsMovies = heroKidsMoviesQuery.data
     ?.slice(0, 5)
-    .map((movie: any) => ({
+    .map((movie: Movie) => ({
       ...movie,
       media_type: "movie" as const,
     }));
