@@ -82,7 +82,7 @@ export default function Page() {
   }));
 
   return (
-    isLoading ? (
+    isLoading && page === 1 ? (
       <NetflixIntroLoader />
     ) : (
       <>
@@ -102,7 +102,7 @@ export default function Page() {
           </section>
 
           <section>
-            {allData.length === 0 ? (
+            {allData.length === 0 && !isLoading ? (
               <h3 className="text-white text-center mt-10">
                 No results found for your filter.
               </h3>

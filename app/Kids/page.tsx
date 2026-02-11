@@ -55,9 +55,11 @@ export default function Page() {
       {heroKidsMovies && <HeroSection movies={heroKidsMovies} />}
       <main className="min-h-screen bg-black text-white container">
         <section className="md:py-20 py-15">
-          {isLoading ? (
-            <NetflixIntroLoader />
-          ) : !isLoading && allData.length === 0 ? (
+          {isLoading && page === 1 ? (
+            <div className="flex items-center justify-center min-h-[400px]">
+              <NetflixIntroLoader />
+            </div>
+          ) : allData.length === 0 && !isLoading ? (
             <h3 className="text-white text-center mt-10">
               No kids movies found.
             </h3>
@@ -77,7 +79,7 @@ export default function Page() {
             </p>
           )}
 
-          {!isLoading && (
+          {allData.length > 0 && (
             <PaginationButtons
               LoadMore={LoadMore}
               LoadLess={LoadLess}

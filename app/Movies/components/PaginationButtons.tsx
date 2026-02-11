@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
@@ -21,7 +21,7 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     <div className="flex items-center justify-center gap-6 my-10">
       <Button
         onClick={LoadLess}
-        disabled={page === 1}
+        disabled={page === 1 || isLoading}
         className="flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-md
                    bg-red-600 hover:bg-red-700
                    text-white transition-all duration-200
@@ -29,7 +29,11 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
                    disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
                    active:scale-95"
       >
-        <ChevronLeft size={22} />
+        {isLoading ? (
+          <Loader2 size={22} className="animate-spin" />
+        ) : (
+          <ChevronLeft size={22} />
+        )}
         {isLoading ? "Loading..." : "Previous"}
       </Button>
 
@@ -39,14 +43,20 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
 
       <Button
         onClick={LoadMore}
+        disabled={isLoading}
         className="flex items-center gap-2 px-6 py-3 text-lg font-semibold rounded-md
                    bg-red-600 hover:bg-red-700
                    text-white transition-all duration-200
                    shadow-md hover:shadow-lg cursor-pointer
+                   disabled:opacity-50 disabled:cursor-not-allowed
                    active:scale-95"
       >
         {isLoading ? "Loading..." : "Next"}
-        <ChevronRight size={22} />
+        {isLoading ? (
+          <Loader2 size={22} className="animate-spin" />
+        ) : (
+          <ChevronRight size={22} />
+        )}
       </Button>
     </div>
   );
