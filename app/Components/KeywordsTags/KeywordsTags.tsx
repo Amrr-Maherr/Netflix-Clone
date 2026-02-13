@@ -19,7 +19,6 @@ interface KeywordsTagsProps {
 export default function KeywordsTags({ 
   keywords, 
   className = "", 
-  maxTags = 10,
   clickable = true 
 }: KeywordsTagsProps) {
   const router = useRouter();
@@ -34,8 +33,7 @@ export default function KeywordsTags({
     router.push(`/search?q=${searchQuery}`);
   };
 
-  const displayKeywords = keywords.slice(0, maxTags);
-  const hasMore = keywords.length > maxTags;
+  const displayKeywords = keywords
 
   return (
     <section className={`mb-8 ${className}`}>
@@ -61,11 +59,6 @@ export default function KeywordsTags({
           </button>
         ))}
         
-        {hasMore && (
-          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-gray-800 text-gray-400 border border-gray-700">
-            +{keywords.length - maxTags} more
-          </span>
-        )}
       </div>
       
       {clickable && (

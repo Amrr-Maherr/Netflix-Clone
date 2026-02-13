@@ -29,7 +29,11 @@ export default function GenresSection({ genres }: GenresSectionProps) {
           <button
             key={genre.id}
             onClick={() => handleGenreClick(genre)}
-            className="px-4 py-2 bg-red-600/80 hover:bg-red-600 text-white rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-red-600/25 border border-red-500/50 hover:border-red-400 cursor-pointer"
+            className={`
+              inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm
+              transition-all duration-200
+              ${"bg-gray-800 hover:bg-red-600 text-gray-300 hover:text-white border border-gray-700 hover:border-red-500 cursor-pointer"}
+            `}
           >
             {genre.name}
           </button>
