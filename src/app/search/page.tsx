@@ -154,22 +154,47 @@ function SearchResultsGrid({ results, title }: { results: SearchResult[]; title:
         <h1 className="text-3xl font-bold text-white mb-6">{title}</h1>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        {results.map((item) => (
-          <div key={item.id} className="transform transition-all duration-300 hover:scale-105 hover:z-10">
-            <Card
-              id={item.id}
-              type={item.media_type === "movie" ? "movie" : "tv"}
-              title={item.title || item.name}
-              posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
-              releaseDate={item.release_date}
-              firstAirDate={item.first_air_date}
-              rating={item.vote_average || 0}
-              genres={item.genres?.map((g: any) => g.name) || []}
-              language={item.original_language}
-              overview={item.overview}
-            />
-          </div>
-        ))}
+        {results.map((item) => {
+          // Skip person results (they don't have the required properties for Card)
+          if (item.media_type === "person") return null;
+
+          // Type-safe property extraction using "in" checks
+          const getTitle = () => {
+            if ("title" in item && item.title) return item.title;
+            if ("name" in item && item.name) return item.name;
+            return "Unknown";
+          };
+
+          const getPosterUrl = () => {
+            if ("poster_path" in item && item.poster_path) {
+              return `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+            }
+            return null;
+          };
+
+          const getReleaseDate = () => "release_date" in item ? item.release_date : undefined;
+          const getFirstAirDate = () => "first_air_date" in item ? item.first_air_date : undefined;
+          const getRating = () => ("vote_average" in item ? (item.vote_average as number) || 0 : 0);
+          const getLanguage = () => ("original_language" in item ? item.original_language : undefined);
+          const getOverview = () => ("overview" in item ? item.overview : undefined);
+
+          return (
+            <div key={item.id} className="transform transition-all duration-300 hover:scale-105 hover:z-10">
+              <Card
+                id={item.id}
+                type={item.media_type === "movie" ? "movie" : "tv"}
+                title={getTitle()}
+                posterUrl={getPosterUrl()}
+                releaseDate={getReleaseDate()}
+                firstAirDate={getFirstAirDate()}
+                rating={getRating()}
+                genres={[]}
+                language={getLanguage()}
+                overview={getOverview()}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

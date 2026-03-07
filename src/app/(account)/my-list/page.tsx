@@ -59,22 +59,32 @@
            </Button>
          </div>
          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-           {myList.map((item: MyListItem) => (
-             <div key={item.id} className="relative">
-               <Card
-                 id={item.id}
-                 type={item.media_type === "movie" ? "movie" : "tv"}
-                 title={"title" in item ? item.title : item.name || ""}
-                 posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
-                 releaseDate={"release_date" in item ? item.release_date : undefined}
-                 firstAirDate={"first_air_date" in item ? item.first_air_date : undefined}
-                 rating={"vote_average" in item ? item.vote_average || 0 : 0}
-                 genres={"genres" in item ? item.genres?.map((g: any) => g.name) || [] : []}
-                 language={"original_language" in item ? item.original_language : undefined}
-                 overview={"overview" in item ? item.overview : undefined}
-               />
-             </div>
-           ))}
+           {myList.map((item: MyListItem) => {
+             // Extract genres safely based on media type
+             const getGenres = () => {
+               if ("genres" in item && item.genres && Array.isArray(item.genres)) {
+                 return item.genres.map((g) => g.name).filter(Boolean);
+               }
+               return [];
+             };
+
+             return (
+               <div key={item.id} className="relative">
+                 <Card
+                   id={item.id}
+                   type={item.media_type === "movie" ? "movie" : "tv"}
+                   title={"title" in item ? item.title : item.name || ""}
+                   posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+                   releaseDate={"release_date" in item ? item.release_date : undefined}
+                   firstAirDate={"first_air_date" in item ? item.first_air_date : undefined}
+                   rating={"vote_average" in item ? (item.vote_average as number) || 0 : 0}
+                   genres={getGenres()}
+                   language={"original_language" in item ? item.original_language : undefined}
+                   overview={"overview" in item ? item.overview : undefined}
+                 />
+               </div>
+             );
+           })}
          </div>
  
          <Dialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
