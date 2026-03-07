@@ -16,10 +16,19 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+let app: ReturnType<typeof initializeApp> | null = null;
+let authInstance: ReturnType<typeof getAuth> | null = null;
 
-// Initialize Firebase Authentication
-export const auth = getAuth(app);
-
-export default app;
+export function getFirebaseAuth(): ReturnType<typeof getAuth> | null {
+  if (authInstance) return authInstance;
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  const hasAllKeys = Object.values(firebaseConfig).every(Boolean);
+  if (!hasAllKeys) {
+    return null;
+  }
+  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  authInstance = getAuth(app);
+  return authInstance;
+}

@@ -196,3 +196,10 @@ export interface DetailedTVShow extends TVShow {
 
 // TV show list response
 export type TVShowListResponse = PaginatedResponse<TVShow>;
+
+// Lightweight TV show shape used across UI components
+export type TvShowData = TVShow & {
+  genres?: { id: number; name: string }[];
+  number_of_episodes?: number;
+  number_of_seasons?: number;
+};

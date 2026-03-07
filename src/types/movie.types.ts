@@ -144,7 +144,7 @@ export interface DetailedMovie extends Movie {
   spoken_languages: SpokenLanguage[];
   status: MovieStatus;
   tagline: string | null;
-  
+
   // Appended responses
   videos?: VideosResponse;
   images?: ImagesResponse;
@@ -165,3 +165,9 @@ export interface DetailedMovie extends Movie {
 
 // Movie list response
 export type MovieListResponse = PaginatedResponse<Movie>;
+
+// Lightweight movie shape used across UI components
+export type MovieData = Movie & {
+  genres?: { id: number; name: string }[];
+  runtime?: number;
+};

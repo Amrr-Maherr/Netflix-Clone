@@ -296,3 +296,110 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Built with ❤️ using Next.js**
 
 </div>
+
+## 📂 Project Structure
+
+This is the new, optimized folder structure following a feature-based, scalable, and maintainable architecture. Shared UI lives under components/, while domain-specific code is grouped under features/.
+
+```
+src/
+ ├ app/
+ │   ├ movies/
+ │   ├ tv/
+ │   │   ├ [tvId]/
+ │   │   └ seasons/
+ │   │       └ [seasonNumber]/
+ │   ├ people/
+ │   │   ├ actor/
+ │   │   │   └ [personId]/
+ │   │   └ crew/
+ │   │       └ [personId]/
+ │   ├ search/
+ │   ├ watchlist/
+ │   ├ auth/
+ │   │   ├ login/
+ │   │   ├ register/
+ │   │   └ forgot-password/
+ │   ├ account/
+ │   └ offline/
+ ├ components/
+ │   ├ ui/
+ │   ├ layout/
+ │   │   ├ Header/
+ │   │   ├ Footer/
+ │   │   ├ Logo/
+ │   │   └ ScrollButton/
+ │   └ media/
+ │       ├ PageHead.tsx
+ │       ├ VideoGallery/
+ │       ├ NoImageFallback/
+ │       └ Loading/
+ ├ features/
+ │   ├ movies/
+ │   │   ├ components/
+ │   │   ├ hooks/
+ │   │   ├ services/
+ │   │   └ types/
+ │   ├ tv/
+ │   │   ├ components/
+ │   │   ├ hooks/
+ │   │   ├ services/
+ │   │   └ types/
+ │   ├ people/
+ │   │   ├ components/
+ │   │   ├ services/
+ │   │   └ types/
+ │   ├ search/
+ │   │   ├ components/
+ │   │   ├ services/
+ │   │   ├ hooks/
+ │   │   └ types/
+ │   ├ watchlist/
+ │   │   ├ components/
+ │   │   ├ store/
+ │   │   ├ services/
+ │   │   └ types/
+ │   ├ auth/
+ │   │   ├ components/
+ │   │   ├ services/
+ │   │   └ types/
+ │   └ discovery/
+ │       └ components/
+ ├ hooks/
+ │   ├ use-debounce.ts
+ │   ├ use-is-mobile.ts
+ │   ├ use-scroll-position.ts
+ │   └ use-visible-slides.ts
+ ├ services/
+ │   ├ tmdb/
+ │   │   ├ tmdb.api.ts
+ │   │   └ tmdb.endpoints.ts
+ │   └ firebase/
+ │       └ firebase.config.ts
+ ├ store/
+ │   ├ slices/
+ │   ├ hooks.ts
+ │   └ index.ts
+ ├ types/
+ │   ├ base.types.ts
+ │   ├ common.types.ts
+ │   ├ movie.types.ts
+ │   ├ tv.types.ts
+ │   ├ person.types.ts
+ │   └ (feature-specific types live under features/*/types)
+ ├ utils/
+ │   ├ image.ts
+ │   ├ format.ts
+ │   ├ routes.ts
+ │   └ index.ts
+ ├ providers/
+ │   └ global-provider.tsx
+ └ constants/
+     ├ routes.ts
+     └ tmdb-genres.ts
+```
+
+### Notes
+- Types are gradually merged and renamed; shared types remain in src/types while feature-specific types live under features/*/types.
+- Components, hooks, and services are organized by feature to improve maintainability and scalability.
+- Use absolute imports (alias "@/") throughout the project for cleaner paths and easier refactoring.
