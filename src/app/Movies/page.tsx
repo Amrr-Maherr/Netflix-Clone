@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FetchFilteredMovies from "@/services/api/legacy/FetchFilteredMoviesParams";
 import fetchMovies from "@/services/api/legacy/FetchPopularMovies";
-import CardMovie from "../Components/CardMovie/CardMovie";
+import { Card } from "@/components/media/Card";
 import PaginationButtons from "./components/PaginationButtons";
 import MobileFilters from "./components/MobileFilters";
 import Filters from "./components/Filters";
@@ -110,7 +110,17 @@ export default function Page() {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {allData?.map((movie, index) => (
                   <div key={`${movie.id}-${index}`}>
-                    <CardMovie movie={movie} />
+                    <Card
+                      id={movie.id}
+                      type="movie"
+                      title={movie.title}
+                      posterUrl={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null}
+                      releaseDate={movie.release_date}
+                      rating={movie.vote_average || 0}
+                      genres={(movie as any).genres?.map((g: any) => g.name) || []}
+                      language={movie.original_language}
+                      overview={movie.overview}
+                    />
                   </div>
                 ))}
               </div>

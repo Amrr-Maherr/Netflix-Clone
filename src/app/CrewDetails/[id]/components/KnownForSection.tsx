@@ -2,8 +2,7 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import { SwiperSlide } from "swiper/react";
-import CardMovie from "@/app/Components/CardMovie/CardMovie";
-import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import { useVisibleSlidesCount } from "@/hooks/use-visible-slides";
 
 export default function KnownForSection({ items }: { items: any[] }) {
@@ -17,11 +16,18 @@ export default function KnownForSection({ items }: { items: any[] }) {
       <Slider slidesPerView={slidesCount} slidesPerViewMobile={1.5} spaceBetween={12}>
         {items.map((item, i) => (
           <SwiperSlide key={i}>
-            {item.media_type === "movie" ? (
-              <CardMovie movie={item} />
-            ) : (
-              <CardTvShow TvShow={item} />
-            )}
+            <Card
+              id={item.id}
+              type={item.media_type === "movie" ? "movie" : "tv"}
+              title={item.title || item.name}
+              posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+              releaseDate={item.release_date}
+              firstAirDate={item.first_air_date}
+              rating={item.vote_average || 0}
+              genres={item.genres?.map((g: any) => g.name) || []}
+              language={item.original_language}
+              overview={item.overview}
+            />
           </SwiperSlide>
         ))}
       </Slider>

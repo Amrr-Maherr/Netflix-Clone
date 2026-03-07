@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import CardTvShow from "../Components/CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import FetchFilteredTV from "@/services/api/legacy/FetchFilteredTVParams";
 import fetchTvShows from "@/services/api/legacy/fetchTvShows";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
@@ -106,7 +106,17 @@ export default function Page() {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {allData?.map((show, index) => (
                   <div key={`${show.id}-${index}`}>
-                    <CardTvShow TvShow={show} />
+                    <Card
+                      id={show.id}
+                      type="tv"
+                      title={show.name}
+                      posterUrl={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : null}
+                      firstAirDate={show.first_air_date}
+                      rating={show.vote_average || 0}
+                      genres={(show as any).genres?.map((g: any) => g.name) || []}
+                      language={show.original_language}
+                      overview={show.overview}
+                    />
                   </div>
                 ))}
               </div>

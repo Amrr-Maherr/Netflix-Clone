@@ -4,8 +4,7 @@ import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import FetchMultiSearch from "@/services/api/legacy/FetchMultiSearch";
-import CardMovie from "@/app/Components/CardMovie/CardMovie";
-import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import NetflixIntroLoader from "@/app/Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "@/app/Components/ErrorHandel/ErrorMessage";
 import { Search, Film, Tv, X } from "lucide-react";
@@ -155,22 +154,22 @@ function SearchResultsGrid({ results, title }: { results: SearchResult[]; title:
         <h1 className="text-3xl font-bold text-white mb-6">{title}</h1>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        {results.map((item) => {
-          if (item.media_type === "movie") {
-            return (
-              <div key={item.id} className="transform transition-all duration-300 hover:scale-105 hover:z-10">
-                <CardMovie movie={item} />
-              </div>
-            );
-          } else if (item.media_type === "tv") {
-            return (
-              <div key={item.id} className="transform transition-all duration-300 hover:scale-105 hover:z-10">
-                <CardTvShow TvShow={item} />
-              </div>
-            );
-          }
-          return null;
-        })}
+        {results.map((item) => (
+          <div key={item.id} className="transform transition-all duration-300 hover:scale-105 hover:z-10">
+            <Card
+              id={item.id}
+              type={item.media_type === "movie" ? "movie" : "tv"}
+              title={item.title || item.name}
+              posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+              releaseDate={item.release_date}
+              firstAirDate={item.first_air_date}
+              rating={item.vote_average || 0}
+              genres={item.genres?.map((g: any) => g.name) || []}
+              language={item.original_language}
+              overview={item.overview}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import React from "react";
-import CardMovie from "../CardMovie/CardMovie";
-import CardTvShow from "../CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import Slider from "../Slider/Slider";
 import { useVisibleSlidesCount } from "@/hooks/use-visible-slides";
 import type { Movie, TVShow } from "@/types";
@@ -23,15 +22,31 @@ export default function DataList({ Data, isMovie }: DataListProps) {
     >
       {isMovie
         ? (Data as Movie[])?.map((movie) => (
-            <CardMovie
+            <Card
               key={movie.id}
-              movie={movie}
+              id={movie.id}
+              type="movie"
+              title={movie.title}
+              posterUrl={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null}
+              releaseDate={movie.release_date}
+              rating={movie.vote_average || 0}
+              genres={(movie as any).genres?.map((g: any) => g.name) || []}
+              language={movie.original_language}
+              overview={movie.overview}
             />
           ))
         : (Data as TVShow[])?.map((show) => (
-            <CardTvShow
+            <Card
               key={show.id}
-              TvShow={show}
+              id={show.id}
+              type="tv"
+              title={show.name}
+              posterUrl={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : null}
+              firstAirDate={show.first_air_date}
+              rating={show.vote_average || 0}
+              genres={(show as any).genres?.map((g: any) => g.name) || []}
+              language={show.original_language}
+              overview={show.overview}
             />
           ))}
     </Slider>

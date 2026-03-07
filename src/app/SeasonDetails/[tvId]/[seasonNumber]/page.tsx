@@ -1,7 +1,6 @@
 "use client";
 
 import FetchSeasonDetails from "@/services/api/legacy/FetchSeasonDetails";
-import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
 import Image from "next/image";
 import { Star, Calendar, Clock, Play, Info, Users } from "lucide-react";
 import Slider from "@/app/Components/Slider/Slider";

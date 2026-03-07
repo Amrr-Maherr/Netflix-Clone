@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { Heart, Image as ImageIcon, Play, Info, Star, MapPin, Calendar, Users } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import CardMovie from "@/app/Components/CardMovie/CardMovie";
-import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import Link from "next/link";
 
 export default function HeroSection({ person }: { person: any }) {
@@ -210,11 +209,18 @@ export default function HeroSection({ person }: { person: any }) {
                         }
                       >
                         <div className="w-40 md:w-48 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl rounded-lg overflow-hidden">
-                          {item.media_type === "movie" ? (
-                            <CardMovie movie={item} />
-                          ) : (
-                            <CardTvShow TvShow={item} />
-                          )}
+                          <Card
+                            id={item.id}
+                            type={item.media_type === "movie" ? "movie" : "tv"}
+                            title={item.title || item.name}
+                            posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+                            releaseDate={item.release_date}
+                            firstAirDate={item.first_air_date}
+                            rating={item.vote_average || 0}
+                            genres={item.genres?.map((g: any) => g.name) || []}
+                            language={item.original_language}
+                            overview={item.overview}
+                          />
                         </div>
                       </Link>
                     </div>

@@ -6,8 +6,7 @@ import fetchTvShows from "@/services/api/legacy/fetchTvShows";
 import { useQuery } from "@tanstack/react-query";
 import NetflixIntroLoader from "../Components/Loading/NetflixIntroLoader";
 import ErrorMessage from "../Components/ErrorHandel/ErrorMessage";
-import CardMovie from "../Components/CardMovie/CardMovie";
-import CardTvShow from "../Components/CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import HeroSection from "../Components/HeroSection/index";
 
 interface Movie {
@@ -172,13 +171,20 @@ export default function Gallery() {
     <>
       {heroItems.length > 0 && <HeroSection movies={heroItems} />}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full py-20 container">
-      {allMovies.map((movie, index) => (
-        <div key={`${movie.id}-${index}`} className="w-full">
-          {movie.media_type === "movie" ? (
-            <CardMovie movie={movie} />
-          ) : movie.media_type === "tv" ? (
-            <CardTvShow TvShow={movie} />
-          ) : null}
+      {allMovies.map((item, index) => (
+        <div key={`${item.id}-${index}`} className="w-full">
+          <Card
+            id={item.id}
+            type={item.media_type === "movie" ? "movie" : "tv"}
+            title={item.title || item.name}
+            posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+            releaseDate={item.release_date}
+            firstAirDate={item.first_air_date}
+            rating={item.vote_average || 0}
+            genres={item.genres?.map((g: any) => g.name) || []}
+            language={item.original_language}
+            overview={item.overview}
+          />
         </div>
       ))}
     </div>

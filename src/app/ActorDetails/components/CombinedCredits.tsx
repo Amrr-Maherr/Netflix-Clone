@@ -2,8 +2,7 @@
 
 import Slider from "@/app/Components/Slider/Slider";
 import { SwiperSlide } from "swiper/react";
-import CardMovie from "@/app/Components/CardMovie/CardMovie";
-import CardTvShow from "@/app/Components/CardTvShow/CardTvShow";
+import { Card } from "@/components/media/Card";
 import { useVisibleSlidesCount } from "@/hooks/use-visible-slides";
 
 export default function CombinedCredits({ credits }: { credits: any[] }) {
@@ -20,9 +19,29 @@ export default function CombinedCredits({ credits }: { credits: any[] }) {
         {credits.map((item) => (
           <SwiperSlide key={item.credit_id || item.id}>
             {item.media_type === "movie" ? (
-              <CardMovie movie={item} />
+              <Card
+                id={item.id}
+                type="movie"
+                title={item.title}
+                posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+                releaseDate={item.release_date}
+                rating={item.vote_average || 0}
+                genres={item.genres?.map((g: { name: string }) => g.name) || []}
+                language={item.original_language}
+                overview={item.overview}
+              />
             ) : (
-              <CardTvShow TvShow={item} />
+              <Card
+                id={item.id}
+                type="tv"
+                title={item.name}
+                posterUrl={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null}
+                firstAirDate={item.first_air_date}
+                rating={item.vote_average || 0}
+                genres={item.genres?.map((g: { name: string }) => g.name) || []}
+                language={item.original_language}
+                overview={item.overview}
+              />
             )}
           </SwiperSlide>
         ))}
