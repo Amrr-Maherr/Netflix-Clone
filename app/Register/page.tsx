@@ -5,7 +5,7 @@ import bgImage from "../../public/EG-en-20250303-TRIFECTA-perspective_3241eaee-f
 import NetflixLogo from "../../public/Netflix_Symbol_RGB.png";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Inputs } from "../../Types/Inputs";
+import { Inputs } from "../../types/Inputs";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
