@@ -1,27 +1,28 @@
  "use client";
- 
- import { motion, Variants } from "framer-motion";
+
+// TODO: Framer Motion animation removed
+// import { motion, Variants } from "framer-motion";
 // Public assets referenced via path strings
  import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
  import { useState } from "react";
  import { resetPassword } from "@/services/api/legacy/Auth";
  import Image from "next/image";
- 
+
 import type { ForgotPasswordInputs } from "@/types/auth.types";
- 
+
  export default function Page() {
    const [loading, setLoading] = useState(false);
    const [message, setMessage] = useState<string | null>(null);
    const [error, setError] = useState<string | null>(null);
- 
+
    const {
      register,
      handleSubmit,
      reset,
      formState: { errors },
   } = useForm<ForgotPasswordInputs>();
- 
+
   const onSubmit: SubmitHandler<ForgotPasswordInputs> = async (data) => {
      setLoading(true);
      setError(null);
@@ -37,52 +38,61 @@ import type { ForgotPasswordInputs } from "@/types/auth.types";
        setLoading(false);
      }
    };
- 
-   const containerVariants: Variants = {
-     hidden: { opacity: 0 },
-     visible: {
-       opacity: 1,
-       transition: { delayChildren: 0.3, staggerChildren: 0.2 },
-     },
-   };
- 
-   const itemVariants: Variants = {
-     hidden: { y: 20, opacity: 0 },
-     visible: {
-       y: 0,
-       opacity: 1,
-       transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] },
-     },
-   };
- 
+
+   // TODO: Framer Motion animation removed - variants removed
+   // const containerVariants: Variants = {
+   //   hidden: { opacity: 0 },
+   //   visible: {
+   //     opacity: 1,
+   //     transition: { delayChildren: 0.3, staggerChildren: 0.2 },
+   //   },
+   // };
+
+   // TODO: Framer Motion animation removed - variants removed
+   // const itemVariants: Variants = {
+   //   hidden: { y: 20, opacity: 0 },
+   //   visible: {
+   //     y: 0,
+   //     opacity: 1,
+   //     transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] },
+   //   },
+   // };
+
    return (
      <div className="min-h-screen bg-black flex items-center justify-center px-4">
        <div className="w-full max-w-md">
          {/* Netflix Logo */}
          <div className="flex justify-center mb-8">
-          <Image 
-            src="/Netflix_Symbol_RGB.png" 
-             alt="Netflix" 
+          <Image
+            src="/Netflix_Symbol_RGB.png"
+             alt="Netflix"
              width={128}
              height={128}
              quality={100}
              placeholder="blur"
              blurDataURL="/Netflix_Symbol_RGB.png"
              priority
-             className="w-32" 
+             className="w-32"
            />
          </div>
- 
+
          <div className="bg-white p-8 rounded-lg shadow-lg">
-           <motion.div variants={itemVariants} className="mb-6">
+           {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+           <div
+             // TODO: Framer Motion animation removed - variants prop removed
+             // variants={itemVariants}
+             className="mb-6"
+           >
              <h1 className="text-3xl font-bold text-black">
                Forgot Password
              </h1>
-           </motion.div>
- 
-           <motion.form
+           </div>
+
+           {/* TODO: Framer Motion animation removed - replaced motion.form with plain form */}
+           <form
              onSubmit={handleSubmit(onSubmit)}
-             variants={itemVariants}
+             // TODO: Framer Motion animation removed - variants prop removed
+             // variants={itemVariants}
              className="space-y-4"
            >
              <div>
@@ -99,16 +109,21 @@ import type { ForgotPasswordInputs } from "@/types/auth.types";
                  </p>
                )}
              </div>
- 
+
              {error && (
                <p className="text-red-500 text-sm mt-2">{error}</p>
              )}
- 
+
              {message && (
                <p className="text-green-500 text-sm mt-2">{message}</p>
              )}
- 
-             <motion.div variants={itemVariants} className="pt-4">
+
+             {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+             <div
+               // TODO: Framer Motion animation removed - variants prop removed
+               // variants={itemVariants}
+               className="pt-4"
+             >
                <button
                  type="submit"
                  disabled={loading}
@@ -116,10 +131,15 @@ import type { ForgotPasswordInputs } from "@/types/auth.types";
                >
                  {loading ? "Sending..." : "Send Reset Email"}
                </button>
-             </motion.div>
-           </motion.form>
- 
-           <motion.div variants={itemVariants} className="mt-6 text-center">
+             </div>
+           </form>
+
+           {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+           <div
+             // TODO: Framer Motion animation removed - variants prop removed
+             // variants={itemVariants}
+             className="mt-6 text-center"
+           >
              <p className="text-gray-600 text-sm">
                Remember your password?{" "}
               <Link
@@ -130,7 +150,7 @@ import type { ForgotPasswordInputs } from "@/types/auth.types";
                </Link>
                .
              </p>
-           </motion.div>
+           </div>
          </div>
        </div>
      </div>
