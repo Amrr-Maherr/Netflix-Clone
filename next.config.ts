@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: "https",
@@ -10,7 +10,15 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/t/p/**",
       },
+      // YouTube thumbnails for video gallery
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+        pathname: "/vi/**",
+      },
     ],
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
   turbopack: {},
   reactStrictMode: true,
