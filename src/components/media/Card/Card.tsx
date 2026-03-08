@@ -1,15 +1,20 @@
 "use client";
 
-import React, { memo, useState, useCallback, useMemo } from "react";
+import React, { memo, useState, useCallback, useMemo, lazy } from "react";
 import Image from "next/image";
-import { Play, Plus, Info, Loader2, Star } from "lucide-react";
+import { Play, Plus, Info, Loader2} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { motion, AnimatePresence } from "motion/react";
+// TODO: Framer Motion animation removed
+// import { motion, AnimatePresence } from "motion/react";
 import { addToList, removeFromList } from "@/store/slices/myListSlice";
 import type { RootState, MyListItem } from "@/types";
-import NoImageFallback from "@/app/Components/NoImageFallback/NoImageFallback";
-import CardModal from "./CardModal";
+const NoImageFallback = lazy(() => {
+  return import("@/app/Components/NoImageFallback/NoImageFallback");
+});
+const CardModal = lazy(() => {
+  return import("./CardModal");
+});
 import {
   LazyGenreBadges,
   LazyRatingBadge,
@@ -181,15 +186,17 @@ const Card: React.FC<CardProps> = memo(
 
     return (
       <>
-        <motion.div
+        {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+        <div
           onClick={handleOpen}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.03, zIndex: 10 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative bg-zinc-900 rounded-lg overflow-hidden cursor-pointer group shadow-lg hover:shadow-2xl hover:shadow-red-900/20"
+          // TODO: Framer Motion animation removed - initial, animate, whileHover props removed
+          // initial={{ opacity: 0, scale: 0.95 }}
+          // animate={{ opacity: 1, scale: 1 }}
+          // whileHover={{ scale: 1.03, zIndex: 10 }}
+          // transition={{ duration: 0.2, ease: "easeOut" }}
+          className="relative bg-zinc-900 rounded-lg overflow-hidden cursor-pointer group shadow-lg hover:shadow-2xl hover:shadow-red-900/20 transition-all duration-300"
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
@@ -221,74 +228,78 @@ const Card: React.FC<CardProps> = memo(
           </div>
 
           {/* Hover Overlay with Action Buttons */}
-          <AnimatePresence>
-            {isHovered && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/40 flex flex-col justify-end p-3"
-              >
-                <div className="space-y-2">
-                  {/* Title */}
-                  <h3 className="text-sm font-bold leading-tight line-clamp-2 text-white">
-                    {title}
-                  </h3>
+          {/* TODO: Framer Motion animation removed - AnimatePresence removed */}
+          {isHovered && (
+            <div
+              // TODO: Framer Motion animation removed - initial, animate, exit props removed
+              // initial={{ opacity: 0 }}
+              // animate={{ opacity: 1 }}
+              // exit={{ opacity: 0 }}
+              // transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/40 flex flex-col justify-end p-3"
+            >
+              <div className="space-y-2">
+                {/* Title */}
+                <h3 className="text-sm font-bold leading-tight line-clamp-2 text-white">
+                  {title}
+                </h3>
 
-                  {/* Meta Info: Year, Rating, Language */}
-                  <div className="flex items-center gap-2 text-xs text-gray-300 flex-wrap">
-                    {year && <span>{year}</span>}
-                    <LazyRatingBadge rating={rating} size="sm" />
-                    <LazyLanguageFlag language={language || ""} />
-                  </div>
-
-                  {/* Genre Badges - Lazy loaded */}
-                  <LazyGenreBadges genres={genres} maxDisplay={2} />
-
-                  {/* Action Buttons */}
-                  <div className="flex items-center gap-2 pt-1">
-                    <motion.button
-                      onClick={(e) => handlePlay(e)}
-                      aria-label="Play"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors border border-white/30"
-                    >
-                      <Play size={18} fill="currentColor" />
-                    </motion.button>
-                    <motion.button
-                      onClick={(e) => handleAddToList(e)}
-                      disabled={addingToList}
-                      aria-label={isInList ? "Remove from My List" : "Add to My List"}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20"
-                    >
-                      {addingToList ? (
-                        <Loader2 size={18} className="animate-spin" />
-                      ) : (
-                        <Plus
-                          size={18}
-                          className={isInList ? "rotate-45 transition-transform" : ""}
-                        />
-                      )}
-                    </motion.button>
-                    <motion.button
-                      onClick={(e) => handleMoreInfo(e)}
-                      aria-label="More info"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors backdrop-blur-sm bg-black/20"
-                    >
-                      <Info size={18} />
-                    </motion.button>
-                  </div>
+                {/* Meta Info: Year, Rating, Language */}
+                <div className="flex items-center gap-2 text-xs text-gray-300 flex-wrap">
+                  {year && <span>{year}</span>}
+                  <LazyRatingBadge rating={rating} size="sm" />
+                  <LazyLanguageFlag language={language || ""} />
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+
+                {/* Genre Badges - Lazy loaded */}
+                <LazyGenreBadges genres={genres} maxDisplay={2} />
+
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2 pt-1">
+                  {/* TODO: Framer Motion animation removed - replaced motion.button with plain button */}
+                  <button
+                    onClick={(e) => handlePlay(e)}
+                    aria-label="Play"
+                    // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+                    // whileHover={{ scale: 1.1 }}
+                    // whileTap={{ scale: 0.95 }}
+                    className="bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors border border-white/30 hover:scale-110 active:scale-95"
+                  >
+                    <Play size={18} fill="currentColor" />
+                  </button>
+                  <button
+                    onClick={(e) => handleAddToList(e)}
+                    disabled={addingToList}
+                    aria-label={isInList ? "Remove from My List" : "Add to My List"}
+                    // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+                    // whileHover={{ scale: 1.1 }}
+                    // whileTap={{ scale: 0.95 }}
+                    className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20 hover:scale-110 active:scale-95"
+                  >
+                    {addingToList ? (
+                      <Loader2 size={18} className="animate-spin" />
+                    ) : (
+                      <Plus
+                        size={18}
+                        className={isInList ? "rotate-45 transition-transform" : ""}
+                      />
+                    )}
+                  </button>
+                  <button
+                    onClick={(e) => handleMoreInfo(e)}
+                    aria-label="More info"
+                    // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+                    // whileHover={{ scale: 1.1 }}
+                    // whileTap={{ scale: 0.95 }}
+                    className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors backdrop-blur-sm bg-black/20 hover:scale-110 active:scale-95"
+                  >
+                    <Info size={18} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Modal Popup - Lazy loaded content inside */}
         <CardModal

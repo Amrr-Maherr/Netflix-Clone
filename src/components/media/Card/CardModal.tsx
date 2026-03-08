@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Image from "next/image";
 import { Play, Plus, Loader2, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+// TODO: Framer Motion animation removed
+// import { motion, AnimatePresence } from "motion/react";
 import {
   LazyRatingBadge,
   LazyModalMetaInfo,
@@ -130,10 +131,12 @@ const ModalContent: React.FC<{
     return (
       <div className="flex flex-col md:flex-row w-full h-full max-h-[85vh]">
         {/* Left Side - Poster Image */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+        {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+        <div
+          // TODO: Framer Motion animation removed - initial, animate props removed
+          // initial={{ opacity: 0, x: -20 }}
+          // animate={{ opacity: 1, x: 0 }}
+          // transition={{ duration: 0.3, delay: 0.1 }}
           className="relative w-full md:w-2/5 h-48 md:h-auto md:flex-shrink-0"
         >
           {data.posterUrl ? (
@@ -164,13 +167,15 @@ const ModalContent: React.FC<{
               {data.type}
             </span>
           </div>
-        </motion.div>
+        </div>
 
         {/* Right Side - Content */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
+        {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+        <div
+          // TODO: Framer Motion animation removed - initial, animate props removed
+          // initial={{ opacity: 0, x: 20 }}
+          // animate={{ opacity: 1, x: 0 }}
+          // transition={{ duration: 0.3, delay: 0.2 }}
           className="w-full md:w-3/5 p-5 md:p-8 flex flex-col overflow-y-auto text-white scrollbar-thin scrollbar-thumb-zinc-700"
         >
           <div className="flex-1 min-h-0">
@@ -200,40 +205,48 @@ const ModalContent: React.FC<{
 
             {/* Trailer Button (if available) */}
             {hasTrailer && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
+              /* TODO: Framer Motion animation removed - replaced motion.div with plain div */
+              <div
+                // TODO: Framer Motion animation removed - initial, animate props removed
+                // initial={{ opacity: 0, y: 10 }}
+                // animate={{ opacity: 1, y: 0 }}
+                // transition={{ duration: 0.3, delay: 0.3 }}
                 className="mb-6"
               >
-                <motion.button
+                {/* TODO: Framer Motion animation removed - replaced motion.button with plain button */}
+                <button
                   onClick={onOpenTrailer}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 rounded-lg text-white text-sm font-medium transition-colors"
+                  // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+                  // whileHover={{ scale: 1.02 }}
+                  // whileTap={{ scale: 0.98 }}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:scale-102 active:scale-98"
                 >
                   <span className="text-red-500">▶</span>
                   Watch Trailer
-                </motion.button>
-              </motion.div>
+                </button>
+              </div>
             )}
           </div>
 
           {/* Action Buttons - Sticky at bottom */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
+          {/* TODO: Framer Motion animation removed - replaced motion.div with plain div */}
+          <div
+            // TODO: Framer Motion animation removed - initial, animate props removed
+            // initial={{ opacity: 0, y: 20 }}
+            // animate={{ opacity: 1, y: 0 }}
+            // transition={{ duration: 0.3, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-3 mt-auto pt-5 border-t border-zinc-700"
           >
             {/* Add to List Button */}
             {onAddToList && (
-              <motion.button
+              /* TODO: Framer Motion animation removed - replaced motion.button with plain button */
+              <button
                 onClick={onAddToList}
                 disabled={addingToList}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex-1 bg-zinc-800/80 backdrop-blur-sm border border-zinc-600 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+                // whileHover={{ scale: 1.02 }}
+                // whileTap={{ scale: 0.98 }}
+                className="flex-1 bg-zinc-800/80 backdrop-blur-sm border border-zinc-600 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm hover:scale-102 active:scale-98"
               >
                 {addingToList ? (
                   <Loader2 size={16} className="animate-spin" />
@@ -244,23 +257,25 @@ const ModalContent: React.FC<{
                   />
                 )}
                 <span>{isInList ? "In My List" : "Add to My List"}</span>
-              </motion.button>
+              </button>
             )}
 
             {/* Play Button */}
             {onPlay && (
-              <motion.button
+              /* TODO: Framer Motion animation removed - replaced motion.button with plain button */
+              <button
                 onClick={onPlay}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-lg shadow-red-900/30"
+                // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+                // whileHover={{ scale: 1.02 }}
+                // whileTap={{ scale: 0.98 }}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-lg shadow-red-900/30 hover:scale-102 active:scale-98"
               >
                 <Play size={16} fill="currentColor" />
                 <span>{data.type === "movie" ? "Watch Movie" : "Watch Series"}</span>
-              </motion.button>
+              </button>
             )}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -338,14 +353,13 @@ export default function CardModal({
       </Dialog>
 
       {/* YouTube Trailer Modal Overlay - Lazy loaded */}
-      <AnimatePresence>
-        {showTrailer && data.trailerKey && (
-          <LazyYouTubeTrailer
-            videoKey={data.trailerKey}
-            onClose={() => setShowTrailer(false)}
-          />
-        )}
-      </AnimatePresence>
+      {/* TODO: Framer Motion animation removed - AnimatePresence removed */}
+      {showTrailer && data.trailerKey && (
+        <LazyYouTubeTrailer
+          videoKey={data.trailerKey}
+          onClose={() => setShowTrailer(false)}
+        />
+      )}
     </>
   );
 }

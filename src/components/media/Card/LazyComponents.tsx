@@ -1,8 +1,9 @@
 "use client";
 
 import React, { lazy, Suspense, memo } from "react";
-import { Star, Loader2 } from "lucide-react";
-import { motion } from "motion/react";
+import { Star, Loader2, Plus, Info, X } from "lucide-react";
+// TODO: Framer Motion animation removed
+// import { motion } from "motion/react";
 
 /**
  * Lazy-loaded internal components for Card and CardModal
@@ -60,25 +61,29 @@ const GenreBadgesImpl: React.FC<GenreBadgesProps> = memo(
     return (
       <div className="flex flex-wrap gap-1">
         {displayGenres.map((genre, index) => (
-          <motion.span
+          /* TODO: Framer Motion animation removed - replaced motion.span with plain span */
+          <span
             key={`${genre}-${index}`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: delay + index * 0.05 }}
+            // TODO: Framer Motion animation removed - initial, animate, transition props removed
+            // initial={{ opacity: 0, y: 10 }}
+            // animate={{ opacity: 1, y: 0 }}
+            // transition={{ duration: 0.2, delay: delay + index * 0.05 }}
             className="px-2 py-1 rounded-full text-xs font-medium bg-red-600/80 text-white border border-red-500/50"
           >
             {genre}
-          </motion.span>
+          </span>
         ))}
         {remaining > 0 && (
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: delay + displayGenres.length * 0.05 }}
+          /* TODO: Framer Motion animation removed - replaced motion.span with plain span */
+          <span
+            // TODO: Framer Motion animation removed - initial, animate, transition props removed
+            // initial={{ opacity: 0, y: 10 }}
+            // animate={{ opacity: 1, y: 0 }}
+            // transition={{ duration: 0.2, delay: delay + displayGenres.length * 0.05 }}
             className="px-2 py-1 rounded-full text-xs font-medium bg-zinc-700/80 text-gray-300"
           >
             +{remaining}
-          </motion.span>
+          </span>
         )}
       </div>
     );
@@ -209,49 +214,52 @@ const ActionButtonsImpl: React.FC<ActionButtonsProps> = memo(
   ({ onPlay, onAddToList, onMoreInfo, isInList, addingToList, disabled = false }) => {
     return (
       <div className="flex items-center gap-2 pt-1">
-        <motion.button
+        {/* TODO: Framer Motion animation removed - replaced motion.button with plain button */}
+        <button
           onClick={onPlay}
           aria-label="Play"
           disabled={disabled}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors border border-white/30 disabled:opacity-50"
+          // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+          // whileHover={{ scale: 1.1 }}
+          // whileTap={{ scale: 0.95 }}
+          className="bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors border border-white/30 disabled:opacity-50 hover:scale-110 active:scale-95"
         >
           <Star size={18} fill="currentColor" />
-        </motion.button>
-        <motion.button
+        </button>
+        {/* TODO: Framer Motion animation removed - replaced motion.button with plain button */}
+        <button
           onClick={onAddToList}
           disabled={addingToList || disabled}
           aria-label={isInList ? "Remove from My List" : "Add to My List"}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20"
+          // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+          // whileHover={{ scale: 1.1 }}
+          // whileTap={{ scale: 0.95 }}
+          className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors disabled:opacity-50 backdrop-blur-sm bg-black/20 hover:scale-110 active:scale-95"
         >
           {addingToList ? (
             <Loader2 size={18} className="animate-spin" />
           ) : (
             <Plus size={18} className={isInList ? "rotate-45 transition-transform" : ""} />
           )}
-        </motion.button>
-        <motion.button
+        </button>
+        {/* TODO: Framer Motion animation removed - replaced motion.button with plain button */}
+        <button
           onClick={onMoreInfo}
           aria-label="More info"
           disabled={disabled}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors backdrop-blur-sm bg-black/20"
+          // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+          // whileHover={{ scale: 1.1 }}
+          // whileTap={{ scale: 0.95 }}
+          className="border-2 border-white/50 text-white rounded-full p-2 hover:border-white/80 transition-colors backdrop-blur-sm bg-black/20 hover:scale-110 active:scale-95"
         >
           <Info size={18} />
-        </motion.button>
+        </button>
       </div>
     );
   }
 );
 
 ActionButtonsImpl.displayName = "ActionButtonsImpl";
-
-// Need to import these icons for ActionButtonsImpl
-import { Plus, Info } from "lucide-react";
 
 export const LazyActionButtons: React.FC<ActionButtonsProps> = (props) => (
   <Suspense fallback={<div className="flex gap-2 h-8" />}>
@@ -268,17 +276,19 @@ interface ModalOverviewProps {
 
 const ModalOverviewImpl: React.FC<ModalOverviewProps> = memo(({ overview, title = "Overview" }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.2 }}
+    /* TODO: Framer Motion animation removed - replaced motion.div with plain div */
+    <div
+      // TODO: Framer Motion animation removed - initial, animate, transition props removed
+      // initial={{ opacity: 0, y: 10 }}
+      // animate={{ opacity: 1, y: 0 }}
+      // transition={{ duration: 0.3, delay: 0.2 }}
       className="mb-6"
     >
       <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">
         {title}
       </h2>
       <p className="text-gray-300 text-sm md:text-base leading-relaxed">{overview}</p>
-    </motion.div>
+    </div>
   );
 });
 
@@ -342,26 +352,30 @@ const YouTubeTrailerImpl: React.FC<YouTubeTrailerProps> = ({ videoKey, onClose }
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
+    /* TODO: Framer Motion animation removed - replaced motion.div with plain div */
+    <div
+      // TODO: Framer Motion animation removed - initial, animate, exit, transition props removed
+      // initial={{ opacity: 0, scale: 0.95 }}
+      // animate={{ opacity: 1, scale: 1 }}
+      // exit={{ opacity: 0, scale: 0.95 }}
+      // transition={{ duration: 0.2 }}
       className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/95 p-4"
       role="dialog"
       aria-modal="true"
       aria-label="Video trailer"
     >
       <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
-        <motion.button
+        {/* TODO: Framer Motion animation removed - replaced motion.button with plain button */}
+        <button
           onClick={onClose}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="absolute top-4 right-4 z-10 bg-black/60 backdrop-blur-sm text-white rounded-full p-2 hover:bg-black/80 transition-colors"
+          // TODO: Framer Motion animation removed - whileHover, whileTap props removed
+          // whileHover={{ scale: 1.1 }}
+          // whileTap={{ scale: 0.9 }}
+          className="absolute top-4 right-4 z-10 bg-black/60 backdrop-blur-sm text-white rounded-full p-2 hover:bg-black/80 transition-colors hover:scale-110 active:scale-90"
           aria-label="Close trailer"
         >
           <X size={20} />
-        </motion.button>
+        </button>
 
         {!isLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-zinc-900">
@@ -378,13 +392,11 @@ const YouTubeTrailerImpl: React.FC<YouTubeTrailerProps> = ({ videoKey, onClose }
           onLoad={() => setIsLoaded(true)}
         />
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 YouTubeTrailerImpl.displayName = "YouTubeTrailerImpl";
-
-import { X } from "lucide-react";
 
 export const LazyYouTubeTrailer: React.FC<YouTubeTrailerProps> = (props) => (
   <Suspense
