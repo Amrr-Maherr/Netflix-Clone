@@ -35,6 +35,9 @@ export default function NetflixBadge({
         src="/Netflix_Symbol_RGB.png"
         alt={alt}
         priority={priority}
+        quality={75}
+        placeholder="blur"
+        blurDataURL="/Netflix_Symbol_RGB.png"
         className="drop-shadow-md"
       />
     </div>

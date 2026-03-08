@@ -40,6 +40,10 @@ export default function StudioBranding({ companies, className = "", maxCompanies
                   fill
                   className="object-contain"
                   sizes="48px"
+                  quality={75}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
+                  loading="lazy"
                 />
               </div>
             ) : (

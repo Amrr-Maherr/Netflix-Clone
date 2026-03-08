@@ -40,6 +40,10 @@ export default function NetworkBranding({ networks, className = "", maxNetworks 
                   fill
                   className="object-contain"
                   sizes="48px"
+                  quality={75}
+                  placeholder="blur"
+                  blurDataURL="/Netflix_Symbol_RGB.png"
+                  loading="lazy"
                 />
               </div>
             ) : (
