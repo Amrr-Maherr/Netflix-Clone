@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ChevronUp } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+// TODO: Framer Motion animation removed
+// import { motion, AnimatePresence } from "framer-motion";
 
 export default function ScrollButton() {
   const [showGoTop, setShowGoTop] = useState(false);
@@ -21,37 +22,40 @@ export default function ScrollButton() {
   };
 
   return (
-    <AnimatePresence>
+    <>
+      {/* TODO: Framer Motion animation removed - AnimatePresence removed */}
       {showGoTop && (
-        <motion.button
+        /* TODO: Framer Motion animation removed - replaced motion.button with plain button */
+        <button
           key="scroll-btn"
           onClick={scrollToTop}
-          initial={{ opacity: 0, y: 20, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.8 }}
-          transition={{ 
-            duration: 0.3, 
-            ease: "easeOut",
-            scale: { type: "spring", stiffness: 300, damping: 25 }
-          }}
-          whileHover={{ 
-            scale: 1.05,
-            backgroundColor: "rgba(255, 255, 255, 0.15)",
-            transition: { duration: 0.2 }
-          }}
-          whileTap={{ 
-            scale: 0.95,
-            transition: { duration: 0.1 }
-          }}
-          className="fixed bottom-6 right-6 bg-black/60 backdrop-blur-sm hover:bg-black/80 text-white rounded-full p-3 shadow-xl cursor-pointer z-50 border border-white/20 transition-all duration-300 group"
+          // TODO: Framer Motion animation removed - initial, animate, exit, transition, whileHover, whileTap props removed
+          // initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          // animate={{ opacity: 1, y: 0, scale: 1 }}
+          // exit={{ opacity: 0, y: 20, scale: 0.8 }}
+          // transition={{
+          //   duration: 0.3,
+          //   ease: "easeOut",
+          //   scale: { type: "spring", stiffness: 300, damping: 25 }
+          // }}
+          // whileHover={{
+          //   scale: 1.05,
+          //   backgroundColor: "rgba(255, 255, 255, 0.15)",
+          //   transition: { duration: 0.2 }
+          // }}
+          // whileTap={{
+          //   scale: 0.95,
+          //   transition: { duration: 0.1 }
+          // }}
+          className="fixed bottom-6 right-6 bg-black/60 backdrop-blur-sm hover:bg-black/80 text-white rounded-full p-3 shadow-xl cursor-pointer z-50 border border-white/20 transition-all duration-300 group hover:scale-105 active:scale-95 opacity-100"
           aria-label="Scroll to top"
         >
-          <ChevronUp 
-            size={20} 
-            className="transition-transform duration-300 group-hover:translate-y-[-2px]" 
+          <ChevronUp
+            size={20}
+            className="transition-transform duration-300 group-hover:translate-y-[-2px]"
           />
-        </motion.button>
+        </button>
       )}
-    </AnimatePresence>
+    </>
   );
 }
