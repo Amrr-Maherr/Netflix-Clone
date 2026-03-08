@@ -1,14 +1,16 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import DataList from "./DataList";
 import SplitText from "../Animations/SplitText";
+// TODO: Framer Motion animation removed - RotatingText modified to remove motion
 import RotatingText from "../Animations/RotatingText";
 import type { Movie, TVShow } from "@/types";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// TODO: GSAP animation removed for bundle optimization
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 type IndexProps = {
   Data: (Movie | TVShow)[];
@@ -20,27 +22,8 @@ type IndexProps = {
 export default function Index({ Data, title, isMovie }: IndexProps) {
   const sectionRef = useRef(null);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    gsap.fromTo(
-      sectionRef.current,
-      { opacity: 0, y: 80 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 85%",
-          end: "top 50%",
-          scrub: false,
-          once: false,
-        },
-      }
-    );
-  }, []);
+  // TODO: GSAP animation removed for bundle optimization
+  // Original GSAP animation code was here
 
   return (
     <section ref={sectionRef} className="container mx-auto px-4">
@@ -85,12 +68,8 @@ export default function Index({ Data, title, isMovie }: IndexProps) {
           ]}
           className="text-2xl md:text-4xl font-bold text-red-600 uppercase tracking-wide drop-shadow-sm"
           staggerFrom={"random"}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "-120%" }}
           staggerDuration={0.025}
           splitLevelClassName="overflow-hidden pb-1"
-          transition={{ type: "spring", damping: 25, stiffness: 150 }}
           rotationInterval={2000}
           loop
         />
