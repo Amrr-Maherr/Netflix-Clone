@@ -53,6 +53,10 @@ export default function BingeWorthySection({ movies, mediaType }: BingeWorthySec
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     sizes="(max-width: 640px) 100vw, 50vw"
+                    quality={75}
+                    placeholder="blur"
+                    blurDataURL="/Netflix_Symbol_RGB.png"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                   
