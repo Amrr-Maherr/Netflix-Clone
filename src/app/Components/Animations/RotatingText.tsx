@@ -6,14 +6,21 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import {
-  motion,
-  AnimatePresence,
-  Transition,
-  type VariantLabels,
-  type Target,
-  type TargetAndTransition,
-} from "motion/react";
+// TODO: Framer Motion animation removed
+// import {
+//   motion,
+//   AnimatePresence,
+//   Transition,
+//   type VariantLabels,
+//   type Target,
+//   type TargetAndTransition,
+// } from "motion/react";
+
+// TODO: Framer Motion animation removed - Using plain React types instead
+type Transition = any;
+type VariantLabels = any;
+type Target = any;
+type TargetAndTransition = any;
 
 function cn(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -28,14 +35,15 @@ export interface RotatingTextRef {
 
 export interface RotatingTextProps
   extends Omit<
-    React.ComponentPropsWithoutRef<typeof motion.span>,
+    React.HTMLAttributes<HTMLSpanElement>,
     "children" | "transition" | "initial" | "animate" | "exit"
   > {
   texts: string[];
   transition?: Transition;
-  initial?: boolean | Target | VariantLabels;
-  animate?: boolean | VariantLabels | TargetAndTransition;
-  exit?: Target | VariantLabels;
+  // TODO: Framer Motion animation removed - these props are no longer used
+  // initial?: boolean | Target | VariantLabels;
+  // animate?: boolean | VariantLabels | TargetAndTransition;
+  // exit?: Target | VariantLabels;
   animatePresenceMode?: "sync" | "wait";
   animatePresenceInitial?: boolean;
   rotationInterval?: number;
@@ -54,10 +62,12 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
   (
     {
       texts,
+      // TODO: Framer Motion animation removed - transition no longer used
       transition = { type: "spring", damping: 25, stiffness: 300 },
-      initial = { y: "100%", opacity: 0 },
-      animate = { y: 0, opacity: 1 },
-      exit = { y: "-120%", opacity: 0 },
+      // TODO: Framer Motion animation removed - initial, animate, exit no longer used
+      // initial = { y: "100%", opacity: 0 },
+      // animate = { y: 0, opacity: 1 },
+      // exit = { y: "-120%", opacity: 0 },
       animatePresenceMode = "wait",
       animatePresenceInitial = false,
       rotationInterval = 2000,
@@ -199,70 +209,67 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
       return () => clearInterval(intervalId);
     }, [next, rotationInterval, auto]);
 
+    // TODO: Framer Motion animation removed - replaced motion.span with plain span
     return (
-      <motion.span
+      <span
         className={cn(
           "flex flex-wrap whitespace-pre-wrap relative",
           mainClassName
         )}
         {...rest}
-        layout
-        transition={transition}
       >
         <span className="sr-only">{texts[currentTextIndex]}</span>
-        <AnimatePresence
-          mode={animatePresenceMode}
-          initial={animatePresenceInitial}
+        {/* TODO: Framer Motion animation removed - AnimatePresence removed, using conditional render */}
+        <span
+          key={currentTextIndex}
+          className={cn(
+            splitBy === "lines"
+              ? "flex flex-col w-full"
+              : "flex flex-wrap whitespace-pre-wrap relative"
+          )}
+          aria-hidden="true"
         >
-          <motion.span
-            key={currentTextIndex}
-            className={cn(
-              splitBy === "lines"
-                ? "flex flex-col w-full"
-                : "flex flex-wrap whitespace-pre-wrap relative"
-            )}
-            layout
-            aria-hidden="true"
-          >
-            {elements.map((wordObj, wordIndex, array) => {
-              const previousCharsCount = array
-                .slice(0, wordIndex)
-                .reduce((sum, word) => sum + word.characters.length, 0);
-              return (
-                <span
-                  key={wordIndex}
-                  className={cn("inline-flex", splitLevelClassName)}
-                >
-                  {wordObj.characters.map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      initial={initial}
-                      animate={animate}
-                      exit={exit}
-                      transition={{
-                        ...transition,
-                        delay: getStaggerDelay(
-                          previousCharsCount + charIndex,
-                          array.reduce(
-                            (sum, word) => sum + word.characters.length,
-                            0
-                          )
-                        ),
-                      }}
-                      className={cn("inline-block", elementLevelClassName)}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                  {wordObj.needsSpace && (
-                    <span className="whitespace-pre"> </span>
-                  )}
-                </span>
-              );
-            })}
-          </motion.span>
-        </AnimatePresence>
-      </motion.span>
+          {elements.map((wordObj, wordIndex, array) => {
+            const previousCharsCount = array
+              .slice(0, wordIndex)
+              .reduce((sum, word) => sum + word.characters.length, 0);
+            return (
+              <span
+                key={wordIndex}
+                className={cn("inline-flex", splitLevelClassName)}
+              >
+                {wordObj.characters.map((char, charIndex) => (
+                  // TODO: Framer Motion animation removed - replaced motion.span with plain span
+                  // initial, animate, exit, transition props removed
+                  <span
+                    key={charIndex}
+                    // TODO: Framer Motion animation removed - animation props removed
+                    // initial={initial}
+                    // animate={animate}
+                    // exit={exit}
+                    // transition={{
+                    //   ...transition,
+                    //   delay: getStaggerDelay(
+                    //     previousCharsCount + charIndex,
+                    //     array.reduce(
+                    //       (sum, word) => sum + word.characters.length,
+                    //       0
+                    //     )
+                    //   ),
+                    // }}
+                    className={cn("inline-block", elementLevelClassName)}
+                  >
+                    {char}
+                  </span>
+                ))}
+                {wordObj.needsSpace && (
+                  <span className="whitespace-pre"> </span>
+                )}
+              </span>
+            );
+          })}
+        </span>
+      </span>
     );
   }
 );
