@@ -55,6 +55,9 @@ export default function WeekendWatchSection({ movies, mediaType }: WeekendWatchS
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 priority
+                quality={75}
+                placeholder="blur"
+                blurDataURL="/Netflix_Symbol_RGB.png"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
               
@@ -107,6 +110,10 @@ export default function WeekendWatchSection({ movies, mediaType }: WeekendWatchS
                         fill
                         className="object-cover"
                         sizes="100px"
+                        quality={75}
+                        placeholder="blur"
+                        blurDataURL="/Netflix_Symbol_RGB.png"
+                        loading="lazy"
                       />
                     </div>
                     <div className="flex-1 py-2 pr-2 flex flex-col justify-center">

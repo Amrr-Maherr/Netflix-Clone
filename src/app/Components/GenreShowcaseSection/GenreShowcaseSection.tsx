@@ -61,6 +61,9 @@ export default function GenreShowcaseSection({ movies, genre, mediaType }: Genre
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 66vw"
               priority
+              quality={75}
+              placeholder="blur"
+              blurDataURL="/Netflix_Symbol_RGB.png"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             
@@ -100,6 +103,10 @@ export default function GenreShowcaseSection({ movies, genre, mediaType }: Genre
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(max-width: 768px) 33vw, 33vw"
+                    quality={75}
+                    placeholder="blur"
+                    blurDataURL="/Netflix_Symbol_RGB.png"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300"></div>
                 </div>
