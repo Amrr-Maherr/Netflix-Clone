@@ -57,8 +57,10 @@ export default function MoviePromo({ movie, mediaType, variant = "left" }: Movie
           alt={title}
           fill
           className="object-cover object-center"
-          quality={85}
-          priority={false}
+          quality={75}
+          priority={true}
+          placeholder="blur"
+          blurDataURL="/Netflix_Symbol_RGB.png"
           sizes="100vw"
         />
         <div className={`absolute inset-0 ${gradientDirection}`}></div>

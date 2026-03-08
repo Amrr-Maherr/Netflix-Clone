@@ -94,6 +94,10 @@ export default function VideoGallery({ videos, className = "" }: VideoGalleryPro
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-110"
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+              quality={75}
+              placeholder="blur"
+              blurDataURL="/Netflix_Symbol_RGB.png"
+              loading="lazy"
             />
             
             {/* Play Button Overlay */}

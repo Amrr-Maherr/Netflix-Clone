@@ -56,6 +56,10 @@ export default function TopPicksSection({ movies, title = "Top 10 in Egypt Today
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                    quality={75}
+                    placeholder="blur"
+                    blurDataURL="/Netflix_Symbol_RGB.png"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300"></div>
                 </div>

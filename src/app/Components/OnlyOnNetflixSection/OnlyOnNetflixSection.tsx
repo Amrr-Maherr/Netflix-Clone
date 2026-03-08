@@ -54,6 +54,10 @@ export default function OnlyOnNetflixSection({ movies, mediaType }: OnlyOnNetfli
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 40vw"
+                      quality={75}
+                      placeholder="blur"
+                      blurDataURL="/Netflix_Symbol_RGB.png"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-900/50 md:to-zinc-900"></div>
                   </div>
